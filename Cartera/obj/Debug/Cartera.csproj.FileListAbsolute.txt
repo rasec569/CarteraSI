@@ -1,0 +1,16 @@
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\bin\Debug\Cartera.exe.config
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\bin\Debug\Cartera.exe
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\bin\Debug\Cartera.pdb
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.csprojAssemblyReference.cache
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.Properties.Resources.resources
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.csproj.GenerateResource.cache
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.csproj.CoreCompileInputs.cache
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.exe
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.pdb
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.Vistas.NuevoUsuario.resources
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.Vistas.Principal.resources
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.Vistas.Login.resources
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.Vistas.Proyectos.resources
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\bin\Debug\System.Data.Common.dll
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\bin\Debug\System.Data.SqlClient.dll
+C:\Users\RASEC\Desktop\Cartera San Isidro\Proyecto\Cartera\Cartera\obj\Debug\Cartera.csproj.CopyComplete
