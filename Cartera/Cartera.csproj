@@ -74,7 +74,7 @@
     <Compile Include="Controlador\CCliente.cs" />
     <Compile Include="Controlador\CProducto.cs" />
     <Compile Include="Controlador\CProyecto.cs" />
-    <Compile Include="DbConexion.cs" />
+    <Compile Include="BdConexion.cs" />
     <Compile Include="Modelo\MCliente.cs" />
     <Compile Include="Modelo\MProducto.cs" />
     <Compile Include="Modelo\MProyecto.cs" />

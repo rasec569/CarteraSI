@@ -7,7 +7,7 @@ using System.Data.SQLite;
 
 namespace Cartera
 {
-    class DbConexion
+    class BdConexion
     {
         private const string DBName = "Cartera San Isidro.sqlite";
         private const string SQLScript = @"..\..\Util\database.sql";
