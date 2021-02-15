@@ -137,6 +137,7 @@ namespace Cartera.Vistas
             this.BtProductos.TabIndex = 4;
             this.BtProductos.Text = "Productos";
             this.BtProductos.UseVisualStyleBackColor = true;
+            this.BtProductos.Click += new System.EventHandler(this.BtProductos_Click);
             // 
             // BtClientes
             // 

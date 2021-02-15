@@ -78,6 +78,12 @@
     <Compile Include="Modelo\MCliente.cs" />
     <Compile Include="Modelo\MProducto.cs" />
     <Compile Include="Modelo\MProyecto.cs" />
+    <Compile Include="Vista\Clientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Clientes.Designer.cs">
+      <DependentUpon>Clientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\NuevoUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,12 +104,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vista\Proyectos.cs">
+    <Compile Include="Vista\RegistrarPago.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Proyectos.Designer.cs">
-      <DependentUpon>Proyectos.cs</DependentUpon>
+    <Compile Include="Vista\RegistrarPago.Designer.cs">
+      <DependentUpon>RegistrarPago.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\Seguimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Seguimiento.Designer.cs">
+      <DependentUpon>Seguimiento.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Vista\Clientes.resx">
+      <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vista\NuevoUsuario.resx">
       <DependentUpon>NuevoUsuario.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,8 +133,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vista\Proyectos.resx">
-      <DependentUpon>Proyectos.cs</DependentUpon>
+    <EmbeddedResource Include="Vista\RegistrarPago.resx">
+      <DependentUpon>RegistrarPago.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

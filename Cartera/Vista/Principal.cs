@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using Cartera.Vista;
 
 namespace Cartera.Vistas
 {
@@ -17,6 +18,13 @@ namespace Cartera.Vistas
         public Principal()
         {
             InitializeComponent();
+
+        }
+        private void Principal_Load(object sender, EventArgs e)
+        {
+            SQLiteConnectionStringBuilder builder = new SQLiteConnectionStringBuilder();
+            builder.DataSource = "Cartera San Isidro.db";
+            Console.WriteLine(builder.ConnectionString);
 
         }
 
@@ -34,15 +42,16 @@ namespace Cartera.Vistas
         }
         private void BtClientes_Click(object sender, EventArgs e)
         {
-            FormularioHijo(new NuevoUsuario());
+            FormularioHijo(new Clientes());
         }
 
         private void BtProyectos_Click(object sender, EventArgs e)
         {
-            FormularioHijo(new Proyectos());        
+            FormularioHijo(new NuevoUsuario());        
         }
         private void BtSalir_Click(object sender, EventArgs e)
         {
+            
             Application.Exit();
         }
 
@@ -51,12 +60,9 @@ namespace Cartera.Vistas
 
         }
 
-        private void Principal_Load(object sender, EventArgs e)
+        private void BtProductos_Click(object sender, EventArgs e)
         {
-            SQLiteConnectionStringBuilder builder = new SQLiteConnectionStringBuilder();
-            builder.DataSource = "Cartera San Isidro.db";
-            Console.WriteLine(builder.ConnectionString);
-
+            FormularioHijo(new RegistrarPago());
         }
     }
     }
