@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SQLite;
 
 namespace Cartera.Vistas
 {
@@ -18,18 +19,37 @@ namespace Cartera.Vistas
         }
 
         private void buttonInicio_Click(object sender, EventArgs e)
-        {
-            if ((textUser.Text == "admin") && (textPass.Text == "123"))
-            {
-                this.Hide();
-                Principal P = new Principal();
-                P.Show();
+        {try
+            { if((textUser.Text == "") && (textPass.Text == ""))
+                {
+                    MessageBox.Show("Los campos estan vacios");
+                }
+                else if ((textUser.Text == "") || (textPass.Text == ""))
+                {
+                    if (textUser.Text == "")
+                    {
+                        MessageBox.Show("EL campo Usuario esta vacio");
+                    }
+                    else
+                    {
+                        MessageBox.Show("EL campo Contraseña esta vacio");
+                    }
+                }
+                else
+                {
+                    DataTable dt=Conexion.consulta("Select Nom_Usuario, Contraseña from Usuario where Nom_Usuario='" + textUser.Text + "' AND Contraseña= '" + textPass.Text + "';");
+                    if ((textUser.Text == dt.Rows[0]["Nom_Usuario"].ToString()) && (textPass.Text == dt.Rows[0]["Contraseña"].ToString()))
+                    {
+                        this.Hide();
+                        Principal P = new Principal();
+                        P.Show();
+                    }                    
+                }
             }
-            else
+            catch
             {
                 MessageBox.Show("Los datos son incorrectos");
-            }
-            
+            }         
         }
     }
 }
