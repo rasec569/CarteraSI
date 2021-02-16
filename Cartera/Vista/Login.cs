@@ -21,8 +21,6 @@ namespace Cartera.Vistas
         {
             if ((textUser.Text == "admin") && (textPass.Text == "123"))
             {
-            MessageBox.Show("Los datos son correctos");
-
                 this.Hide();
                 Principal P = new Principal();
                 P.Show();

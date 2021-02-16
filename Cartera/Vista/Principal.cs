@@ -28,7 +28,7 @@ namespace Cartera.Vistas
 
         }
 
-        private void FormularioHijo(Object FormHijo)
+        public void FormularioHijo(Object FormHijo)
         {
             if (this.PanelContenedor.Controls.Count > 0)
                 this.PanelContenedor.Controls.RemoveAt(0);
