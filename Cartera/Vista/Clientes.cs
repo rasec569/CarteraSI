@@ -14,19 +14,28 @@ using Cartera.Vistas;
 namespace Cartera.Vista
 {
     public partial class Clientes : Form
-
     {
-        
-        private SQLiteConnection con;
+        bool error = false;
+        DataTable DtNombres = new DataTable();
         public Clientes()
         {
             InitializeComponent();
-            
+            autocompletar();
+
+
     }
 
         private void Clientes_Load(object sender, EventArgs e)
         {
             CargarClientes();
+            DataTable DtProyectos = Conexion.consulta("SELECT * FROM Proyecto");
+            comboProyecto.DataSource = DtProyectos;
+            comboProyecto.DisplayMember = "Proyecto_Nombre";
+            comboProyecto.ValueMember = "Id_Proyecto";
+            DataTable DtTipoProducto= Conexion.consulta("SELECT * FROM Tipo_Producto");
+            comboTipoProducto.DataSource = DtTipoProducto;
+            comboTipoProducto.DisplayMember = "Nom_Tipo_Productol";
+            comboTipoProducto.ValueMember = "Id_Tipo_Producto";
         }
         
 
@@ -45,8 +54,9 @@ namespace Cartera.Vista
                     txtTelefono.Text = DtUsuario.Rows[0]["Telefono"].ToString();
                     txtDireccion.Text = DtUsuario.Rows[0]["Direccion"].ToString();
                     txtCorreo.Text = DtUsuario.Rows[0]["Correo"].ToString();
-                    string Cartera = DtUsuario.Rows[0]["Fk_ID_Cartera"].ToString();
-                    DataTable DtProdutos = Conexion.consulta("SELECT * FROM Producto INNER join Cartera on ID_Cartera = Fk_ID_Cartera WHERE ID_Cartera = " + Cartera + "");
+                    string Cartera = DtUsuario.Rows[0]["Fk_Id_Cartera"].ToString();
+                    dataGridView2.DataSource = Conexion.consulta("SELECT * FROM Producto INNER join Cartera on Id_Cartera = Fk_Id_Cartera WHERE Id_Cartera = " + Cartera + "");
+                    DataTable DtProdutos = Conexion.consulta("SELECT * FROM Producto INNER join Cartera on Id_Cartera = Fk_Id_Cartera WHERE Id_Cartera = " + Cartera + "");
                 }
                 else
                 {
@@ -63,31 +73,105 @@ namespace Cartera.Vista
         {
             dataGridView1.DataSource = Conexion.consulta("Select Cedula, Nombre, Apellido, Telefono, Direccion, Correo  from Cliente");
         }
+        void autocompletar()
+        {
+            AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
+            DtNombres = Conexion.consulta("Select * from Cliente");
+            for (int i=0; i<DtNombres.Rows.Count; i++)
+            {
+                lista.Add(DtNombres.Rows[i]["Nombre"].ToString());
+            }
+            txtBuscarCliente.AutoCompleteCustomSource = lista;
+        }
+
+        private bool ValidarCampos()
+        {
+            bool ok = true;
+            if (txtCedula.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtCedula, "Digite cedula");
+            }
+            if (txtNombres.Text =="")
+            {
+                ok = false;
+                errorProvider1.SetError(txtNombres, "Digite nombre");
+            }            
+            if (txtApellidos.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtApellidos, "Digite apellido");
+            }            
+            if (txtTelefono.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtTelefono, "Digite telefono");
+            }
+            if (txtNombreProducto.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtNombreProducto, "Digite nombre del producto");
+            }
+            if (txtContrato.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtContrato, "Digite referencia contrato");
+            }
+            if (ComboFormaPago.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(ComboFormaPago, "Seleccione forma de pago");
+            }
+            if (txtValor.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtValor, "Digite el valor del producto");
+            }
+
+
+            return ok;
+        }
 
         private void BtGuardarCliente_Click(object sender, EventArgs e)
         {
-            string sql1 = "insert into Cartera(Estado_cartera,Total_Neto_Recaudado,Total_mora,Total_Cartera) values (@Estado_cartera,@Total_Neto_Recaudado,@Total_mora,@Total_Cartera)";
-            SQLiteCommand cmd = new SQLiteCommand(sql1, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Estado_cartera", "Nueva"));
-            cmd.Parameters.Add(new SQLiteParameter("@Total_Neto_Recaudado", "0"));
-            cmd.Parameters.Add(new SQLiteParameter("@Total_mora", "0"));
-            cmd.Parameters.Add(new SQLiteParameter("@Total_Cartera", "0"));
-            cmd.ExecuteNonQuery();
-            
-            DataTable DtCartera = Conexion.consulta("SELECT max(ID_Cartera) FROM Cartera ORDER BY ID_Cartera DESC");
-            string sql2 = "insert into Cliente(Cedula,Nombre,Apellido,Telefono, Direccion, Correo, Fk_ID_Cartera) values(@Cedula,upper(@Nombre),upper(@Apellido),@Telefono,@Direccion,@Correo,@Fk_ID_Cartera)";
-            SQLiteCommand cmd1 = new SQLiteCommand(sql2, Conexion.instanciaDb());
-            cmd1.Parameters.Add(new SQLiteParameter("@Cedula", txtCedula.Text));
-            cmd1.Parameters.Add(new SQLiteParameter("@Nombre", txtNombres.Text));
-            cmd1.Parameters.Add(new SQLiteParameter("@Apellido", txtApellidos.Text));
-            cmd1.Parameters.Add(new SQLiteParameter("@Telefono", txtTelefono.Text));
-            cmd1.Parameters.Add(new SQLiteParameter("@Direccion", txtCedula.Text));
-            cmd1.Parameters.Add(new SQLiteParameter("@Correo", txtCorreo.Text));
-            cmd1.Parameters.Add(new SQLiteParameter("@Fk_ID_Cartera", DtCartera.Rows[0]["max(ID_Cartera)"].ToString()));
-            cmd1.ExecuteNonQuery();
-            Panel_Registrar_user.Visible = false;
-            //Panel_Clientes.Visible = true;
-            CargarClientes();
+            ValidarCampos();
+            if ((error != true)&& (ValidarCampos() ==true))
+            {
+                string sql1 = "insert into Cartera(Estado_cartera,Total_Neto_Recaudado,Total_mora,Total_Cartera) values (@Estado_cartera,@Total_Neto_Recaudado,@Total_mora,@Total_Cartera)";
+                SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
+                cmd1.Parameters.Add(new SQLiteParameter("@Estado_cartera", "Nueva"));
+                cmd1.Parameters.Add(new SQLiteParameter("@Total_Neto_Recaudado", "0"));
+                cmd1.Parameters.Add(new SQLiteParameter("@Total_mora", "0"));
+                cmd1.Parameters.Add(new SQLiteParameter("@Total_Cartera", "0"));
+                cmd1.ExecuteNonQuery();
+
+                DataTable DtCartera = Conexion.consulta("SELECT max(Id_Cartera) FROM Cartera ORDER BY Id_Cartera DESC");
+                string sql2 = "insert into Cliente(Cedula,Nombre,Apellido,Telefono, Direccion, Correo, Fk_Id_Cartera) values(@Cedula,upper(@Nombre),upper(@Apellido),@Telefono,@Direccion,@Correo,@Fk_Id_Cartera)";
+                SQLiteCommand cmd2 = new SQLiteCommand(sql2, Conexion.instanciaDb());
+                cmd2.Parameters.Add(new SQLiteParameter("@Cedula", txtCedula.Text));
+                cmd2.Parameters.Add(new SQLiteParameter("@Nombre", txtNombres.Text));
+                cmd2.Parameters.Add(new SQLiteParameter("@Apellido", txtApellidos.Text));
+                cmd2.Parameters.Add(new SQLiteParameter("@Telefono", txtTelefono.Text));
+                cmd2.Parameters.Add(new SQLiteParameter("@Direccion", txtDireccion.Text));
+                cmd2.Parameters.Add(new SQLiteParameter("@Correo", txtCorreo.Text));
+                cmd2.Parameters.Add(new SQLiteParameter("@Fk_Id_Cartera", DtCartera.Rows[0]["max(Id_Cartera)"].ToString()));
+                cmd2.ExecuteNonQuery();
+
+                string sql3 = "INSERT INTO Producto(Nombre_Producto, Numero_contrato, Forma_Pago, Valor_Total, Fecha_Recaudo, Fk_Id_Cartera, Fk_Id_Proyecto, Fk_Id_Tipo_Producto) VALUES(@Nombre_Producto, @Numero_contrato, @Forma_Pago, @Valor_Total, @Fecha_Recaudo, @Fk_Id_Cartera, @Fk_Id_Proyecto, @Fk_Id_Tipo_Producto)";
+                SQLiteCommand cmd3 = new SQLiteCommand(sql3, Conexion.instanciaDb());
+                cmd3.Parameters.Add(new SQLiteParameter("@Nombre_Producto", txtNombreProducto.Text));
+                cmd3.Parameters.Add(new SQLiteParameter("@Numero_contrato", txtContrato.Text));
+                cmd3.Parameters.Add(new SQLiteParameter("@Forma_Pago", ComboFormaPago.ValueMember.ToString()));
+                cmd3.Parameters.Add(new SQLiteParameter("@Valor_Total", txtValor.Text));
+                cmd3.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", DateRecaudo.Text));
+                cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Cartera", DtCartera.Rows[0]["max(Id_Cartera)"].ToString()));
+                cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", comboProyecto.ValueMember.ToString()));
+                cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", comboTipoProducto.ValueMember.ToString()));
+                cmd3.ExecuteNonQuery();
+                Panel_Registrar_user.Visible = false;
+                //Panel_Clientes.Visible = true;
+                CargarClientes();
+            }
         }
 
         private void BtNuevoCliente_Click(object sender, EventArgs e)
@@ -99,7 +183,82 @@ namespace Cartera.Vista
             txtTelefono.Clear();
             txtCedula.Clear();
             txtCorreo.Clear();
+            txtDireccion.Clear();
             //Panel_Clientes.Visible = false;
+
+        }
+
+        private void txtNombres_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtNombres.Text)
+            {
+                if (char.IsDigit(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtNombres, "No se admiten numeros");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
+            }
+            
+        }
+
+        private void txtApellidos_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtApellidos.Text)
+            {
+                if (char.IsDigit(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtApellidos, "No se admiten numeros");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
+            }
+        }
+
+        private void txtCedula_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtCedula.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtCedula, "No se admiten letras");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
+            }
+        }
+
+        private void txtTelefono_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtTelefono.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtTelefono, "No se admiten letras");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
+            }
+        }
+
+        private void Panel_Registrar_user_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }
