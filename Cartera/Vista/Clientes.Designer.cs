@@ -36,6 +36,7 @@ namespace Cartera.Vista
             this.BtNuevoCliente = new System.Windows.Forms.Button();
             this.BtBuscarCliente = new System.Windows.Forms.Button();
             this.txtBuscarCliente = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
@@ -45,7 +46,6 @@ namespace Cartera.Vista
             this.label3 = new System.Windows.Forms.Label();
             this.txtApellidos = new System.Windows.Forms.TextBox();
             this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -82,13 +82,13 @@ namespace Cartera.Vista
             this.txtCorreo = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.Panel_Registrar_user = new System.Windows.Forms.Panel();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label23 = new System.Windows.Forms.Label();
             this.comboTipoProducto = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
             this.comboProyecto = new System.Windows.Forms.ComboBox();
             this.numValorInteres = new System.Windows.Forms.NumericUpDown();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.PanelSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -97,9 +97,9 @@ namespace Cartera.Vista
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.Panel_Registrar_user.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // label8
@@ -153,6 +153,16 @@ namespace Cartera.Vista
             this.txtBuscarCliente.Size = new System.Drawing.Size(281, 20);
             this.txtBuscarCliente.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(771, 14);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Guardar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.BtGuardarCliente_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -170,6 +180,7 @@ namespace Cartera.Vista
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(900, 500);
             this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // errorProvider1
             // 
@@ -226,16 +237,6 @@ namespace Cartera.Vista
             this.txtTelefono.Size = new System.Drawing.Size(224, 20);
             this.txtTelefono.TabIndex = 21;
             this.txtTelefono.TextChanged += new System.EventHandler(this.txtTelefono_TextChanged);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(771, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "Guardar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.BtGuardarCliente_Click);
             // 
             // label6
             // 
@@ -551,7 +552,14 @@ namespace Cartera.Vista
             this.Panel_Registrar_user.Size = new System.Drawing.Size(931, 492);
             this.Panel_Registrar_user.TabIndex = 3;
             this.Panel_Registrar_user.Visible = false;
-            this.Panel_Registrar_user.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_Registrar_user_Paint);
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(13, 299);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(906, 174);
+            this.dataGridView2.TabIndex = 61;
             // 
             // groupBox2
             // 
@@ -637,14 +645,6 @@ namespace Cartera.Vista
             this.numValorInteres.Size = new System.Drawing.Size(139, 20);
             this.numValorInteres.TabIndex = 56;
             // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(13, 299);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(906, 174);
-            this.dataGridView2.TabIndex = 61;
-            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -668,10 +668,10 @@ namespace Cartera.Vista
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.Panel_Registrar_user.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
