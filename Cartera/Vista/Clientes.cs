@@ -74,7 +74,8 @@ namespace Cartera.Vista
         }       
         private void CargarClientes()
         {
-            dataGridView1.DataSource = Conexion.consulta("Select Cedula, Nombre, Apellido, Telefono, Direccion, Correo  from Cliente");
+            dataGridView1.DataSource = Conexion.consulta("Select Cedula, Nombre, Apellido, Telefono, Direccion, Correo, Fk_Id_Cartera  from Cliente");
+            dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
         }
         private void CargarProducto()
         {
@@ -335,13 +336,13 @@ namespace Cartera.Vista
                 Panel_Registrar_user.Visible = true;
                 LimpiarUsuario();
                 txtCedula.Text = dataGridView1.Rows[n].Cells["Cedula"].Value.ToString();
-                txtNombres.Text = (string)dataGridView1.Rows[n].Cells["Nombre"].Value.ToString(); 
-                txtApellidos.Text = (string)dataGridView1.Rows[n].Cells["Apellido"].Value.ToString(); 
-                txtTelefono.Text = (string)dataGridView1.Rows[n].Cells["Telefono"].Value.ToString(); 
-                txtDireccion.Text = (string)dataGridView1.Rows[n].Cells["Direccion"].Value.ToString(); 
-                txtCorreo.Text = (string)dataGridView1.Rows[n].Cells["Correo"].Value.ToString(); 
-                // = (string)dataGridView1.Rows[n].Cells["Fk_Id_Cartera"].Value; 
-                //CargarProducto();
+                txtNombres.Text = dataGridView1.Rows[n].Cells["Nombre"].Value.ToString(); 
+                txtApellidos.Text = dataGridView1.Rows[n].Cells["Apellido"].Value.ToString(); 
+                txtTelefono.Text = dataGridView1.Rows[n].Cells["Telefono"].Value.ToString(); 
+                txtDireccion.Text = dataGridView1.Rows[n].Cells["Direccion"].Value.ToString(); 
+                txtCorreo.Text = (string)dataGridView1.Rows[n].Cells["Correo"].Value.ToString();
+                Cartera_id = (string)dataGridView1.Rows[n].Cells["Fk_Id_Cartera"].Value.ToString();
+                CargarProducto();
             }
         }
     }
