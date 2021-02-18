@@ -18,7 +18,7 @@ namespace Cartera.Vista
         bool error = false;
         DataTable DtNombres = new DataTable();
         string Cartera_id;
-        string Cedula;
+        string Cliente_id;
         public Clientes()
         {
             InitializeComponent();
@@ -50,7 +50,7 @@ namespace Cartera.Vista
                     Panel_Registrar_user.Visible = true;
                     string nom = txtBuscarCliente.Text;
                     DataTable DtUsuario = Conexion.consulta("SELECT * FROM Cliente WHERE Nombre =Upper( '" + nom + "')");
-                    Cedula = DtUsuario.Rows[0]["Cedula"].ToString();
+                    Cliente_id = DtUsuario.Rows[0]["Cedula"].ToString();
                     txtCedula.Text = DtUsuario.Rows[0]["Cedula"].ToString();
                     txtNombres.Text = DtUsuario.Rows[0]["Nombre"].ToString();
                     txtApellidos.Text = DtUsuario.Rows[0]["Apellido"].ToString();
@@ -74,7 +74,7 @@ namespace Cartera.Vista
         }       
         private void CargarClientes()
         {
-            dataGridView1.DataSource = Conexion.consulta("Select Cedula, Nombre, Apellido, Telefono, Direccion, Correo, Fk_Id_Cartera  from Cliente");
+            dataGridView1.DataSource = Conexion.consulta("Select Id_Cliente, Cedula, Nombre, Apellido, Telefono, Direccion, Correo, Fk_Id_Cartera  from Cliente");
             dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
         }
         private void CargarProducto()
@@ -160,7 +160,7 @@ namespace Cartera.Vista
             ValidarCampos();
             if ((error != true)&& (ValidarCampos() ==true))
             {
-                if (Cedula == "")
+                if (Cliente_id == "")
                 {
                     string sql1 = "insert into Cartera(Estado_cartera,Total_Neto_Recaudado,Total_mora,Total_Cartera) values (@Estado_cartera,@Total_Neto_Recaudado,@Total_mora,@Total_Cartera)";
                     SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
@@ -205,7 +205,7 @@ namespace Cartera.Vista
                 }
                 else
                 {
-                    string sql2_1 = "UPDATE Cliente SET Cedula=@Cedula, Nombre=@Nombre, Apellido=@Apellido, Telefono=@Telefono, Direccion=@Direccion, Correo=@Correo WHERE Cedula=" + Cedula + "";
+                    string sql2_1 = "UPDATE Cliente SET Cedula=@Cedula, Nombre=@Nombre, Apellido=@Apellido, Telefono=@Telefono, Direccion=@Direccion, Correo=@Correo WHERE Id_Cliente=" + Cliente_id + "";
                     SQLiteCommand cmd2_1 = new SQLiteCommand(sql2_1, Conexion.instanciaDb());
                     cmd2_1.Parameters.Add(new SQLiteParameter("@Cedula", txtCedula.Text));
                     cmd2_1.Parameters.Add(new SQLiteParameter("@Nombre", txtNombres.Text));
@@ -336,6 +336,7 @@ namespace Cartera.Vista
                 Panel_Registrar_user.Visible = true;
                 LimpiarUsuario();
                 LimpiarProducto();
+                Cliente_id = dataGridView1.Rows[n].Cells["Id_Cliente"].Value.ToString();
                 txtCedula.Text = dataGridView1.Rows[n].Cells["Cedula"].Value.ToString();
                 txtNombres.Text = dataGridView1.Rows[n].Cells["Nombre"].Value.ToString(); 
                 txtApellidos.Text = dataGridView1.Rows[n].Cells["Apellido"].Value.ToString(); 
