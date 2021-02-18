@@ -222,17 +222,37 @@ namespace Cartera.Vista
                 CargarClientes();
             }
         }
-
-        private void BtNuevoCliente_Click(object sender, EventArgs e)
+        private void LimpiarProducto()
         {
-            Panel_Registrar_user.Visible = true;
+            txtNombreProducto.Clear();
+            txtContrato.Clear();
+            txtValor.Clear();
+            txtValorSin.Clear();
+            txtValorEntrada.Clear();
+            txtValorCon.Clear();
+            txtObeservaciones.Clear();
+            txtValorCuotaInteres.Clear();
+            //ComboFormaPago.Clear();
+            //numCuotaSinInteres.Clear();
+            //numCuotaSinInteres.Clear();
+            //DateVenta.Clear();
+            //DateRecaudo.Clear();
+            //comboProyecto.Clear();
+            //comboTipoProducto.Clear();
+        }
+        private void LimpiarUsuario()
+        {
             txtCedula.Clear();
             txtNombres.Clear();
             txtApellidos.Clear();
-            txtTelefono.Clear();
-            txtCedula.Clear();
+            txtTelefono.Clear();            
             txtCorreo.Clear();
             txtDireccion.Clear();
+        }
+        private void BtNuevoCliente_Click(object sender, EventArgs e)
+        {
+            Panel_Registrar_user.Visible = true;
+            LimpiarUsuario();
             //Panel_Clientes.Visible = false;
 
         }
@@ -313,7 +333,7 @@ namespace Cartera.Vista
             if (n != -1)
             {
                 Panel_Registrar_user.Visible = true;
-                
+                LimpiarUsuario();
                 txtCedula.Text = dataGridView1.Rows[n].Cells["Cedula"].Value.ToString();
                 txtNombres.Text = (string)dataGridView1.Rows[n].Cells["Nombre"].Value.ToString(); 
                 txtApellidos.Text = (string)dataGridView1.Rows[n].Cells["Apellido"].Value.ToString(); 
