@@ -1,2 +1,3 @@
 # CarteraSI
- manejor de cartera
+ Aplicacionde escritorio para el manejo de cartera de la constructora San Isidro
+
