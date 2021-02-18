@@ -335,6 +335,7 @@ namespace Cartera.Vista
             this.ComboFormaPago.Size = new System.Drawing.Size(190, 21);
             this.ComboFormaPago.TabIndex = 36;
             this.ComboFormaPago.Text = "seleccione una opción";
+            this.ComboFormaPago.SelectedValueChanged += new System.EventHandler(this.ComboFormaPago_SelectedValueChanged);
             // 
             // txtValor
             // 

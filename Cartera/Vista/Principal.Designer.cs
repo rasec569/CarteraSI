@@ -160,7 +160,7 @@ namespace Cartera.Vistas
             // PanelContenedor
             // 
             this.PanelContenedor.AutoSize = true;
-            this.PanelContenedor.BackColor = System.Drawing.Color.YellowGreen;
+            this.PanelContenedor.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.PanelContenedor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.PanelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelContenedor.Location = new System.Drawing.Point(203, 0);
