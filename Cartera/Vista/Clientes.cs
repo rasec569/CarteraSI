@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using Cartera.Vista;
 using Cartera.Vistas;
+using Cartera.Controlador;
+using Cartera.Modelo;
 
 namespace Cartera.Vista
 {
@@ -30,7 +32,9 @@ namespace Cartera.Vista
         private void Clientes_Load(object sender, EventArgs e)
         {
             CargarClientes();
-            DataTable DtProyectos = Conexion.consulta("SELECT * FROM Proyecto");
+            MProyecto.
+            CProyecto _proyecto = new MProyecto();
+            DataTable DtProyectos = _proyecto.BorrarProyecto();
             comboProyecto.DataSource = DtProyectos;
             comboProyecto.DisplayMember = "Proyecto_Nombre";
             comboProyecto.ValueMember = "Id_Proyecto";
