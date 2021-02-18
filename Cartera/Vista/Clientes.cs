@@ -335,6 +335,7 @@ namespace Cartera.Vista
             {
                 Panel_Registrar_user.Visible = true;
                 LimpiarUsuario();
+                LimpiarProducto();
                 txtCedula.Text = dataGridView1.Rows[n].Cells["Cedula"].Value.ToString();
                 txtNombres.Text = dataGridView1.Rows[n].Cells["Nombre"].Value.ToString(); 
                 txtApellidos.Text = dataGridView1.Rows[n].Cells["Apellido"].Value.ToString(); 
@@ -343,6 +344,31 @@ namespace Cartera.Vista
                 txtCorreo.Text = (string)dataGridView1.Rows[n].Cells["Correo"].Value.ToString();
                 Cartera_id = (string)dataGridView1.Rows[n].Cells["Fk_Id_Cartera"].Value.ToString();
                 CargarProducto();
+            }
+        }
+
+        private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int n = e.RowIndex;
+            if (n != -1)
+            {
+                LimpiarProducto();
+                txtNombreProducto.Text = dataGridView2.Rows[n].Cells["Nombre_Producto"].Value.ToString();
+                txtContrato.Text = dataGridView2.Rows[n].Cells["Numero_contrato"].Value.ToString();
+                txtValor.Text = dataGridView2.Rows[n].Cells["Valor_Total"].Value.ToString();
+                //txtValorSin.Text = dataGridView2.Rows[n].Cells["Cedula"].Value.ToString();
+                //txtValorEntrada.Text = dataGridView2.Rows[n].Cells["Cedula"].Value.ToString();
+                //txtValorCon.Text = dataGridView2.Rows[n].Cells["Cedula"].Value.ToString();
+                //txtObeservaciones.Text = dataGridView2.Rows[n].Cells["Cedula"].Value.ToString();
+                //txtValorCuotaInteres.Text = dataGridView2.Rows[n].Cells["Cedula"].Value.ToString();
+                //, , Forma_Pago, , Fecha_Recaudo, Fk_Id_Cartera, Fk_Id_Proyecto, Fk_Id_Tipo_Producto
+                //ComboFormaPago.Clear();
+                //numCuotaSinInteres.Clear();
+                //numCuotaSinInteres.Clear();
+                //DateVenta.Clear();
+                //DateRecaudo.Clear();
+                //comboProyecto.Clear();
+                //comboTipoProducto.Clear();
             }
         }
     }

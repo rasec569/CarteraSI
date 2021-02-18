@@ -560,6 +560,7 @@ namespace Cartera.Vista
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(906, 174);
             this.dataGridView2.TabIndex = 61;
+            this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             // 
             // groupBox2
             // 
