@@ -84,7 +84,8 @@ namespace Cartera.Vista
         }
         private void CargarProducto()
         {
-            dataGridView2.DataSource = Conexion.consulta("SELECT Id_Producto, Nombre_Producto, Numero_contrato, Forma_pago, Valor_Total, Fecha_Venta, Valor_Entrada, Proyecto_Nombre, Nom_Tipo_Producto, Valor_Sin_interes, Cuotas_Sin_interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto FROM Producto INNER join Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER join Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto WHERE Fk_Id_Cartera =  " + Cartera_id + "");
+            DataTable Dt_Productos= Conexion.consulta("SELECT Id_Producto, Nombre_Producto, Numero_contrato, Forma_pago, Valor_Total, Fecha_Venta, Valor_Entrada, Proyecto_Nombre, Nom_Tipo_Producto, Valor_Sin_interes, Cuotas_Sin_interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto FROM Producto INNER join Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER join Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto WHERE Fk_Id_CarteraP =  " + Cartera_id + "");
+            dataGridView2.DataSource = Dt_Productos;
             dataGridView2.Columns["Id_Producto"].Visible = false;
             dataGridView2.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView2.Columns["Fk_Id_Tipo_Producto"].Visible = false;
@@ -219,7 +220,7 @@ namespace Cartera.Vista
                             cmd3.Parameters.Add(new SQLiteParameter("@Fecha_Venta", DateVenta.Text));
                             cmd3.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", DateRecaudo.Text));
                             cmd3.Parameters.Add(new SQLiteParameter("@Observaciones", txtObeservaciones.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Cartera", Cartera_id));
+                            cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_CarteraP", Cartera_id));
                             cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", comboProyecto.SelectedIndex.ToString()));
                             cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", comboTipoProducto.SelectedIndex.ToString()));
                             cmd3.ExecuteNonQuery();
@@ -244,7 +245,7 @@ namespace Cartera.Vista
 
                     if (Producto_id !="")
                     {
-                        string sql3_1 = "UPDATE Producto SET Nombre_Producto=@Nombre_Producto , Numero_contrato=@Numero_contrato, Forma_Pago=@Forma_Pago, Valor_Total=@Valor_Total, Valor_Entrada=@Valor_Entrada, Valor_Sin_interes=@Valor_Sin_interes, Cuotas_Sin_interes=@Cuotas_Sin_interes, Valor_Cuota_Sin_interes=@Valor_Cuota_Sin_interes, Valor_Con_Interes=@Valor_Con_Interes, Cuotas_Con_Interes=@Cuotas_Con_Interes, Valor_Cuota_Con_Interes=@Valor_Cuota_Con_Interes, Valor_Interes=@Valor_Interes, Observaciones=@Observaciones, Fecha_Recaudo=@Fecha_Recaudo, Fk_Id_Proyecto=@Fk_Id_Proyecto, Fk_Id_Tipo_Producto=Fk_Id_Tipo_Producto WHERE Id_Producto =" + Producto_id + "";
+                        string sql3_1 = "UPDATE Producto SET Nombre_Producto=@Nombre_Producto , Numero_contrato=@Numero_contrato, Forma_Pago=@Forma_Pago, Valor_Total=@Valor_Total, Valor_Entrada=@Valor_Entrada, Valor_Sin_interes=@Valor_Sin_interes, Cuotas_Sin_interes=@Cuotas_Sin_interes, Valor_Cuota_Sin_interes=@Valor_Cuota_Sin_interes, Valor_Con_Interes=@Valor_Con_Interes, Cuotas_Con_Interes=@Cuotas_Con_Interes, Valor_Cuota_Con_Interes=@Valor_Cuota_Con_Interes, Valor_Interes=@Valor_Interes, Observaciones=@Observaciones, Fecha_Recaudo=@Fecha_Recaudo, Fk_Id_Proyecto=@Fk_Id_Proyecto, Fk_Id_Tipo_Producto=@Fk_Id_Tipo_Producto WHERE Id_Producto =" + Producto_id + "";
                         SQLiteCommand cmd3_1 = new SQLiteCommand(sql3_1, Conexion.instanciaDb());
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Nombre_Producto", txtNombreProducto.Text));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Numero_contrato", txtContrato.Text));
@@ -261,7 +262,7 @@ namespace Cartera.Vista
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Fecha_Venta", DateVenta.Text));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", DateRecaudo.Text));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Observaciones", txtObeservaciones.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Cartera", Cartera_id));
+                        cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_CarteraP", Cartera_id));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", comboProyecto.SelectedIndex.ToString()));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", comboTipoProducto.SelectedIndex.ToString()));
                         cmd3_1.ExecuteNonQuery();                        
@@ -305,8 +306,8 @@ namespace Cartera.Vista
         {
             Panel_Registrar_user.Visible = true;
             LimpiarUsuario();
-            dataGridView2.Rows.Clear();
-            //Panel_Clientes.Visible = false;
+            dataGridView2.DataSource = "";
+            //Panel_Clientes.Visible = false
 
         }
 
@@ -314,7 +315,7 @@ namespace Cartera.Vista
         {
             foreach (char caracter in txtNombres.Text)
             {
-                if (char.IsDigit(caracter))
+                if (char.IsNumber(caracter))
                 {
                     error = true;
                     errorProvider1.SetError(txtNombres, "No se admiten numeros");
@@ -332,7 +333,7 @@ namespace Cartera.Vista
         {
             foreach (char caracter in txtApellidos.Text)
             {
-                if (char.IsDigit(caracter))
+                if (char.IsNumber(caracter))
                 {
                     error = true;
                     errorProvider1.SetError(txtApellidos, "No se admiten numeros");
@@ -402,37 +403,45 @@ namespace Cartera.Vista
 
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int n = e.RowIndex;
-            if ((n != -1) && (n != +1))
+            try
             {
-                LimpiarProducto();
-                Producto_id = dataGridView2.Rows[n].Cells["Id_Producto"].Value.ToString();
-                txtNombreProducto.Text = dataGridView2.Rows[n].Cells["Nombre_Producto"].Value.ToString();
-                txtContrato.Text = dataGridView2.Rows[n].Cells["Numero_contrato"].Value.ToString();
-                txtValor.Text = dataGridView2.Rows[n].Cells["Valor_Total"].Value.ToString();
-                txtObeservaciones.Text = dataGridView2.Rows[n].Cells["Observaciones"].Value.ToString();
-                DateVenta.Text = dataGridView2.Rows[n].Cells["Fecha_Venta"].Value.ToString();                
-                ComboFormaPago.SelectedItem = dataGridView2.Rows[n].Cells["Forma_Pago"].Value.ToString();
-                comboProyecto.SelectedIndex = Convert.ToInt32(dataGridView2.Rows[n].Cells["Fk_Id_Proyecto"].Value.ToString());
-                comboTipoProducto.SelectedIndex = Convert.ToInt32(dataGridView2.Rows[n].Cells["Fk_Id_Tipo_Producto"].Value.ToString());
-                if (dataGridView2.Rows[n].Cells["Forma_Pago"].Value.ToString() == "Contado")
+                int n = e.RowIndex;
+                if (n != -1)
                 {
-                    Bloquear_Financiado();
-                }
-                else
-                {
-                    txtValorSin.Text = dataGridView2.Rows[n].Cells["Valor_Sin_interes"].Value.ToString();
-                    txtValorEntrada.Text = dataGridView2.Rows[n].Cells["Valor_Entrada"].Value.ToString();
-                    txtValorCon.Text = dataGridView2.Rows[n].Cells["Valor_Con_Interes"].Value.ToString();
-                    DateRecaudo.Text = dataGridView2.Rows[n].Cells["Fecha_Recaudo"].Value.ToString();
-                    txtValorCuotaInteres.Text = dataGridView2.Rows[n].Cells["Valor_Cuota_Con_Interes"].Value.ToString();
-                    txtValorCuotaSin.Text = dataGridView2.Rows[n].Cells["Valor_Cuota_Sin_interes"].Value.ToString();
-                    numValorInteres.Text = dataGridView2.Rows[n].Cells["Valor_Interes"].Value.ToString();
-                    numCuotaSinInteres.Text = dataGridView2.Rows[n].Cells["Cuotas_Sin_interes"].Value.ToString();
-                    numCuotasInteres.Text = dataGridView2.Rows[n].Cells["Cuotas_Con_Interes"].Value.ToString();
-                }
+                    LimpiarProducto();
+                    Producto_id = dataGridView2.Rows[n].Cells["Id_Producto"].Value.ToString();
+                    txtNombreProducto.Text = dataGridView2.Rows[n].Cells["Nombre_Producto"].Value.ToString();
+                    txtContrato.Text = dataGridView2.Rows[n].Cells["Numero_contrato"].Value.ToString();
+                    txtValor.Text = dataGridView2.Rows[n].Cells["Valor_Total"].Value.ToString();
+                    txtObeservaciones.Text = dataGridView2.Rows[n].Cells["Observaciones"].Value.ToString();
+                    DateVenta.Text = dataGridView2.Rows[n].Cells["Fecha_Venta"].Value.ToString();
+                    ComboFormaPago.SelectedItem = dataGridView2.Rows[n].Cells["Forma_Pago"].Value.ToString();
+                    comboProyecto.SelectedIndex = Convert.ToInt32(dataGridView2.Rows[n].Cells["Fk_Id_Proyecto"].Value.ToString());
+                    comboTipoProducto.SelectedIndex = Convert.ToInt32(dataGridView2.Rows[n].Cells["Fk_Id_Tipo_Producto"].Value.ToString());
+                    if (dataGridView2.Rows[n].Cells["Forma_Pago"].Value.ToString() == "Contado")
+                    {
+                        Bloquear_Financiado();
+                    }
+                    else
+                    {
+                        txtValorSin.Text = dataGridView2.Rows[n].Cells["Valor_Sin_interes"].Value.ToString();
+                        txtValorEntrada.Text = dataGridView2.Rows[n].Cells["Valor_Entrada"].Value.ToString();
+                        txtValorCon.Text = dataGridView2.Rows[n].Cells["Valor_Con_Interes"].Value.ToString();
+                        DateRecaudo.Text = dataGridView2.Rows[n].Cells["Fecha_Recaudo"].Value.ToString();
+                        txtValorCuotaInteres.Text = dataGridView2.Rows[n].Cells["Valor_Cuota_Con_Interes"].Value.ToString();
+                        txtValorCuotaSin.Text = dataGridView2.Rows[n].Cells["Valor_Cuota_Sin_interes"].Value.ToString();
+                        numValorInteres.Text = dataGridView2.Rows[n].Cells["Valor_Interes"].Value.ToString();
+                        numCuotaSinInteres.Text = dataGridView2.Rows[n].Cells["Cuotas_Sin_interes"].Value.ToString();
+                        numCuotasInteres.Text = dataGridView2.Rows[n].Cells["Cuotas_Con_Interes"].Value.ToString();
+                    }
 
+                }
             }
+            catch
+            {
+                MessageBox.Show("Valor no admitido");
+            }
+            
         }
          private void Bloquear_Financiado()
         {
@@ -468,6 +477,105 @@ namespace Cartera.Vista
             else if (ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString() == "Financiado")
             {
                 Habilitar_Financiado();
+            }
+        }
+
+        private void txtValor_TextChanged(object sender, EventArgs e)
+        {
+            
+            foreach (char caracter in txtValor.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtValor, "No se admiten letras");                    
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();                   
+                }
+                try
+                {
+                    if (char.IsNumber(caracter))
+                    {
+                        txtValorSin.Clear();
+                        txtValorCon.Clear();
+                        double Exectos = 0.3 * Convert.ToInt64(txtValor.Text);
+                        double Con_interes = 0.7 * Convert.ToInt64(txtValor.Text);
+                        txtValorSin.Text = Exectos.ToString();
+                        txtValorCon.Text = Con_interes.ToString();
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Valor no admitido");
+                    errorProvider1.SetError(txtValorEntrada, "No se admiten letras");
+                    break;
+                }
+
+            }
+            
+        }
+
+        private void txtValorEntrada_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtValorEntrada.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtValorEntrada, "No se admiten letras");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }             
+            }           
+        }
+        private void txtValorEntrada_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                double Valor = (Convert.ToDouble(txtValor.Text) * 0.3) - Convert.ToDouble(txtValorEntrada.Text);
+                txtValorSin.Clear();
+                txtValorSin.Text = Valor.ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Error aqui Valor no admitido");
+            }
+        }
+
+        private void numCuotaSinInteres_Click(object sender, EventArgs e)
+        {
+            double valor = (Convert.ToDouble(txtValorSin.Text) / Convert.ToDouble(numCuotaSinInteres.Value));
+            txtValorCuotaSin.Clear();
+            txtValorCuotaSin.Text = valor.ToString();
+        }
+
+        private void numCuotasInteres_Click(object sender, EventArgs e)
+        {
+            double valor = ((Convert.ToDouble(txtValorCon.Text) * (Convert.ToDouble(numValorInteres.Value/100)))+ Convert.ToDouble(txtValorCon.Text))/ Convert.ToDouble(numCuotasInteres.Value);
+            txtValorCuotaInteres.Clear();
+            txtValorCuotaInteres.Text = valor.ToString();
+        }
+
+        private void txtValorCon_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtValorCon.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtValorCon, "No se admiten letras");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
             }
         }
     }

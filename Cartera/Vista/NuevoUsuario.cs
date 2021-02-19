@@ -17,90 +17,70 @@ namespace Cartera.Vistas
         {
             InitializeComponent();
         }
+        private void NuevoUsuario_Load(object sender, EventArgs e)
+        {
+            CargarProyectos();
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string sql = "insert into Cliente(Cedula,Nombre,Apellido,Telefono, Direccion, Correo, Fk_ID_Cartera) values(@Cedula,@Nombre,@Apellido,@Telefono,@Direccion,@Correo,@Fk_ID_Cartera)";
-            SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Cedula", txtCedula.Text));
-            cmd.Parameters.Add(new SQLiteParameter("@Nombre", txtNombres.Text));
-            cmd.Parameters.Add(new SQLiteParameter("@Apellido", txtApellidos.Text));
-            cmd.Parameters.Add(new SQLiteParameter("@Telefono", txtTelefono.Text));
-            cmd.Parameters.Add(new SQLiteParameter("@Direccion", txtCedula.Text));
-            cmd.Parameters.Add(new SQLiteParameter("@Correo", txtCorreo.Text));
-            cmd.Parameters.Add(new SQLiteParameter("@Fk_ID_Cartera", "1"));
-            cmd.ExecuteNonQuery();
-            CargarClientes();
-
+            ValidarCampos();
+            if (ValidarCampos() == true)
+            {
+                string sql = "insert into Proyecto(Proyecto_Nombre,Proyecto_Ubicacion) values(@Proyecto_Nombre,@Proyecto_Ubicacion)";
+                SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+                cmd.Parameters.Add(new SQLiteParameter("@Proyecto_Nombre", txtNombreP.Text));
+                cmd.Parameters.Add(new SQLiteParameter("@Proyecto_Ubicacion", txtUbicacion.Text));
+                int ok = cmd.ExecuteNonQuery();
+                if (ok > 0)
+                {
+                    MessageBox.Show("Registro exitoso");
+                }
+                CargarProyectos();
+            }
+                
+        }
+        private bool ValidarCampos()
+        {
+            bool ok = true;
+            if (txtNombreP.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtNombreP, "Digite Nombre Proyecto");
+            }
+            else
+            {
+                ok = true;
+                errorProvider1.Clear();
+            }
+            if (txtUbicacion.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtUbicacion, "Digite Ubicacion");
+            }
+            else
+            {
+                ok = true;
+                errorProvider1.Clear();
+            }
+            return ok;
         }
 
-        private void NuevoUsuario_Load(object sender, EventArgs e)
+        private void CargarProyectos()
         {
-            CargarClientes();
-        }
-        private void CargarClientes()
-        {
-            dataGridView1.DataSource = Conexion.consulta("Select Cedula, Nombre, Apellido, Telefono, Direccion, Correo  from Cliente");
+            dataGridView1.DataSource = Conexion.consulta("SELECT* from Proyecto");
             //cambiar titulo de la columna
-            dataGridView1.Columns[0].HeaderText = "Cédula de identidad";
+            dataGridView1.Columns["Id_Proyecto"].Visible = false;
+            dataGridView1.Columns[1].HeaderText = "Nombre";
+            dataGridView1.Columns[2].HeaderText = "Ubicación";
         }
-
-        private void txtTelefono_TextChanged(object sender, EventArgs e)
+        
+            private void txtNombreP_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDireccion_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCorreo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtApellidos_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtNombres_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCedula_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
         }

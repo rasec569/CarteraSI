@@ -24,6 +24,7 @@ namespace Cartera.Vistas
         {
             SQLiteConnectionStringBuilder builder = new SQLiteConnectionStringBuilder();
             builder.DataSource = "Cartera San Isidro.db";
+            FormularioHijo(new Carteras());
             Console.WriteLine(builder.ConnectionString);
 
         }
@@ -62,7 +63,12 @@ namespace Cartera.Vistas
 
         private void BtProductos_Click(object sender, EventArgs e)
         {
-            FormularioHijo(new RegistrarPago());
+            FormularioHijo(new Productos());
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            FormularioHijo(new Carteras());
         }
     }
-    }
+}
