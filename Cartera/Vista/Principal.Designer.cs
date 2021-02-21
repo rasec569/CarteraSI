@@ -179,6 +179,7 @@ namespace Cartera.Vistas
             this.Controls.Add(this.PanelContenedor);
             this.Controls.Add(this.PanelMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(680, 500);
             this.Name = "Principal";
             this.RightToLeftLayout = true;

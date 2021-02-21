@@ -23,19 +23,59 @@ namespace Cartera.Vista
 
         private void CargarProducto()
         {
-            dataGridView1.DataSource = Conexion.consulta("SELECT Nombre, Apellido, Estado_cartera, Total_Neto_Recaudado, Total_Mora, Total_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera = Id_Cartera;");
-            dataGridView1.Columns[0].HeaderText = "Nombre";
-            dataGridView1.Columns[1].HeaderText = "Apellido";
-            dataGridView1.Columns[2].HeaderText = "Estado";
-            dataGridView1.Columns[3].HeaderText = "Recaudado";
-            dataGridView1.Columns[4].HeaderText = "Mora";
-            dataGridView1.Columns[5].HeaderText = "Total Cartera";
+            dataGridView1.DataSource = Conexion.consulta("SELECT Id_Cliente, Nombre, Apellido, Estado_cartera, Total_Neto_Recaudado,count(Id_Producto) as productos, Total_Mora, Total_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera = Id_Cartera INNER JOIN Producto on Fk_Id_CarteraP = Id_Cartera GROUP by Id_Cliente;");
+            dataGridView1.Columns["Id_Cliente"].Visible = false;
+            dataGridView1.Columns[1].HeaderText = "Nombre";
+            dataGridView1.Columns[2].HeaderText = "Apellido";
+            dataGridView1.Columns[3].HeaderText = "Estado Mora";
+            dataGridView1.Columns[4].HeaderText = "Recaudado";
+            dataGridView1.Columns[5].HeaderText = "Productos";
+            dataGridView1.Columns[6].HeaderText = "Valor Mora";
+            dataGridView1.Columns[7].HeaderText = "Total Cartera";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             RegistrarPago Rp = new RegistrarPago();
             Rp.Show();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboEstados_SelectedValueChanged(object sender, EventArgs e)
+        {
+            string Estados = comboEstados.Items[comboEstados.SelectedIndex].ToString();
+            if (comboEstados.Items[comboEstados.SelectedIndex].ToString() == "Menos de 30 dias")
+            {
+                DataTable Dt_Estado= Conexion.consulta("SELECT Id_Cliente, Nombre, Apellido, Estado_cartera, Total_Neto_Recaudado, count(Id_Producto) as productos, Total_Mora, Total_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera = Id_Cartera INNER JOIN Producto on Fk_Id_CarteraP = Id_Cartera WHERE Estado_cartera = " + Estados + " GROUP by Id_Cliente ; ");
+
+                llenarGrid(Dt_Estado);
+                    //Bloquear_Financiado();
+            }
+            else if (comboEstados.Items[comboEstados.SelectedIndex].ToString() == "Financiado")
+            {
+                //Habilitar_Financiado();
+            }
+        }
+        private void llenarGrid(DataTable estados)
+        {
+            dataGridView1.DataSource = estados;
+            dataGridView1.Columns["Id_Cliente"].Visible = false;
+            dataGridView1.Columns[1].HeaderText = "Nombre";
+            dataGridView1.Columns[2].HeaderText = "Apellido";
+            dataGridView1.Columns[3].HeaderText = "Estado Mora";
+            dataGridView1.Columns[4].HeaderText = "Recaudado";
+            dataGridView1.Columns[5].HeaderText = "Productos";
+            dataGridView1.Columns[6].HeaderText = "Valor Mora";
+            dataGridView1.Columns[7].HeaderText = "Total Cartera";
         }
     }
 }

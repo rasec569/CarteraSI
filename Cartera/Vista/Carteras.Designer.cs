@@ -32,8 +32,10 @@ namespace Cartera.Vista
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboEstados = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.BtPago = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -43,9 +45,9 @@ namespace Cartera.Vista
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.dataGridView1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 115);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 74);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(907, 410);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(907, 451);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // dataGridView1
@@ -54,17 +56,56 @@ namespace Cartera.Vista
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(904, 407);
+            this.dataGridView1.Size = new System.Drawing.Size(904, 451);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.comboEstados);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.BtPago);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(931, 100);
+            this.panel1.Size = new System.Drawing.Size(931, 68);
             this.panel1.TabIndex = 0;
+            // 
+            // comboEstados
+            // 
+            this.comboEstados.FormattingEnabled = true;
+            this.comboEstados.Items.AddRange(new object[] {
+            "Al dia",
+            "Menos de 30 dias",
+            "De 31 a 60 dias",
+            "De 61 a 90 dias ",
+            "De 91 a 180 dias",
+            "Mas de 360 dias"});
+            this.comboEstados.Location = new System.Drawing.Point(242, 22);
+            this.comboEstados.Name = "comboEstados";
+            this.comboEstados.Size = new System.Drawing.Size(209, 21);
+            this.comboEstados.TabIndex = 2;
+            this.comboEstados.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboEstados.SelectedValueChanged += new System.EventHandler(this.comboEstados_SelectedValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(176, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Estados";
+            // 
+            // BtPago
+            // 
+            this.BtPago.Location = new System.Drawing.Point(726, 20);
+            this.BtPago.Name = "BtPago";
+            this.BtPago.Size = new System.Drawing.Size(75, 23);
+            this.BtPago.TabIndex = 0;
+            this.BtPago.Text = "Pago";
+            this.BtPago.UseVisualStyleBackColor = true;
+            this.BtPago.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel2
             // 
@@ -74,16 +115,6 @@ namespace Cartera.Vista
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(931, 537);
             this.panel2.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(793, 38);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Carteras
             // 
@@ -99,6 +130,7 @@ namespace Cartera.Vista
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -110,6 +142,8 @@ namespace Cartera.Vista
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtPago;
+        private System.Windows.Forms.ComboBox comboEstados;
+        private System.Windows.Forms.Label label1;
     }
 }

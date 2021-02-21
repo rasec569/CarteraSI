@@ -20,11 +20,10 @@ namespace Cartera.Vista
         public static string Cartera_id = "";
         public static string Cliente_id = "";
         public static string Producto_id = "";
-        
+
         public Clientes()
         {
             InitializeComponent();
-            autocompletar();
             DateRecaudo.MinDate = new DateTime(2015, 1, 1);
             DateVenta.MinDate = new DateTime(2015, 1, 1);
             DateRecaudo.MaxDate = DateTime.Today;
@@ -33,17 +32,18 @@ namespace Cartera.Vista
 
         private void Clientes_Load(object sender, EventArgs e)
         {
+            autocompletar();
             CargarClientes();
             DataTable DtProyectos = Conexion.consulta("SELECT * FROM Proyecto");
             comboProyecto.DataSource = DtProyectos;
             comboProyecto.DisplayMember = "Proyecto_Nombre";
             comboProyecto.ValueMember = "Id_Proyecto";
-            DataTable DtTipoProducto= Conexion.consulta("SELECT * FROM Tipo_Producto");
+            DataTable DtTipoProducto = Conexion.consulta("SELECT * FROM Tipo_Producto");
             comboTipoProducto.DataSource = DtTipoProducto;
             comboTipoProducto.DisplayMember = "Nom_Tipo_Producto";
             comboTipoProducto.ValueMember = "Id_Tipo_Producto";
         }
-        
+
 
         private void BtBuscarCliente_Click(object sender, EventArgs e)
         {
@@ -75,16 +75,17 @@ namespace Cartera.Vista
             {
                 MessageBox.Show("error");
             }
-            
-        }       
+
+        }
         private void CargarClientes()
         {
             dataGridView1.DataSource = Conexion.consulta("Select Id_Cliente, Cedula, Nombre, Apellido, Telefono, Direccion, Correo, Fk_Id_Cartera  from Cliente");
+            dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
         }
         private void CargarProducto()
         {
-            DataTable Dt_Productos= Conexion.consulta("SELECT Id_Producto, Nombre_Producto, Numero_contrato, Forma_pago, Valor_Total, Fecha_Venta, Valor_Entrada, Proyecto_Nombre, Nom_Tipo_Producto, Valor_Sin_interes, Cuotas_Sin_interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto FROM Producto INNER join Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER join Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto WHERE Fk_Id_CarteraP =  " + Cartera_id + "");
+            DataTable Dt_Productos = Conexion.consulta("SELECT Id_Producto, Nombre_Producto, Numero_contrato, Forma_pago, Valor_Total, Fecha_Venta, Valor_Entrada, Proyecto_Nombre, Nom_Tipo_Producto, Valor_Sin_interes, Cuotas_Sin_interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto FROM Producto INNER join Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER join Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto WHERE Fk_Id_CarteraP =  " + Cartera_id + "");
             dataGridView2.DataSource = Dt_Productos;
             dataGridView2.Columns["Id_Producto"].Visible = false;
             dataGridView2.Columns["Fk_Id_Proyecto"].Visible = false;
@@ -99,7 +100,7 @@ namespace Cartera.Vista
             dataGridView2.Columns[8].HeaderText = "Tipo Producto";
             dataGridView2.Columns[9].HeaderText = "Valor sin Interes";
             dataGridView2.Columns[10].HeaderText = "Cuotas sin Interes";
-            dataGridView2.Columns[11].HeaderText = "Valor Cuota Sin interes";            
+            dataGridView2.Columns[11].HeaderText = "Valor Cuota Sin interes";
             dataGridView2.Columns[12].HeaderText = "Valor con Interes";
             dataGridView2.Columns[13].HeaderText = "Cuotas con Interes";
             dataGridView2.Columns[14].HeaderText = "Valor Cuota Con Interes";
@@ -111,7 +112,7 @@ namespace Cartera.Vista
         {
             AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
             DtNombres = Conexion.consulta("Select * from Cliente");
-            for (int i=0; i<DtNombres.Rows.Count; i++)
+            for (int i = 0; i < DtNombres.Rows.Count; i++)
             {
                 lista.Add(DtNombres.Rows[i]["Nombre"].ToString());
             }
@@ -126,16 +127,16 @@ namespace Cartera.Vista
                 ok = false;
                 errorProvider1.SetError(txtCedula, "Digite cedula");
             }
-            if (txtNombres.Text =="")
+            if (txtNombres.Text == "")
             {
                 ok = false;
                 errorProvider1.SetError(txtNombres, "Digite nombre");
-            }            
+            }
             if (txtApellidos.Text == "")
             {
                 ok = false;
                 errorProvider1.SetError(txtApellidos, "Digite apellido");
-            }            
+            }
             if (txtTelefono.Text == "")
             {
                 ok = false;
@@ -177,7 +178,7 @@ namespace Cartera.Vista
         private void BtGuardarCliente_Click(object sender, EventArgs e)
         {
             ValidarCampos();
-            if ((error != true)&& (ValidarCampos() ==true))
+            if ((error != true) && (ValidarCampos() == true))
             {
                 if (Cliente_id == "")
                 {
@@ -187,7 +188,7 @@ namespace Cartera.Vista
                     cmd1.Parameters.Add(new SQLiteParameter("@Total_Neto_Recaudado", "0"));
                     cmd1.Parameters.Add(new SQLiteParameter("@Total_mora", "0"));
                     cmd1.Parameters.Add(new SQLiteParameter("@Total_Cartera", "0"));
-                    int retorno =cmd1.ExecuteNonQuery();
+                    int retorno = cmd1.ExecuteNonQuery();
 
                     if (retorno != 0)
                     {
@@ -225,14 +226,14 @@ namespace Cartera.Vista
                             cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", comboTipoProducto.SelectedIndex.ToString()));
                             cmd3.ExecuteNonQuery();
                         }
-                    }                        
+                    }
                 }
                 //else if(){
 
-               // }
+                // }
                 else
                 {
-                    string sql2_1 = "UPDATE Cliente SET Cedula=@Cedula, Nombre=@Nombre, Apellido=@Apellido, Telefono=@Telefono, Direccion=@Direccion, Correo=@Correo WHERE Id_Cliente=" + Cliente_id + "";
+                    string sql2_1 = "UPDATE Cliente SET Cedula=@Cedula, Nombre=Upper(@Nombre), Apellido=Upper(@Apellido), Telefono=@Telefono, Direccion=@Direccion, Correo=@Correo WHERE Id_Cliente=" + Cliente_id + "";
                     SQLiteCommand cmd2_1 = new SQLiteCommand(sql2_1, Conexion.instanciaDb());
                     cmd2_1.Parameters.Add(new SQLiteParameter("@Cedula", txtCedula.Text));
                     cmd2_1.Parameters.Add(new SQLiteParameter("@Nombre", txtNombres.Text));
@@ -243,7 +244,7 @@ namespace Cartera.Vista
                     cmd2_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Cartera", Cartera_id));
                     cmd2_1.ExecuteNonQuery();
 
-                    if (Producto_id !="")
+                    if (Producto_id != "")
                     {
                         string sql3_1 = "UPDATE Producto SET Nombre_Producto=@Nombre_Producto , Numero_contrato=@Numero_contrato, Forma_Pago=@Forma_Pago, Valor_Total=@Valor_Total, Valor_Entrada=@Valor_Entrada, Valor_Sin_interes=@Valor_Sin_interes, Cuotas_Sin_interes=@Cuotas_Sin_interes, Valor_Cuota_Sin_interes=@Valor_Cuota_Sin_interes, Valor_Con_Interes=@Valor_Con_Interes, Cuotas_Con_Interes=@Cuotas_Con_Interes, Valor_Cuota_Con_Interes=@Valor_Cuota_Con_Interes, Valor_Interes=@Valor_Interes, Observaciones=@Observaciones, Fecha_Recaudo=@Fecha_Recaudo, Fk_Id_Proyecto=@Fk_Id_Proyecto, Fk_Id_Tipo_Producto=@Fk_Id_Tipo_Producto WHERE Id_Producto =" + Producto_id + "";
                         SQLiteCommand cmd3_1 = new SQLiteCommand(sql3_1, Conexion.instanciaDb());
@@ -257,7 +258,7 @@ namespace Cartera.Vista
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Sin_interes", txtValorCuotaSin.Text));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", txtValorCon.Text));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Convert.ToString(numCuotasInteres.Value)));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Con_Interes", txtValorCuotaInteres.Text));                        
+                        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Con_Interes", txtValorCuotaInteres.Text));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Interes", Convert.ToString(numValorInteres.Value)));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Fecha_Venta", DateVenta.Text));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", DateRecaudo.Text));
@@ -265,14 +266,15 @@ namespace Cartera.Vista
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_CarteraP", Cartera_id));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", comboProyecto.SelectedIndex.ToString()));
                         cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", comboTipoProducto.SelectedIndex.ToString()));
-                        cmd3_1.ExecuteNonQuery();                        
+                        cmd3_1.ExecuteNonQuery();
                     }
                 }
-                
-                
+
+
                 Panel_Registrar_user.Visible = false;
                 //Panel_Clientes.Visible = true;
                 CargarClientes();
+                autocompletar();
             }
         }
         private void LimpiarProducto()
@@ -285,7 +287,7 @@ namespace Cartera.Vista
             txtValorCon.Clear();
             txtObeservaciones.Clear();
             txtValorCuotaInteres.Clear();
-            ComboFormaPago.SelectedValue=0;
+            ComboFormaPago.SelectedValue = 0;
             numCuotaSinInteres.ResetText();
             numCuotaSinInteres.ResetText();
             //DateVenta.Clear();
@@ -298,7 +300,7 @@ namespace Cartera.Vista
             txtCedula.Clear();
             txtNombres.Clear();
             txtApellidos.Clear();
-            txtTelefono.Clear();            
+            txtTelefono.Clear();
             txtCorreo.Clear();
             txtDireccion.Clear();
         }
@@ -326,7 +328,7 @@ namespace Cartera.Vista
                     errorProvider1.Clear();
                 }
             }
-            
+
         }
 
         private void txtApellidos_TextChanged(object sender, EventArgs e)
@@ -391,10 +393,10 @@ namespace Cartera.Vista
                 LimpiarProducto();
                 Cliente_id = dataGridView1.Rows[n].Cells["Id_Cliente"].Value.ToString();
                 txtCedula.Text = dataGridView1.Rows[n].Cells["Cedula"].Value.ToString();
-                txtNombres.Text = dataGridView1.Rows[n].Cells["Nombre"].Value.ToString(); 
-                txtApellidos.Text = dataGridView1.Rows[n].Cells["Apellido"].Value.ToString(); 
-                txtTelefono.Text = dataGridView1.Rows[n].Cells["Telefono"].Value.ToString(); 
-                txtDireccion.Text = dataGridView1.Rows[n].Cells["Direccion"].Value.ToString(); 
+                txtNombres.Text = dataGridView1.Rows[n].Cells["Nombre"].Value.ToString();
+                txtApellidos.Text = dataGridView1.Rows[n].Cells["Apellido"].Value.ToString();
+                txtTelefono.Text = dataGridView1.Rows[n].Cells["Telefono"].Value.ToString();
+                txtDireccion.Text = dataGridView1.Rows[n].Cells["Direccion"].Value.ToString();
                 txtCorreo.Text = (string)dataGridView1.Rows[n].Cells["Correo"].Value.ToString();
                 Cartera_id = (string)dataGridView1.Rows[n].Cells["Fk_Id_Cartera"].Value.ToString();
                 CargarProducto();
@@ -441,9 +443,9 @@ namespace Cartera.Vista
             {
                 MessageBox.Show("Valor no admitido");
             }
-            
+
         }
-         private void Bloquear_Financiado()
+        private void Bloquear_Financiado()
         {
             txtValorSin.Enabled = false;
             txtValorEntrada.Enabled = false;
@@ -482,18 +484,18 @@ namespace Cartera.Vista
 
         private void txtValor_TextChanged(object sender, EventArgs e)
         {
-            
+
             foreach (char caracter in txtValor.Text)
             {
                 if (char.IsLetter(caracter))
                 {
                     error = true;
-                    errorProvider1.SetError(txtValor, "No se admiten letras");                    
+                    errorProvider1.SetError(txtValor, "No se admiten letras");
                 }
                 else
                 {
                     error = false;
-                    errorProvider1.Clear();                   
+                    errorProvider1.Clear();
                 }
                 try
                 {
@@ -515,7 +517,7 @@ namespace Cartera.Vista
                 }
 
             }
-            
+
         }
 
         private void txtValorEntrada_TextChanged(object sender, EventArgs e)
@@ -531,8 +533,8 @@ namespace Cartera.Vista
                 {
                     error = false;
                     errorProvider1.Clear();
-                }             
-            }           
+                }
+            }
         }
         private void txtValorEntrada_Leave(object sender, EventArgs e)
         {
@@ -557,7 +559,7 @@ namespace Cartera.Vista
 
         private void numCuotasInteres_Click(object sender, EventArgs e)
         {
-            double valor = ((Convert.ToDouble(txtValorCon.Text) * (Convert.ToDouble(numValorInteres.Value/100)))+ Convert.ToDouble(txtValorCon.Text))/ Convert.ToDouble(numCuotasInteres.Value);
+            double valor = ((Convert.ToDouble(txtValorCon.Text) * (Convert.ToDouble(numValorInteres.Value / 100))) + Convert.ToDouble(txtValorCon.Text)) / Convert.ToDouble(numCuotasInteres.Value);
             txtValorCuotaInteres.Clear();
             txtValorCuotaInteres.Text = valor.ToString();
         }

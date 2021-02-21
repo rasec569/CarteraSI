@@ -12,24 +12,32 @@ namespace Cartera.Vista
 {
     public partial class RegistrarPago : Form
     {
+        DataTable DtNombres = new DataTable();
         public RegistrarPago()
         {
             InitializeComponent();
+            
         }
 
         private void RegistrarPago_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
+            autocompletar();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
         }
+        void autocompletar()
+        {
+            AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
+            DtNombres = Conexion.consulta("Select * from Cliente");
+            for (int i = 0; i < DtNombres.Rows.Count; i++)
+            {
+                lista.Add(DtNombres.Rows[i]["Nombre"].ToString());
+            }
+            txtNombre.AutoCompleteCustomSource = lista;
+        }
     }
+    
 }
