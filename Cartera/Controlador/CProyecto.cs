@@ -7,8 +7,8 @@ using Cartera.Modelo;
 
 namespace Cartera.Controlador
 {
-    class CProyecto
+    interface CProyecto
     {
-        MProyecto model = new MProyecto();
+        
     }
 }

@@ -7,8 +7,7 @@ using Cartera.Modelo;
 
 namespace Cartera.Controlador
 {
-    class CProducto
-    {
-        MProducto model = new MProducto();
+    interface CProducto{
+    
     }
 }
