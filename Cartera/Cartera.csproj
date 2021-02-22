@@ -72,10 +72,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controlador\CCliente.cs" />
+    <Compile Include="Controlador\CLogin.cs" />
     <Compile Include="Controlador\CProducto.cs" />
     <Compile Include="Controlador\CProyecto.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Modelo\MCliente.cs" />
+    <Compile Include="Modelo\MLogin.cs" />
     <Compile Include="Modelo\MProducto.cs" />
     <Compile Include="Modelo\MProyecto.cs" />
     <Compile Include="Vista\Carteras.cs">
