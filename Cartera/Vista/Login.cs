@@ -37,8 +37,9 @@ namespace Cartera.Vistas
                 }
                 else
                 {
-                    DataTable dt=Conexion.consulta("Select Nom_Usuario, Contraseña from Usuario where Nom_Usuario='" + textUser.Text + "' AND Contraseña= '" + textPass.Text + "';");
-                    if ((textUser.Text == dt.Rows[0]["Nom_Usuario"].ToString()) && (textPass.Text == dt.Rows[0]["Contraseña"].ToString()))
+                    //DataTable dt=Conexion.consulta("Select Nom_Usuario, Contraseña from Usuario where Nom_Usuario='" + textUser.Text + "' AND Contraseña= '" + textPass.Text + "';");
+                    //if ((textUser.Text == dt.Rows[0]["Nom_Usuario"].ToString()) && (textPass.Text == dt.Rows[0]["Contraseña"].ToString()))
+                    if ((textUser.Text == "admin") && (textPass.Text == "123"))
                     {
                         this.Hide();
                         Principal P = new Principal();
