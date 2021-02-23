@@ -44,25 +44,6 @@ CREATE TABLE IF NOT EXISTS "Tipo_Producto" (
   PRIMARY KEY ("Id_Tipo_Producto" AUTOINCREMENT)
 );
 -- -----------------------------------------------------
--- Table "Financiacion"
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS "Financiacion" (
-  "Id_Financiacion" INTEGER NOT NULL UNIQUE,
-  "Valor_Entrada" INTEGER NULL,
-  "Valor_Sin_interes" INTEGER NULL,
-  "Valor_Cuota_Sin_interes" INTEGER NULL,
-  "Cuotas_Sin_interes" INTEGER NULL,
-  "Valor_Con_Interes" INTEGER NULL,
-  "Cuotas_Con_Interes" INT NULL,
-  "Valor_Cuota_Con_Interes" INTEGER NULL,
-  "Valor_Interes" INTEGER NULL,
-  "Fecha_Recaudo" DATE NULL,
-  "Fk_Predecesor_Financiacion" INTEGER NOT NULL,
-  PRIMARY KEY ("Id_Financiacion" AUTOINCREMENT),
-  FOREIGN KEY ("Fk_Predecesor_Financiacion")
-  REFERENCES "Financiacion" ("Id_Financiacion")
-  );
--- -----------------------------------------------------
 -- Table "Producto"
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS "Producto" (
@@ -80,10 +61,30 @@ CREATE TABLE IF NOT EXISTS "Producto" (
   FOREIGN KEY ("Fk_Id_Proyecto")
     REFERENCES "Proyecto" ("Id_Proyecto"),
   FOREIGN KEY ("Fk_Id_Tipo_Producto")
-    REFERENCES "Tipo_Producto" ("Id_Tipo_Producto"),
-  FOREIGN KEY ("Fk_Id_Financiacion")
-    REFERENCES "Financiacion" ("Id_Financiacion")
+    REFERENCES "Tipo_Producto" ("Id_Tipo_Producto")
 );
+-- -----------------------------------------------------
+-- Table "Financiacion"
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS "Financiacion" (
+  "Id_Financiacion" INTEGER NOT NULL UNIQUE,
+  "Valor_Entrada" INTEGER NULL,
+  "Valor_Sin_interes" INTEGER NULL,
+  "Valor_Cuota_Sin_interes" INTEGER NULL,
+  "Cuotas_Sin_interes" INTEGER NULL,
+  "Valor_Con_Interes" INTEGER NULL,
+  "Cuotas_Con_Interes" INT NULL,
+  "Valor_Cuota_Con_Interes" INTEGER NULL,
+  "Valor_Interes" INTEGER NULL,
+  "Fecha_Recaudo" DATE NULL,
+  "Fk_Producto" INTEGER NOT NULL,
+  "Fk_Predecesor_Financiacion" INTEGER NOT NULL,
+  PRIMARY KEY ("Id_Financiacion" AUTOINCREMENT),
+  FOREIGN KEY ("Fk_Predecesor_Financiacion")
+  REFERENCES "Financiacion" ("Id_Financiacion"),
+  FOREIGN KEY("Fk_Producto") 
+  REFERENCES "Producto" ("Id_Producto")
+  );
 -- -----------------------------------------------------
 -- Table "Seguimiento"
 -- -----------------------------------------------------

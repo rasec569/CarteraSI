@@ -16,6 +16,10 @@ namespace Cartera.Vista
 
     public partial class Clientes : Form
     {
+        CCartera Cart = new MCartera();
+        CCliente Clie = new MCliente();
+        CProducto Prod = new MProducto();
+
         bool error = false;
         DataTable DtNombres = new DataTable();
         public static string Cartera_id = "";
@@ -54,7 +58,8 @@ namespace Cartera.Vista
                 {
                     Panel_Registrar_user.Visible = true;
                     string nom = txtBuscarCliente.Text;
-                    DataTable DtUsuario = Conexion.consulta("SELECT * FROM Cliente WHERE Nombre =Upper( '" + nom + "')");
+
+                    DataTable DtUsuario = Clie.cargarClientes(nom);
                     Cliente_id = DtUsuario.Rows[0]["Id_Cliente"].ToString();
                     txtCedula.Text = DtUsuario.Rows[0]["Cedula"].ToString();
                     txtNombres.Text = DtUsuario.Rows[0]["Nombre"].ToString();
@@ -63,8 +68,8 @@ namespace Cartera.Vista
                     txtDireccion.Text = DtUsuario.Rows[0]["Direccion"].ToString();
                     txtCorreo.Text = DtUsuario.Rows[0]["Correo"].ToString();
                     Cartera_id = DtUsuario.Rows[0]["Fk_Id_Cartera"].ToString();
-                    CargarProducto();
-                    Producto_id = "";
+                    //CargarProducto();
+                    //Producto_id = "";
                     //DataTable DtProdutos = Conexion.consulta("SELECT * FROM Producto INNER join Cartera on Id_Cartera = Fk_Id_Cartera WHERE Id_Cartera = " + car + "");                    
                 }
                 else
@@ -80,7 +85,8 @@ namespace Cartera.Vista
         }
         private void CargarClientes()
         {
-            dataGridView1.DataSource = Conexion.consulta("Select Id_Cliente, Cedula, Nombre, Apellido, Telefono, Direccion, Correo, Fk_Id_Cartera  from Cliente");
+            
+            dataGridView1.DataSource = Clie.cargarClientes();
             dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
         }
@@ -112,7 +118,7 @@ namespace Cartera.Vista
         void autocompletar()
         {
             AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
-            DtNombres = Conexion.consulta("Select * from Cliente");
+            DtNombres = Clie.cargarClientes();
             for (int i = 0; i < DtNombres.Rows.Count; i++)
             {
                 lista.Add(DtNombres.Rows[i]["Nombre"].ToString());
@@ -183,93 +189,83 @@ namespace Cartera.Vista
             {
                 if (Cliente_id == "")
                 {
-                    string sql1 = "insert into Cartera(Estado_cartera,Total_Neto_Recaudado,Total_mora,Total_Cartera) values (@Estado_cartera,@Total_Neto_Recaudado,@Total_mora,@Total_Cartera)";
-                    SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
-                    cmd1.Parameters.Add(new SQLiteParameter("@Estado_cartera", "Nueva"));
-                    cmd1.Parameters.Add(new SQLiteParameter("@Total_Neto_Recaudado", "0"));
-                    cmd1.Parameters.Add(new SQLiteParameter("@Total_mora", "0"));
-                    cmd1.Parameters.Add(new SQLiteParameter("@Total_Cartera", "0"));
-                    int retorno = cmd1.ExecuteNonQuery();
+                    Cart.crearCartera();
 
-                    if (retorno != 0)
-                    {
-                        DataTable DtCartera = Conexion.consulta("SELECT max(Id_Cartera) FROM Cartera ORDER BY Id_Cartera DESC");
-                        string sql2 = "insert into Cliente(Cedula,Nombre,Apellido,Telefono, Direccion, Correo, Fk_Id_Cartera) values(@Cedula,upper(@Nombre),upper(@Apellido),@Telefono,@Direccion,@Correo,@Fk_Id_Cartera)";
-                        SQLiteCommand cmd2 = new SQLiteCommand(sql2, Conexion.instanciaDb());
-                        cmd2.Parameters.Add(new SQLiteParameter("@Cedula", txtCedula.Text));
-                        cmd2.Parameters.Add(new SQLiteParameter("@Nombre", txtNombres.Text));
-                        cmd2.Parameters.Add(new SQLiteParameter("@Apellido", txtApellidos.Text));
-                        cmd2.Parameters.Add(new SQLiteParameter("@Telefono", txtTelefono.Text));
-                        cmd2.Parameters.Add(new SQLiteParameter("@Direccion", txtDireccion.Text));
-                        cmd2.Parameters.Add(new SQLiteParameter("@Correo", txtCorreo.Text));
-                        cmd2.Parameters.Add(new SQLiteParameter("@Fk_Id_Cartera", DtCartera.Rows[0]["max(Id_Cartera)"].ToString()));
+                    //int retorno = Cart.crearCartera();
+
+                    //if (retorno != 0)
+                    //{
+                        DataTable DtCartera = Cart.UltimoRegistro();
                         Cartera_id = DtCartera.Rows[0]["max(Id_Cartera)"].ToString();
-                        int retorno2 = cmd2.ExecuteNonQuery();
-                        if (retorno2 != 0)
-                        {
-                            string sql3 = "INSERT INTO Producto(Nombre_Producto, Numero_contrato, Forma_Pago, Valor_Total, Valor_Sin_interes, Valor_Entrada, Cuotas_Sin_interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Venta, Fecha_Recaudo, Observaciones, Fk_Id_Cartera, Fk_Id_Proyecto, Fk_Id_Tipo_Producto) VALUES(@Nombre_Producto, @Numero_contrato, @Forma_Pago, @Valor_Total, @Valor_Sin_interes, @Valor_Entrada, @Cuotas_Sin_interes , @Valor_Con_Interes, @Cuotas_Con_Interes, @Valor_Interes, @Fecha_Venta, @Fecha_Recaudo, @Observaciones, @Fk_Id_Cartera, @Fk_Id_Proyecto, @Fk_Id_Tipo_Producto)";
-                            SQLiteCommand cmd3 = new SQLiteCommand(sql3, Conexion.instanciaDb());
-                            cmd3.Parameters.Add(new SQLiteParameter("@Nombre_Producto", txtNombreProducto.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Numero_contrato", txtContrato.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Forma_Pago", ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString()));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Valor_Total", txtValor.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", txtValorSin.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Valor_Entrada", txtValorEntrada.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Cuotas_Sin_interes", Convert.ToString(numCuotaSinInteres.Value)));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", txtValorCon.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Convert.ToString(numCuotaSinInteres.Value)));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Valor_Interes", txtValorCuotaInteres.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Fecha_Venta", DateVenta.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", DateRecaudo.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Observaciones", txtObeservaciones.Text));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_CarteraP", Cartera_id));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", comboProyecto.SelectedIndex.ToString()));
-                            cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", comboTipoProducto.SelectedIndex.ToString()));
-                            cmd3.ExecuteNonQuery();
-                        }
-                    }
+                        Clie.crearCliente(Convert.ToInt32(txtCedula.Text), txtNombres.Text, txtApellidos.Text, Convert.ToInt32(txtTelefono.Text), txtDireccion.Text, txtCorreo.Text, Convert.ToInt32(Cartera_id));
+
+                    //int retorno2 = Clie.crearCliente(Convert.ToInt32(txtCedula.Text), txtNombres.Text, txtApellidos.Text, Convert.ToInt32(txtTelefono.Text), txtDireccion.Text, txtCorreo.Text, Convert.ToInt32(Cartera_id));
+                    //if (retorno2 != 0)
+                    //{
+                    Prod.crearProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString(), Convert.ToInt32( txtValor.Text), DateVenta.Text, txtObeservaciones.Text, Convert.ToInt32(Cartera_id), Convert.ToInt32(comboProyecto.SelectedIndex.ToString()), Convert.ToInt32(comboTipoProducto.SelectedIndex.ToString()));
+                        //    string sql3 = "INSERT INTO Producto(Nombre_Producto, Numero_contrato, Forma_Pago, Valor_Total, Valor_Sin_interes, Valor_Entrada, Cuotas_Sin_interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Venta, Fecha_Recaudo, Observaciones, Fk_Id_Cartera, Fk_Id_Proyecto, Fk_Id_Tipo_Producto) VALUES(@Nombre_Producto, @Numero_contrato, @Forma_Pago, @Valor_Total, @Valor_Sin_interes, @Valor_Entrada, @Cuotas_Sin_interes , @Valor_Con_Interes, @Cuotas_Con_Interes, @Valor_Interes, @Fecha_Venta, @Fecha_Recaudo, @Observaciones, @Fk_Id_Cartera, @Fk_Id_Proyecto, @Fk_Id_Tipo_Producto)";
+                        //    SQLiteCommand cmd3 = new SQLiteCommand(sql3, Conexion.instanciaDb());
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Nombre_Producto", txtNombreProducto.Text));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Numero_contrato", txtContrato.Text));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Forma_Pago", ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString()));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Valor_Total", txtValor.Text));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", txtValorSin.Text));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Valor_Entrada", txtValorEntrada.Text));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Cuotas_Sin_interes", Convert.ToString(numCuotaSinInteres.Value)));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", txtValorCon.Text));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Convert.ToString(numCuotaSinInteres.Value)));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Valor_Interes", txtValorCuotaInteres.Text));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Fecha_Venta", DateVenta.Text));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", DateRecaudo.Text));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Observaciones", txtObeservaciones.Text));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_CarteraP", Cartera_id));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", comboProyecto.SelectedIndex.ToString()));
+                        //    cmd3.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", comboTipoProducto.SelectedIndex.ToString()));
+                        //    cmd3.ExecuteNonQuery();
+                        //}
+                    //}
                 }
                 //else if(){
 
                 // }
-                else
-                {
-                    string sql2_1 = "UPDATE Cliente SET Cedula=@Cedula, Nombre=Upper(@Nombre), Apellido=Upper(@Apellido), Telefono=@Telefono, Direccion=@Direccion, Correo=@Correo WHERE Id_Cliente=" + Cliente_id + "";
-                    SQLiteCommand cmd2_1 = new SQLiteCommand(sql2_1, Conexion.instanciaDb());
-                    cmd2_1.Parameters.Add(new SQLiteParameter("@Cedula", txtCedula.Text));
-                    cmd2_1.Parameters.Add(new SQLiteParameter("@Nombre", txtNombres.Text));
-                    cmd2_1.Parameters.Add(new SQLiteParameter("@Apellido", txtApellidos.Text));
-                    cmd2_1.Parameters.Add(new SQLiteParameter("@Telefono", txtTelefono.Text));
-                    cmd2_1.Parameters.Add(new SQLiteParameter("@Direccion", txtDireccion.Text));
-                    cmd2_1.Parameters.Add(new SQLiteParameter("@Correo", txtCorreo.Text));
-                    cmd2_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Cartera", Cartera_id));
-                    cmd2_1.ExecuteNonQuery();
+                //else
+                //{
+                //    string sql2_1 = "UPDATE Cliente SET Cedula=@Cedula, Nombre=Upper(@Nombre), Apellido=Upper(@Apellido), Telefono=@Telefono, Direccion=@Direccion, Correo=@Correo WHERE Id_Cliente=" + Cliente_id + "";
+                //    SQLiteCommand cmd2_1 = new SQLiteCommand(sql2_1, Conexion.instanciaDb());
+                //    cmd2_1.Parameters.Add(new SQLiteParameter("@Cedula", txtCedula.Text));
+                //    cmd2_1.Parameters.Add(new SQLiteParameter("@Nombre", txtNombres.Text));
+                //    cmd2_1.Parameters.Add(new SQLiteParameter("@Apellido", txtApellidos.Text));
+                //    cmd2_1.Parameters.Add(new SQLiteParameter("@Telefono", txtTelefono.Text));
+                //    cmd2_1.Parameters.Add(new SQLiteParameter("@Direccion", txtDireccion.Text));
+                //    cmd2_1.Parameters.Add(new SQLiteParameter("@Correo", txtCorreo.Text));
+                //    cmd2_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Cartera", Cartera_id));
+                //    cmd2_1.ExecuteNonQuery();
 
-                    if (Producto_id != "")
-                    {
-                        string sql3_1 = "UPDATE Producto SET Nombre_Producto=@Nombre_Producto , Numero_contrato=@Numero_contrato, Forma_Pago=@Forma_Pago, Valor_Total=@Valor_Total, Valor_Entrada=@Valor_Entrada, Valor_Sin_interes=@Valor_Sin_interes, Cuotas_Sin_interes=@Cuotas_Sin_interes, Valor_Cuota_Sin_interes=@Valor_Cuota_Sin_interes, Valor_Con_Interes=@Valor_Con_Interes, Cuotas_Con_Interes=@Cuotas_Con_Interes, Valor_Cuota_Con_Interes=@Valor_Cuota_Con_Interes, Valor_Interes=@Valor_Interes, Observaciones=@Observaciones, Fecha_Recaudo=@Fecha_Recaudo, Fk_Id_Proyecto=@Fk_Id_Proyecto, Fk_Id_Tipo_Producto=@Fk_Id_Tipo_Producto WHERE Id_Producto =" + Producto_id + "";
-                        SQLiteCommand cmd3_1 = new SQLiteCommand(sql3_1, Conexion.instanciaDb());
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Nombre_Producto", txtNombreProducto.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Numero_contrato", txtContrato.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Forma_Pago", ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString()));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Total", txtValor.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Entrada", txtValorEntrada.Text)); // 
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", txtValorSin.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Cuotas_Sin_interes", Convert.ToString(numCuotaSinInteres.Value)));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Sin_interes", txtValorCuotaSin.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", txtValorCon.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Convert.ToString(numCuotasInteres.Value)));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Con_Interes", txtValorCuotaInteres.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Interes", Convert.ToString(numValorInteres.Value)));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Fecha_Venta", DateVenta.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", DateRecaudo.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Observaciones", txtObeservaciones.Text));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_CarteraP", Cartera_id));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", comboProyecto.SelectedIndex.ToString()));
-                        cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", comboTipoProducto.SelectedIndex.ToString()));
-                        cmd3_1.ExecuteNonQuery();
-                    }
-                }
+                //    if (Producto_id != "")
+                //    {
+                //        string sql3_1 = "UPDATE Producto SET Nombre_Producto=@Nombre_Producto , Numero_contrato=@Numero_contrato, Forma_Pago=@Forma_Pago, Valor_Total=@Valor_Total, Valor_Entrada=@Valor_Entrada, Valor_Sin_interes=@Valor_Sin_interes, Cuotas_Sin_interes=@Cuotas_Sin_interes, Valor_Cuota_Sin_interes=@Valor_Cuota_Sin_interes, Valor_Con_Interes=@Valor_Con_Interes, Cuotas_Con_Interes=@Cuotas_Con_Interes, Valor_Cuota_Con_Interes=@Valor_Cuota_Con_Interes, Valor_Interes=@Valor_Interes, Observaciones=@Observaciones, Fecha_Recaudo=@Fecha_Recaudo, Fk_Id_Proyecto=@Fk_Id_Proyecto, Fk_Id_Tipo_Producto=@Fk_Id_Tipo_Producto WHERE Id_Producto =" + Producto_id + "";
+                //        SQLiteCommand cmd3_1 = new SQLiteCommand(sql3_1, Conexion.instanciaDb());
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Nombre_Producto", txtNombreProducto.Text));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Numero_contrato", txtContrato.Text));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Forma_Pago", ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString()));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Total", txtValor.Text));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Entrada", txtValorEntrada.Text)); // 
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", txtValorSin.Text));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Cuotas_Sin_interes", Convert.ToString(numCuotaSinInteres.Value)));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Sin_interes", txtValorCuotaSin.Text));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", txtValorCon.Text));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Convert.ToString(numCuotasInteres.Value)));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Con_Interes", txtValorCuotaInteres.Text));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Valor_Interes", Convert.ToString(numValorInteres.Value)));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Fecha_Venta", DateVenta.Text));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", DateRecaudo.Text));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Observaciones", txtObeservaciones.Text));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_CarteraP", Cartera_id));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", comboProyecto.SelectedIndex.ToString()));
+                //        cmd3_1.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", comboTipoProducto.SelectedIndex.ToString()));
+                //        cmd3_1.ExecuteNonQuery();
+                //    }
+                //}
 
 
                 Panel_Registrar_user.Visible = false;

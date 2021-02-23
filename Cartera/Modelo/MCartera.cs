@@ -28,5 +28,9 @@ namespace Cartera.Modelo
 			cmd1.Parameters.Add(new SQLiteParameter("@Total_Cartera", "0"));
 			return cmd1.ExecuteNonQuery();
 		}
+		public DataTable UltimoRegistro()
+        {
+			return Conexion.consulta("SELECT max(Id_Cartera) FROM Cartera ORDER BY Id_Cartera DESC");
+		}
 	}
 }
