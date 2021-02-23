@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
-using Cartera.Vista;
-using Cartera.Vistas;
+using Cartera.Controlador;
+using Cartera.Modelo;
 
 namespace Cartera.Vista
 {
+
     public partial class Clientes : Form
     {
         bool error = false;

@@ -22,10 +22,10 @@ namespace Cartera.Vistas
         }
         private void Principal_Load(object sender, EventArgs e)
         {
-            SQLiteConnectionStringBuilder builder = new SQLiteConnectionStringBuilder();
-            builder.DataSource = "Cartera San Isidro.db";
-            FormularioHijo(new Carteras());
-            Console.WriteLine(builder.ConnectionString);
+            //SQLiteConnectionStringBuilder builder = new SQLiteConnectionStringBuilder();
+            //builder.DataSource = "Cartera San Isidro.db";
+            //FormularioHijo(new Carteras());
+            //Console.WriteLine(builder.ConnectionString);
 
         }
 

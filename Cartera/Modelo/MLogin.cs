@@ -15,9 +15,9 @@ namespace Cartera.Modelo
         public string Nom_Usuario { get; set; }
         public string Contraseña { get; set; }
 
-        public DataTable ValidaUser(string user, string pass)
+        public DataTable ValidaUser(string Nom_Usuario, string Contraseña)
         {
-            return Conexion.consulta("Select Nom_Usuario, Contraseña from Usuario where Nom_Usuario='" + user + "' AND Contraseña= '" + pass + "')");
+            return Conexion.consulta("Select Nom_Usuario, Contraseña from Usuario where Nom_Usuario='" + Nom_Usuario + "' AND Contraseña= '" + Contraseña + "'");
         }        
         
     }

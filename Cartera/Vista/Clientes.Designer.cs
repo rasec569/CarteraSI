@@ -89,6 +89,8 @@ namespace Cartera.Vista
             this.label22 = new System.Windows.Forms.Label();
             this.comboProyecto = new System.Windows.Forms.ComboBox();
             this.numValorInteres = new System.Windows.Forms.NumericUpDown();
+            this.label24 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.PanelSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -480,6 +482,8 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.label24);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.txtCedula);
             this.groupBox1.Controls.Add(this.label7);
@@ -495,7 +499,7 @@ namespace Cartera.Vista
             this.groupBox1.Controls.Add(this.txtDireccion);
             this.groupBox1.Location = new System.Drawing.Point(12, 32);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(336, 247);
+            this.groupBox1.Size = new System.Drawing.Size(336, 274);
             this.groupBox1.TabIndex = 59;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
@@ -503,10 +507,10 @@ namespace Cartera.Vista
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(163, 22);
+            this.pictureBox1.Location = new System.Drawing.Point(163, 19);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(30, 33);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.Size = new System.Drawing.Size(40, 43);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 26;
             this.pictureBox1.TabStop = false;
             // 
@@ -565,9 +569,9 @@ namespace Cartera.Vista
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(13, 299);
+            this.dataGridView2.Location = new System.Drawing.Point(13, 334);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(906, 174);
+            this.dataGridView2.Size = new System.Drawing.Size(906, 139);
             this.dataGridView2.TabIndex = 61;
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             // 
@@ -607,7 +611,7 @@ namespace Cartera.Vista
             this.groupBox2.Controls.Add(this.txtValorEntrada);
             this.groupBox2.Location = new System.Drawing.Point(356, 32);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(572, 247);
+            this.groupBox2.Size = new System.Drawing.Size(572, 274);
             this.groupBox2.TabIndex = 60;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Producto";
@@ -654,6 +658,27 @@ namespace Cartera.Vista
             this.numValorInteres.Name = "numValorInteres";
             this.numValorInteres.Size = new System.Drawing.Size(139, 20);
             this.numValorInteres.TabIndex = 56;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(20, 237);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(40, 13);
+            this.label24.TabIndex = 27;
+            this.label24.Text = "Estado";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Activo",
+            "Trasferir",
+            "Disolución"});
+            this.comboBox1.Location = new System.Drawing.Point(90, 234);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(224, 21);
+            this.comboBox1.TabIndex = 28;
             // 
             // Clientes
             // 
@@ -745,5 +770,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox comboProyecto;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label24;
     }
 }
