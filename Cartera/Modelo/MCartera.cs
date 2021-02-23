@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Data.SQLite;
+using Cartera.Controlador;
 
 namespace Cartera.Modelo
 {
 
-	class MCartera
+	class MCartera:CCartera
 	{
 		public Int64 Id_Cartera { get; set; }
 		public string Estado_cartera { get; set; }
@@ -15,13 +18,13 @@ namespace Cartera.Modelo
 		public string Total_Mora { get; set; }
 		public string Total_Cartera { get; set; }
 
-		public static int crearCartera()
-        {
-			string sql1 = "insert into Cartera(Estado_cartera,Total_Neto_Recaudado,Total_mora,Total_Cartera) values (@Estado_cartera,@Total_Neto_Recaudado,@Total_mora,@Total_Cartera)";
+		public int crearCartera()
+		{
+			string sql1 = "insert into Cartera(Estado_cartera,Valor_Recaudado,Valor_Mora,Total_Cartera) values (@Estado_cartera,@Valor_Recaudado,@Valor_Mora,@Total_Cartera)";
 			SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
 			cmd1.Parameters.Add(new SQLiteParameter("@Estado_cartera", "Nueva"));
-			cmd1.Parameters.Add(new SQLiteParameter("@Total_Neto_Recaudado", "0"));
-			cmd1.Parameters.Add(new SQLiteParameter("@Total_mora", "0"));
+			cmd1.Parameters.Add(new SQLiteParameter("@Valor_Recaudado", "0"));
+			cmd1.Parameters.Add(new SQLiteParameter("@Valor_Mora", "0"));
 			cmd1.Parameters.Add(new SQLiteParameter("@Total_Cartera", "0"));
 			return cmd1.ExecuteNonQuery();
 		}
