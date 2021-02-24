@@ -4,12 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using Cartera.Modelo;
 
 namespace Cartera.Controlador
 {
-    interface CCartera
+    class CCartera
     {
-        int crearCartera();
-        DataTable UltimoRegistro();
+        public int crearCartera() 
+        {
+            return MCartera.crearCartera();
+        }
+
+        public DataTable UltimoRegistro()
+        {
+            return MCartera.UltimoRegistro();
+        }
     }
 }

@@ -9,13 +9,13 @@ using Cartera.Controlador;
 
 namespace Cartera.Modelo
 {
-    public class MLogin:CLogin
+    public class MLogin
 
     {
         public string Nom_Usuario { get; set; }
         public string Contraseña { get; set; }
 
-        public DataTable ValidaUser(string Nom_Usuario, string Contraseña)
+        public static DataTable ValidaUser(string Nom_Usuario, string Contraseña)
         {
             return Conexion.consulta("Select Nom_Usuario, Contraseña from Usuario where Nom_Usuario='" + Nom_Usuario + "' AND Contraseña= '" + Contraseña + "'");
         }        

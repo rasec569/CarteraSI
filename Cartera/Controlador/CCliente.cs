@@ -5,19 +5,41 @@ using System.Text;
 using System.Threading.Tasks;
 using Cartera.Modelo;
 using System.Data;
+using Cartera.Modelo;
 
 
 namespace Cartera.Controlador
 {
-    interface CCliente
+    class CCliente
+    {
+        public DataTable cargarClientes()
         {
-            DataTable cargarClientes();
+            return MCliente.cargarClientes();
+        }
 
-            DataTable cargarClientes(string nombre);
+        public DataTable cargarClientes(string nombre) 
+        {
+            return MCliente.cargarClientes(nombre);
+        }
 
-            int crearCliente(int cedula,string nombre,string apellido, int telefono,string direccion,string correo,int idCartera);
+        public int crearCliente(int cedula,string nombre,string apellido, int telefono ,string direccion,string correo,int idCartera)
+        {
+            return MCliente.crearCliente(cedula, nombre, apellido, telefono, direccion, correo, idCartera);
+        }
 
-            int actualizarCliente(int Cliente_id,int cedula,string nombre,string apellido, int telefono,string direccion,string correo,int idCartera);     
+        public int actualizarCliente(int Cliente_id,int cedula,string nombre,string apellido, int telefono,string direccion,string correo,int idCartera)
+        {
+            return MCliente.actualizarCliente(Cliente_id, cedula, nombre, apellido, telefono, direccion, correo, idCartera);
 
         }
+
+        public DataTable ultimoCliente()
+        {
+            return MCliente.ultimoCliente();
+        }
+       
+
+        
+
+    }
 }

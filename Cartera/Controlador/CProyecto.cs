@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cartera.Modelo;
+using System.Data;
 
 namespace Cartera.Controlador
 {
-    interface CProyecto
+    class CProyecto
     {
-        
+        public DataTable listarProyectos()
+        {
+            return MProyecto.listarProyectos();
+        }
     }
 }

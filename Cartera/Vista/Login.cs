@@ -39,7 +39,7 @@ namespace Cartera.Vistas
                 }
                 else
                 {
-                    CLogin L = new MLogin();
+                    CLogin L = new CLogin();
                     DataTable dt = L.ValidaUser(textUser.Text, textPass.Text);
                     if ((textUser.Text == dt.Rows[0]["Nom_Usuario"].ToString()) && (textPass.Text == dt.Rows[0]["Contraseña"].ToString()))
                     //if ((textUser.Text == "admin") && (textPass.Text == "123"))
