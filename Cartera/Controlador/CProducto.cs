@@ -18,10 +18,19 @@ namespace Cartera.Controlador
         {
             return MProducto.ultimoProducto();
         }
+        public DataTable cargarProductosCliente(int IdCliente)
+        {
+            return MProducto.cargarProductosCliente(IdCliente);
+        }
 
         public int crearProducto(string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Total, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
         {
             return MProducto.crearProducto(Nombre_Producto, Numero_contrato, Forma_Pago, Valor_Total, Fecha_Venta, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto);
-        }        
+        }     
+        public int actualizarProducto(int id_Producto, string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Total, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
+        {
+            return MProducto.actualizarProducto(id_Producto,  Nombre_Producto, Numero_contrato, Forma_Pago, Valor_Total, Fecha_Venta, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto);
+            }
+        
     }
 }

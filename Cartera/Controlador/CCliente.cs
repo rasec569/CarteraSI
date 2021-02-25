@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Cartera.Modelo;
 using System.Data;
-using Cartera.Modelo;
 
 
 namespace Cartera.Controlador
