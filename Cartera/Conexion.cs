@@ -34,6 +34,7 @@ namespace Cartera
             com = new SQLiteConnection("Data Source = Cartera San Isidro.db");
             com.Open();
         }
+
         ~Conexion_Instancia()
         {
             com.Close();

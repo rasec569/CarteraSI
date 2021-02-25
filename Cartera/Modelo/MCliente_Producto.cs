@@ -19,15 +19,13 @@ namespace Cartera.Modelo
 
         public static int InsertCliente_Producto(int id_Cliente, int Id_Producto)
         {
-            string sql = "INSERT INTO Cliente_Producto(Pfk_ID_Cliente, Pfk_ID_Producto, Fecha_Cambio, Estado_Cliente)VALUES(@Id_Cliente, @Id_Producto, '@Fecha_Cambio', '@Estado_Cliente'); ";
+            string sql = "INSERT INTO Cliente_Producto(Pfk_ID_Cliente, Pfk_ID_Producto, Fecha_Cambio, Estado_Cliente) VALUES (@Id_Cliente, @Id_Producto, @Fecha_Cambio, @Estado_Cliente); ";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
             cmd.Parameters.Add(new SQLiteParameter("@Id_Cliente", id_Cliente));
             cmd.Parameters.Add(new SQLiteParameter("@Id_Producto", Id_Producto));
             cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", DateTime.Now));
             cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Activo"));
-
             return cmd.ExecuteNonQuery();
-
         }
     }
 }

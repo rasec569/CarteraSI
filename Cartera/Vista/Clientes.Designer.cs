@@ -350,6 +350,8 @@ namespace Cartera.Vista
             this.txtValor.Size = new System.Drawing.Size(190, 20);
             this.txtValor.TabIndex = 37;
             this.txtValor.TextChanged += new System.EventHandler(this.txtValor_TextChanged);
+            this.txtValor.Enter += new System.EventHandler(this.txtValor_Enter);
+            this.txtValor.Leave += new System.EventHandler(this.txtValor_Leave);
             // 
             // label16
             // 
@@ -603,6 +605,7 @@ namespace Cartera.Vista
             // 
             // dataGridView2
             // 
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(13, 334);
             this.dataGridView2.Name = "dataGridView2";
