@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using Cartera.Controlador;
+
 
 namespace Cartera.Vistas
 {
     public partial class NuevoUsuario : Form
     {
+        CProyecto proyecto = new CProyecto();
         public NuevoUsuario()
         {
             InitializeComponent();
@@ -27,11 +30,7 @@ namespace Cartera.Vistas
             ValidarCampos();
             if (ValidarCampos() == true)
             {
-                string sql = "insert into Proyecto(Proyecto_Nombre,Proyecto_Ubicacion) values(@Proyecto_Nombre,@Proyecto_Ubicacion)";
-                SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-                cmd.Parameters.Add(new SQLiteParameter("@Proyecto_Nombre", txtNombreP.Text));
-                cmd.Parameters.Add(new SQLiteParameter("@Proyecto_Ubicacion", txtUbicacion.Text));
-                int ok = cmd.ExecuteNonQuery();
+                int ok = proyecto.RegistrarProyecto(txtNombreP.Text, txtUbicacion.Text);
                 if (ok > 0)
                 {
                     MessageBox.Show("Registro exitoso");
@@ -68,19 +67,16 @@ namespace Cartera.Vistas
 
         private void CargarProyectos()
         {
-            dataGridView1.DataSource = Conexion.consulta("SELECT* from Proyecto");
+            dataGridView1.DataSource = proyecto.listarProyectos();
             //cambiar titulo de la columna
             dataGridView1.Columns["Id_Proyecto"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Nombre";
             dataGridView1.Columns[2].HeaderText = "Ubicación";
         }
         
-            private void txtNombreP_TextChanged(object sender, EventArgs e)
-        {
+            
 
-        }
-
-        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
         }

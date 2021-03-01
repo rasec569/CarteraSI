@@ -18,6 +18,8 @@ namespace Cartera.Controlador
         public DataTable UltimoRegistro()
         {
             return MCartera.UltimoRegistro();
+
         }
+
     }
 }

@@ -14,5 +14,9 @@ namespace Cartera.Controlador
         {
             return MProyecto.listarProyectos();
         }
+        public int RegistrarProyecto(string Proyecto_nombre, string ubicacion)
+        {
+            return RegistrarProyecto(Proyecto_nombre, ubicacion);
+        }
     }
 }
