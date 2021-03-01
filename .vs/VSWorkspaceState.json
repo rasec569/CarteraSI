@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Cartera",
-    "\\Cartera\\Controlador",
-    "\\Cartera\\Modelo",
-    "\\Cartera\\Vista"
+    ""
   ],
-  "SelectedNode": "\\Cartera\\Vista\\Clientes.cs",
+  "SelectedNode": "\\",
   "PreviewInSolutionExplorer": false
 }

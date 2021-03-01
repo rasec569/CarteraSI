@@ -126,6 +126,12 @@
     <Compile Include="Vista\Productos.Designer.cs">
       <DependentUpon>Productos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\Proyectos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Proyectos.Designer.cs">
+      <DependentUpon>Proyectos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\RegistrarPago.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +166,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Productos.resx">
       <DependentUpon>Productos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Proyectos.resx">
+      <DependentUpon>Proyectos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\RegistrarPago.resx">
       <DependentUpon>RegistrarPago.cs</DependentUpon>

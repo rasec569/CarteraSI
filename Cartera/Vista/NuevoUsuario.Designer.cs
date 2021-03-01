@@ -48,9 +48,7 @@ namespace Cartera.Vistas
             this.txtNombreP.Location = new System.Drawing.Point(143, 20);
             this.txtNombreP.Name = "txtNombreP";
             this.txtNombreP.Size = new System.Drawing.Size(224, 20);
-            this.txtNombreP.TabIndex = 3;
-            this.txtNombreP.TextChanged += new System.EventHandler(this.txtNombreP_TextChanged);
-            // 
+            this.txtNombreP.TabIndex = 3;            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -94,8 +92,6 @@ namespace Cartera.Vistas
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(904, 463);
             this.dataGridView1.TabIndex = 11;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
             // 
             // flowLayoutPanel1

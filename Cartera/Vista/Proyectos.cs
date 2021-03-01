@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Cartera.Vistas
+namespace Cartera.Vista
 {
     public partial class Proyectos : Form
     {
