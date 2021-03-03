@@ -60,6 +60,7 @@
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -126,6 +127,12 @@
     <Compile Include="Vista\Productos.Designer.cs">
       <DependentUpon>Productos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\Proyectos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Proyectos.Designer.cs">
+      <DependentUpon>Proyectos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\RegistrarPago.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Productos.resx">
       <DependentUpon>Productos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Proyectos.resx">
+      <DependentUpon>Proyectos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\RegistrarPago.resx">
       <DependentUpon>RegistrarPago.cs</DependentUpon>
