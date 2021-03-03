@@ -48,7 +48,7 @@ namespace Cartera.Vistas
 
         private void BtProyectos_Click(object sender, EventArgs e)
         {
-            FormularioHijo(new NuevoUsuario());        
+            FormularioHijo(new Proyectos());        
         }
         private void BtSalir_Click(object sender, EventArgs e)
         {

@@ -25,7 +25,16 @@ namespace Cartera.Modelo
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
             cmd.Parameters.Add(new SQLiteParameter("@Proyecto_Nombre", Proyecto_nombre));
             cmd.Parameters.Add(new SQLiteParameter("@Proyecto_Ubicacion", ubicacion));
-            return cmd.ExecuteNonQuery(); ;
+            return cmd.ExecuteNonQuery(); 
+        }
+        public static int ActualizarProyecto(int Id_Proyecto, string Proyecto_Nombre, string Proyecto_Ubicacion)
+        {
+            string sql = "UPDATE Proyecto SET Id_Proyecto = @Id_Proyecto, Proyecto_Nombre = @Proyecto_Nombre, Proyecto_Ubicacion = @Proyecto_Ubicacion WHERE Id_Proyecto ="+Id_Proyecto+"";
+            SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+            cmd.Parameters.Add(new SQLiteParameter("@Id_Proyecto", Id_Proyecto));
+            cmd.Parameters.Add(new SQLiteParameter("@Proyecto_Nombre", Proyecto_Nombre));
+            cmd.Parameters.Add(new SQLiteParameter("@Proyecto_Ubicacion", Proyecto_Ubicacion));          
+            return cmd.ExecuteNonQuery();
         }
 
     }
