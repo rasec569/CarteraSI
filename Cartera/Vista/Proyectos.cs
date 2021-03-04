@@ -40,18 +40,19 @@ namespace Cartera.Vista
 
         private void Proyectos_Load(object sender, EventArgs e)
         {
-            CargarProyectos();            
+            CargarProyectos();
         }
         private void CargarProyectos()
         {
             dataGridView1.DataSource = proyecto.listarProyectos();
             //cambiar titulo de la columna
             dataGridView1.Columns["Id_Proyecto"].Visible = false;
-            dataGridView1.CurrentCell = null;
-            dataGridView1.Rows[0].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Nombre";
             dataGridView1.Columns[2].HeaderText = "Ubicación";
-        }    
+            dataGridView1.CurrentCell = null;
+            dataGridView1.Rows[0].Visible = false;
+
+        }
         private bool ValidarCampos()
         {
             bool ok = true;
@@ -82,12 +83,20 @@ namespace Cartera.Vista
             idproyecto = "";
             txtNombreP.Clear();
             txtUbicacion.Clear();
+            BtBorrar.Enabled = false;
         }
 
         private void BtLimpiar_Click(object sender, EventArgs e)
         {
-            LimpiarCampos();
-        }       
+            if ((txtNombreP.Text != "")||(txtUbicacion.Text != ""))
+            {
+                LimpiarCampos();
+            }
+            else
+            {
+                MessageBox.Show("No hay campos que borrar");
+            }
+        }
 
         private void dataGridView1_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
         {
@@ -99,12 +108,21 @@ namespace Cartera.Vista
                 txtNombreP.Text = dataGridView1.Rows[n].Cells["Proyecto_Nombre"].Value.ToString();
                 txtUbicacion.Text = dataGridView1.Rows[n].Cells["Proyecto_Ubicacion"].Value.ToString();
             }
+            BtBorrar.Enabled = true;
         }
         private void BtBorrar_Click(object sender, EventArgs e)
         {
-            proyecto.EliminarProyecto(int.Parse(idproyecto));
-            LimpiarCampos();
-            CargarProyectos();
+            if (txtNombreP.Text!="")
+            {
+                proyecto.EliminarProyecto(int.Parse(idproyecto));
+                LimpiarCampos();
+                CargarProyectos();
+                BtBorrar.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un proyecto de la lista para eliminar");
+            }
         }
     }
 }

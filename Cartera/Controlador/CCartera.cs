@@ -20,6 +20,10 @@ namespace Cartera.Controlador
             return MCartera.UltimoRegistro();
 
         }
+        public DataTable ListarCartera()
+        {
+            return MCartera.ListarCartera();
+        }
 
     }
 }

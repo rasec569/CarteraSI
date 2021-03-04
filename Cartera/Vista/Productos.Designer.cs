@@ -43,14 +43,14 @@ namespace Cartera.Vista
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 90);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(893, 435);
+            this.dataGridView1.Size = new System.Drawing.Size(907, 435);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(45, 44);
+            this.label1.Location = new System.Drawing.Point(160, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 1;
@@ -58,14 +58,16 @@ namespace Cartera.Vista
             // 
             // txtBuscarProducto
             // 
-            this.txtBuscarProducto.Location = new System.Drawing.Point(114, 41);
+            this.txtBuscarProducto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtBuscarProducto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtBuscarProducto.Location = new System.Drawing.Point(240, 36);
             this.txtBuscarProducto.Name = "txtBuscarProducto";
-            this.txtBuscarProducto.Size = new System.Drawing.Size(100, 20);
+            this.txtBuscarProducto.Size = new System.Drawing.Size(303, 20);
             this.txtBuscarProducto.TabIndex = 2;
             // 
             // BtBuscarProducto
             // 
-            this.BtBuscarProducto.Location = new System.Drawing.Point(247, 39);
+            this.BtBuscarProducto.Location = new System.Drawing.Point(574, 34);
             this.BtBuscarProducto.Name = "BtBuscarProducto";
             this.BtBuscarProducto.Size = new System.Drawing.Size(75, 23);
             this.BtBuscarProducto.TabIndex = 3;
@@ -75,7 +77,7 @@ namespace Cartera.Vista
             // 
             // btTipoProducto
             // 
-            this.btTipoProducto.Location = new System.Drawing.Point(359, 39);
+            this.btTipoProducto.Location = new System.Drawing.Point(665, 34);
             this.btTipoProducto.Name = "btTipoProducto";
             this.btTipoProducto.Size = new System.Drawing.Size(84, 23);
             this.btTipoProducto.TabIndex = 4;

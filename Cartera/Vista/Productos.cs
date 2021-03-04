@@ -14,6 +14,7 @@ namespace Cartera.Vista
     public partial class Productos : Form
     {
         CProducto producto = new CProducto();
+        DataTable DtProductos = new DataTable();
         public Productos()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace Cartera.Vista
             autocompletar();
         }
         private void CargarProducto()
-        {           
+        {
             dataGridView1.DataSource = producto.cargarProductos();
             dataGridView1.Columns["Id_Producto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
@@ -101,8 +102,7 @@ namespace Cartera.Vista
         void autocompletar()
         {
             AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
-            //if para buscar por nombre o cedula
-            DataTable DtProductos = producto.cargarProductos();
+            DtProductos = producto.cargarProductos();
             for (int i = 0; i < DtProductos.Rows.Count; i++)
             {
                 lista.Add(DtProductos.Rows[i]["Nombre_Producto"].ToString());

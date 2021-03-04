@@ -104,12 +104,13 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 75);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(891, 412);
+            this.dataGridView1.Size = new System.Drawing.Size(907, 450);
             this.dataGridView1.TabIndex = 20;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick_1);
             // 
             // BtBorrar
             // 
+            this.BtBorrar.Enabled = false;
             this.BtBorrar.Location = new System.Drawing.Point(819, 25);
             this.BtBorrar.Name = "BtBorrar";
             this.BtBorrar.Size = new System.Drawing.Size(75, 23);
@@ -122,7 +123,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(915, 499);
+            this.ClientSize = new System.Drawing.Size(931, 537);
             this.Controls.Add(this.BtBorrar);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.BtLimpiar);

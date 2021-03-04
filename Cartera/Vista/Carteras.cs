@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Cartera.Controlador;
 
 namespace Cartera.Vista
 {
     public partial class Carteras : Form
     {
+        CCartera cartera = new CCartera();
         public Carteras()
         {
             InitializeComponent();
@@ -23,7 +25,7 @@ namespace Cartera.Vista
 
         private void CargarProducto()
         {
-            dataGridView1.DataSource = Conexion.consulta("SELECT Id_Cliente, Nombre, Apellido, Estado_cartera, Total_Neto_Recaudado,count(Id_Producto) as productos, Total_Mora, Total_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera = Id_Cartera INNER JOIN Producto on Fk_Id_CarteraP = Id_Cartera GROUP by Id_Cliente;");
+            dataGridView1.DataSource = cartera.ListarCartera();
             dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Nombre";
             dataGridView1.Columns[2].HeaderText = "Apellido";

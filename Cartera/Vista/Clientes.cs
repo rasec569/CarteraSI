@@ -23,7 +23,9 @@ namespace Cartera.Vista
         public static string Cliente_id = "";
         public static string Producto_id = "";
         public static string Financiacion_id = "";
-        
+        public static int valor = 0;
+
+
 
         public Clientes()
         {
@@ -394,7 +396,10 @@ namespace Cartera.Vista
                     Producto_id = dataGridView2.Rows[n].Cells["Id_Producto"].Value.ToString();
                     txtNombreProducto.Text = dataGridView2.Rows[n].Cells["Nombre_Producto"].Value.ToString();
                     txtContrato.Text = dataGridView2.Rows[n].Cells["Numero_contrato"].Value.ToString();
-                    txtValor.Text = dataGridView2.Rows[n].Cells["Valor_Total"].Value.ToString();
+                    // fotmatear campo valor
+                    valor = int.Parse( dataGridView2.Rows[n].Cells["Valor_Producto"].Value.ToString());
+                    txtValor.Text = valor.ToString("N", CultureInfo.CurrentCulture);
+                    //txtValor.Text = dataGridView2.Rows[n].Cells["Valor_Total"].Value.ToString();
                     txtObeservaciones.Text = dataGridView2.Rows[n].Cells["Observaciones"].Value.ToString();
                     DateVenta.Text = dataGridView2.Rows[n].Cells["Fecha_Venta"].Value.ToString();
                     ComboFormaPago.SelectedItem = dataGridView2.Rows[n].Cells["Forma_Pago"].Value.ToString();
@@ -563,7 +568,7 @@ namespace Cartera.Vista
             }
             if (!string.IsNullOrEmpty(txtValor.Text))
             {
-                int valor = int.Parse(txtValor.Text);
+                valor = int.Parse(txtValor.Text);
                 txtValor.Text = valor.ToString("N", CultureInfo.CurrentCulture);
             }
         }
