@@ -58,7 +58,6 @@ namespace Cartera.Vista
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(904, 451);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // panel1
             // 
@@ -75,17 +74,17 @@ namespace Cartera.Vista
             // 
             this.comboEstados.FormattingEnabled = true;
             this.comboEstados.Items.AddRange(new object[] {
-            "Al dia",
-            "Menos de 30 dias",
-            "De 31 a 60 dias",
-            "De 61 a 90 dias ",
-            "De 91 a 180 dias",
-            "Mas de 360 dias"});
+            "Nueva",
+            "Menos de 30 días",
+            "De 31 a 60 días",
+            "De 61 a 90 días",
+            "De 91 a 180 días",
+            "Mas de 360 días"});
             this.comboEstados.Location = new System.Drawing.Point(242, 22);
             this.comboEstados.Name = "comboEstados";
             this.comboEstados.Size = new System.Drawing.Size(209, 21);
             this.comboEstados.TabIndex = 2;
-            this.comboEstados.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboEstados.SelectedIndexChanged += new System.EventHandler(this.comboEstados_SelectedIndexChanged);
             this.comboEstados.SelectedValueChanged += new System.EventHandler(this.comboEstados_SelectedValueChanged);
             // 
             // label1

@@ -14,18 +14,20 @@ namespace Cartera.Vista
     public partial class Carteras : Form
     {
         CCartera cartera = new CCartera();
+        DataTable DtCartera = new DataTable();
         public Carteras()
         {
             InitializeComponent();
         }
         private void Carteras_Load(object sender, EventArgs e)
         {
-            CargarProducto();
+            CargarCartera();
         }
 
-        private void CargarProducto()
+        private void CargarCartera()
         {
-            dataGridView1.DataSource = cartera.ListarCartera();
+            DtCartera = cartera.ListarCartera();
+            dataGridView1.DataSource = DtCartera;
             dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Nombre";
             dataGridView1.Columns[2].HeaderText = "Apellido";
@@ -42,42 +44,38 @@ namespace Cartera.Vista
             Rp.Show();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void comboEstados_SelectedValueChanged(object sender, EventArgs e)
         {
             string Estados = comboEstados.Items[comboEstados.SelectedIndex].ToString();
-            if (comboEstados.Items[comboEstados.SelectedIndex].ToString() == "Menos de 30 dias")
+            if (Estados == "Menos de 30 días")
             {
-                DataTable Dt_Estado= Conexion.consulta("SELECT Id_Cliente, Nombre, Apellido, Estado_cartera, Total_Neto_Recaudado, count(Id_Producto) as productos, Total_Mora, Total_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera = Id_Cartera INNER JOIN Producto on Fk_Id_CarteraP = Id_Cartera WHERE Estado_cartera = " + Estados + " GROUP by Id_Cliente ; ");
-
-                llenarGrid(Dt_Estado);
-                    //Bloquear_Financiado();
+                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'Menos de 30 días'";                
             }
-            else if (comboEstados.Items[comboEstados.SelectedIndex].ToString() == "Financiado")
+            else if (Estados == "De 31 a 60 días")
             {
-                //Habilitar_Financiado();
+                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'De 31 a 60 días'";
+            }
+            else if (Estados == "De 61 a 90 días")
+            {
+                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'De 61 a 90 días'";
+            }
+            else if (Estados  == "De 91 a 180 días")
+            {
+                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'De 91 a 180 días'";
+            }
+            else if (Estados == "Mas de 360 días")
+            {
+                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'Mas de 360 días'";
+            }
+            else
+            {
+                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'Nueva'";
             }
         }
-        private void llenarGrid(DataTable estados)
+
+        private void comboEstados_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = estados;
-            dataGridView1.Columns["Id_Cliente"].Visible = false;
-            dataGridView1.Columns[1].HeaderText = "Nombre";
-            dataGridView1.Columns[2].HeaderText = "Apellido";
-            dataGridView1.Columns[3].HeaderText = "Estado Mora";
-            dataGridView1.Columns[4].HeaderText = "Recaudado";
-            dataGridView1.Columns[5].HeaderText = "Productos";
-            dataGridView1.Columns[6].HeaderText = "Valor Mora";
-            dataGridView1.Columns[7].HeaderText = "Total Cartera";
+
         }
     }
 }
