@@ -40,19 +40,18 @@ namespace Cartera.Vista
 
         private void Proyectos_Load(object sender, EventArgs e)
         {
-            CargarProyectos();
+            CargarProyectos();            
         }
         private void CargarProyectos()
         {
             dataGridView1.DataSource = proyecto.listarProyectos();
             //cambiar titulo de la columna
-            dataGridView1.Rows[0].Visible = false;
             dataGridView1.Columns["Id_Proyecto"].Visible = false;
-            dataGridView1.CurrentCell = null;            
+            dataGridView1.CurrentCell = null;
+            dataGridView1.Rows[0].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Nombre";
             dataGridView1.Columns[2].HeaderText = "Ubicación";
         }    
-
         private bool ValidarCampos()
         {
             bool ok = true;
