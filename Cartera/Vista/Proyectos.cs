@@ -47,21 +47,11 @@ namespace Cartera.Vista
             dataGridView1.DataSource = proyecto.listarProyectos();
             //cambiar titulo de la columna
             dataGridView1.Columns["Id_Proyecto"].Visible = false;
+            dataGridView1.CurrentCell = null;
+            dataGridView1.Rows[0].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Nombre";
             dataGridView1.Columns[2].HeaderText = "Ubicación";
-        }       
-
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            LimpiarCampos();
-            int n = e.RowIndex;
-            if (n != -1)
-            {
-                idproyecto = dataGridView1.Rows[n].Cells["Id_Proyecto"].Value.ToString();
-                txtNombreP.Text= dataGridView1.Rows[n].Cells["Proyecto_Nombre"].Value.ToString();
-                txtUbicacion.Text = dataGridView1.Rows[n].Cells["Proyecto_Ubicacion"].Value.ToString();                
-            }
-        }
+        }    
 
         private bool ValidarCampos()
         {
@@ -98,6 +88,26 @@ namespace Cartera.Vista
         private void BtLimpiar_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
+        }       
+
+        private void dataGridView1_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            LimpiarCampos();
+            int n = e.RowIndex;
+            if (n != -1)
+            {
+                idproyecto = dataGridView1.Rows[n].Cells["Id_Proyecto"].Value.ToString();
+                txtNombreP.Text = dataGridView1.Rows[n].Cells["Proyecto_Nombre"].Value.ToString();
+                txtUbicacion.Text = dataGridView1.Rows[n].Cells["Proyecto_Ubicacion"].Value.ToString();
+            }
+        }
+        private void BtBorrar_Click(object sender, EventArgs e)
+        {
+            proyecto.EliminarProyecto(int.Parse(idproyecto));
+            LimpiarCampos();
+            CargarProyectos();
+
+
         }
     }
 }

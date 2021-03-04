@@ -40,7 +40,7 @@ namespace Cartera.Vista
             CargarClientes();
             comboProyecto.DataSource = proyecto.listarProyectos();
             comboProyecto.DisplayMember = "Proyecto_Nombre";
-            comboProyecto.ValueMember = "Id_Proyecto";
+            comboProyecto.ValueMember = "Id_Proyecto";;
 
             comboTipoProducto.DataSource = tipo_producto.listarTipoProducto();
             comboTipoProducto.DisplayMember = "Nom_Tipo_Producto";

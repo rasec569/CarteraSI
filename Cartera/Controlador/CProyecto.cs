@@ -22,5 +22,9 @@ namespace Cartera.Controlador
         {
             return MProyecto.ActualizarProyecto(Id_Proyecto, Proyecto_Nombre, Proyecto_Ubicacion);
         }
+        public int EliminarProyecto(int Id_Proyecto)
+        {
+            return MProyecto.EliminarProyecto(Id_Proyecto);
+        }
     }
 }

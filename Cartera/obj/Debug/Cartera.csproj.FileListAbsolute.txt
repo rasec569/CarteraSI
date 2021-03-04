@@ -69,3 +69,4 @@ C:\Users\User\Desktop\CarteraSI\Cartera\obj\Debug\Cartera.csproj.CoreCompileInpu
 C:\Users\User\Desktop\CarteraSI\Cartera\obj\Debug\Cartera.csproj.CopyComplete
 C:\Users\User\Desktop\CarteraSI\Cartera\obj\Debug\Cartera.exe
 C:\Users\User\Desktop\CarteraSI\Cartera\obj\Debug\Cartera.pdb
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Proyectos.resources
