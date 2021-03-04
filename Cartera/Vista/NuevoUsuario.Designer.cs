@@ -48,8 +48,7 @@ namespace Cartera.Vistas
             this.txtNombreP.Location = new System.Drawing.Point(143, 20);
             this.txtNombreP.Name = "txtNombreP";
             this.txtNombreP.Size = new System.Drawing.Size(224, 20);
-            this.txtNombreP.TabIndex = 3;
-            // 
+            this.txtNombreP.TabIndex = 3;           
             // label2
             // 
             this.label2.AutoSize = true;
