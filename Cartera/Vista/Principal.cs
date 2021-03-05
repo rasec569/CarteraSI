@@ -16,13 +16,11 @@ namespace Cartera.Vista
         public Principal()
         {
             InitializeComponent();
-
         }
         private void Principal_Load(object sender, EventArgs e)
         {
            FormularioHijo<Carteras>();
         }
-
         public void FormularioHijo<MiForm>() where MiForm: Form, new()
         {
             if (this.PanelContenedor.Controls.Count > 0)
@@ -42,37 +40,29 @@ namespace Cartera.Vista
             else
             {
                 formulario.BringToFront();
-            }
-            
-
+            }     
         }
         private void BtClientes_Click(object sender, EventArgs e)
         {
             FormularioHijo<Clientes>();
         }
-
         private void BtProyectos_Click(object sender, EventArgs e)
-        {
-            
+        {            
             FormularioHijo<Proyectos>();        
         }
         private void BtSalir_Click(object sender, EventArgs e)
         {
             this.Close();
             Application.Exit();
-
         }
-
         private void PanelContenedor_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
         private void BtProductos_Click(object sender, EventArgs e)
         {
             FormularioHijo<Productos>();
         }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             FormularioHijo<Carteras>();
