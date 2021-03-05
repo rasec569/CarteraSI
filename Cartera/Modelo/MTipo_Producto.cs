@@ -25,7 +25,7 @@ namespace Cartera.Modelo
 
         internal static int EliminarTipoProducto(int Id_Tipo_Producto)
         {
-            string sql = "DELETE FROM Tipo_Producto WHERE Id_Tipo_Producto = '" + Id_Tipo_Producto + "');";
+            string sql = "DELETE FROM Tipo_Producto WHERE Id_Tipo_Producto = '" + Id_Tipo_Producto + "')";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
             cmd.Parameters.Add(new SQLiteParameter("@Id_Tipo_Producto", Id_Tipo_Producto));
             return cmd.ExecuteNonQuery();
