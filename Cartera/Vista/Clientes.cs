@@ -441,6 +441,9 @@ namespace Cartera.Vista
                         numCuotaSinInteres.Text = dataGridView2.Rows[n].Cells["Cuotas_Sin_interes"].Value.ToString();
                         numCuotasInteres.Text = dataGridView2.Rows[n].Cells["Cuotas_Con_Interes"].Value.ToString();
                     }
+                    label24.Visible = true;
+                    comboEstadoCliente.Visible = true;
+                    dateTimePicker1.Visible = true;
 
                 }
             }
@@ -600,6 +603,11 @@ namespace Cartera.Vista
         {
             HistorialClientes historial = new HistorialClientes(Cliente_id);
             historial.Show();
+        }
+
+        private void comboEstadoCliente_SelectedValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

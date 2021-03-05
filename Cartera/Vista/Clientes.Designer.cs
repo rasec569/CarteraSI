@@ -519,6 +519,7 @@ namespace Cartera.Vista
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(78, 20);
             this.dateTimePicker1.TabIndex = 29;
+            this.dateTimePicker1.Visible = false;
             // 
             // comboEstadoCliente
             // 
@@ -531,6 +532,8 @@ namespace Cartera.Vista
             this.comboEstadoCliente.Name = "comboEstadoCliente";
             this.comboEstadoCliente.Size = new System.Drawing.Size(140, 21);
             this.comboEstadoCliente.TabIndex = 28;
+            this.comboEstadoCliente.Visible = false;
+            this.comboEstadoCliente.SelectedValueChanged += new System.EventHandler(this.comboEstadoCliente_SelectedValueChanged);
             // 
             // label24
             // 
@@ -540,6 +543,7 @@ namespace Cartera.Vista
             this.label24.Size = new System.Drawing.Size(40, 13);
             this.label24.TabIndex = 27;
             this.label24.Text = "Estado";
+            this.label24.Visible = false;
             // 
             // pictureBox1
             // 
