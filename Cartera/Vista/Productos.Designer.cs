@@ -83,6 +83,7 @@ namespace Cartera.Vista
             this.btTipoProducto.TabIndex = 4;
             this.btTipoProducto.Text = "Tipo Producto";
             this.btTipoProducto.UseVisualStyleBackColor = true;
+            this.btTipoProducto.Click += new System.EventHandler(this.btTipoProducto_Click);
             // 
             // Productos
             // 
