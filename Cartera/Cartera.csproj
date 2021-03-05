@@ -145,6 +145,12 @@
     <Compile Include="Vista\Seguimiento.Designer.cs">
       <DependentUpon>Seguimiento.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\TipoProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\TipoProducto.Designer.cs">
+      <DependentUpon>TipoProducto.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Vista\Carteras.resx">
       <DependentUpon>Carteras.cs</DependentUpon>
     </EmbeddedResource>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\RegistrarPago.resx">
       <DependentUpon>RegistrarPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\TipoProducto.resx">
+      <DependentUpon>TipoProducto.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

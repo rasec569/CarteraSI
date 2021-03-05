@@ -109,5 +109,11 @@ namespace Cartera.Vista
             }
             txtBuscarProducto.AutoCompleteCustomSource = lista;
         }
+
+        private void btTipoProducto_Click(object sender, EventArgs e)
+        {
+            TipoProducto tipo = new TipoProducto();
+            tipo.Show();
+        }
     }
 }
