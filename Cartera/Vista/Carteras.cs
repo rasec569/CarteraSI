@@ -14,6 +14,7 @@ namespace Cartera.Vista
     public partial class Carteras : Form
     {
         CCartera cartera = new CCartera();
+        CCliente cliente = new CCliente();
         DataTable DtCartera = new DataTable();
         public Carteras()
         {
@@ -29,13 +30,14 @@ namespace Cartera.Vista
             DtCartera = cartera.ListarCartera();
             dataGridView1.DataSource = DtCartera;
             dataGridView1.Columns["Id_Cliente"].Visible = false;
-            dataGridView1.Columns[1].HeaderText = "Nombre";
-            dataGridView1.Columns[2].HeaderText = "Apellido";
-            dataGridView1.Columns[3].HeaderText = "Estado Mora";
-            dataGridView1.Columns[4].HeaderText = "Recaudado";
-            dataGridView1.Columns[5].HeaderText = "Productos";
-            dataGridView1.Columns[6].HeaderText = "Valor Mora";
-            dataGridView1.Columns[7].HeaderText = "Total Cartera";
+            dataGridView1.Columns[1].HeaderText = "Cedula";
+            dataGridView1.Columns[2].HeaderText = "Nombre";
+            dataGridView1.Columns[3].HeaderText = "Apellido";
+            dataGridView1.Columns[4].HeaderText = "Estado Mora";
+            dataGridView1.Columns[5].HeaderText = "Recaudado";
+            dataGridView1.Columns[6].HeaderText = "Productos";
+            dataGridView1.Columns[7].HeaderText = "Valor Mora";
+            dataGridView1.Columns[8].HeaderText = "Total Cartera";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -76,6 +78,31 @@ namespace Cartera.Vista
         private void comboEstados_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int cedula = 0;
+            try
+            {
+                int n = e.RowIndex;
+                if (n != -1)
+                {
+                    cedula = int.Parse(dataGridView1.Rows[n].Cells["Cedula"].Value.ToString());
+
+                    //Principal principal = new Principal();
+                    Clientes clientes = new Clientes(cedula);
+                    clientes.MdiParent = this.MdiParent;
+                    //clientes.Show();
+                    //principal.AbrirCliente();
+
+                }
+                // this.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Valor no admitido");
+            }
         }
     }
 }

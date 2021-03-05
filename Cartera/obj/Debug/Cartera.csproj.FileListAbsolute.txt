@@ -13,8 +13,6 @@ C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\bin\Debug\EntityFramework.Sql
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\bin\Debug\System.Data.SQLite.xml
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Carteras.resources
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Clientes.resources
-C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vistas.Principal.resources
-C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vistas.Login.resources
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Properties.Resources.resources
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Productos.resources
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Proyectos.resources
@@ -25,3 +23,6 @@ C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.csproj.Copy
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.exe
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.pdb
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.csprojAssemblyReference.cache
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.HistorialClientes.resources
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Principal.resources
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Login.resources

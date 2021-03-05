@@ -27,6 +27,10 @@ namespace Cartera.Modelo
         public static DataTable cargarClientes(string nombre){
         return Conexion.consulta("SELECT * FROM Cliente WHERE Nombre =Upper( '" + nombre + "')");
         }
+        public static DataTable BuscarClientesCedula(string cedula)
+        {
+            return Conexion.consulta("SELECT * FROM Cliente WHERE Cedula ='" + cedula + "'");
+        }
 
         public static int crearCliente(int cedula,string nombre,string apellido, int telefono,string direccion,string correo,int idCartera){
         string sql = "insert into Cliente(Cedula,Nombre,Apellido,Telefono, Direccion, Correo, Fk_Id_Cartera) values(@Cedula,upper(@Nombre),upper(@Apellido),@Telefono,@Direccion,@Correo,@Fk_Id_Cartera)";

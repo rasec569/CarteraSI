@@ -20,6 +20,10 @@ namespace Cartera.Controlador
         {
             return MCliente.cargarClientes(nombre);
         }
+        public DataTable BuscarClientesCedula(string cedula)
+        {
+            return MCliente.BuscarClientesCedula(cedula);
+        }
 
         public int crearCliente(int cedula,string nombre,string apellido, int telefono ,string direccion,string correo,int idCartera)
         {

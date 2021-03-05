@@ -35,7 +35,25 @@ namespace Cartera.Vista
             DateRecaudo.MaxDate = DateTime.Today;
             DateVenta.MaxDate = DateTime.Today;
         }
+        public Clientes(int cedula)
+        {
+            InitializeComponent();
+            Panel_Registrar_user.Visible = true;
+            dataGridView2.DataSource = "";
+            LimpiarUsuario();
+            LimpiarProducto();
+            DataTable DtUsuario = cliente.BuscarClientesCedula(cedula.ToString());
+            Cliente_id = DtUsuario.Rows[0]["Id_Cliente"].ToString();
+            txtCedula.Text = DtUsuario.Rows[0]["Cedula"].ToString();
+            txtNombres.Text = DtUsuario.Rows[0]["Nombre"].ToString();
+            txtApellidos.Text = DtUsuario.Rows[0]["Apellido"].ToString();
+            txtTelefono.Text = DtUsuario.Rows[0]["Telefono"].ToString();
+            txtDireccion.Text = DtUsuario.Rows[0]["Direccion"].ToString();
+            txtCorreo.Text = DtUsuario.Rows[0]["Correo"].ToString();
+            Cartera_id = int.Parse(DtUsuario.Rows[0]["Fk_Id_Cartera"].ToString());
+            CargarProducto();
 
+        }
         private void Clientes_Load(object sender, EventArgs e)
         {
             autocompletar();
@@ -580,7 +598,8 @@ namespace Cartera.Vista
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            HistorialClientes historial = new HistorialClientes(Cliente_id);
+            historial.Show();
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Data.SQLite;
 using Cartera.Controlador;
 using Cartera.Modelo;
 
-namespace Cartera.Vistas
+namespace Cartera.Vista
 {
     public partial class Login : Form
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace Cartera.Vistas
+namespace Cartera.Vista
 {
     partial class Login
     {
