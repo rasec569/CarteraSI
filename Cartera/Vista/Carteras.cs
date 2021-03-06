@@ -83,16 +83,24 @@ namespace Cartera.Vista
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             int cedula = 0;
+            string nombre = "";
+            string apellido = "";
+            string clienteid = "";
             try
             {
                 int n = e.RowIndex;
                 if (n != -1)
                 {
+                    //DataTable cartera = (DataTable)(dataGridView1.DataSource);
+                    clienteid = dataGridView1.Rows[n].Cells["Id_Cliente"].Value.ToString();
                     cedula = int.Parse(dataGridView1.Rows[n].Cells["Cedula"].Value.ToString());
-
+                    nombre = dataGridView1.Rows[n].Cells["Nombre"].Value.ToString();
+                    apellido = dataGridView1.Rows[n].Cells["Apellido"].Value.ToString();
+                    RegistrarPago Rp = new RegistrarPago( cedula, nombre+" "+apellido, clienteid);
+                    Rp.Show();
                     //Principal principal = new Principal();
-                    Clientes clientes = new Clientes(cedula);
-                    clientes.MdiParent = this.MdiParent;
+                    //Clientes clientes = new Clientes(cedula);
+                    //clientes.MdiParent = this.MdiParent;
                     //clientes.Show();
                     //principal.AbrirCliente();
 

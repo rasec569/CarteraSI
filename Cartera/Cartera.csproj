@@ -77,6 +77,7 @@
     <Compile Include="Controlador\CCliente_Producto.cs" />
     <Compile Include="Controlador\CFinanciacion.cs" />
     <Compile Include="Controlador\CLogin.cs" />
+    <Compile Include="Controlador\CPago.cs" />
     <Compile Include="Controlador\CProducto.cs" />
     <Compile Include="Controlador\CProyecto.cs" />
     <Compile Include="Conexion.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Modelo\MCliente_Producto.cs" />
     <Compile Include="Modelo\MFinanciacion.cs" />
     <Compile Include="Modelo\MLogin.cs" />
+    <Compile Include="Modelo\MPago.cs" />
     <Compile Include="Modelo\MProducto.cs" />
     <Compile Include="Modelo\MProyecto.cs" />
     <Compile Include="Modelo\MTipo_Producto.cs" />
