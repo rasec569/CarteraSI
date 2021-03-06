@@ -15,9 +15,13 @@ namespace Cartera.Controlador
             return MPago.ConsultarUltimaCuota(productoid);
         }
 
-        public int RegistrarPago(string Porcentaje,int Numero_Cuota,string Fecha_Pago, string Referencia_Pago,int Valor_Pagado,string Descuento,int Valor_Descuento,int Fk_Id_Producto)
+        public int RegistrarPago(string Porcentaje,string Numero_Cuota,string Fecha_Pago, string Referencia_Pago,string Valor_Pagado,string Descuento,string Valor_Descuento,string Fk_Id_Producto)
         {
             return MPago.RegistrarPago(Porcentaje, Numero_Cuota, Fecha_Pago, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto);
+        }
+        public DataTable SumarValorRecaudado(string productoid)
+        {
+            return MPago.SumarValorRecaudado(productoid);
         }
     }
 }

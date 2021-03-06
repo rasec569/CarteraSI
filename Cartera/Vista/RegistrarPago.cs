@@ -14,7 +14,9 @@ namespace Cartera.Vista
     public partial class RegistrarPago : Form
     {
         int productoid = 0;
+        int carteraId = 0;
         CProducto producto = new CProducto();
+        CCartera cartera = new CCartera();
         CPago pago = new CPago();
         int clienteId = 0;
         DataTable DtNombres = new DataTable();
@@ -23,10 +25,11 @@ namespace Cartera.Vista
             InitializeComponent();
             
         }
-        public RegistrarPago(int cedula,string nombre, string clienteid)
+        public RegistrarPago(int cedula,string nombre, string clienteid, string carteraid)
         {
             InitializeComponent();
             clienteId = int.Parse(clienteid);
+            carteraId = int.Parse(carteraid);
             txtNombre.Text = nombre;
             Txtcedula.Text = cedula.ToString();
             CargarProducto();
@@ -43,7 +46,16 @@ namespace Cartera.Vista
             ValidarCampos();
             if (ValidarCampos() == true)
             {
-                pago.RegistrarPago(comboDescuento.Text, int.Parse(txtCuota.Text), dateFechaPago.Text, txtReferencia.Text, int.Parse(txtValor.Text), comboDescuento.Text, int.Parse(txtValorDescuento.Text), productoid);
+                if (comboDescuento.Text == "Seleccionar")
+                {
+                    pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtReferencia.Text, txtValor.Text, "", "", productoid.ToString());
+                }
+                else
+                {
+                    pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtReferencia.Text, txtValor.Text, comboDescuento.Text, txtValorDescuento.Text, productoid.ToString());
+                }
+                cartera.ActulizarValorRecaudado(productoid, carteraId);
+                this.Close();
             }
             }
         void autocompletar()
@@ -76,12 +88,13 @@ namespace Cartera.Vista
                     txtProducto.Text = dataGridView1.Rows[n].Cells["Nombre_Producto"].Value.ToString();
 
                     DataTable Dtcuota = pago.ConsultarUltimaCuota(productoid);
-                    if (int.Parse(Dtcuota.Rows[0]["max(Numero_Cuota)"].ToString())==0)
+                    int num_cuota = int.Parse(Dtcuota.Rows[0]["max(Numero_Cuota)"].ToString());
+                    if (num_cuota == 0)
                     {
                         txtCuota.Text = "1";
                     }
                     else {
-                        txtCuota.Text = Dtcuota.Rows[0]["max(Numero_Cuota)"].ToString();
+                        txtCuota.Text =(1 + num_cuota).ToString();
                     }
                 }
             }

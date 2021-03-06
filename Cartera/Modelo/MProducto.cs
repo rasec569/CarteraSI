@@ -73,7 +73,7 @@ namespace Cartera.Modelo
 
         public static int actualizarProducto(int id_Producto, string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Producto, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
         {
-            string sql = "UPDATE Producto SET Nombre_Producto=@Nombre_Producto , Numero_contrato=@Numero_contrato, Forma_Pago=@Forma_Pago, Valor_Producto=@Valor_Producto, Fecha_Venta=@Fecha_Venta Observaciones=@Observaciones, Fk_Id_Proyecto=@Fk_Id_Proyecto, Fk_Id_Tipo_Producto=@Fk_Id_Tipo_Producto WHERE Id_Producto =" + id_Producto + "";
+            string sql = "UPDATE Producto SET Nombre_Producto=@Nombre_Producto , Numero_contrato=@Numero_contrato, Forma_Pago=@Forma_Pago, Valor_Producto=@Valor_Producto, Fecha_Venta=@Fecha_Venta, Observaciones=@Observaciones, Fk_Id_Proyecto=@Fk_Id_Proyecto, Fk_Id_Tipo_Producto=@Fk_Id_Tipo_Producto WHERE Id_Producto =" + id_Producto + "";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
             cmd.Parameters.Add(new SQLiteParameter("@Nombre_Producto", Nombre_Producto));
             cmd.Parameters.Add(new SQLiteParameter("@Numero_contrato", Numero_contrato));

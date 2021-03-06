@@ -27,7 +27,7 @@ namespace Cartera.Vista
 
         private void CargarCartera()
         {
-            DtCartera = cartera.ListarCartera();
+            DtCartera = cartera.ListarCartera();            
             dataGridView1.DataSource = DtCartera;
             dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Cedula";
@@ -38,6 +38,7 @@ namespace Cartera.Vista
             dataGridView1.Columns[6].HeaderText = "Productos";
             dataGridView1.Columns[7].HeaderText = "Valor Mora";
             dataGridView1.Columns[8].HeaderText = "Total Cartera";
+            dataGridView1.Columns["Id_Cartera"].Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -86,6 +87,7 @@ namespace Cartera.Vista
             string nombre = "";
             string apellido = "";
             string clienteid = "";
+            string carteraid = "";
             try
             {
                 int n = e.RowIndex;
@@ -96,7 +98,8 @@ namespace Cartera.Vista
                     cedula = int.Parse(dataGridView1.Rows[n].Cells["Cedula"].Value.ToString());
                     nombre = dataGridView1.Rows[n].Cells["Nombre"].Value.ToString();
                     apellido = dataGridView1.Rows[n].Cells["Apellido"].Value.ToString();
-                    RegistrarPago Rp = new RegistrarPago( cedula, nombre+" "+apellido, clienteid);
+                    carteraid = dataGridView1.Rows[n].Cells["Id_Cartera"].Value.ToString();
+                    RegistrarPago Rp = new RegistrarPago( cedula, nombre+" "+apellido, clienteid, carteraid);
                     Rp.Show();
                     //Principal principal = new Principal();
                     //Clientes clientes = new Clientes(cedula);

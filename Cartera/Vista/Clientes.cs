@@ -223,6 +223,7 @@ namespace Cartera.Vista
                                 {
                                     Cliente_id = cliente.ultimoCliente().Rows[0]["max(Id_Cliente)"].ToString();
                                     Producto_id = producto.ultimoProducto().Rows[0]["max(Id_Producto)"].ToString();
+                                    cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
                                     int retorno4 = CliProd.InsertCliente_Producto(int.Parse(Cliente_id), int.Parse(Producto_id));
                                     if ((ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString() == "Financiación") && (retorno4 != 0))
                                     {
@@ -251,6 +252,7 @@ namespace Cartera.Vista
                         if (retorno != 0)
                         {
                             Producto_id = producto.ultimoProducto().Rows[0]["max(Id_Producto)"].ToString();
+                            cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
                             int retorno2 = CliProd.InsertCliente_Producto(int.Parse(Cliente_id), int.Parse(Producto_id));
                             if ((retorno2 != 0) && (ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString() == "Financiación"))
                             {
@@ -260,13 +262,15 @@ namespace Cartera.Vista
                     }
                     else if (txtNombreProducto.Text !="")
                     {
-                        producto.actualizarProducto(int.Parse(Producto_id), txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString(), int.Parse(txtValor.Text), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedIndex.ToString()), int.Parse(comboTipoProducto.SelectedIndex.ToString()));
+                        producto.actualizarProducto(int.Parse(Producto_id), txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString(), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedIndex.ToString()), int.Parse(comboTipoProducto.SelectedIndex.ToString()));
+                        cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
                         if (ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString() == "Financiación")
                         {
-                            financiacion.actualizarFinanciacion(int.Parse(Financiacion_id), int.Parse(txtValorFinanciaciom.Text), int.Parse(txtValorEntrada.Text), int.Parse(txtValorSin.Text), int.Parse(txtValorCon.Text), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(txtValorCon.Text), int.Parse(numCuotasInteres.ToString()), int.Parse(txtValorCuotaInteres.Text), int.Parse(numValorInteres.ToString()), DateRecaudo.Text, int.Parse(Producto_id));
+                            financiacion.actualizarFinanciacion(int.Parse(Financiacion_id), int.Parse(txtValorFinanciaciom.Text), int.Parse(txtValorEntrada.Text), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(txtValorCon.Text), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(txtValorCon.Text), int.Parse(numCuotasInteres.ToString()), int.Parse(txtValorCuotaInteres.Text), int.Parse(numValorInteres.ToString()), DateRecaudo.Text, int.Parse(Producto_id));
                         }
                     }
                 }
+                
                 Panel_Registrar_user.Visible = false;
                 //Panel_Clientes.Visible = true;
                 CargarClientes();

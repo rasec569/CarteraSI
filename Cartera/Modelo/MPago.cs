@@ -16,7 +16,7 @@ namespace Cartera.Modelo
             throw new NotImplementedException();
         }
 
-        internal static int RegistrarPago(string porcentaje, int numero_Cuota, string fecha_Pago, string referencia_Pago, int valor_Pagado, string descuento, int valor_Descuento, int fk_Id_Producto)
+        internal static int RegistrarPago(string porcentaje, string numero_Cuota, string fecha_Pago, string referencia_Pago, string valor_Pagado, string descuento, string valor_Descuento, string fk_Id_Producto)
         {
             string sql = "INSERT INTO Pagos(Porcentaje, Numero_Cuota, Fecha_Pago, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto)VALUES(@Porcentaje, @Numero_Cuota, @Fecha_Pago, @Referencia_Pago, @Valor_Pagado, @Descuento, @Valor_Descuento, @Fk_Id_Producto)";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
@@ -29,6 +29,11 @@ namespace Cartera.Modelo
             cmd.Parameters.Add(new SQLiteParameter("@Valor_Descuento", valor_Descuento));
             cmd.Parameters.Add(new SQLiteParameter("@Fk_Id_Producto", fk_Id_Producto));
             return cmd.ExecuteNonQuery();
+        }
+
+        internal static DataTable SumarValorRecaudado(string productoid)
+        {
+            return Conexion.consulta("SELECT sum(Valor_Pagado) FROM Pagos WHERE Fk_Id_Producto = '"+ productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto.");
         }
     }
 }
