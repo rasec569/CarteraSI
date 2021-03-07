@@ -86,7 +86,18 @@ namespace Cartera.Vista
         private void ListarPagosCliente()
         {
             dataGridView1.DataSource = producto.cargarProductosCliente(int.Parse(clienteid));
-           // pago.ListarPagosCliente();
+            dataGridView1.Columns["Id_Producto"].Visible = false;
+            dataGridView1.Columns[1].HeaderText = "Producto";
+            dataGridView1.Columns[2].HeaderText = "Contrato";
+            dataGridView1.Columns[3].HeaderText = "Forma Pago";
+            dataGridView1.Columns[4].HeaderText = "Valor Producto";
+            dataGridView1.Columns[5].HeaderText = "Fecha Venta";
+            dataGridView1.Columns["Observaciones"].Visible = false;
+            dataGridView1.Columns[7].HeaderText = "Proyecto";
+            dataGridView1.Columns[8].HeaderText = "Tipo Producto";
+            dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
+            dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
+            // pago.ListarPagosCliente();
         }
 
         private void txtCedula_TextChanged(object sender, EventArgs e)
@@ -105,6 +116,28 @@ namespace Cartera.Vista
                     errorProvider1.Clear();
                 }
             }
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int n = e.RowIndex;
+            if (n != -1)
+            {
+               // Porcentaje, Numero_Cuota, Fecha_Pago, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto
+                dataGridView2.DataSource= pago.ListarPagosCliente(dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString());
+                dataGridView2.Columns["Id_Pagos"].Visible = false;
+                dataGridView2.Columns[1].HeaderText = "Tipo Pago";
+                dataGridView2.Columns[2].HeaderText = "Numero Cuota";
+                dataGridView2.Columns[3].HeaderText = "Fecha Pago";
+                dataGridView2.Columns[4].HeaderText = "Referencia de pago";
+                dataGridView2.Columns[5].HeaderText = "Valor Pagado";
+                dataGridView2.Columns[6].HeaderText = "Descuento";
+                dataGridView2.Columns[7].HeaderText = "Valor Descuento";
+                dataGridView2.Columns["Fk_Id_Producto"].Visible = false;
+                
+            }
+            dataGridView2.Visible = true;
+            dataGridView1.Visible = false;
         }
     } 
 }

@@ -53,6 +53,7 @@ namespace Cartera.Vista
             this.panelProductos = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.Btbuscar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panelProductos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -161,6 +162,7 @@ namespace Cartera.Vista
             this.comboDescuento.Size = new System.Drawing.Size(182, 21);
             this.comboDescuento.TabIndex = 14;
             this.comboDescuento.Text = "Seleccionar";
+            this.comboDescuento.SelectedIndexChanged += new System.EventHandler(this.comboDescuento_SelectedIndexChanged);
             // 
             // label9
             // 
@@ -173,6 +175,7 @@ namespace Cartera.Vista
             // 
             // txtValorDescuento
             // 
+            this.txtValorDescuento.Enabled = false;
             this.txtValorDescuento.Location = new System.Drawing.Point(393, 152);
             this.txtValorDescuento.Name = "txtValorDescuento";
             this.txtValorDescuento.Size = new System.Drawing.Size(125, 20);
@@ -190,11 +193,12 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Btbuscar);
             this.groupBox1.Controls.Add(this.Txtcedula);
             this.groupBox1.Controls.Add(this.txtNombre);
-            this.groupBox1.Location = new System.Drawing.Point(18, 9);
+            this.groupBox1.Location = new System.Drawing.Point(12, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(498, 50);
+            this.groupBox1.Size = new System.Drawing.Size(514, 50);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
@@ -204,18 +208,18 @@ namespace Cartera.Vista
             this.Txtcedula.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Txtcedula.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.Txtcedula.Enabled = false;
-            this.Txtcedula.Location = new System.Drawing.Point(21, 19);
+            this.Txtcedula.Location = new System.Drawing.Point(8, 19);
             this.Txtcedula.Name = "Txtcedula";
-            this.Txtcedula.Size = new System.Drawing.Size(140, 20);
+            this.Txtcedula.Size = new System.Drawing.Size(134, 20);
             this.Txtcedula.TabIndex = 20;
             this.Txtcedula.TextChanged += new System.EventHandler(this.Txtcedula_TextChanged);
             // 
             // txtNombre
             // 
             this.txtNombre.Enabled = false;
-            this.txtNombre.Location = new System.Drawing.Point(167, 19);
+            this.txtNombre.Location = new System.Drawing.Point(148, 19);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(325, 20);
+            this.txtNombre.Size = new System.Drawing.Size(290, 20);
             this.txtNombre.TabIndex = 19;
             // 
             // txtCuota
@@ -263,6 +267,16 @@ namespace Cartera.Vista
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // Btbuscar
+            // 
+            this.Btbuscar.Location = new System.Drawing.Point(452, 17);
+            this.Btbuscar.Name = "Btbuscar";
+            this.Btbuscar.Size = new System.Drawing.Size(56, 23);
+            this.Btbuscar.TabIndex = 21;
+            this.Btbuscar.Text = "Buscar";
+            this.Btbuscar.UseVisualStyleBackColor = true;
+            this.Btbuscar.Click += new System.EventHandler(this.Btbuscar_Click);
             // 
             // RegistrarPago
             // 
@@ -325,5 +339,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.Panel panelProductos;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button Btbuscar;
     }
 }

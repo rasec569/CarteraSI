@@ -60,11 +60,6 @@ namespace Cartera.Vista
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void BtBuscarProducto_Click(object sender, EventArgs e)
         {
             dataGridView1.DataSource = "";
@@ -114,6 +109,12 @@ namespace Cartera.Vista
         {
             TipoProducto tipo = new TipoProducto();
             tipo.Show();
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Seguimiento se = new Seguimiento();
+            se.Show();
         }
     }
 }

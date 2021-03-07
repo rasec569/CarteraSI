@@ -192,6 +192,9 @@
     <EmbeddedResource Include="Vista\RegistrarPago.resx">
       <DependentUpon>RegistrarPago.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Seguimiento.resx">
+      <DependentUpon>Seguimiento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vista\TipoProducto.resx">
       <DependentUpon>TipoProducto.cs</DependentUpon>
     </EmbeddedResource>

@@ -159,6 +159,17 @@ namespace Cartera.Vista
                 ok = true;
                 errorProvider1.Clear();
             }
+            if (comboTipoPago.Text == "Seleccionar")
+            {
+                ok = false;
+                errorProvider1.SetError(comboTipoPago, "Seleccione Tipo de Pago");
+            }
+            else
+            {
+                ok = true;
+                errorProvider1.Clear();
+            }
+
             if (comboDescuento.Text != "Seleccionar")
             {
                 if (txtValorDescuento.Text == "")
@@ -177,6 +188,28 @@ namespace Cartera.Vista
 
         private void Txtcedula_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void comboDescuento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboDescuento.Text!= "Seleccionar")
+            {
+                txtValorDescuento.Enabled = true;
+            }
+        }
+
+        private void Btbuscar_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = "";
+            DataTable dtclientes = cliente.BuscarClientesCedula(Txtcedula.Text);
+            clienteId =int.Parse(dtclientes.Rows[0]["Id_Cliente"].ToString());
+            txtNombre.Text= dtclientes.Rows[0]["Nombre"].ToString();
+            CargarProducto();
+           // string clienteid = "";
+            //HistorialPagos Hp = new HistorialPagos();
+            //Hp.
+
 
         }
     }    
