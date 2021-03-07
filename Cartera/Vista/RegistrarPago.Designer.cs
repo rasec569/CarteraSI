@@ -201,11 +201,14 @@ namespace Cartera.Vista
             // 
             // Txtcedula
             // 
+            this.Txtcedula.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.Txtcedula.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.Txtcedula.Enabled = false;
             this.Txtcedula.Location = new System.Drawing.Point(21, 19);
             this.Txtcedula.Name = "Txtcedula";
             this.Txtcedula.Size = new System.Drawing.Size(140, 20);
             this.Txtcedula.TabIndex = 20;
+            this.Txtcedula.TextChanged += new System.EventHandler(this.Txtcedula_TextChanged);
             // 
             // txtNombre
             // 

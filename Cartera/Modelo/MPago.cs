@@ -31,6 +31,11 @@ namespace Cartera.Modelo
             return cmd.ExecuteNonQuery();
         }
 
+        internal static DataTable ListarPagosCliente(string productoid)
+        {
+            return Conexion.consulta("SELECT * FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
+        }
+
         internal static DataTable SumarValorRecaudado(string productoid)
         {
             return Conexion.consulta("SELECT sum(Valor_Pagado) FROM Pagos WHERE Fk_Id_Producto = '"+ productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto.");

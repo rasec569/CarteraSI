@@ -109,6 +109,12 @@
     <Compile Include="Vista\HistorialClientes.Designer.cs">
       <DependentUpon>HistorialClientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\HistorialPagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\HistorialPagos.Designer.cs">
+      <DependentUpon>HistorialPagos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\HistorialClientes.resx">
       <DependentUpon>HistorialClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\HistorialPagos.resx">
+      <DependentUpon>HistorialPagos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
