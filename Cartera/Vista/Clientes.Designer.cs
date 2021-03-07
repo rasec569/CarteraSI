@@ -75,7 +75,7 @@ namespace Cartera.Vista
             this.txtObeservaciones = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateFechaEstado = new System.Windows.Forms.DateTimePicker();
             this.comboEstadoCliente = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -489,7 +489,7 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.dateFechaEstado);
             this.groupBox1.Controls.Add(this.comboEstadoCliente);
             this.groupBox1.Controls.Add(this.label24);
             this.groupBox1.Controls.Add(this.pictureBox1);
@@ -512,14 +512,14 @@ namespace Cartera.Vista
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
             // 
-            // dateTimePicker1
+            // dateFechaEstado
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(236, 234);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(78, 20);
-            this.dateTimePicker1.TabIndex = 29;
-            this.dateTimePicker1.Visible = false;
+            this.dateFechaEstado.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateFechaEstado.Location = new System.Drawing.Point(236, 234);
+            this.dateFechaEstado.Name = "dateFechaEstado";
+            this.dateFechaEstado.Size = new System.Drawing.Size(78, 20);
+            this.dateFechaEstado.TabIndex = 29;
+            this.dateFechaEstado.Visible = false;
             // 
             // comboEstadoCliente
             // 
@@ -817,7 +817,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.ComboBox comboEstadoCliente;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateFechaEstado;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.TextBox txtValorFinanciaciom;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;

@@ -17,7 +17,7 @@ namespace Cartera.Modelo
         DateTime Fecha_Cambio { get; set; }
         string Estado_Cliente { get; set; }
 
-        public static int InsertCliente_Producto(int id_Cliente, int Id_Producto)
+        public static int InsertCliente_Producto(string id_Cliente, string Id_Producto)
         {
             string sql = "INSERT INTO Cliente_Producto(Pfk_ID_Cliente, Pfk_ID_Producto, Fecha_Cambio, Estado_Cliente) VALUES (@Id_Cliente, @Id_Producto, @Fecha_Cambio, @Estado_Cliente); ";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
@@ -28,9 +28,19 @@ namespace Cartera.Modelo
             return cmd.ExecuteNonQuery();
         }
 
-        internal static DataTable HistorialCliente(int id_Cliente)
+        internal static int EstadoTrasferir(string id_Cliente, string id_Producto, string fechacambio)
         {
-            return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Fecha_Cambio, Estado_Cliente, Nombre_Producto FROM Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Id_Cliente='"+ id_Cliente + "' AND Pfk_ID_Producto = Pfk_ID_Producto");
+            string sql = "UPDATE Cliente_Producto SET Estado_Cliente=@Estado_Cliente, Fecha_Cambio=@Fecha_Cambio WHERE Pfk_ID_Cliente= '" + id_Cliente + "' AND Pfk_ID_Producto='" + id_Producto + "'";
+            SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+            cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Trasferido"));
+            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", fechacambio));
+            return cmd.ExecuteNonQuery();
+           
+        }
+
+        internal static DataTable HistorialCliente(int id_Producto)
+        {
+            return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Nombre_Producto, Estado_Cliente, Fecha_Cambio FROM Cliente_Producto INNER JOIN Cliente on Id_Cliente = Pfk_ID_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Pfk_ID_Producto='" + id_Producto + "'");
         }
     }
 }
