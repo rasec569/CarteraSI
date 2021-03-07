@@ -57,3 +57,4 @@ C:\Users\User\Desktop\CarteraSI\CarteraSI\Cartera\obj\Debug\Cartera.pdb
 C:\Users\User\Desktop\CarteraSI\CarteraSI\Cartera\obj\Debug\Cartera.Vista.TipoProducto.resources
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.TipoProducto.resources
 C:\Users\User\Desktop\CarteraSI\CarteraSI\Cartera\obj\Debug\Cartera.Vista.HistorialPagos.resources
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.HistorialPagos.resources
