@@ -115,5 +115,13 @@ namespace Cartera.Vista
                 MessageBox.Show("Valor no admitido");
             }
         }
+
+        
+
+        private void BtHistorialPago_Click(object sender, EventArgs e)
+        {
+            HistorialPagos Hp = new HistorialPagos();
+            Hp.Show();
+        }
     }
 }

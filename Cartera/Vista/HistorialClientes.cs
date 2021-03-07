@@ -33,5 +33,13 @@ namespace Cartera.Vista
         {
             dataGridView1.DataSource = cliente_producto.HistorialCliente(int.Parse(ClienteId));
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        
+
     }
 }

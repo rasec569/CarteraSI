@@ -36,6 +36,7 @@ namespace Cartera.Vista
             this.label1 = new System.Windows.Forms.Label();
             this.BtPago = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.BtHistorialPago = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -62,6 +63,7 @@ namespace Cartera.Vista
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.BtHistorialPago);
             this.panel1.Controls.Add(this.comboEstados);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.BtPago);
@@ -99,11 +101,11 @@ namespace Cartera.Vista
             // 
             // BtPago
             // 
-            this.BtPago.Location = new System.Drawing.Point(726, 20);
+            this.BtPago.Location = new System.Drawing.Point(523, 20);
             this.BtPago.Name = "BtPago";
-            this.BtPago.Size = new System.Drawing.Size(75, 23);
+            this.BtPago.Size = new System.Drawing.Size(94, 23);
             this.BtPago.TabIndex = 0;
-            this.BtPago.Text = "Pago";
+            this.BtPago.Text = "Registrar Pago";
             this.BtPago.UseVisualStyleBackColor = true;
             this.BtPago.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -115,6 +117,16 @@ namespace Cartera.Vista
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(931, 537);
             this.panel2.TabIndex = 1;
+            // 
+            // BtHistorialPago
+            // 
+            this.BtHistorialPago.Location = new System.Drawing.Point(643, 20);
+            this.BtHistorialPago.Name = "BtHistorialPago";
+            this.BtHistorialPago.Size = new System.Drawing.Size(94, 23);
+            this.BtHistorialPago.TabIndex = 3;
+            this.BtHistorialPago.Text = "Historial Pago";
+            this.BtHistorialPago.UseVisualStyleBackColor = true;
+            this.BtHistorialPago.Click += new System.EventHandler(this.BtHistorialPago_Click);
             // 
             // Carteras
             // 
@@ -145,5 +157,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.Button BtPago;
         private System.Windows.Forms.ComboBox comboEstados;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button BtHistorialPago;
     }
 }

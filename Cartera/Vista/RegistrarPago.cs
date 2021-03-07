@@ -18,13 +18,28 @@ namespace Cartera.Vista
         CProducto producto = new CProducto();
         CCartera cartera = new CCartera();
         CPago pago = new CPago();
+        CCliente cliente = new CCliente();
         int clienteId = 0;
         DataTable DtNombres = new DataTable();
         public RegistrarPago()
         {
             InitializeComponent();
+            Txtcedula.Enabled = true;
             
         }
+
+        void autocompletar()
+        {
+            DataTable DtCliente = new DataTable();
+            AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
+            DtCliente = cliente.cargarClientes();
+            for (int i = 0; i < DtCliente.Rows.Count; i++)
+            {
+                lista.Add(DtCliente.Rows[i]["Cedula"].ToString());
+            }
+            Txtcedula.AutoCompleteCustomSource = lista;
+        }
+
         public RegistrarPago(int cedula,string nombre, string clienteid, string carteraid)
         {
             InitializeComponent();
@@ -58,16 +73,7 @@ namespace Cartera.Vista
                 this.Close();
             }
             }
-        void autocompletar()
-        {
-            AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
-            DtNombres = Conexion.consulta("Select * from Cliente");
-            for (int i = 0; i < DtNombres.Rows.Count; i++)
-            {
-                lista.Add(DtNombres.Rows[i]["Nombre"].ToString());
-            }
-            txtNombre.AutoCompleteCustomSource = lista;
-        }
+        
 
         private void label6_Click(object sender, EventArgs e)
         {
@@ -167,6 +173,11 @@ namespace Cartera.Vista
                 }
             }
             return ok;
+        }
+
+        private void Txtcedula_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }    
 }

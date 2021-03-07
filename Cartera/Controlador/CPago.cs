@@ -23,5 +23,9 @@ namespace Cartera.Controlador
         {
             return MPago.SumarValorRecaudado(productoid);
         }
+        public DataTable ListarPagosCliente(string productoid)
+        {
+            return MPago.ListarPagosCliente(productoid);
+        }
     }
 }
