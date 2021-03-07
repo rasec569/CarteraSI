@@ -525,13 +525,13 @@ namespace Cartera.Vista
             // 
             this.comboEstadoCliente.FormattingEnabled = true;
             this.comboEstadoCliente.Items.AddRange(new object[] {
-            "Activo",
             "Trasferir",
-            "Disolución"});
+            "Disolver"});
             this.comboEstadoCliente.Location = new System.Drawing.Point(90, 234);
             this.comboEstadoCliente.Name = "comboEstadoCliente";
             this.comboEstadoCliente.Size = new System.Drawing.Size(140, 21);
             this.comboEstadoCliente.TabIndex = 28;
+            this.comboEstadoCliente.Text = "Transferir, Disolver";
             this.comboEstadoCliente.Visible = false;
             this.comboEstadoCliente.SelectedValueChanged += new System.EventHandler(this.comboEstadoCliente_SelectedValueChanged);
             // 

@@ -22,5 +22,9 @@ namespace Cartera.Controlador
         {
             return MCliente_Producto.EstadoTrasferir(id_Cliente, Id_Producto, fechacambio);
         }
+        public int EstadoDisolver(string id_Cliente, string Id_Producto, string fechacambio)
+        {
+            return MCliente_Producto.EstadoDisolver(id_Cliente, Id_Producto, fechacambio);
+        }
     }
 }

@@ -28,6 +28,15 @@ namespace Cartera.Modelo
             return cmd.ExecuteNonQuery();
         }
 
+        internal static int EstadoDisolver(string id_Cliente, string id_Producto, string fechacambio)
+        {
+            string sql = "UPDATE Cliente_Producto SET Estado_Cliente=@Estado_Cliente, Fecha_Cambio=@Fecha_Cambio WHERE Pfk_ID_Cliente= '" + id_Cliente + "' AND Pfk_ID_Producto='" + id_Producto + "'";
+            SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+            cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Disuelto"));
+            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", fechacambio));
+            return cmd.ExecuteNonQuery();
+        }
+
         internal static int EstadoTrasferir(string id_Cliente, string id_Producto, string fechacambio)
         {
             string sql = "UPDATE Cliente_Producto SET Estado_Cliente=@Estado_Cliente, Fecha_Cambio=@Fecha_Cambio WHERE Pfk_ID_Cliente= '" + id_Cliente + "' AND Pfk_ID_Producto='" + id_Producto + "'";

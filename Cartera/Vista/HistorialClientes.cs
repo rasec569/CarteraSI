@@ -32,6 +32,9 @@ namespace Cartera.Vista
         private void ListarHistorial()
         {
             dataGridView1.DataSource = cliente_producto.HistorialCliente(int.Parse(ClienteId));
+            dataGridView1.Columns[3].HeaderText = "Producto";
+            dataGridView1.Columns[4].HeaderText = "Estado";
+            dataGridView1.Columns[5].HeaderText = "Fecha";
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

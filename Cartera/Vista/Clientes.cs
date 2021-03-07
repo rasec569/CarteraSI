@@ -34,7 +34,12 @@ namespace Cartera.Vista
             DateVenta.MinDate = new DateTime(2015, 1, 1);
             DateRecaudo.MaxDate = DateTime.Today;
             DateVenta.MaxDate = DateTime.Today;
-        }
+            Cartera_id = 0;
+            Cliente_id = "";
+            Producto_id = "";
+            Financiacion_id = "";
+            valor = 0;
+    }
         public Clientes(int cedula)
         {
             InitializeComponent();
@@ -215,7 +220,7 @@ namespace Cartera.Vista
                         if(rt != 0)
                         {
                             Cartera_id = int.Parse(cartera.UltimoRegistro().Rows[0]["max(Id_Cartera)"].ToString());
-                            int rt2 = cliente.crearCliente(int.Parse(txtCedula.Text), txtNombres.Text, txtApellidos.Text, int.Parse(txtTelefono.Text), txtDireccion.Text, txtCorreo.Text, Cartera_id);
+                            int rt2 = cliente.crearCliente(int.Parse(txtCedula.Text), txtNombres.Text, txtApellidos.Text, txtTelefono.Text, txtDireccion.Text, txtCorreo.Text, Cartera_id);
                             if (rt2 != 0)
                             {
                                 Cliente_id = cliente.ultimoCliente().Rows[0]["max(Id_Cliente)"].ToString();
@@ -243,7 +248,7 @@ namespace Cartera.Vista
                     if (retorno != 0)
                     {
                         Cartera_id = int.Parse(cartera.UltimoRegistro().Rows[0]["max(Id_Cartera)"].ToString());
-                        int retorno2 = cliente.crearCliente(int.Parse(txtCedula.Text), txtNombres.Text, txtApellidos.Text, int.Parse(txtTelefono.Text), txtDireccion.Text, txtCorreo.Text, Cartera_id);
+                        int retorno2 = cliente.crearCliente(int.Parse(txtCedula.Text), txtNombres.Text, txtApellidos.Text, txtTelefono.Text, txtDireccion.Text, txtCorreo.Text, Cartera_id);
                         if (retorno2 != 0)
                         {
                             if (Producto_id == "")
@@ -657,8 +662,11 @@ namespace Cartera.Vista
                 LimpiarUsuario();
                 
             }
-            else if (comboEstadoCliente.Text == "Disolución")
+            else if (comboEstadoCliente.Text == "Disolver")
             {
+                cliente_producto.EstadoDisolver(Cliente_id, Producto_id, dateFechaEstado.Text);
+                Panel_Registrar_user.Visible = false;
+                CargarClientes();
 
             }          
 
