@@ -26,7 +26,6 @@ namespace Cartera.Vista
         }
         private void ListarTipoProducto()
         {
-            
             dataGridView1.DataSource= tipo_producto.listarTipoProducto();
             dataGridView1.Columns["Id_Tipo_Producto"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Tipo Producto";

@@ -60,11 +60,6 @@ namespace Cartera.Vista
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void BtBuscarProducto_Click(object sender, EventArgs e)
         {
             dataGridView1.DataSource = "";
@@ -114,6 +109,23 @@ namespace Cartera.Vista
         {
             TipoProducto tipo = new TipoProducto();
             tipo.Show();
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string idproducto = "";
+            string nombreproducto = "";
+
+            int n = e.RowIndex;
+            if (n != -1)
+            {
+                idproducto = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();
+                nombreproducto = dataGridView1.Rows[n].Cells["Nombre_Producto"].Value.ToString();
+                
+            }
+//BtBorrar.Enabled = true;
+            Seguimiento se = new Seguimiento(idproducto, nombreproducto);
+            se.Show();
         }
     }
 }

@@ -81,6 +81,7 @@
     <Compile Include="Controlador\CProducto.cs" />
     <Compile Include="Controlador\CProyecto.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="Controlador\CSeguimiento.cs" />
     <Compile Include="Controlador\CTipo_Producto.cs" />
     <Compile Include="Modelo\MCartera.cs" />
     <Compile Include="Modelo\MCliente.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Modelo\MPago.cs" />
     <Compile Include="Modelo\MProducto.cs" />
     <Compile Include="Modelo\MProyecto.cs" />
+    <Compile Include="Modelo\MSeguimiento.cs" />
     <Compile Include="Modelo\MTipo_Producto.cs" />
     <Compile Include="Vista\Carteras.cs">
       <SubType>Form</SubType>
@@ -191,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\RegistrarPago.resx">
       <DependentUpon>RegistrarPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Seguimiento.resx">
+      <DependentUpon>Seguimiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\TipoProducto.resx">
       <DependentUpon>TipoProducto.cs</DependentUpon>
