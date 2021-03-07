@@ -209,6 +209,35 @@ namespace Cartera.Vista
             {
                 if (Cliente_id == "")
                 {
+                    if (comboEstadoCliente.Text== "Trasferir")
+                    {
+                        int rt = cartera.crearCartera();
+                        if(rt != 0)
+                        {
+                            Cartera_id = int.Parse(cartera.UltimoRegistro().Rows[0]["max(Id_Cartera)"].ToString());
+                            int rt2 = cliente.crearCliente(int.Parse(txtCedula.Text), txtNombres.Text, txtApellidos.Text, int.Parse(txtTelefono.Text), txtDireccion.Text, txtCorreo.Text, Cartera_id);
+                            if (rt2 != 0)
+                            {
+                                int rt3 = CliProd.InsertCliente_Producto(int.Parse(Cliente_id), int.Parse(Producto_id));
+                                if (rt3 != 0) 
+                                {
+                                    int rt4 = producto.actualizarProducto(int.Parse(Producto_id), txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString(), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedIndex.ToString()), int.Parse(comboTipoProducto.SelectedIndex.ToString()));
+                                    cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
+                                    if ((rt4 != 0) && (ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString() == "Financiación"))
+                                     {
+                                        financiacion.crearFinanciacion(int.Parse(txtValorFinanciaciom.Text), int.Parse(txtValorEntrada.Text), int.Parse(txtValorSin.Text), int.Parse(txtValorCon.Text), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(txtValorCon.Text), int.Parse(numCuotasInteres.ToString()), int.Parse(txtValorCuotaInteres.Text), int.Parse(numValorInteres.ToString()), DateRecaudo.Text, int.Parse(Producto_id));
+                                     }
+                                }
+
+                                
+                            }
+                        }
+                    }
+                    else if(comboEstadoCliente.Text == "Disolución")
+                    {
+
+                    }
+                    else { 
                     int retorno = cartera.crearCartera();
                     if (retorno != 0)
                     {
@@ -240,7 +269,8 @@ namespace Cartera.Vista
                                 }
                             }
                         }
-                    }
+                    } 
+                    }                    
                 }
                 else
                 {
@@ -611,6 +641,15 @@ namespace Cartera.Vista
 
         private void comboEstadoCliente_SelectedValueChanged(object sender, EventArgs e)
         {
+            if (comboEstadoCliente.Text == "Trasferir")
+            {
+                Cliente_id = "";
+                LimpiarUsuario();
+            }
+            else if (comboEstadoCliente.Text == "Disolución")
+            {
+
+            }          
 
         }
     }

@@ -23,7 +23,7 @@ namespace Cartera.Modelo
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
             cmd.Parameters.Add(new SQLiteParameter("@Id_Cliente", id_Cliente));
             cmd.Parameters.Add(new SQLiteParameter("@Id_Producto", Id_Producto));
-            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", DateTime.Now));
+            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", DateTime.Now.ToShortDateString()));
             cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Activo"));
             return cmd.ExecuteNonQuery();
         }
