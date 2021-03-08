@@ -34,6 +34,7 @@ namespace Cartera.Vista
             this.txtBuscarProducto = new System.Windows.Forms.TextBox();
             this.BtBuscarProducto = new System.Windows.Forms.Button();
             this.btTipoProducto = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,16 +42,17 @@ namespace Cartera.Vista
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 90);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 71);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(907, 435);
+            this.dataGridView1.Size = new System.Drawing.Size(907, 454);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(160, 39);
+            this.label1.Location = new System.Drawing.Point(109, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 1;
@@ -60,14 +62,14 @@ namespace Cartera.Vista
             // 
             this.txtBuscarProducto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtBuscarProducto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtBuscarProducto.Location = new System.Drawing.Point(240, 36);
+            this.txtBuscarProducto.Location = new System.Drawing.Point(189, 28);
             this.txtBuscarProducto.Name = "txtBuscarProducto";
             this.txtBuscarProducto.Size = new System.Drawing.Size(303, 20);
             this.txtBuscarProducto.TabIndex = 2;
             // 
             // BtBuscarProducto
             // 
-            this.BtBuscarProducto.Location = new System.Drawing.Point(574, 34);
+            this.BtBuscarProducto.Location = new System.Drawing.Point(523, 26);
             this.BtBuscarProducto.Name = "BtBuscarProducto";
             this.BtBuscarProducto.Size = new System.Drawing.Size(75, 23);
             this.BtBuscarProducto.TabIndex = 3;
@@ -77,7 +79,7 @@ namespace Cartera.Vista
             // 
             // btTipoProducto
             // 
-            this.btTipoProducto.Location = new System.Drawing.Point(665, 34);
+            this.btTipoProducto.Location = new System.Drawing.Point(614, 26);
             this.btTipoProducto.Name = "btTipoProducto";
             this.btTipoProducto.Size = new System.Drawing.Size(84, 23);
             this.btTipoProducto.TabIndex = 4;
@@ -85,11 +87,21 @@ namespace Cartera.Vista
             this.btTipoProducto.UseVisualStyleBackColor = true;
             this.btTipoProducto.Click += new System.EventHandler(this.btTipoProducto_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(720, 26);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Imprimir";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(931, 537);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btTipoProducto);
             this.Controls.Add(this.BtBuscarProducto);
             this.Controls.Add(this.txtBuscarProducto);
@@ -112,5 +124,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.TextBox txtBuscarProducto;
         private System.Windows.Forms.Button BtBuscarProducto;
         private System.Windows.Forms.Button btTipoProducto;
+        private System.Windows.Forms.Button button1;
     }
 }

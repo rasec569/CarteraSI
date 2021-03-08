@@ -107,6 +107,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(907, 450);
             this.dataGridView1.TabIndex = 20;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick_1);
+            this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
             // 
             // BtBorrar
             // 

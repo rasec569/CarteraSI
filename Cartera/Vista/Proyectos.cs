@@ -18,6 +18,7 @@ namespace Cartera.Vista
         public Proyectos()
         {
             InitializeComponent();
+            CargarProyectos();
         }
 
         private void BtGuardarProyecto_Click(object sender, EventArgs e)
@@ -40,18 +41,22 @@ namespace Cartera.Vista
 
         private void Proyectos_Load(object sender, EventArgs e)
         {
-            CargarProyectos();
+
         }
         private void CargarProyectos()
         {
-            dataGridView1.DataSource = proyecto.listarProyectos();
+            DataTable dtProyectos= proyecto.listarProyectos();
+            dataGridView1.DataSource = dtProyectos;
             //cambiar titulo de la columna
             dataGridView1.Columns["Id_Proyecto"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Nombre";
             dataGridView1.Columns[2].HeaderText = "Ubicación";
+            QuitarFila();
+        }
+        private void QuitarFila()
+        {
             dataGridView1.CurrentCell = null;
             dataGridView1.Rows[0].Visible = false;
-
         }
         private bool ValidarCampos()
         {
@@ -122,6 +127,15 @@ namespace Cartera.Vista
             else
             {
                 MessageBox.Show("Seleccione un proyecto de la lista para eliminar");
+            }
+        }
+
+        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 & e.RowIndex >= 0)
+            {
+                DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.ToolTipText = "Doble clic para modificar proyecto";
             }
         }
     }

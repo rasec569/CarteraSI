@@ -15,7 +15,7 @@ namespace Cartera.Modelo
         public int Cedula { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
         public string Direccion { get; set; }
         public string Correo { get; set; }
         public int IdCartera { get; set; }
@@ -45,7 +45,7 @@ namespace Cartera.Modelo
                         return  cmd.ExecuteNonQuery();
         }
 
-        public static int actualizarCliente(int Cliente_id,int cedula,string nombre,string apellido, int telefono,string direccion,string correo,int idCartera){
+        public static int actualizarCliente(int Cliente_id,int cedula,string nombre,string apellido, string telefono,string direccion,string correo,int idCartera){
         string sql = "UPDATE Cliente SET Cedula=@Cedula, Nombre=Upper(@Nombre), Apellido=Upper(@Apellido), Telefono=@Telefono, Direccion=@Direccion, Correo=@Correo WHERE Id_Cliente=" + Cliente_id + "";
                     SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
                         cmd.Parameters.Add(new SQLiteParameter("@Cedula", cedula));

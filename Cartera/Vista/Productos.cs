@@ -127,5 +127,14 @@ namespace Cartera.Vista
             Seguimiento se = new Seguimiento(idproducto, nombreproducto);
             se.Show();
         }
+
+        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 & e.RowIndex >= 0)
+            {
+                DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.ToolTipText = "Doble clic para nostrar seguimiento";
+            }
+        }
     }
 }

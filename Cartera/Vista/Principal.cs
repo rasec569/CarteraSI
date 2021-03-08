@@ -71,5 +71,11 @@ namespace Cartera.Vista
         {
             FormularioHijo<Clientes>();
         }
+
+        private void pictureBox1_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(this.pictureBox1, "Clic para ver cartera");
+        }
     }
 }

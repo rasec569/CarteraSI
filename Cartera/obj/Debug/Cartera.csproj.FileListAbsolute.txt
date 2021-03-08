@@ -59,3 +59,4 @@ C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.TipoP
 C:\Users\User\Desktop\CarteraSI\CarteraSI\Cartera\obj\Debug\Cartera.Vista.HistorialPagos.resources
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.HistorialPagos.resources
 C:\Users\User\Desktop\CarteraSI\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Seguimiento.resources
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Seguimiento.resources

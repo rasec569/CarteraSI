@@ -123,5 +123,31 @@ namespace Cartera.Vista
             HistorialPagos Hp = new HistorialPagos();
             Hp.Show();
         }
+
+      
+        //private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        //{
+        //    if ((e.ColumnIndex == this.dataGridView1.Columns["Rating"].Index) && e.Value != null)
+        //    {
+        //        DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+        //        cell.ToolTipText = "Doble clic para realizar pago";
+        //    }
+        //}
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellMouseEnter_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 & e.RowIndex >= 0)
+            {
+                DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.ToolTipText = "Doble clic para Registrar pago";
+
+            }
+
+        }
     }
 }
