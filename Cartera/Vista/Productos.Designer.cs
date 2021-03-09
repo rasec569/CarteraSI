@@ -95,6 +95,7 @@ namespace Cartera.Vista
             this.button1.TabIndex = 5;
             this.button1.Text = "Imprimir";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // Productos
             // 

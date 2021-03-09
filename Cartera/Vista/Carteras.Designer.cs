@@ -29,6 +29,7 @@ namespace Cartera.Vista
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Carteras));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -36,13 +37,14 @@ namespace Cartera.Vista
             this.comboEstados = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Txtnombre = new System.Windows.Forms.TextBox();
+            this.Txtcedula = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.BtPago = new System.Windows.Forms.Button();
             this.BtHistorialPago = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -88,9 +90,9 @@ namespace Cartera.Vista
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(29, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.Size = new System.Drawing.Size(40, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Nombre";
+            this.label2.Text = "Cedula";
             // 
             // comboEstados
             // 
@@ -120,7 +122,8 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.Txtnombre);
+            this.groupBox1.Controls.Add(this.button3);
+            this.groupBox1.Controls.Add(this.Txtcedula);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Location = new System.Drawing.Point(16, 8);
             this.groupBox1.Name = "groupBox1";
@@ -129,22 +132,22 @@ namespace Cartera.Vista
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
             // 
-            // Txtnombre
+            // Txtcedula
             // 
-            this.Txtnombre.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.Txtnombre.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.Txtnombre.Location = new System.Drawing.Point(72, 16);
-            this.Txtnombre.Name = "Txtnombre";
-            this.Txtnombre.Size = new System.Drawing.Size(163, 20);
-            this.Txtnombre.TabIndex = 5;
+            this.Txtcedula.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.Txtcedula.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.Txtcedula.Location = new System.Drawing.Point(72, 16);
+            this.Txtcedula.Name = "Txtcedula";
+            this.Txtcedula.Size = new System.Drawing.Size(163, 20);
+            this.Txtcedula.TabIndex = 5;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(250, 14);
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(250, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(33, 29);
             this.button1.TabIndex = 4;
-            this.button1.Text = "Buscar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
@@ -158,7 +161,7 @@ namespace Cartera.Vista
             this.groupBox2.Size = new System.Drawing.Size(545, 49);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Cliente";
+            this.groupBox2.Text = "Cartera";
             // 
             // button2
             // 
@@ -168,6 +171,7 @@ namespace Cartera.Vista
             this.button2.TabIndex = 4;
             this.button2.Text = "Imprimir";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             // 
             // BtPago
             // 
@@ -197,6 +201,16 @@ namespace Cartera.Vista
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(931, 537);
             this.panel2.TabIndex = 1;
+            // 
+            // button3
+            // 
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(292, 12);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(33, 29);
+            this.button3.TabIndex = 6;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Carteras
             // 
@@ -232,10 +246,11 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BtHistorialPago;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox Txtnombre;
+        private System.Windows.Forms.TextBox Txtcedula;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }

@@ -101,12 +101,13 @@ namespace Cartera.Vista
             // btLimpiar
             // 
             this.btLimpiar.Enabled = false;
-            this.btLimpiar.Location = new System.Drawing.Point(528, 18);
+            this.btLimpiar.Location = new System.Drawing.Point(438, 18);
             this.btLimpiar.Name = "btLimpiar";
             this.btLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btLimpiar.TabIndex = 11;
             this.btLimpiar.Text = "Limpiar";
             this.btLimpiar.UseVisualStyleBackColor = true;
+            this.btLimpiar.Click += new System.EventHandler(this.btLimpiar_Click);
             // 
             // label3
             // 
@@ -148,12 +149,13 @@ namespace Cartera.Vista
             // BtImprimir
             // 
             this.BtImprimir.Enabled = false;
-            this.BtImprimir.Location = new System.Drawing.Point(434, 18);
+            this.BtImprimir.Location = new System.Drawing.Point(528, 17);
             this.BtImprimir.Name = "BtImprimir";
             this.BtImprimir.Size = new System.Drawing.Size(75, 23);
             this.BtImprimir.TabIndex = 6;
             this.BtImprimir.Text = "Imprimir";
             this.BtImprimir.UseVisualStyleBackColor = true;
+            this.BtImprimir.Visible = false;
             this.BtImprimir.Click += new System.EventHandler(this.BtImprimir_Click);
             // 
             // txtFecha

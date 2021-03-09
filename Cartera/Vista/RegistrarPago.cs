@@ -94,13 +94,13 @@ namespace Cartera.Vista
                     txtProducto.Text = dataGridView1.Rows[n].Cells["Nombre_Producto"].Value.ToString();
 
                     DataTable Dtcuota = pago.ConsultarUltimaCuota(productoid);
-                    int num_cuota = int.Parse(Dtcuota.Rows[0]["max(Numero_Cuota)"].ToString());
-                    if (num_cuota == 0)
+                    string num_cuota = Dtcuota.Rows[0]["max(Numero_Cuota)"].ToString();
+                    if (num_cuota == "")
                     {
                         txtCuota.Text = "1";
                     }
                     else {
-                        txtCuota.Text =(1 + num_cuota).ToString();
+                        txtCuota.Text =(1 + int.Parse(num_cuota)).ToString();
                     }
                 }
             }
@@ -122,17 +122,6 @@ namespace Cartera.Vista
             dataGridView1.Columns["Observaciones"].Visible = false;
             dataGridView1.Columns[7].HeaderText = "Proyecto";
             dataGridView1.Columns["Nom_Tipo_Producto"].Visible=false;
-            //dataGridView2.Columns["Id_Financiacion"].Visible = false;
-            //dataGridView2.Columns[10].HeaderText = "Valor+Financiacion";
-            //dataGridView2.Columns[11].HeaderText = "Valor Entrada";
-            //dataGridView2.Columns[12].HeaderText = "Valor sin Interes";
-            //dataGridView2.Columns[13].HeaderText = "Cuotas sin Interes";
-            //dataGridView2.Columns[14].HeaderText = "Valor Cuota Sin interes";
-            //dataGridView2.Columns[15].HeaderText = "Valor con Interes";
-            //dataGridView2.Columns[16].HeaderText = "Cuotas con Interes";
-            //dataGridView2.Columns[17].HeaderText = "Valor Cuota Con Interes";
-            //dataGridView2.Columns[18].HeaderText = "Porcentaje Interes";
-            //dataGridView2.Columns[19].HeaderText = "Fecha Recaudo";
             dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
         }

@@ -78,14 +78,16 @@ namespace Cartera.Vista
             this.dateFechaEstado = new System.Windows.Forms.DateTimePicker();
             this.comboEstadoCliente = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtNombres = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtCorreo = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.Panel_Registrar_user = new System.Windows.Forms.Panel();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.BtHistorialFinan = new System.Windows.Forms.Button();
+            this.txtValorCuotaInteres = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label25 = new System.Windows.Forms.Label();
             this.txtValorTotal = new System.Windows.Forms.TextBox();
@@ -94,20 +96,18 @@ namespace Cartera.Vista
             this.label22 = new System.Windows.Forms.Label();
             this.comboProyecto = new System.Windows.Forms.ComboBox();
             this.numValorInteres = new System.Windows.Forms.NumericUpDown();
-            this.txtValorCuotaInteres = new System.Windows.Forms.TextBox();
-            this.BtHistorialFinan = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.PanelSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotaSinInteres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasInteres)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.Panel_Registrar_user.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // label8
@@ -135,12 +135,13 @@ namespace Cartera.Vista
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(686, 22);
+            this.button2.Location = new System.Drawing.Point(825, 22);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 27;
             this.button2.Text = "Imprimir";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             // 
             // BtNuevoCliente
             // 
@@ -174,7 +175,7 @@ namespace Cartera.Vista
             // BtGuardarCliente
             // 
             this.BtGuardarCliente.Enabled = false;
-            this.BtGuardarCliente.Location = new System.Drawing.Point(776, 23);
+            this.BtGuardarCliente.Location = new System.Drawing.Point(689, 23);
             this.BtGuardarCliente.Name = "BtGuardarCliente";
             this.BtGuardarCliente.Size = new System.Drawing.Size(75, 23);
             this.BtGuardarCliente.TabIndex = 26;
@@ -561,6 +562,18 @@ namespace Cartera.Vista
             this.label24.Text = "Estado";
             this.label24.Visible = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(163, 19);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 43);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 26;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
+            // 
             // txtNombres
             // 
             this.txtNombres.Location = new System.Drawing.Point(90, 103);
@@ -613,17 +626,6 @@ namespace Cartera.Vista
             this.Panel_Registrar_user.TabIndex = 3;
             this.Panel_Registrar_user.Visible = false;
             // 
-            // dataGridView2
-            // 
-            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(13, 351);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(906, 121);
-            this.dataGridView2.TabIndex = 61;
-            this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
-            this.dataGridView2.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellMouseEnter);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.BtHistorialFinan);
@@ -669,6 +671,25 @@ namespace Cartera.Vista
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Producto";
             // 
+            // BtHistorialFinan
+            // 
+            this.BtHistorialFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialFinan.Image")));
+            this.BtHistorialFinan.Location = new System.Drawing.Point(397, 9);
+            this.BtHistorialFinan.Name = "BtHistorialFinan";
+            this.BtHistorialFinan.Size = new System.Drawing.Size(33, 31);
+            this.BtHistorialFinan.TabIndex = 66;
+            this.BtHistorialFinan.UseVisualStyleBackColor = true;
+            this.BtHistorialFinan.Click += new System.EventHandler(this.button1_Click);
+            this.BtHistorialFinan.MouseHover += new System.EventHandler(this.BtHistorialFinan_MouseHover);
+            // 
+            // txtValorCuotaInteres
+            // 
+            this.txtValorCuotaInteres.Enabled = false;
+            this.txtValorCuotaInteres.Location = new System.Drawing.Point(447, 180);
+            this.txtValorCuotaInteres.Name = "txtValorCuotaInteres";
+            this.txtValorCuotaInteres.Size = new System.Drawing.Size(98, 20);
+            this.txtValorCuotaInteres.TabIndex = 64;
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -679,6 +700,7 @@ namespace Cartera.Vista
             this.checkBox1.TabIndex = 63;
             this.checkBox1.Text = "Refinanciar";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label25
             // 
@@ -739,36 +761,16 @@ namespace Cartera.Vista
             this.numValorInteres.Size = new System.Drawing.Size(44, 20);
             this.numValorInteres.TabIndex = 56;
             // 
-            // txtValorCuotaInteres
+            // dataGridView2
             // 
-            this.txtValorCuotaInteres.Enabled = false;
-            this.txtValorCuotaInteres.Location = new System.Drawing.Point(447, 180);
-            this.txtValorCuotaInteres.Name = "txtValorCuotaInteres";
-            this.txtValorCuotaInteres.Size = new System.Drawing.Size(98, 20);
-            this.txtValorCuotaInteres.TabIndex = 64;
-            // 
-            // BtHistorialFinan
-            // 
-            this.BtHistorialFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialFinan.Image")));
-            this.BtHistorialFinan.Location = new System.Drawing.Point(397, 9);
-            this.BtHistorialFinan.Name = "BtHistorialFinan";
-            this.BtHistorialFinan.Size = new System.Drawing.Size(33, 31);
-            this.BtHistorialFinan.TabIndex = 66;
-            this.BtHistorialFinan.UseVisualStyleBackColor = true;
-            this.BtHistorialFinan.Click += new System.EventHandler(this.button1_Click);
-            this.BtHistorialFinan.MouseHover += new System.EventHandler(this.BtHistorialFinan_MouseHover);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(163, 19);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 43);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 26;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(13, 351);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(906, 121);
+            this.dataGridView2.TabIndex = 61;
+            this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
+            this.dataGridView2.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellMouseEnter);
             // 
             // Clientes
             // 
@@ -791,12 +793,12 @@ namespace Cartera.Vista
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasInteres)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.Panel_Registrar_user.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -24,6 +24,10 @@ namespace Cartera.Controlador
         {
             return MCartera.ListarCartera();
         }
+        public DataTable CarteraCliente(string cedula)
+        {
+            return MCartera.CarteraCliente(cedula);
+        }
         public DataTable ActulizarValorRecaudado(int productoid, int carteraid)
         {
             return MCartera.ActulizarValorRecaudado(productoid, carteraid);
@@ -31,6 +35,10 @@ namespace Cartera.Controlador
         public DataTable ActulizarValorTotal(int clienteid, int carteraid)
         {
             return MCartera.ActulizarValorTotal(clienteid, carteraid);
+        }
+        public DataTable BuscarFechaspagos(int productoid)
+        {
+            return MCartera.BuscarFechaspagos(productoid);
         }
 
     }

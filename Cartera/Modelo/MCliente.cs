@@ -21,7 +21,7 @@ namespace Cartera.Modelo
         public int IdCartera { get; set; }
 
         public static DataTable cargarClientes(){
-        return Conexion.consulta("Select Id_Cliente, Cedula, Nombre, Apellido, Telefono, Direccion, Correo, Fk_Id_Cartera from Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente WHERE Estado_Cliente='Activo'");
+        return Conexion.consulta("Select Id_Cliente, Cedula, Nombre, Apellido, Telefono, Direccion, Correo, Fk_Id_Cartera from Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente WHERE Estado_Cliente='Activo' GROUP by Id_Cliente ORDER by Nombre");
         }
 
         public static DataTable cargarClientes(string nombre){

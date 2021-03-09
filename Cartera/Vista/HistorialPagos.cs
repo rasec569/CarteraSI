@@ -63,29 +63,39 @@ namespace Cartera.Vista
         private void BtBuscar_Click(object sender, EventArgs e)
         {
              try
-            {
-
-                
-                cliente.BuscarClientesCedula(txtCedula.Text);
-                DataTable DtUsuario = cliente.BuscarClientesCedula(txtCedula.Text);
-                clienteid = DtUsuario.Rows[0]["Id_Cliente"].ToString();
-                txtCedula.Text = DtUsuario.Rows[0]["Cedula"].ToString();
-                txtNombre.Text = DtUsuario.Rows[0]["Nombre"].ToString() + " " + DtUsuario.Rows[0]["Apellido"].ToString();
-                txtFecha.Text = DateTime.Now.ToShortDateString();
-                ListarPagosCliente();
-
-            }
+             {
+                ValidarCampos();
+                if ((error != true) && (ValidarCampos() == true))
+                {
+                    cliente.BuscarClientesCedula(txtCedula.Text);
+                    DataTable DtUsuario = cliente.BuscarClientesCedula(txtCedula.Text);
+                    clienteid = DtUsuario.Rows[0]["Id_Cliente"].ToString();
+                    txtCedula.Text = DtUsuario.Rows[0]["Cedula"].ToString();
+                    txtNombre.Text = DtUsuario.Rows[0]["Nombre"].ToString() + " " + DtUsuario.Rows[0]["Apellido"].ToString();
+                    txtFecha.Text = DateTime.Now.ToShortDateString();
+                    ListarPagosCliente();
+                    btLimpiar.Enabled = true;
+                    BtImprimir.Enabled = true;
+                }
+             }
             catch
-            {
+             {
                 MessageBox.Show ( "No existe cliente");
                 txtCedula.Clear();
-            }
-            
+             }           
         }
-
+        private bool ValidarCampos()
+        {
+            bool ok = true;
+            if (txtCedula.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtCedula, "Digite cedula");
+            }    
+            return ok;
+        }
         private void ListarPagosCliente()
-        { 
-            
+        {             
             dataGridView1.DataSource = producto.cargarProductosCliente(int.Parse(clienteid));
             dataGridView1.Columns["Id_Producto"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Producto";
@@ -109,7 +119,6 @@ namespace Cartera.Vista
                 {
                     error = true;
                     errorProvider1.SetError(txtCedula, "No se admiten letras");
-
                 }
                 else
                 {
@@ -148,6 +157,16 @@ namespace Cartera.Vista
                 DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 cell.ToolTipText = "Doble clic para ver pagos";
             }
+        }
+
+        private void btLimpiar_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = "";
+            dataGridView2.DataSource = "";
+            txtCedula.Clear();
+            txtNombre.Clear();
+            txtFecha.Clear();
+            clienteid = "";
         }
     } 
 }

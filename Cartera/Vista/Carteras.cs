@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Cartera.Vista
     {
         CCartera cartera = new CCartera();
         CCliente cliente = new CCliente();
+        CProducto producto = new CProducto();
         DataTable DtCartera = new DataTable();
         DataTable DtCliente = new DataTable();
         public Carteras()
@@ -29,18 +31,29 @@ namespace Cartera.Vista
 
         private void CargarCartera()
         {
-            DtCartera = cartera.ListarCartera();            
-            dataGridView1.DataSource = DtCartera;
+            if (Txtcedula.Text == "")
+            {
+                DtCartera = cartera.ListarCartera();
+                dataGridView1.DataSource = DtCartera;
+            }
+            else
+            {
+                DtCartera = cartera.CarteraCliente(Txtcedula.Text);
+                dataGridView1.DataSource = DtCartera;
+            }
+            
             dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Cedula";
             dataGridView1.Columns[2].HeaderText = "Nombre";
             dataGridView1.Columns[3].HeaderText = "Apellido";
             dataGridView1.Columns[4].HeaderText = "Estado Mora";
             dataGridView1.Columns[5].HeaderText = "Recaudado";
-            dataGridView1.Columns[6].HeaderText = "Productos";
+            //dataGridView1.Columns["Id_Producto"].Visible = false;
+            dataGridView1.Columns[6].HeaderText = "Producto";
             dataGridView1.Columns[7].HeaderText = "Valor Mora";
             dataGridView1.Columns[8].HeaderText = "Total Cartera";
             dataGridView1.Columns["Id_Cartera"].Visible = false;
+            //actulizarestado();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -117,7 +130,30 @@ namespace Cartera.Vista
                 MessageBox.Show("Valor no admitido");
             }
         }
-
+        private void actulizarestado()
+        {
+            for (int i = 0; i < DtCartera.Rows.Count; i++)
+            {
+                string datoDT=DtCartera.Rows[i]["Id_Cliente"].ToString();
+                DataTable dtproducto= producto.cargarProductosCliente(int.Parse(datoDT));
+                for (int j = 0; j < dtproducto.Rows.Count; j++)
+                {
+                    string datoDT2 = dtproducto.Rows[j]["Id_Producto"].ToString();
+                    DataTable dtfechas= cartera.BuscarFechaspagos(int.Parse(datoDT2));
+                    for (int h = 0; h < dtfechas.Rows.Count; h++)
+                    {
+                        if(dtfechas.Rows.Count > 0)
+                        {
+                            string fecha1 = dtfechas.Rows[h]["Fecha_Pago"].ToString();
+                            string fecha2 = dtfechas.Rows[h]["Fecha_Recaudo"].ToString();
+                            DateTime date_1 = DateTime.ParseExact(fecha1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            DateTime date_2= DateTime.ParseExact(fecha2, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            MessageBox.Show("Difference in days: " + (date_2 - date_1).Days);
+                        }                       
+                    }
+                }
+            }
+        }
         
 
         private void BtHistorialPago_Click(object sender, EventArgs e)
@@ -138,8 +174,7 @@ namespace Cartera.Vista
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            
-
+            CargarCartera();
         }
         void autocompletar()
         {
@@ -147,9 +182,9 @@ namespace Cartera.Vista
             DtCliente = cliente.cargarClientes();
             for (int i = 0; i < DtCliente.Rows.Count; i++)
             {
-                lista.Add(DtCliente.Rows[i]["Nombre"].ToString());
+                lista.Add(DtCliente.Rows[i]["Cedula"].ToString());
             }
-            Txtnombre.AutoCompleteCustomSource = lista;
+            Txtcedula.AutoCompleteCustomSource = lista;
         }
 
         private void dataGridView1_CellMouseEnter_1(object sender, DataGridViewCellEventArgs e)
@@ -158,9 +193,14 @@ namespace Cartera.Vista
             {
                 DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 cell.ToolTipText = "Doble clic para Registrar pago";
-
             }
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Txtcedula.Clear();
+            CargarCartera();
         }
     }
 }
