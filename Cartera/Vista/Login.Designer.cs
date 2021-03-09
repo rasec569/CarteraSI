@@ -92,6 +92,8 @@ namespace Cartera.Vista
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textUser);
             this.Controls.Add(this.Usuario);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Login";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

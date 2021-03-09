@@ -16,6 +16,7 @@ namespace Cartera.Vista
         CCartera cartera = new CCartera();
         CCliente cliente = new CCliente();
         DataTable DtCartera = new DataTable();
+        DataTable DtCliente = new DataTable();
         public Carteras()
         {
             InitializeComponent();
@@ -23,6 +24,7 @@ namespace Cartera.Vista
         private void Carteras_Load(object sender, EventArgs e)
         {
             CargarCartera();
+            autocompletar();
         }
 
         private void CargarCartera()
@@ -136,7 +138,18 @@ namespace Cartera.Vista
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            
 
+        }
+        void autocompletar()
+        {
+            AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
+            DtCliente = cliente.cargarClientes();
+            for (int i = 0; i < DtCliente.Rows.Count; i++)
+            {
+                lista.Add(DtCliente.Rows[i]["Nombre"].ToString());
+            }
+            Txtnombre.AutoCompleteCustomSource = lista;
         }
 
         private void dataGridView1_CellMouseEnter_1(object sender, DataGridViewCellEventArgs e)

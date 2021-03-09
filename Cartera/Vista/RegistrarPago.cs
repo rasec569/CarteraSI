@@ -121,7 +121,7 @@ namespace Cartera.Vista
             dataGridView1.Columns[5].HeaderText = "Fecha Venta";
             dataGridView1.Columns["Observaciones"].Visible = false;
             dataGridView1.Columns[7].HeaderText = "Proyecto";
-            dataGridView1.Columns[8].HeaderText = "Tipo Producto";
+            dataGridView1.Columns["Nom_Tipo_Producto"].Visible=false;
             //dataGridView2.Columns["Id_Financiacion"].Visible = false;
             //dataGridView2.Columns[10].HeaderText = "Valor+Financiacion";
             //dataGridView2.Columns[11].HeaderText = "Valor Entrada";
@@ -201,7 +201,7 @@ namespace Cartera.Vista
 
         private void Btbuscar_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = "";
+            dataGridView1.DataSource = "";            
             DataTable dtclientes = cliente.BuscarClientesCedula(Txtcedula.Text);
             clienteId =int.Parse(dtclientes.Rows[0]["Id_Cliente"].ToString());
             txtNombre.Text= dtclientes.Rows[0]["Nombre"].ToString();
@@ -211,6 +211,15 @@ namespace Cartera.Vista
             //Hp.
 
 
+        }
+
+        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 & e.RowIndex >= 0)
+            {
+                DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.ToolTipText = "Doble clic para realziar pago";
+            }
         }
     }    
 }

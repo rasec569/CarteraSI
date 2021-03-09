@@ -30,6 +30,7 @@ namespace Cartera.Vista
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TipoProducto));
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.BtGuardarTipoPro = new System.Windows.Forms.Button();
@@ -44,7 +45,7 @@ namespace Cartera.Vista
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(0, 19);
+            this.label1.Location = new System.Drawing.Point(11, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 13);
             this.label1.TabIndex = 0;
@@ -56,14 +57,14 @@ namespace Cartera.Vista
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 44);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(374, 245);
+            this.dataGridView1.Size = new System.Drawing.Size(394, 245);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // BtGuardarTipoPro
             // 
-            this.BtGuardarTipoPro.Location = new System.Drawing.Point(215, 14);
+            this.BtGuardarTipoPro.Location = new System.Drawing.Point(226, 14);
             this.BtGuardarTipoPro.Name = "BtGuardarTipoPro";
             this.BtGuardarTipoPro.Size = new System.Drawing.Size(56, 23);
             this.BtGuardarTipoPro.TabIndex = 2;
@@ -73,7 +74,7 @@ namespace Cartera.Vista
             // 
             // TxtNomTipoPro
             // 
-            this.TxtNomTipoPro.Location = new System.Drawing.Point(80, 16);
+            this.TxtNomTipoPro.Location = new System.Drawing.Point(91, 16);
             this.TxtNomTipoPro.Name = "TxtNomTipoPro";
             this.TxtNomTipoPro.Size = new System.Drawing.Size(129, 20);
             this.TxtNomTipoPro.TabIndex = 3;
@@ -81,7 +82,7 @@ namespace Cartera.Vista
             // Bt_EliminarTipoPro
             // 
             this.Bt_EliminarTipoPro.Enabled = false;
-            this.Bt_EliminarTipoPro.Location = new System.Drawing.Point(277, 14);
+            this.Bt_EliminarTipoPro.Location = new System.Drawing.Point(288, 14);
             this.Bt_EliminarTipoPro.Name = "Bt_EliminarTipoPro";
             this.Bt_EliminarTipoPro.Size = new System.Drawing.Size(56, 23);
             this.Bt_EliminarTipoPro.TabIndex = 4;
@@ -96,7 +97,7 @@ namespace Cartera.Vista
             // BtLimpiarTp
             // 
             this.BtLimpiarTp.Enabled = false;
-            this.BtLimpiarTp.Location = new System.Drawing.Point(339, 14);
+            this.BtLimpiarTp.Location = new System.Drawing.Point(350, 14);
             this.BtLimpiarTp.Name = "BtLimpiarTp";
             this.BtLimpiarTp.Size = new System.Drawing.Size(56, 23);
             this.BtLimpiarTp.TabIndex = 5;
@@ -108,15 +109,19 @@ namespace Cartera.Vista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(398, 294);
+            this.ClientSize = new System.Drawing.Size(418, 294);
             this.Controls.Add(this.BtLimpiarTp);
             this.Controls.Add(this.Bt_EliminarTipoPro);
             this.Controls.Add(this.TxtNomTipoPro);
             this.Controls.Add(this.BtGuardarTipoPro);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "TipoProducto";
-            this.Text = "TipoProducto";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Tipo Producto";
             this.Load += new System.EventHandler(this.TipoProducto_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

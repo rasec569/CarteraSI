@@ -84,7 +84,8 @@ namespace Cartera.Vista
         }
 
         private void ListarPagosCliente()
-        {
+        { 
+            
             dataGridView1.DataSource = producto.cargarProductosCliente(int.Parse(clienteid));
             dataGridView1.Columns["Id_Producto"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Producto";
@@ -138,6 +139,15 @@ namespace Cartera.Vista
             }
             dataGridView2.Visible = true;
             dataGridView1.Visible = false;
+        }
+
+        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 & e.RowIndex >= 0)
+            {
+                DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.ToolTipText = "Doble clic para ver pagos";
+            }
         }
     } 
 }

@@ -71,7 +71,6 @@ namespace Cartera.Vista
             this.numCuotasInteres = new System.Windows.Forms.NumericUpDown();
             this.label21 = new System.Windows.Forms.Label();
             this.txtValorCuotaSin = new System.Windows.Forms.TextBox();
-            this.txtValorCuotaInteres = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txtObeservaciones = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -79,7 +78,6 @@ namespace Cartera.Vista
             this.dateFechaEstado = new System.Windows.Forms.DateTimePicker();
             this.comboEstadoCliente = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtNombres = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -96,18 +94,20 @@ namespace Cartera.Vista
             this.label22 = new System.Windows.Forms.Label();
             this.comboProyecto = new System.Windows.Forms.ComboBox();
             this.numValorInteres = new System.Windows.Forms.NumericUpDown();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.txtValorCuotaInteres = new System.Windows.Forms.TextBox();
+            this.BtHistorialFinan = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PanelSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotaSinInteres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasInteres)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.Panel_Registrar_user.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label8
@@ -270,7 +270,7 @@ namespace Cartera.Vista
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 22);
+            this.label9.Location = new System.Drawing.Point(9, 23);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(90, 13);
             this.label9.TabIndex = 27;
@@ -279,7 +279,7 @@ namespace Cartera.Vista
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 48);
+            this.label10.Location = new System.Drawing.Point(9, 49);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(47, 13);
             this.label10.TabIndex = 28;
@@ -288,7 +288,7 @@ namespace Cartera.Vista
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(11, 75);
+            this.label11.Location = new System.Drawing.Point(10, 76);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(64, 13);
             this.label11.TabIndex = 29;
@@ -297,7 +297,7 @@ namespace Cartera.Vista
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(10, 100);
+            this.label12.Location = new System.Drawing.Point(9, 101);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(31, 13);
             this.label12.TabIndex = 30;
@@ -306,7 +306,7 @@ namespace Cartera.Vista
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(313, 48);
+            this.label13.Location = new System.Drawing.Point(307, 75);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(61, 13);
             this.label13.TabIndex = 31;
@@ -315,7 +315,7 @@ namespace Cartera.Vista
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(314, 129);
+            this.label14.Location = new System.Drawing.Point(308, 156);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(46, 13);
             this.label14.TabIndex = 32;
@@ -324,7 +324,7 @@ namespace Cartera.Vista
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(314, 73);
+            this.label15.Location = new System.Drawing.Point(308, 100);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(46, 13);
             this.label15.TabIndex = 33;
@@ -332,16 +332,16 @@ namespace Cartera.Vista
             // 
             // txtNombreProducto
             // 
-            this.txtNombreProducto.Location = new System.Drawing.Point(105, 19);
+            this.txtNombreProducto.Location = new System.Drawing.Point(104, 20);
             this.txtNombreProducto.Name = "txtNombreProducto";
-            this.txtNombreProducto.Size = new System.Drawing.Size(190, 20);
+            this.txtNombreProducto.Size = new System.Drawing.Size(178, 20);
             this.txtNombreProducto.TabIndex = 34;
             // 
             // txtContrato
             // 
-            this.txtContrato.Location = new System.Drawing.Point(106, 44);
+            this.txtContrato.Location = new System.Drawing.Point(105, 45);
             this.txtContrato.Name = "txtContrato";
-            this.txtContrato.Size = new System.Drawing.Size(190, 20);
+            this.txtContrato.Size = new System.Drawing.Size(177, 20);
             this.txtContrato.TabIndex = 35;
             // 
             // ComboFormaPago
@@ -350,18 +350,18 @@ namespace Cartera.Vista
             this.ComboFormaPago.Items.AddRange(new object[] {
             "Contado",
             "Financiado"});
-            this.ComboFormaPago.Location = new System.Drawing.Point(106, 70);
+            this.ComboFormaPago.Location = new System.Drawing.Point(105, 71);
             this.ComboFormaPago.Name = "ComboFormaPago";
-            this.ComboFormaPago.Size = new System.Drawing.Size(190, 21);
+            this.ComboFormaPago.Size = new System.Drawing.Size(177, 21);
             this.ComboFormaPago.TabIndex = 36;
             this.ComboFormaPago.Text = "seleccione una opción";
             this.ComboFormaPago.SelectedValueChanged += new System.EventHandler(this.ComboFormaPago_SelectedValueChanged);
             // 
             // txtValor
             // 
-            this.txtValor.Location = new System.Drawing.Point(106, 97);
+            this.txtValor.Location = new System.Drawing.Point(105, 98);
             this.txtValor.Name = "txtValor";
-            this.txtValor.Size = new System.Drawing.Size(190, 20);
+            this.txtValor.Size = new System.Drawing.Size(177, 20);
             this.txtValor.TabIndex = 37;
             this.txtValor.TextChanged += new System.EventHandler(this.txtValor_TextChanged);
             this.txtValor.Enter += new System.EventHandler(this.txtValor_Enter);
@@ -370,7 +370,7 @@ namespace Cartera.Vista
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(313, 22);
+            this.label16.Location = new System.Drawing.Point(307, 49);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(84, 13);
             this.label16.TabIndex = 38;
@@ -379,7 +379,7 @@ namespace Cartera.Vista
             // DateRecaudo
             // 
             this.DateRecaudo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DateRecaudo.Location = new System.Drawing.Point(403, 19);
+            this.DateRecaudo.Location = new System.Drawing.Point(397, 46);
             this.DateRecaudo.Name = "DateRecaudo";
             this.DateRecaudo.Size = new System.Drawing.Size(149, 20);
             this.DateRecaudo.TabIndex = 39;
@@ -387,7 +387,7 @@ namespace Cartera.Vista
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(10, 129);
+            this.label17.Location = new System.Drawing.Point(9, 130);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(68, 13);
             this.label17.TabIndex = 40;
@@ -396,14 +396,14 @@ namespace Cartera.Vista
             // DateVenta
             // 
             this.DateVenta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DateVenta.Location = new System.Drawing.Point(106, 126);
+            this.DateVenta.Location = new System.Drawing.Point(105, 127);
             this.DateVenta.Name = "DateVenta";
-            this.DateVenta.Size = new System.Drawing.Size(190, 20);
+            this.DateVenta.Size = new System.Drawing.Size(177, 20);
             this.DateVenta.TabIndex = 41;
             // 
             // txtValorEntrada
             // 
-            this.txtValorEntrada.Location = new System.Drawing.Point(403, 45);
+            this.txtValorEntrada.Location = new System.Drawing.Point(397, 72);
             this.txtValorEntrada.Name = "txtValorEntrada";
             this.txtValorEntrada.Size = new System.Drawing.Size(149, 20);
             this.txtValorEntrada.TabIndex = 42;
@@ -412,14 +412,14 @@ namespace Cartera.Vista
             // 
             // txtValorSin
             // 
-            this.txtValorSin.Location = new System.Drawing.Point(403, 70);
+            this.txtValorSin.Location = new System.Drawing.Point(397, 97);
             this.txtValorSin.Name = "txtValorSin";
             this.txtValorSin.Size = new System.Drawing.Size(148, 20);
             this.txtValorSin.TabIndex = 43;
             // 
             // txtValorCon
             // 
-            this.txtValorCon.Location = new System.Drawing.Point(403, 125);
+            this.txtValorCon.Location = new System.Drawing.Point(397, 152);
             this.txtValorCon.Name = "txtValorCon";
             this.txtValorCon.Size = new System.Drawing.Size(148, 20);
             this.txtValorCon.TabIndex = 44;
@@ -428,7 +428,7 @@ namespace Cartera.Vista
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(313, 99);
+            this.label18.Location = new System.Drawing.Point(307, 126);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(85, 13);
             this.label18.TabIndex = 45;
@@ -436,7 +436,7 @@ namespace Cartera.Vista
             // 
             // numCuotaSinInteres
             // 
-            this.numCuotaSinInteres.Location = new System.Drawing.Point(403, 96);
+            this.numCuotaSinInteres.Location = new System.Drawing.Point(397, 123);
             this.numCuotaSinInteres.Maximum = new decimal(new int[] {
             36,
             0,
@@ -449,7 +449,7 @@ namespace Cartera.Vista
             // 
             // numCuotasInteres
             // 
-            this.numCuotasInteres.Location = new System.Drawing.Point(403, 153);
+            this.numCuotasInteres.Location = new System.Drawing.Point(397, 180);
             this.numCuotasInteres.Maximum = new decimal(new int[] {
             36,
             0,
@@ -463,7 +463,7 @@ namespace Cartera.Vista
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(314, 158);
+            this.label21.Location = new System.Drawing.Point(308, 185);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(85, 13);
             this.label21.TabIndex = 50;
@@ -472,23 +472,15 @@ namespace Cartera.Vista
             // txtValorCuotaSin
             // 
             this.txtValorCuotaSin.Enabled = false;
-            this.txtValorCuotaSin.Location = new System.Drawing.Point(453, 97);
+            this.txtValorCuotaSin.Location = new System.Drawing.Point(447, 124);
             this.txtValorCuotaSin.Name = "txtValorCuotaSin";
             this.txtValorCuotaSin.Size = new System.Drawing.Size(98, 20);
             this.txtValorCuotaSin.TabIndex = 51;
             // 
-            // txtValorCuotaInteres
-            // 
-            this.txtValorCuotaInteres.Enabled = false;
-            this.txtValorCuotaInteres.Location = new System.Drawing.Point(453, 153);
-            this.txtValorCuotaInteres.Name = "txtValorCuotaInteres";
-            this.txtValorCuotaInteres.Size = new System.Drawing.Size(98, 20);
-            this.txtValorCuotaInteres.TabIndex = 52;
-            // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(10, 211);
+            this.label19.Location = new System.Drawing.Point(9, 240);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(78, 13);
             this.label19.TabIndex = 53;
@@ -496,7 +488,7 @@ namespace Cartera.Vista
             // 
             // txtObeservaciones
             // 
-            this.txtObeservaciones.Location = new System.Drawing.Point(105, 208);
+            this.txtObeservaciones.Location = new System.Drawing.Point(104, 237);
             this.txtObeservaciones.Name = "txtObeservaciones";
             this.txtObeservaciones.Size = new System.Drawing.Size(446, 20);
             this.txtObeservaciones.TabIndex = 54;
@@ -505,7 +497,7 @@ namespace Cartera.Vista
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(313, 184);
+            this.label20.Location = new System.Drawing.Point(307, 211);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(72, 13);
             this.label20.TabIndex = 55;
@@ -569,18 +561,6 @@ namespace Cartera.Vista
             this.label24.Text = "Estado";
             this.label24.Visible = false;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(163, 19);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 43);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 26;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
-            // 
             // txtNombres
             // 
             this.txtNombres.Location = new System.Drawing.Point(90, 103);
@@ -623,8 +603,8 @@ namespace Cartera.Vista
             // 
             // Panel_Registrar_user
             // 
-            this.Panel_Registrar_user.Controls.Add(this.dataGridView2);
             this.Panel_Registrar_user.Controls.Add(this.groupBox2);
+            this.Panel_Registrar_user.Controls.Add(this.dataGridView2);
             this.Panel_Registrar_user.Controls.Add(this.groupBox1);
             this.Panel_Registrar_user.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Panel_Registrar_user.Location = new System.Drawing.Point(0, 0);
@@ -646,6 +626,8 @@ namespace Cartera.Vista
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.BtHistorialFinan);
+            this.groupBox2.Controls.Add(this.txtValorCuotaInteres);
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.label25);
             this.groupBox2.Controls.Add(this.txtValorTotal);
@@ -665,7 +647,6 @@ namespace Cartera.Vista
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label19);
             this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.txtValorCuotaInteres);
             this.groupBox2.Controls.Add(this.txtNombreProducto);
             this.groupBox2.Controls.Add(this.txtValorCuotaSin);
             this.groupBox2.Controls.Add(this.txtContrato);
@@ -683,7 +664,7 @@ namespace Cartera.Vista
             this.groupBox2.Controls.Add(this.txtValorEntrada);
             this.groupBox2.Location = new System.Drawing.Point(354, 63);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(572, 274);
+            this.groupBox2.Size = new System.Drawing.Size(574, 274);
             this.groupBox2.TabIndex = 60;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Producto";
@@ -692,7 +673,7 @@ namespace Cartera.Vista
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(471, 182);
+            this.checkBox1.Location = new System.Drawing.Point(465, 209);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(80, 17);
             this.checkBox1.TabIndex = 63;
@@ -702,7 +683,7 @@ namespace Cartera.Vista
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(313, 244);
+            this.label25.Location = new System.Drawing.Point(9, 211);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(58, 13);
             this.label25.TabIndex = 61;
@@ -710,15 +691,15 @@ namespace Cartera.Vista
             // 
             // txtValorTotal
             // 
-            this.txtValorTotal.Location = new System.Drawing.Point(403, 237);
+            this.txtValorTotal.Location = new System.Drawing.Point(104, 208);
             this.txtValorTotal.Name = "txtValorTotal";
-            this.txtValorTotal.Size = new System.Drawing.Size(148, 20);
+            this.txtValorTotal.Size = new System.Drawing.Size(177, 20);
             this.txtValorTotal.TabIndex = 62;
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(10, 185);
+            this.label23.Location = new System.Drawing.Point(9, 186);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(74, 13);
             this.label23.TabIndex = 59;
@@ -727,16 +708,16 @@ namespace Cartera.Vista
             // comboTipoProducto
             // 
             this.comboTipoProducto.FormattingEnabled = true;
-            this.comboTipoProducto.Location = new System.Drawing.Point(105, 180);
+            this.comboTipoProducto.Location = new System.Drawing.Point(104, 181);
             this.comboTipoProducto.Name = "comboTipoProducto";
-            this.comboTipoProducto.Size = new System.Drawing.Size(190, 21);
+            this.comboTipoProducto.Size = new System.Drawing.Size(178, 21);
             this.comboTipoProducto.TabIndex = 60;
             this.comboTipoProducto.Text = "seleccione una opción";
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(10, 158);
+            this.label22.Location = new System.Drawing.Point(9, 159);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(49, 13);
             this.label22.TabIndex = 57;
@@ -745,23 +726,49 @@ namespace Cartera.Vista
             // comboProyecto
             // 
             this.comboProyecto.FormattingEnabled = true;
-            this.comboProyecto.Location = new System.Drawing.Point(105, 153);
+            this.comboProyecto.Location = new System.Drawing.Point(104, 154);
             this.comboProyecto.Name = "comboProyecto";
-            this.comboProyecto.Size = new System.Drawing.Size(190, 21);
+            this.comboProyecto.Size = new System.Drawing.Size(178, 21);
             this.comboProyecto.TabIndex = 58;
             this.comboProyecto.Text = "seleccione una opción";
             // 
             // numValorInteres
             // 
-            this.numValorInteres.Location = new System.Drawing.Point(403, 180);
+            this.numValorInteres.Location = new System.Drawing.Point(397, 207);
             this.numValorInteres.Name = "numValorInteres";
             this.numValorInteres.Size = new System.Drawing.Size(44, 20);
             this.numValorInteres.TabIndex = 56;
             // 
-            // contextMenuStrip1
+            // txtValorCuotaInteres
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.txtValorCuotaInteres.Enabled = false;
+            this.txtValorCuotaInteres.Location = new System.Drawing.Point(447, 180);
+            this.txtValorCuotaInteres.Name = "txtValorCuotaInteres";
+            this.txtValorCuotaInteres.Size = new System.Drawing.Size(98, 20);
+            this.txtValorCuotaInteres.TabIndex = 64;
+            // 
+            // BtHistorialFinan
+            // 
+            this.BtHistorialFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialFinan.Image")));
+            this.BtHistorialFinan.Location = new System.Drawing.Point(397, 9);
+            this.BtHistorialFinan.Name = "BtHistorialFinan";
+            this.BtHistorialFinan.Size = new System.Drawing.Size(33, 31);
+            this.BtHistorialFinan.TabIndex = 66;
+            this.BtHistorialFinan.UseVisualStyleBackColor = true;
+            this.BtHistorialFinan.Click += new System.EventHandler(this.button1_Click);
+            this.BtHistorialFinan.MouseHover += new System.EventHandler(this.BtHistorialFinan_MouseHover);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(163, 19);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 43);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 26;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
             // 
             // Clientes
             // 
@@ -784,12 +791,12 @@ namespace Cartera.Vista
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasInteres)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.Panel_Registrar_user.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -808,7 +815,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtObeservaciones;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox txtValorCuotaInteres;
         private System.Windows.Forms.TextBox txtValorCuotaSin;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.NumericUpDown numCuotasInteres;
@@ -858,8 +864,9 @@ namespace Cartera.Vista
         private System.Windows.Forms.DateTimePicker dateFechaEstado;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.TextBox txtValorTotal;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txtValorCuotaInteres;
+        private System.Windows.Forms.Button BtHistorialFinan;
     }
 }

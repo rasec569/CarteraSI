@@ -16,14 +16,7 @@ namespace Cartera.Modelo
         public string Nombre_Producto { get; set; }
         public string Numero_contrato { get; set; }
         public string Forma_pago { get; set; }
-        //public string Tipo_producto { get; set; }
         public int Valor_Producto { get; set; }
-        //public int Valor_30 { get; set; }
-        //public int Valor_Entrada { get; set; }
-        //public int Cuotas_30 { get; set; }
-        //public int Valor_70 { get; set; }
-        //public int Cuotas_70 { get; set; }
-        //public int Valor_intereses { get; set; }
         public DateTime Fecha_Venta { get; set; }
         public string Observaciones { get; set; }
         public int Id_Proyecto { get; set; }

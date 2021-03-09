@@ -36,7 +36,7 @@ namespace Cartera.Vista
             this.comboEstados = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Txtnombre = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -88,9 +88,9 @@ namespace Cartera.Vista
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(29, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Cedula";
+            this.label2.Text = "Nombre";
             // 
             // comboEstados
             // 
@@ -120,7 +120,7 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.Txtnombre);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Location = new System.Drawing.Point(16, 8);
             this.groupBox1.Name = "groupBox1";
@@ -129,12 +129,14 @@ namespace Cartera.Vista
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
             // 
-            // textBox1
+            // Txtnombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(72, 16);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(163, 20);
-            this.textBox1.TabIndex = 5;
+            this.Txtnombre.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.Txtnombre.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.Txtnombre.Location = new System.Drawing.Point(72, 16);
+            this.Txtnombre.Name = "Txtnombre";
+            this.Txtnombre.Size = new System.Drawing.Size(163, 20);
+            this.Txtnombre.TabIndex = 5;
             // 
             // button1
             // 
@@ -230,7 +232,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BtHistorialPago;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox Txtnombre;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;

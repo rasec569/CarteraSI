@@ -30,6 +30,7 @@ namespace Cartera.Vista
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrarPago));
             this.label3 = new System.Windows.Forms.Label();
             this.comboTipoPago = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -45,6 +46,7 @@ namespace Cartera.Vista
             this.txtValorDescuento = new System.Windows.Forms.TextBox();
             this.BtRegistrarPago = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Btbuscar = new System.Windows.Forms.Button();
             this.Txtcedula = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtCuota = new System.Windows.Forms.TextBox();
@@ -53,7 +55,6 @@ namespace Cartera.Vista
             this.panelProductos = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.Btbuscar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panelProductos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -196,12 +197,22 @@ namespace Cartera.Vista
             this.groupBox1.Controls.Add(this.Btbuscar);
             this.groupBox1.Controls.Add(this.Txtcedula);
             this.groupBox1.Controls.Add(this.txtNombre);
-            this.groupBox1.Location = new System.Drawing.Point(12, 9);
+            this.groupBox1.Location = new System.Drawing.Point(20, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(514, 50);
+            this.groupBox1.Size = new System.Drawing.Size(575, 50);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
+            // 
+            // Btbuscar
+            // 
+            this.Btbuscar.Location = new System.Drawing.Point(483, 17);
+            this.Btbuscar.Name = "Btbuscar";
+            this.Btbuscar.Size = new System.Drawing.Size(71, 23);
+            this.Btbuscar.TabIndex = 21;
+            this.Btbuscar.Text = "Buscar";
+            this.Btbuscar.UseVisualStyleBackColor = true;
+            this.Btbuscar.Click += new System.EventHandler(this.Btbuscar_Click);
             // 
             // Txtcedula
             // 
@@ -219,7 +230,7 @@ namespace Cartera.Vista
             this.txtNombre.Enabled = false;
             this.txtNombre.Location = new System.Drawing.Point(148, 19);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(290, 20);
+            this.txtNombre.Size = new System.Drawing.Size(317, 20);
             this.txtNombre.TabIndex = 19;
             // 
             // txtCuota
@@ -250,9 +261,9 @@ namespace Cartera.Vista
             // panelProductos
             // 
             this.panelProductos.Controls.Add(this.dataGridView1);
-            this.panelProductos.Location = new System.Drawing.Point(12, 65);
+            this.panelProductos.Location = new System.Drawing.Point(3, 65);
             this.panelProductos.Name = "panelProductos";
-            this.panelProductos.Size = new System.Drawing.Size(514, 166);
+            this.panelProductos.Size = new System.Drawing.Size(615, 166);
             this.panelProductos.TabIndex = 23;
             // 
             // dataGridView1
@@ -260,29 +271,20 @@ namespace Cartera.Vista
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(8, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(498, 160);
+            this.dataGridView1.Size = new System.Drawing.Size(598, 160);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // Btbuscar
-            // 
-            this.Btbuscar.Location = new System.Drawing.Point(452, 17);
-            this.Btbuscar.Name = "Btbuscar";
-            this.Btbuscar.Size = new System.Drawing.Size(56, 23);
-            this.Btbuscar.TabIndex = 21;
-            this.Btbuscar.Text = "Buscar";
-            this.Btbuscar.UseVisualStyleBackColor = true;
-            this.Btbuscar.Click += new System.EventHandler(this.Btbuscar_Click);
-            // 
             // RegistrarPago
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 243);
+            this.ClientSize = new System.Drawing.Size(621, 243);
             this.Controls.Add(this.panelProductos);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtProducto);
@@ -302,7 +304,11 @@ namespace Cartera.Vista
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboTipoPago);
             this.Controls.Add(this.label3);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "RegistrarPago";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registrar Pago";
             this.Load += new System.EventHandler(this.RegistrarPago_Load);
             this.groupBox1.ResumeLayout(false);
