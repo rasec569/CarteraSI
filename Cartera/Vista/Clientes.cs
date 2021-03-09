@@ -610,7 +610,7 @@ namespace Cartera.Vista
 
         private void numCuotasInteres_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(numValorInteres.Value.ToString());
+            //MessageBox.Show(numValorInteres.Value.ToString());
             if (numCuotasInteres.Value <= 18)
             {
                 numValorInteres.Text = "0";
