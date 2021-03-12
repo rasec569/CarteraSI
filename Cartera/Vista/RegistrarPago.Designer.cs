@@ -310,6 +310,7 @@ namespace Cartera.Vista
             this.Name = "RegistrarPago";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registrar Pago";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistrarPago_FormClosing);
             this.Load += new System.EventHandler(this.RegistrarPago_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

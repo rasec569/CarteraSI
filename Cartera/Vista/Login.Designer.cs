@@ -82,6 +82,7 @@ namespace Cartera.Vista
             // 
             // Login
             // 
+            this.AcceptButton = this.buttonInicio;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.LightCyan;

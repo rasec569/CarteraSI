@@ -70,6 +70,7 @@ namespace Cartera.Vista
                     pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtReferencia.Text, txtValor.Text, comboDescuento.Text, txtValorDescuento.Text, productoid.ToString());
                 }
                 cartera.ActulizarValorRecaudado(productoid, carteraId);
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             }
@@ -209,6 +210,11 @@ namespace Cartera.Vista
                 DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 cell.ToolTipText = "Doble clic para realziar pago";
             }
+        }
+
+        private void RegistrarPago_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
     }    
 }

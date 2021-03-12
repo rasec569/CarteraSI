@@ -31,12 +31,23 @@ namespace Cartera.Modelo
 
         internal static DataTable ActulizarValorTotal(int clienteid, int carteraid)
         {
+
 			return Conexion.consulta("UPDATE Cartera SET Total_Cartera=(SELECT sum(Valor_Producto) FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Pfk_ID_Cliente = '"+clienteid+ "' GROUP by Id_Producto=Id_Producto) WHERE Id_Cartera='" + carteraid + "'");
+        }
+
+        internal static int ActulizarEstados(string carteraid,string estado)
+        {
+			string sql = "UPDATE Cartera SET Estado_cartera = @Estado_cartera WHERE Id_Cartera='"+ carteraid + "';";
+			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+			cmd.Parameters.Add(new SQLiteParameter("@Estado_cartera", estado));
+			return cmd.ExecuteNonQuery();
+
+			throw new NotImplementedException();
         }
 
         internal static DataTable BuscarFechaspagos(int productoid)
         {
-			return Conexion.consulta("SELECT Fecha_Pago, Fecha_Recaudo, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto INNER JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='"+ productoid + "'");
+			return Conexion.consulta("SELECT Fecha_Pago, Fecha_Recaudo, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion,max(Numero_Cuota) as Cuotas_Pagadas FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto INNER JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "'");
 
 		}
 

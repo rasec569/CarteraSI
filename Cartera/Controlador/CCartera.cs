@@ -38,7 +38,12 @@ namespace Cartera.Controlador
         }
         public DataTable BuscarFechaspagos(int productoid)
         {
-            return MCartera.BuscarFechaspagos(productoid);
+            var result = MCartera.BuscarFechaspagos(productoid);
+            return result;
+        }
+        public int ActulizarEstados(string carteraid, string estado)
+        {
+            return MCartera.ActulizarEstados(carteraid, estado);
         }
 
     }
