@@ -25,12 +25,12 @@ namespace Cartera.Controlador
             return MCliente.BuscarClientesCedula(cedula);
         }
 
-        public int crearCliente(int cedula,string nombre,string apellido, string telefono ,string direccion,string correo,int idCartera)
+        public int crearCliente(string cedula,string nombre,string apellido, string telefono ,string direccion,string correo,int idCartera)
         {
             return MCliente.crearCliente(cedula, nombre, apellido, telefono, direccion, correo, idCartera);
         }
 
-        public int actualizarCliente(int Cliente_id,int cedula,string nombre,string apellido, string telefono,string direccion,string correo,int idCartera)
+        public int actualizarCliente(string Cliente_id, string cedula,string nombre,string apellido, string telefono,string direccion,string correo,int idCartera)
         {
             return MCliente.actualizarCliente(Cliente_id, cedula, nombre, apellido, telefono, direccion, correo, idCartera);
 

@@ -42,7 +42,9 @@ namespace Cartera.Vista
 
         }
 
-        
+        private void parameterInfoControl1_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

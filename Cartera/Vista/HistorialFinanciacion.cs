@@ -33,16 +33,21 @@ namespace Cartera.Vista
         {
             dataGridView1.DataSource = financiacion.HistorialFinanciacion(ProductoId);
             dataGridView1.Columns[0].HeaderText = "Valor Financiación";
-            dataGridView1.Columns[1].HeaderText = "Valor Entrada";
+            dataGridView1.Columns[0].DefaultCellStyle.Format = "n1";
+            dataGridView1.Columns[1].HeaderText = "Valor Inicial";
+            dataGridView1.Columns[1].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[2].HeaderText = "Valor 30";
+            dataGridView1.Columns[2].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[3].HeaderText = "Numero de cuotas 30";
             dataGridView1.Columns[4].HeaderText = "Valor cuotas 30";
+            dataGridView1.Columns[4].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[5].HeaderText = "Valor 70";
+            dataGridView1.Columns[5].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[6].HeaderText = "Numero de cuotas 70";
             dataGridView1.Columns[7].HeaderText = "Valor cuotas 70";
+            dataGridView1.Columns[7].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[8].HeaderText = "Interes";
             dataGridView1.Columns[9].HeaderText = "Fecha recaudo";
-
         }
     }
 }

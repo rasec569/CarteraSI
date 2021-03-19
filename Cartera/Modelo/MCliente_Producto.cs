@@ -41,7 +41,7 @@ namespace Cartera.Modelo
         {
             string sql = "UPDATE Cliente_Producto SET Estado_Cliente=@Estado_Cliente, Fecha_Cambio=@Fecha_Cambio WHERE Pfk_ID_Cliente= '" + id_Cliente + "' AND Pfk_ID_Producto='" + id_Producto + "'";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Trasferido"));
+            cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Cedido"));
             cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", fechacambio));
             return cmd.ExecuteNonQuery();
            

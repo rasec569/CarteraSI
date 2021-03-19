@@ -37,6 +37,7 @@ namespace Cartera.Vista
             this.comboEstados = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.Txtcedula = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -44,7 +45,6 @@ namespace Cartera.Vista
             this.BtPago = new System.Windows.Forms.Button();
             this.BtHistorialPago = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -108,7 +108,6 @@ namespace Cartera.Vista
             this.comboEstados.Name = "comboEstados";
             this.comboEstados.Size = new System.Drawing.Size(179, 21);
             this.comboEstados.TabIndex = 2;
-            this.comboEstados.SelectedIndexChanged += new System.EventHandler(this.comboEstados_SelectedIndexChanged);
             this.comboEstados.SelectedValueChanged += new System.EventHandler(this.comboEstados_SelectedValueChanged);
             // 
             // label1
@@ -131,6 +130,16 @@ namespace Cartera.Vista
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
+            // 
+            // button3
+            // 
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(292, 12);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(33, 29);
+            this.button3.TabIndex = 6;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Txtcedula
             // 
@@ -171,7 +180,7 @@ namespace Cartera.Vista
             this.button2.TabIndex = 4;
             this.button2.Text = "Imprimir";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // BtPago
             // 
@@ -201,16 +210,6 @@ namespace Cartera.Vista
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(931, 537);
             this.panel2.TabIndex = 1;
-            // 
-            // button3
-            // 
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(292, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(33, 29);
-            this.button3.TabIndex = 6;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Carteras
             // 

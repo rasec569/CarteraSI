@@ -51,7 +51,7 @@ namespace Cartera.Vista
             dataGridView1.Columns["Id_Proyecto"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Nombre";
             dataGridView1.Columns[2].HeaderText = "Ubicación";
-            QuitarFila();
+            //QuitarFila();
         }
         private void QuitarFila()
         {

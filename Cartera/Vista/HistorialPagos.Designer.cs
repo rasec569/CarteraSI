@@ -44,6 +44,8 @@ namespace Cartera.Vista
             this.txtFecha = new System.Windows.Forms.TextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -155,7 +157,6 @@ namespace Cartera.Vista
             this.BtImprimir.TabIndex = 6;
             this.BtImprimir.Text = "Imprimir";
             this.BtImprimir.UseVisualStyleBackColor = true;
-            this.BtImprimir.Visible = false;
             this.BtImprimir.Click += new System.EventHandler(this.BtImprimir_Click);
             // 
             // txtFecha
@@ -181,6 +182,22 @@ namespace Cartera.Vista
             this.dataGridView2.TabIndex = 6;
             this.dataGridView2.Visible = false;
             // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Document = this.printDocument1;
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.ShowIcon = false;
+            this.printPreviewDialog1.Visible = false;
+            // 
             // HistorialPagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -194,7 +211,7 @@ namespace Cartera.Vista
             this.MinimizeBox = false;
             this.Name = "HistorialPagos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "HistorialPagos";
+            this.Text = "Historial Pagos";
             this.Load += new System.EventHandler(this.HistorialPagos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -220,5 +237,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.Button btLimpiar;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
     }
 }

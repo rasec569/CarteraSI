@@ -35,7 +35,8 @@ namespace Cartera.Vista
             dataGridView1.Columns[1].HeaderText = "Producto";
             dataGridView1.Columns[2].HeaderText = "Contrato";
             dataGridView1.Columns[3].HeaderText = "Forma Pago";
-            dataGridView1.Columns[4].HeaderText = "Valor Neto";
+            dataGridView1.Columns[4].HeaderText = "Valor";
+            dataGridView1.Columns[4].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[5].HeaderText = "Fecha Venta";
             dataGridView1.Columns[6].HeaderText = "Valor Entrada";
             dataGridView1.Columns["Valor_Entrada"].Visible = false;
@@ -71,7 +72,8 @@ namespace Cartera.Vista
             dataGridView1.Columns[1].HeaderText = "Producto";
             dataGridView1.Columns[2].HeaderText = "Contrato";
             dataGridView1.Columns[3].HeaderText = "Forma Pago";
-            dataGridView1.Columns[4].HeaderText = "Valor Neto";
+            dataGridView1.Columns[4].HeaderText = "Valor";
+            dataGridView1.Columns[4].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[5].HeaderText = "Fecha Venta";
             dataGridView1.Columns[6].HeaderText = "Valor Entrada";
             dataGridView1.Columns["Valor_Entrada"].Visible = false;

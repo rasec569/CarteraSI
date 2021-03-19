@@ -32,7 +32,7 @@ namespace Cartera.Modelo
             return Conexion.consulta("SELECT * FROM Cliente WHERE Cedula ='" + cedula + "'");
         }
 
-        public static int crearCliente(int cedula,string nombre,string apellido, string telefono,string direccion,string correo,int idCartera){
+        public static int crearCliente(string cedula,string nombre,string apellido, string telefono,string direccion,string correo,int idCartera){
         string sql = "insert into Cliente(Cedula,Nombre,Apellido,Telefono, Direccion, Correo, Fk_Id_Cartera) values(@Cedula,upper(@Nombre),upper(@Apellido),@Telefono,@Direccion,@Correo,@Fk_Id_Cartera)";
                         SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
                         cmd.Parameters.Add(new SQLiteParameter("@Cedula", cedula));
@@ -45,7 +45,7 @@ namespace Cartera.Modelo
                         return  cmd.ExecuteNonQuery();
         }
 
-        public static int actualizarCliente(int Cliente_id,int cedula,string nombre,string apellido, string telefono,string direccion,string correo,int idCartera){
+        public static int actualizarCliente(string Cliente_id, string cedula,string nombre,string apellido, string telefono,string direccion,string correo,int idCartera){
         string sql = "UPDATE Cliente SET Cedula=@Cedula, Nombre=Upper(@Nombre), Apellido=Upper(@Apellido), Telefono=@Telefono, Direccion=@Direccion, Correo=@Correo WHERE Id_Cliente=" + Cliente_id + "";
                     SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
                         cmd.Parameters.Add(new SQLiteParameter("@Cedula", cedula));

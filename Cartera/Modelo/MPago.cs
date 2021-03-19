@@ -10,6 +10,15 @@ namespace Cartera.Modelo
 {
     class MPago
     {
+        public int Id_Pagos { get; set; }
+        public string Procentaje { get; set; }
+        public int Numero_Cuota { get; set; }
+        public string Fecha_Pago { get; set; }
+        public string Referencia_Pago { get; set; }
+        public int Valor_Pagado { get; set; }
+        public string Descuento { get; set; }
+        public int Valor_Descuento { get; set; }
+
         internal static DataTable ConsultarUltimaCuota(int productoid)
         {
             return Conexion.consulta("Select max(Numero_Cuota)  from Pagos where Fk_Id_Producto = '"+ productoid + "'");
@@ -33,7 +42,7 @@ namespace Cartera.Modelo
 
         internal static DataTable ListarPagosCliente(string productoid)
         {
-            return Conexion.consulta("SELECT * FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
+            return Conexion.consulta("SELECT  Numero_Cuota, Valor_Pagado, Fecha_Pago, Referencia_Pago, Descuento,Valor_Descuento FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
         }
 
         internal static DataTable SumarValorRecaudado(string productoid)

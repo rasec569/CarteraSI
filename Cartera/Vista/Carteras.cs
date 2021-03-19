@@ -49,10 +49,13 @@ namespace Cartera.Vista
             dataGridView1.Columns[3].HeaderText = "Apellido";
             dataGridView1.Columns[4].HeaderText = "Estado Mora";
             dataGridView1.Columns[5].HeaderText = "Recaudado";
+            dataGridView1.Columns[5].DefaultCellStyle.Format = "n1";
             //dataGridView1.Columns["Id_Producto"].Visible = false;
             dataGridView1.Columns[6].HeaderText = "Producto";
-            dataGridView1.Columns[7].HeaderText = "Valor Mora";
+            dataGridView1.Columns[7].HeaderText = "Saldo";
+            dataGridView1.Columns[7].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[8].HeaderText = "Total Cartera";
+            dataGridView1.Columns[8].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns["Id_Cartera"].Visible = false;
             if (Validarestados == true)
             {
@@ -64,8 +67,7 @@ namespace Cartera.Vista
         private void button1_Click(object sender, EventArgs e)
         {
             RegistrarPago Rp = new RegistrarPago();
-            //Rp.FormClosing += new FormClosingEventHandler(Pagos_FormClose);
-            //Rp.FormClosing += Pagos_FormClose;
+            Rp.FormClosed += Pagos_FormClose;
             Rp.ShowDialog();
         }
         private void Pagos_FormClose(object sender, FormClosedEventArgs e)
@@ -107,11 +109,6 @@ namespace Cartera.Vista
             }
         }
 
-        private void comboEstados_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             int cedula = 0;
@@ -130,12 +127,13 @@ namespace Cartera.Vista
                     apellido = dataGridView1.Rows[n].Cells["Apellido"].Value.ToString();
                     carteraid = dataGridView1.Rows[n].Cells["Id_Cartera"].Value.ToString();
                     RegistrarPago Rp = new RegistrarPago(cedula, nombre + " " + apellido, clienteid, carteraid);
-                    Rp.Show();
+                    Rp.FormClosed += Pagos_FormClose;
+                    Rp.ShowDialog();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Valor no admitido");
+                MessageBox.Show("Valor no admitido"+ex);
             }
         }
         private void actulizarestado()
@@ -210,7 +208,7 @@ namespace Cartera.Vista
         private void BtHistorialPago_Click(object sender, EventArgs e)
         {
             HistorialPagos Hp = new HistorialPagos();
-            Hp.Show();
+            Hp.ShowDialog();
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
@@ -239,6 +237,11 @@ namespace Cartera.Vista
         {
             Txtcedula.Clear();
             CargarCartera();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
