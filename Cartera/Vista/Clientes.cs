@@ -277,7 +277,7 @@ namespace Cartera.Vista
                         if ((ComboFormaPago.Text == "Financiado") & (checkBox1.Checked == false))
                         {
                             //aqui
-                            financiacion.actualizarFinanciacion(Financiacion_id, txtValorTotal.Text, txtValorEntrada.Text, (Convert.ToDouble(txtValor.Text).ToString()).ToString(), txtValorCon.Text, numCuotaSinInteres.Value.ToString(), txtValorCon.Text, numCuotasInteres.Value.ToString(), txtValorCuotaInteres.Text, numValorInteres.Value.ToString(), DateRecaudo.Text, int.Parse(Producto_id));
+                            financiacion.actualizarFinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, int.Parse(Producto_id));
                         }
                         else
                         {

@@ -66,9 +66,12 @@ namespace Cartera.Modelo
         {
 			return Conexion.consulta("SELECT max(Id_Cartera) FROM Cartera ORDER BY Id_Cartera DESC");
 		}
-		internal static DataTable ActulizarValorRecaudado(int productoid, int carteraid )
+		internal static int ActulizarValorRecaudado(int productoid, int carteraid )
         {
-			return Conexion.consulta("UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado), FROM Pagos WHERE Fk_Id_Producto = '"+ productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto), Saldo=(Total_Cartera-Valor_Recaudado) WHERE Id_Cartera='" + carteraid + "'");
+			string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado) FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto), Saldo=(Total_Cartera-Valor_Recaudado) WHERE Id_Cartera='" + carteraid + "'";
+			//string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado), FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto) WHERE Id_Cartera='" + carteraid + "'";
+			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+			return cmd.ExecuteNonQuery();
 		}
 	}
 }

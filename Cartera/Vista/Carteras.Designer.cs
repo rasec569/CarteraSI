@@ -99,6 +99,7 @@ namespace Cartera.Vista
             this.comboEstados.FormattingEnabled = true;
             this.comboEstados.Items.AddRange(new object[] {
             "Nueva",
+            "Al Dia",
             "Menos de 30 días",
             "De 31 a 60 días",
             "De 61 a 90 días",

@@ -1,4 +1,5 @@
 ﻿using Cartera.Controlador;
+using Cartera.Reportes;
 using CrystalDecisions.CrystalReports.Engine;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,11 @@ namespace Cartera.Vista
         string productoId = "";
         string clienteid = "";
         string Nom_Producto, Nom_Proyecto;
+        private ReportesPDF reportesPDF;
         public HistorialPagos()
         {
             InitializeComponent();
+            reportesPDF = new ReportesPDF();
         }
         public HistorialPagos(string cedula, string nombre, string id_cliente)
         {
@@ -40,9 +43,23 @@ namespace Cartera.Vista
         {
             try
             {
-                printPreviewDialog1.Show();
+                DataTable dt = new DataTable();
+                dt.Clear();
+                dt.Columns.Add("Nombre");
+                dt.Columns.Add("Pago 1");
+                dt.Columns.Add("Pago 2");
+                dt.Columns.Add("Pago 3");
+                DataRow _ravi = dt.NewRow();
+                _ravi[0] = "Cesar Valencia";
+                _ravi[1] = "$500.000";
+                _ravi[2] = "$500.000";
+                _ravi[3] = "$500.000";
+                dt.Rows.Add(_ravi);
+
+                reportesPDF.HistorialPagos(dt);
+                //printPreviewDialog1.Show();
             }
-            catch
+            catch(Exception ex)
             {
                 printPreviewDialog1.Close();
             }
@@ -91,8 +108,7 @@ namespace Cartera.Vista
                     txtNombre.Text = DtUsuario.Rows[0]["Nombre"].ToString() + " " + DtUsuario.Rows[0]["Apellido"].ToString();
                     txtFecha.Text = DateTime.Now.ToShortDateString();
                     ListarPagosCliente();
-                    btLimpiar.Enabled = true;
-                    BtImprimir.Enabled = true;
+                    btLimpiar.Enabled = true;                    
                 }
              }
             catch
@@ -163,6 +179,7 @@ namespace Cartera.Vista
                 dataGridView2.Columns[4].HeaderText = "Descuento";
                 dataGridView2.Columns[5].HeaderText = "Valor Descuento";
             }
+            BtImprimir.Enabled = true;
             dataGridView2.Visible = true;
             dataGridView1.Visible = false;
         }
@@ -193,7 +210,7 @@ namespace Cartera.Vista
             Font Tipotex1 = new Font("Arial", 12, FontStyle.Regular);
             Font Tipotex2 = new Font("Arial", 11, FontStyle.Regular);
             Image img = Image.FromFile(imagen);
-            e.Graphics.DrawImage(img, new Rectangle(30, 20, 50, 50));
+            e.Graphics.DrawImage(img, new Rectangle(20, 10, 70, 70));
             e.Graphics.DrawString("HISTORIAL DE PAGOS URBANIZADORA Y CONSTRUCTORA SAN ISIDRO", Tipotex, Brushes.Black, 100, 30);
             e.Graphics.DrawString("Docuemento N°:", Tipotex1, Brushes.Black, 40, 70);
             e.Graphics.DrawString(txtCedula.Text, Tipotex1, Brushes.Black, 170, 70);

@@ -81,3 +81,6 @@ C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\bin\Debug\CrystalDecisions.Re
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.csprojAssemblyReference.cache
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.RepPagos.resources
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\bin\Debug\itextsharp.dll
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\bin\Debug\itextsharp.xml

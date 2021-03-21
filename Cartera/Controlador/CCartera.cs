@@ -28,7 +28,7 @@ namespace Cartera.Controlador
         {
             return MCartera.CarteraCliente(cedula);
         }
-        public DataTable ActulizarValorRecaudado(int productoid, int carteraid)
+        public int ActulizarValorRecaudado(int productoid, int carteraid)
         {
             return MCartera.ActulizarValorRecaudado(productoid, carteraid);
         }

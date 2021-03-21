@@ -103,6 +103,10 @@ namespace Cartera.Vista
             {
                 DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'Mas de 360 días'";
             }
+            else if (Estados == "Al Dia")
+            {
+                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'Al Dia'";
+            }
             else
             {
                 DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'Nueva'";
