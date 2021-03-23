@@ -1,4 +1,5 @@
 ﻿using Cartera.Controlador;
+using Cartera.Reportes;
 using System;
 using System.Data;
 using System.Globalization;
@@ -17,9 +18,11 @@ namespace Cartera.Vista
         CProyecto proyecto = new CProyecto();
         CFinanciacion financiacion = new CFinanciacion();
         CCliente_Producto cliente_producto = new CCliente_Producto();
+        private ReportesPDF reportesPDF;
 
         bool error = false;
         DataTable DtCliente = new DataTable();
+        DataTable DtReportes = new DataTable();
         public static int Cartera_id = 0;
         public static string Cliente_id = "";
         public static string Producto_id = "";
@@ -31,6 +34,7 @@ namespace Cartera.Vista
 
         public Clientes()
         {
+            reportesPDF = new ReportesPDF();
             InitializeComponent();
             DateRecaudo.MinDate = new DateTime(2015, 1, 1);
             DateVenta.MinDate = new DateTime(2015, 1, 1);
@@ -92,9 +96,13 @@ namespace Cartera.Vista
         }
         private void CargarClientes()
         {
-            dataGridView1.DataSource = cliente.cargarClientes();
+            DtCliente = cliente.cargarClientes();
+            DtReportes = DtCliente.Copy();
+            dataGridView1.DataSource = DtCliente;
             dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
+            DtReportes.Columns.Remove("Id_Cliente");
+            DtReportes.Columns.Remove("Fk_Id_Cartera");
         }
         private void CargarProducto()
         {
@@ -114,8 +122,7 @@ namespace Cartera.Vista
         }
         void autocompletar()
         {
-            AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
-            DtCliente = cliente.cargarClientes();
+            AutoCompleteStringCollection lista = new AutoCompleteStringCollection();            
 
             for (int i = 0; i < DtCliente.Rows.Count; i++)
             {
@@ -433,10 +440,10 @@ namespace Cartera.Vista
                     LimpiarProducto();
                     Cliente_id = dataGridView1.Rows[n].Cells["Id_Cliente"].Value.ToString();
                     txtCedula.Text = dataGridView1.Rows[n].Cells["Cedula"].Value.ToString();
-                    txtNombres.Text = dataGridView1.Rows[n].Cells["Nombre"].Value.ToString();
-                    txtApellidos.Text = dataGridView1.Rows[n].Cells["Apellido"].Value.ToString();
+                    txtNombres.Text = dataGridView1.Rows[n].Cells["Nombres"].Value.ToString();
+                    txtApellidos.Text = dataGridView1.Rows[n].Cells["Apellidos"].Value.ToString();
                     txtTelefono.Text = dataGridView1.Rows[n].Cells["Telefono"].Value.ToString();
-                    txtDireccion.Text = dataGridView1.Rows[n].Cells["Direccion"].Value.ToString();
+                    txtDireccion.Text = dataGridView1.Rows[n].Cells["Dirección"].Value.ToString();
                     txtCorreo.Text = (string)dataGridView1.Rows[n].Cells["Correo"].Value.ToString();
                     Cartera_id = int.Parse(dataGridView1.Rows[n].Cells["Fk_Id_Cartera"].Value.ToString());
                     CargarProducto();
@@ -773,6 +780,16 @@ namespace Cartera.Vista
         private void txtValorEntrada_Leave(object sender, EventArgs e)
         {
             txtValorEntrada.Text = String.Format("{0:N2}", double.Parse(txtValorEntrada.Text));
+        }
+
+        private void PanelSuperior_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            reportesPDF.Clientes(DtReportes);
         }
     }
 }

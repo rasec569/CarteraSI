@@ -42,7 +42,11 @@ namespace Cartera.Modelo
 
         internal static DataTable ListarPagosCliente(string productoid)
         {
-            return Conexion.consulta("SELECT  Numero_Cuota, Valor_Pagado, Fecha_Pago, Referencia_Pago, Descuento,Valor_Descuento FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
+            return Conexion.consulta("SELECT  Numero_Cuota as 'N° Cuota', Valor_Pagado as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
+        }
+        internal static DataTable Tota_Recaudado_Producto(string productoid)
+        {
+            return Conexion.consulta("SELECT  Sum(Valor_Pagado) FROM Pagos WHERE Fk_Id_Producto ='" + productoid + "';");
         }
 
         internal static DataTable SumarValorRecaudado(string productoid)

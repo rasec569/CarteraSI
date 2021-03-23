@@ -1,6 +1,5 @@
 ﻿using Cartera.Controlador;
 using Cartera.Reportes;
-using CrystalDecisions.CrystalReports.Engine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,11 +23,14 @@ namespace Cartera.Vista
         string productoId = "";
         string clienteid = "";
         string Nom_Producto, Nom_Proyecto;
+        int ProductoVal,ValorPagado,ValorDeuda;
         private ReportesPDF reportesPDF;
+        DataTable dtpagos = new DataTable();
         public HistorialPagos()
         {
             InitializeComponent();
             reportesPDF = new ReportesPDF();
+            
         }
         public HistorialPagos(string cedula, string nombre, string id_cliente)
         {
@@ -43,25 +45,12 @@ namespace Cartera.Vista
         {
             try
             {
-                DataTable dt = new DataTable();
-                dt.Clear();
-                dt.Columns.Add("Nombre");
-                dt.Columns.Add("Pago 1");
-                dt.Columns.Add("Pago 2");
-                dt.Columns.Add("Pago 3");
-                DataRow _ravi = dt.NewRow();
-                _ravi[0] = "Cesar Valencia";
-                _ravi[1] = "$500.000";
-                _ravi[2] = "$500.000";
-                _ravi[3] = "$500.000";
-                dt.Rows.Add(_ravi);
-
-                reportesPDF.HistorialPagos(dt);
+                reportesPDF.HistorialPagos(dtpagos, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, TxtTotalVal.Text, TxtDeuda.Text, TxtPagado.Text);
                 //printPreviewDialog1.Show();
             }
             catch(Exception ex)
             {
-                printPreviewDialog1.Close();
+                //printPreviewDialog1.Close();
             }
             //var pagos= pago.ListarPagosCliente(productoId);
             //var rpth = new ReportClass();
@@ -168,16 +157,18 @@ namespace Cartera.Vista
             {
                 // Porcentaje, Numero_Cuota, Fecha_Pago, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto
                 productoId = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();
-                DataTable dtpagos= pago.ListarPagosCliente(productoId);
+                dtpagos= pago.ListarPagosCliente(productoId);
+                DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
                 dataGridView2.DataSource = dtpagos;
                 Nom_Producto= dataGridView1.Rows[n].Cells["Nombre_Producto"].Value.ToString();
-                Nom_Proyecto = dataGridView1.Rows[n].Cells["Proyecto_Nombre"].Value.ToString();
+                Nom_Proyecto = dataGridView1.Rows[n].Cells["Proyecto_Nombre"].Value.ToString();                
+                ValorPagado =int.Parse( dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
                 dataGridView2.Columns[0].HeaderText = "N° Cuota";
-                dataGridView2.Columns[1].HeaderText = "Valor";
-                dataGridView2.Columns[2].HeaderText = "Fecha";
-                dataGridView2.Columns[3].HeaderText = "Referencia";                
-                dataGridView2.Columns[4].HeaderText = "Descuento";
-                dataGridView2.Columns[5].HeaderText = "Valor Descuento";
+                ProductoVal= int.Parse(dataGridView1.Rows[n].Cells["Valor_Producto"].Value.ToString());
+                ValorDeuda = ProductoVal - ValorPagado;
+                TxtTotalVal.Text = String.Format("{0:N2}", ProductoVal); 
+                TxtDeuda.Text = String.Format("{0:N2}", ValorDeuda);
+                TxtPagado.Text= String.Format("{0:N2}", ValorPagado);
             }
             BtImprimir.Enabled = true;
             dataGridView2.Visible = true;
@@ -193,25 +184,45 @@ namespace Cartera.Vista
             }
         }
 
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btLimpiar_Click(object sender, EventArgs e)
         {
             dataGridView1.DataSource = "";
             dataGridView2.DataSource = "";
+            dataGridView2.Visible = false;
+            dataGridView1.Visible = true;
             txtCedula.Clear();
             txtNombre.Clear();
             txtFecha.Clear();
+            TxtTotalVal.Clear();
+            TxtDeuda.Clear();
+            TxtPagado.Clear();
             clienteid = "";
         }
-
+        public static int GetPageCount(PrintDocument printDocument)
+        {
+            int count = 0;
+            printDocument.PrintController = new PreviewPrintController();
+            printDocument.PrintPage += (sender, e) => count++;
+            printDocument.Print();
+            return count;
+        }
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
+            
             string imagen = @"C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\img\logo 2 San Isidro.png"; 
             Font Tipotex = new Font("Arial", 12, FontStyle.Bold);
             Font Tipotex1 = new Font("Arial", 12, FontStyle.Regular);
             Font Tipotex2 = new Font("Arial", 11, FontStyle.Regular);
             Image img = Image.FromFile(imagen);
+            e.Graphics.FillRectangle(Brushes.Black, 20, 10, 20, 60);
             e.Graphics.DrawImage(img, new Rectangle(20, 10, 70, 70));
             e.Graphics.DrawString("HISTORIAL DE PAGOS URBANIZADORA Y CONSTRUCTORA SAN ISIDRO", Tipotex, Brushes.Black, 100, 30);
+            e.Graphics.DrawString("NIT: 901100097-1", Tipotex, Brushes.Black, 100, 30);
             e.Graphics.DrawString("Docuemento N°:", Tipotex1, Brushes.Black, 40, 70);
             e.Graphics.DrawString(txtCedula.Text, Tipotex1, Brushes.Black, 170, 70);
             e.Graphics.DrawString("Nombre:", Tipotex1, Brushes.Black, 280, 70);

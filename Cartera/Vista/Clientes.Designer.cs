@@ -33,11 +33,7 @@ namespace Cartera.Vista
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Clientes));
             this.label8 = new System.Windows.Forms.Label();
             this.PanelSuperior = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.BtNuevoCliente = new System.Windows.Forms.Button();
-            this.BtBuscarCliente = new System.Windows.Forms.Button();
             this.txtBuscarCliente = new System.Windows.Forms.TextBox();
-            this.BtGuardarCliente = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
@@ -78,7 +74,6 @@ namespace Cartera.Vista
             this.dateFechaEstado = new System.Windows.Forms.DateTimePicker();
             this.comboEstadoCliente = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtNombres = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -86,7 +81,6 @@ namespace Cartera.Vista
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.Panel_Registrar_user = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BtHistorialFinan = new System.Windows.Forms.Button();
             this.txtValorCuotaInteres = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label25 = new System.Windows.Forms.Label();
@@ -97,17 +91,27 @@ namespace Cartera.Vista
             this.comboProyecto = new System.Windows.Forms.ComboBox();
             this.numValorInteres = new System.Windows.Forms.NumericUpDown();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.BtBuscarCliente = new System.Windows.Forms.Button();
+            this.BtNuevoCliente = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.BtGuardarCliente = new System.Windows.Forms.Button();
+            this.BtHistorialFinan = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PanelSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotaSinInteres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasInteres)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.Panel_Registrar_user.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label8
@@ -121,75 +125,32 @@ namespace Cartera.Vista
             // 
             // PanelSuperior
             // 
-            this.PanelSuperior.Controls.Add(this.button2);
-            this.PanelSuperior.Controls.Add(this.BtNuevoCliente);
-            this.PanelSuperior.Controls.Add(this.BtBuscarCliente);
-            this.PanelSuperior.Controls.Add(this.txtBuscarCliente);
-            this.PanelSuperior.Controls.Add(this.BtGuardarCliente);
-            this.PanelSuperior.Controls.Add(this.label1);
+            this.PanelSuperior.Controls.Add(this.groupBox3);
+            this.PanelSuperior.Controls.Add(this.groupBox4);
             this.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelSuperior.Location = new System.Drawing.Point(0, 0);
             this.PanelSuperior.Name = "PanelSuperior";
             this.PanelSuperior.Size = new System.Drawing.Size(931, 64);
             this.PanelSuperior.TabIndex = 0;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(781, 22);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 27;
-            this.button2.Text = "Imprimir";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // BtNuevoCliente
-            // 
-            this.BtNuevoCliente.Location = new System.Drawing.Point(596, 22);
-            this.BtNuevoCliente.Name = "BtNuevoCliente";
-            this.BtNuevoCliente.Size = new System.Drawing.Size(75, 23);
-            this.BtNuevoCliente.TabIndex = 3;
-            this.BtNuevoCliente.Text = "Nuevo";
-            this.BtNuevoCliente.UseVisualStyleBackColor = true;
-            this.BtNuevoCliente.Click += new System.EventHandler(this.BtNuevoCliente_Click);
-            // 
-            // BtBuscarCliente
-            // 
-            this.BtBuscarCliente.Location = new System.Drawing.Point(506, 22);
-            this.BtBuscarCliente.Name = "BtBuscarCliente";
-            this.BtBuscarCliente.Size = new System.Drawing.Size(75, 23);
-            this.BtBuscarCliente.TabIndex = 2;
-            this.BtBuscarCliente.Text = "Buscar";
-            this.BtBuscarCliente.UseVisualStyleBackColor = true;
-            this.BtBuscarCliente.Click += new System.EventHandler(this.BtBuscarCliente_Click);
+            this.PanelSuperior.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelSuperior_Paint);
             // 
             // txtBuscarCliente
             // 
             this.txtBuscarCliente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtBuscarCliente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtBuscarCliente.Location = new System.Drawing.Point(180, 25);
+            this.txtBuscarCliente.Location = new System.Drawing.Point(78, 18);
             this.txtBuscarCliente.Name = "txtBuscarCliente";
-            this.txtBuscarCliente.Size = new System.Drawing.Size(281, 20);
+            this.txtBuscarCliente.Size = new System.Drawing.Size(214, 20);
             this.txtBuscarCliente.TabIndex = 1;
-            // 
-            // BtGuardarCliente
-            // 
-            this.BtGuardarCliente.Enabled = false;
-            this.BtGuardarCliente.Location = new System.Drawing.Point(689, 23);
-            this.BtGuardarCliente.Name = "BtGuardarCliente";
-            this.BtGuardarCliente.Size = new System.Drawing.Size(75, 23);
-            this.BtGuardarCliente.TabIndex = 26;
-            this.BtGuardarCliente.Text = "Guardar";
-            this.BtGuardarCliente.UseVisualStyleBackColor = true;
-            this.BtGuardarCliente.Click += new System.EventHandler(this.BtGuardarCliente_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(75, 28);
+            this.label1.Location = new System.Drawing.Point(27, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Buscar Cliente";
+            this.label1.Text = "Cedula";
             // 
             // dataGridView1
             // 
@@ -561,18 +522,6 @@ namespace Cartera.Vista
             this.label24.Text = "Estado";
             this.label24.Visible = false;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(163, 19);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 43);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 26;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
-            // 
             // txtNombres
             // 
             this.txtNombres.Location = new System.Drawing.Point(90, 103);
@@ -670,17 +619,6 @@ namespace Cartera.Vista
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Producto";
             // 
-            // BtHistorialFinan
-            // 
-            this.BtHistorialFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialFinan.Image")));
-            this.BtHistorialFinan.Location = new System.Drawing.Point(397, 9);
-            this.BtHistorialFinan.Name = "BtHistorialFinan";
-            this.BtHistorialFinan.Size = new System.Drawing.Size(33, 31);
-            this.BtHistorialFinan.TabIndex = 66;
-            this.BtHistorialFinan.UseVisualStyleBackColor = true;
-            this.BtHistorialFinan.Click += new System.EventHandler(this.button1_Click);
-            this.BtHistorialFinan.MouseHover += new System.EventHandler(this.BtHistorialFinan_MouseHover);
-            // 
             // txtValorCuotaInteres
             // 
             this.txtValorCuotaInteres.Enabled = false;
@@ -771,6 +709,94 @@ namespace Cartera.Vista
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             this.dataGridView2.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellMouseEnter);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.txtBuscarCliente);
+            this.groupBox3.Controls.Add(this.BtBuscarCliente);
+            this.groupBox3.Location = new System.Drawing.Point(173, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(342, 51);
+            this.groupBox3.TabIndex = 28;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Buscar";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.BtNuevoCliente);
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.BtGuardarCliente);
+            this.groupBox4.Location = new System.Drawing.Point(571, 6);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(137, 51);
+            this.groupBox4.TabIndex = 29;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Administrar";
+            // 
+            // BtBuscarCliente
+            // 
+            this.BtBuscarCliente.Image = global::Cartera.Properties.Resources.buscar;
+            this.BtBuscarCliente.Location = new System.Drawing.Point(301, 12);
+            this.BtBuscarCliente.Name = "BtBuscarCliente";
+            this.BtBuscarCliente.Size = new System.Drawing.Size(32, 30);
+            this.BtBuscarCliente.TabIndex = 2;
+            this.BtBuscarCliente.UseVisualStyleBackColor = true;
+            this.BtBuscarCliente.Click += new System.EventHandler(this.BtBuscarCliente_Click);
+            // 
+            // BtNuevoCliente
+            // 
+            this.BtNuevoCliente.Image = global::Cartera.Properties.Resources.Nuevo_Cliente;
+            this.BtNuevoCliente.Location = new System.Drawing.Point(18, 12);
+            this.BtNuevoCliente.Name = "BtNuevoCliente";
+            this.BtNuevoCliente.Size = new System.Drawing.Size(33, 31);
+            this.BtNuevoCliente.TabIndex = 3;
+            this.BtNuevoCliente.UseVisualStyleBackColor = true;
+            this.BtNuevoCliente.Click += new System.EventHandler(this.BtNuevoCliente_Click);
+            // 
+            // button2
+            // 
+            this.button2.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button2.Location = new System.Drawing.Point(96, 13);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(33, 31);
+            this.button2.TabIndex = 27;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // BtGuardarCliente
+            // 
+            this.BtGuardarCliente.Enabled = false;
+            this.BtGuardarCliente.Image = global::Cartera.Properties.Resources.Guardar1;
+            this.BtGuardarCliente.Location = new System.Drawing.Point(57, 12);
+            this.BtGuardarCliente.Name = "BtGuardarCliente";
+            this.BtGuardarCliente.Size = new System.Drawing.Size(33, 32);
+            this.BtGuardarCliente.TabIndex = 26;
+            this.BtGuardarCliente.UseVisualStyleBackColor = true;
+            this.BtGuardarCliente.Click += new System.EventHandler(this.BtGuardarCliente_Click);
+            // 
+            // BtHistorialFinan
+            // 
+            this.BtHistorialFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialFinan.Image")));
+            this.BtHistorialFinan.Location = new System.Drawing.Point(397, 9);
+            this.BtHistorialFinan.Name = "BtHistorialFinan";
+            this.BtHistorialFinan.Size = new System.Drawing.Size(33, 31);
+            this.BtHistorialFinan.TabIndex = 66;
+            this.BtHistorialFinan.UseVisualStyleBackColor = true;
+            this.BtHistorialFinan.Click += new System.EventHandler(this.button1_Click);
+            this.BtHistorialFinan.MouseHover += new System.EventHandler(this.BtHistorialFinan_MouseHover);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(163, 19);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 43);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 26;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
+            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -785,19 +811,21 @@ namespace Cartera.Vista
             this.Text = "Clientes";
             this.Load += new System.EventHandler(this.Clientes_Load);
             this.PanelSuperior.ResumeLayout(false);
-            this.PanelSuperior.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotaSinInteres)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasInteres)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.Panel_Registrar_user.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -869,5 +897,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox txtValorCuotaInteres;
         private System.Windows.Forms.Button BtHistorialFinan;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }

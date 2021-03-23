@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cartera.Controlador;
+using Cartera.Reportes;
 
 namespace Cartera.Vista
 {
@@ -19,10 +20,13 @@ namespace Cartera.Vista
         CProducto producto = new CProducto();
         DataTable DtCartera = new DataTable();
         DataTable DtCliente = new DataTable();
+        DataTable DtReporte=new DataTable();
         bool Validarestados = true;
+        private ReportesPDF reportesPDF;
         public Carteras()
         {
             InitializeComponent();
+            reportesPDF = new ReportesPDF();
         }
         private void Carteras_Load(object sender, EventArgs e)
         {
@@ -35,6 +39,11 @@ namespace Cartera.Vista
             if (Txtcedula.Text == "")
             {
                 DtCartera = cartera.ListarCartera();
+                DtReporte = DtCartera.Copy();
+                DtReporte.Columns.Remove("Id_Cliente");
+                DtReporte.Columns.Remove("Id_Cartera");
+
+                //DtReporte.Columns[5].DefaultCellStyle.Format = "n1";
                 dataGridView1.DataSource = DtCartera;
             }
             else
@@ -42,21 +51,21 @@ namespace Cartera.Vista
                 DtCartera = cartera.CarteraCliente(Txtcedula.Text);
                 dataGridView1.DataSource = DtCartera;
             }
+            DataTable DtValoreCartera = cartera.TotalesCartera();
+            int total= int.Parse(DtValoreCartera.Rows[0]["total"].ToString());
+            int deuda= int.Parse(DtValoreCartera.Rows[0]["saldo"].ToString());
+            int pagado = int.Parse(DtValoreCartera.Rows[0]["recaudo"].ToString());
+            TxtTotalVal.Text="$"+ String.Format("{0:N2}", total);
+            TxtDeuda.Text = "$" + String.Format("{0:N2}", deuda);
+            TxtPagado.Text = "$" + String.Format("{0:N2}", pagado);
 
             dataGridView1.Columns["Id_Cliente"].Visible = false;
-            dataGridView1.Columns[1].HeaderText = "Cedula";
-            dataGridView1.Columns[2].HeaderText = "Nombre";
-            dataGridView1.Columns[3].HeaderText = "Apellido";
-            dataGridView1.Columns[4].HeaderText = "Estado Mora";
-            dataGridView1.Columns[5].HeaderText = "Recaudado";
             dataGridView1.Columns[5].DefaultCellStyle.Format = "n1";
             //dataGridView1.Columns["Id_Producto"].Visible = false;
-            dataGridView1.Columns[6].HeaderText = "Producto";
-            dataGridView1.Columns[7].HeaderText = "Saldo";
             dataGridView1.Columns[7].DefaultCellStyle.Format = "n1";
-            dataGridView1.Columns[8].HeaderText = "Total Cartera";
             dataGridView1.Columns[8].DefaultCellStyle.Format = "n1";
-            dataGridView1.Columns["Id_Cartera"].Visible = false;
+            dataGridView1.Columns["Id_Cartera"].Visible = false;            
+
             if (Validarestados == true)
             {
                 actulizarestado();
@@ -85,31 +94,31 @@ namespace Cartera.Vista
             string Estados = comboEstados.Items[comboEstados.SelectedIndex].ToString();
             if (Estados == "Menos de 30 días")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'Menos de 30 días'";
+                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'Menos de 30 días'";
             }
             else if (Estados == "De 31 a 60 días")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'De 31 a 60 días'";
+                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'De 31 a 60 días'";
             }
             else if (Estados == "De 61 a 90 días")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'De 61 a 90 días'";
+                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'De 61 a 90 días'";
             }
             else if (Estados == "De 91 a 180 días")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'De 91 a 180 días'";
+                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'De 91 a 180 días'";
             }
             else if (Estados == "Mas de 360 días")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'Mas de 360 días'";
+                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'Mas de 360 días'";
             }
             else if (Estados == "Al Dia")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'Al Dia'";
+                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'Al Dia'";
             }
             else
             {
-                DtCartera.DefaultView.RowFilter = $"Estado_cartera LIKE 'Nueva'";
+                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'Nueva'";
             }
         }
 
@@ -244,6 +253,11 @@ namespace Cartera.Vista
         }
 
         private void button2_Click(object sender, EventArgs e)
+        {            
+            reportesPDF.Cartera(DtReporte, TxtTotalVal.Text, TxtPagado.Text, TxtDeuda.Text);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

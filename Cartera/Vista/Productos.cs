@@ -138,5 +138,7 @@ namespace Cartera.Vista
                 cell.ToolTipText = "Doble clic para nostrar seguimiento";
             }
         }
+
+       
     }
 }

@@ -27,5 +27,9 @@ namespace Cartera.Controlador
         {
             return MPago.ListarPagosCliente(productoid);
         }
+        public DataTable Tota_Recaudado_Producto(string productoid)
+        {
+            return MPago.Tota_Recaudado_Producto(productoid);
+        }
     }
 }

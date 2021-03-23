@@ -40,10 +40,6 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -109,12 +105,6 @@
     <Compile Include="Modelo\MTipo_Producto.cs" />
     <Compile Include="Modelo\MUsuario.cs" />
     <Compile Include="Reportes\ReportesPDF.cs" />
-    <Compile Include="Reportes\RpPagos.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RpPagos.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Vista\Carteras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -195,10 +185,6 @@
     <Compile Include="Vista\TipoProducto.Designer.cs">
       <DependentUpon>TipoProducto.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Reportes\RpPagos.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RpPagos.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Vista\Carteras.resx">
       <DependentUpon>Carteras.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,12 +262,6 @@
     <None Include="img\logo 2 San Isidron final.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\Usuarios.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\Usuarios 2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="img\construccion_vectorized.png" />
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +275,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Documento\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\TipoProducto.png" />
+    <None Include="img\TipoProduc.png" />
+    <None Include="img\Nuevo Cliente.png" />
+    <None Include="img\buscar.png" />
+    <None Include="img\Guardar1.png" />
+    <Content Include="img\logo San Isidro.png" />
+    <None Include="img\ReporPdf.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

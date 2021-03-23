@@ -45,6 +45,9 @@ namespace Cartera.Controlador
         {
             return MCartera.ActulizarEstados(carteraid, estado);
         }
-
+        public DataTable TotalesCartera()
+        {
+            return MCartera.TotalesCartera();
+        }
     }
 }
