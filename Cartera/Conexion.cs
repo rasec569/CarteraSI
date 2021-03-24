@@ -35,10 +35,10 @@ namespace Cartera
             com.Open();
         }
 
-        ~Conexion_Instancia()
-        {
-            com.Close();
-        }
+        //~Conexion_Instancia()
+        //{
+        //    com.Close();
+        //}
     }
     
 }

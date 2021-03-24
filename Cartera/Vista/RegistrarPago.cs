@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace Cartera.Vista
         public RegistrarPago()
         {
             InitializeComponent();
+            dateFechaPago.Format = DateTimePickerFormat.Custom;
+            dateFechaPago.CustomFormat = "yyyy-MM-dd";
             Txtcedula.Enabled = true;
             
         }
@@ -70,6 +73,7 @@ namespace Cartera.Vista
                     pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtReferencia.Text, txtValor.Text, comboDescuento.Text, txtValorDescuento.Text, productoid.ToString());
                 }
                 cartera.ActulizarValorRecaudado(productoid, carteraId);
+                cartera.ActulizarSaldo(carteraId);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

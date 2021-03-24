@@ -32,6 +32,10 @@ namespace Cartera.Controlador
         {
             return MCartera.ActulizarValorRecaudado(productoid, carteraid);
         }
+        public int ActulizarSaldo(int carteraid)
+        {
+            return MCartera.ActulizarSaldo(carteraid);
+        }
         public DataTable ActulizarValorTotal(int clienteid, int carteraid)
         {
             return MCartera.ActulizarValorTotal(clienteid, carteraid);

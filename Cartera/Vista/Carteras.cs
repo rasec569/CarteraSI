@@ -55,9 +55,9 @@ namespace Cartera.Vista
             int total= int.Parse(DtValoreCartera.Rows[0]["total"].ToString());
             int deuda= int.Parse(DtValoreCartera.Rows[0]["saldo"].ToString());
             int pagado = int.Parse(DtValoreCartera.Rows[0]["recaudo"].ToString());
-            TxtTotalVal.Text="$"+ String.Format("{0:N2}", total);
-            TxtDeuda.Text = "$" + String.Format("{0:N2}", deuda);
-            TxtPagado.Text = "$" + String.Format("{0:N2}", pagado);
+            labelTotal.Text="Total: $"+ String.Format("{0:N2}", total);
+            labelDeuda.Text = "Valor Deuda: $" + String.Format("{0:N2}", deuda);
+            labelRecaudo.Text = "Valor Recaudado: $" + String.Format("{0:N2}", pagado);
 
             dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns[5].DefaultCellStyle.Format = "n1";
@@ -116,9 +116,9 @@ namespace Cartera.Vista
             {
                 DtCartera.DefaultView.RowFilter = $"Estado LIKE 'Al Dia'";
             }
-            else
+            else if(Estados=="Todo")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'Nueva'";
+                CargarCartera();
             }
         }
 
@@ -136,8 +136,8 @@ namespace Cartera.Vista
                 {
                     clienteid = dataGridView1.Rows[n].Cells["Id_Cliente"].Value.ToString();
                     cedula = int.Parse(dataGridView1.Rows[n].Cells["Cedula"].Value.ToString());
-                    nombre = dataGridView1.Rows[n].Cells["Nombre"].Value.ToString();
-                    apellido = dataGridView1.Rows[n].Cells["Apellido"].Value.ToString();
+                    nombre = dataGridView1.Rows[n].Cells["Nombres"].Value.ToString();
+                    apellido = dataGridView1.Rows[n].Cells["Apellidos"].Value.ToString();
                     carteraid = dataGridView1.Rows[n].Cells["Id_Cartera"].Value.ToString();
                     RegistrarPago Rp = new RegistrarPago(cedula, nombre + " " + apellido, clienteid, carteraid);
                     Rp.FormClosed += Pagos_FormClose;
@@ -159,13 +159,14 @@ namespace Cartera.Vista
                 {
                     string datoDT2 = dtproducto.Rows[j]["Id_Producto"].ToString();
                     DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(datoDT2));
+
                     if (dtproducto.Rows[j]["Forma_Pago"].ToString()== "Contado")
                     {
                         for (int h = 0; h < dtfechas.Rows.Count; h++)
                         {
                             if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
                             {
-                                cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Al dia Contado");
+                                cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Al Dia");
                             }
                             else
                             {
@@ -180,11 +181,11 @@ namespace Cartera.Vista
                             if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Recaudo"].ToString()))
                             {
                                 string fecha2 = dtfechas.Rows[h]["Fecha_Recaudo"].ToString();
-                                DateTime date_2 = DateTime.ParseExact(fecha2, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                                DateTime actual = DateTime.ParseExact(DateTime.Now.ToShortDateString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                                DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
                                 var days = int.Parse(((actual - date_2).Days).ToString());
                                 var cuotas= int.Parse(dtfechas.Rows[h]["Cuotas_Pagadas"].ToString());
-                                int DiasMora = days - (cuotas * 30);
+                                int DiasMora = (cuotas * 30)- days;
                                 string estado="";
                                 switch (DiasMora)
                                 {
@@ -208,7 +209,7 @@ namespace Cartera.Vista
                             }
                             else if (string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
                             {
-                                cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos");
+                                cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos credito");
                                 
                             }
                         }
@@ -254,7 +255,7 @@ namespace Cartera.Vista
 
         private void button2_Click(object sender, EventArgs e)
         {            
-            reportesPDF.Cartera(DtReporte, TxtTotalVal.Text, TxtPagado.Text, TxtDeuda.Text);
+            reportesPDF.Cartera(DtReporte, labelTotal.Text, labelRecaudo.Text, labelDeuda.Text);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

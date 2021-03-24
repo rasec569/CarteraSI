@@ -31,5 +31,13 @@ namespace Cartera.Controlador
         {
             return MPago.Tota_Recaudado_Producto(productoid);
         }
+        public DataTable reportPagos(string FechaInicio, string FechaFin)
+        {
+            return MPago.reportPagos(FechaInicio, FechaFin);
+        }
+        public DataTable ValorReportPagos(string FechaInicio, string FechaFin)
+        {
+            return MPago.ValorReportPagos(FechaInicio, FechaFin);
+        }
     }
 }

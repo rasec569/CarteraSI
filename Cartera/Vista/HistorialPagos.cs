@@ -152,27 +152,35 @@ namespace Cartera.Vista
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int n = e.RowIndex;
-            if (n != -1)
+            try
             {
-                // Porcentaje, Numero_Cuota, Fecha_Pago, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto
-                productoId = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();
-                dtpagos= pago.ListarPagosCliente(productoId);
-                DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
-                dataGridView2.DataSource = dtpagos;
-                Nom_Producto= dataGridView1.Rows[n].Cells["Nombre_Producto"].Value.ToString();
-                Nom_Proyecto = dataGridView1.Rows[n].Cells["Proyecto_Nombre"].Value.ToString();                
-                ValorPagado =int.Parse( dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
-                dataGridView2.Columns[0].HeaderText = "N° Cuota";
-                ProductoVal= int.Parse(dataGridView1.Rows[n].Cells["Valor_Producto"].Value.ToString());
-                ValorDeuda = ProductoVal - ValorPagado;
-                TxtTotalVal.Text = String.Format("{0:N2}", ProductoVal); 
-                TxtDeuda.Text = String.Format("{0:N2}", ValorDeuda);
-                TxtPagado.Text= String.Format("{0:N2}", ValorPagado);
+                int n = e.RowIndex;
+                if (n != -1)
+                {
+                    // Porcentaje, Numero_Cuota, Fecha_Pago, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto
+                    productoId = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();
+                    dtpagos = pago.ListarPagosCliente(productoId);
+                    DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
+                    dataGridView2.DataSource = dtpagos;
+                    Nom_Producto = dataGridView1.Rows[n].Cells["Nombre_Producto"].Value.ToString();
+                    Nom_Proyecto = dataGridView1.Rows[n].Cells["Proyecto_Nombre"].Value.ToString();
+                    ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
+                    dataGridView2.Columns[0].HeaderText = "N° Cuota";
+                    ProductoVal = int.Parse(dataGridView1.Rows[n].Cells["Valor_Producto"].Value.ToString());
+                    ValorDeuda = ProductoVal - ValorPagado;
+                    TxtTotalVal.Text = String.Format("{0:N2}", ProductoVal);
+                    TxtDeuda.Text = String.Format("{0:N2}", ValorDeuda);
+                    TxtPagado.Text = String.Format("{0:N2}", ValorPagado);
+                }
+                BtImprimir.Enabled = true;
+                dataGridView2.Visible = true;
+                dataGridView1.Visible = false;
             }
-            BtImprimir.Enabled = true;
-            dataGridView2.Visible = true;
-            dataGridView1.Visible = false;
+            catch
+            {
+                MessageBox.Show("Sin Pagos");
+            }
+            
         }
 
         private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
@@ -193,6 +201,8 @@ namespace Cartera.Vista
         {
             dataGridView1.DataSource = "";
             dataGridView2.DataSource = "";
+            btLimpiar.Enabled = false;
+            BtImprimir.Enabled = false;
             dataGridView2.Visible = false;
             dataGridView1.Visible = true;
             txtCedula.Clear();
@@ -203,66 +213,66 @@ namespace Cartera.Vista
             TxtPagado.Clear();
             clienteid = "";
         }
-        public static int GetPageCount(PrintDocument printDocument)
-        {
-            int count = 0;
-            printDocument.PrintController = new PreviewPrintController();
-            printDocument.PrintPage += (sender, e) => count++;
-            printDocument.Print();
-            return count;
-        }
-        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
-        {
+        //public static int GetPageCount(PrintDocument printDocument)
+        //{
+        //    int count = 0;
+        //    printDocument.PrintController = new PreviewPrintController();
+        //    printDocument.PrintPage += (sender, e) => count++;
+        //    printDocument.Print();
+        //    return count;
+        //}
+        //private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        //{
             
-            string imagen = @"C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\img\logo 2 San Isidro.png"; 
-            Font Tipotex = new Font("Arial", 12, FontStyle.Bold);
-            Font Tipotex1 = new Font("Arial", 12, FontStyle.Regular);
-            Font Tipotex2 = new Font("Arial", 11, FontStyle.Regular);
-            Image img = Image.FromFile(imagen);
-            e.Graphics.FillRectangle(Brushes.Black, 20, 10, 20, 60);
-            e.Graphics.DrawImage(img, new Rectangle(20, 10, 70, 70));
-            e.Graphics.DrawString("HISTORIAL DE PAGOS URBANIZADORA Y CONSTRUCTORA SAN ISIDRO", Tipotex, Brushes.Black, 100, 30);
-            e.Graphics.DrawString("NIT: 901100097-1", Tipotex, Brushes.Black, 100, 30);
-            e.Graphics.DrawString("Docuemento N°:", Tipotex1, Brushes.Black, 40, 70);
-            e.Graphics.DrawString(txtCedula.Text, Tipotex1, Brushes.Black, 170, 70);
-            e.Graphics.DrawString("Nombre:", Tipotex1, Brushes.Black, 280, 70);
-            e.Graphics.DrawString(txtNombre.Text, Tipotex1, Brushes.Black, 350, 70);
-            e.Graphics.DrawString("Fecha", Tipotex1, Brushes.Black, 660, 70);
-            e.Graphics.DrawString(txtFecha.Text, Tipotex1, Brushes.Black, 710, 70);
-            e.Graphics.DrawString("Producto:", Tipotex1, Brushes.Black, 40, 100);
-            e.Graphics.DrawString(Nom_Producto, Tipotex1, Brushes.Black, 140, 100);
-            e.Graphics.DrawString("Proyecto:", Tipotex1, Brushes.Black, 350, 100);
-            e.Graphics.DrawString(Nom_Proyecto, Tipotex1, Brushes.Black, 450, 100);
-            int left = e.MarginBounds.Left, top = e.MarginBounds.Top+40;
-            foreach (DataGridViewColumn col in dataGridView2.Columns)
-            {
-                e.Graphics.DrawString(col.HeaderText, Tipotex2, Brushes.Black, left, top);
-                left += col.Width;
-                if (col.Index < dataGridView2.ColumnCount - 1)
-                    e.Graphics.DrawLine(Pens.Gray, left - 5, top, left - 5, top + 43 + (dataGridView2.RowCount - 1) * 35);
-            }
-            left = e.MarginBounds.Left;
-            e.Graphics.FillRectangle(Brushes.Black, left,top+40,e.MarginBounds.Right-left, 3);
-            top += 43;
-            foreach(DataGridViewRow row in dataGridView2.Rows)
-            {
-                if (row.Index == dataGridView2.RowCount - 1) break;
-                left = e.MarginBounds.Left;
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    e.Graphics.DrawString(Convert.ToString(cell.Value), Tipotex2, Brushes.Black, left, top + 4);
-                    left += cell.OwningColumn.Width;
-                }
-                top += 35;
-                e.Graphics.DrawLine(Pens.Gray, e.MarginBounds.Left, top, e.MarginBounds.Right, top);
+        //    string imagen = @"C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\img\logo 2 San Isidro.png"; 
+        //    Font Tipotex = new Font("Arial", 12, FontStyle.Bold);
+        //    Font Tipotex1 = new Font("Arial", 12, FontStyle.Regular);
+        //    Font Tipotex2 = new Font("Arial", 11, FontStyle.Regular);
+        //    Image img = Image.FromFile(imagen);
+        //    e.Graphics.FillRectangle(Brushes.Black, 20, 10, 20, 60);
+        //    e.Graphics.DrawImage(img, new Rectangle(20, 10, 70, 70));
+        //    e.Graphics.DrawString("HISTORIAL DE PAGOS URBANIZADORA Y CONSTRUCTORA SAN ISIDRO", Tipotex, Brushes.Black, 100, 30);
+        //    e.Graphics.DrawString("NIT: 901100097-1", Tipotex, Brushes.Black, 100, 30);
+        //    e.Graphics.DrawString("Docuemento N°:", Tipotex1, Brushes.Black, 40, 70);
+        //    e.Graphics.DrawString(txtCedula.Text, Tipotex1, Brushes.Black, 170, 70);
+        //    e.Graphics.DrawString("Nombre:", Tipotex1, Brushes.Black, 280, 70);
+        //    e.Graphics.DrawString(txtNombre.Text, Tipotex1, Brushes.Black, 350, 70);
+        //    e.Graphics.DrawString("Fecha", Tipotex1, Brushes.Black, 660, 70);
+        //    e.Graphics.DrawString(txtFecha.Text, Tipotex1, Brushes.Black, 710, 70);
+        //    e.Graphics.DrawString("Producto:", Tipotex1, Brushes.Black, 40, 100);
+        //    e.Graphics.DrawString(Nom_Producto, Tipotex1, Brushes.Black, 140, 100);
+        //    e.Graphics.DrawString("Proyecto:", Tipotex1, Brushes.Black, 350, 100);
+        //    e.Graphics.DrawString(Nom_Proyecto, Tipotex1, Brushes.Black, 450, 100);
+        //    int left = e.MarginBounds.Left, top = e.MarginBounds.Top+40;
+        //    foreach (DataGridViewColumn col in dataGridView2.Columns)
+        //    {
+        //        e.Graphics.DrawString(col.HeaderText, Tipotex2, Brushes.Black, left, top);
+        //        left += col.Width;
+        //        if (col.Index < dataGridView2.ColumnCount - 1)
+        //            e.Graphics.DrawLine(Pens.Gray, left - 5, top, left - 5, top + 43 + (dataGridView2.RowCount - 1) * 35);
+        //    }
+        //    left = e.MarginBounds.Left;
+        //    e.Graphics.FillRectangle(Brushes.Black, left,top+40,e.MarginBounds.Right-left, 3);
+        //    top += 43;
+        //    foreach(DataGridViewRow row in dataGridView2.Rows)
+        //    {
+        //        if (row.Index == dataGridView2.RowCount - 1) break;
+        //        left = e.MarginBounds.Left;
+        //        foreach (DataGridViewCell cell in row.Cells)
+        //        {
+        //            e.Graphics.DrawString(Convert.ToString(cell.Value), Tipotex2, Brushes.Black, left, top + 4);
+        //            left += cell.OwningColumn.Width;
+        //        }
+        //        top += 35;
+        //        e.Graphics.DrawLine(Pens.Gray, e.MarginBounds.Left, top, e.MarginBounds.Right, top);
                 
 
-            }
-            e.Graphics.DrawString("El reporte se expide a solicitud del Cliente.", Tipotex1, Brushes.Black, 50, top+30);
+        //    }
+        //    e.Graphics.DrawString("El reporte se expide a solicitud del Cliente.", Tipotex1, Brushes.Black, 50, top+30);
 
-            //Bitmap GridBitmap = new Bitmap(this.dataGridView2.Width, this.dataGridView2.Height);
-            //dataGridView2.DrawToBitmap(GridBitmap, new Rectangle(0,0, this.dataGridView2.Width, this.dataGridView2.Height));
-            //e.Graphics.DrawImage(GridBitmap,50,100);
-        }
+        //    //Bitmap GridBitmap = new Bitmap(this.dataGridView2.Width, this.dataGridView2.Height);
+        //    //dataGridView2.DrawToBitmap(GridBitmap, new Rectangle(0,0, this.dataGridView2.Width, this.dataGridView2.Height));
+        //    //e.Graphics.DrawImage(GridBitmap,50,100);
+        //}
     } 
 }

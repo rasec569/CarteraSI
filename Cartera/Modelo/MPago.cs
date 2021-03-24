@@ -53,5 +53,13 @@ namespace Cartera.Modelo
         {
             return Conexion.consulta("SELECT sum(Valor_Pagado) FROM Pagos WHERE Fk_Id_Producto = '"+ productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto.");
         }
+        internal static DataTable reportPagos(string FechaInicio, string FechaFin)
+        {
+            return Conexion.consulta("SELECT Nombre_Producto as Producto,Porcentaje as Tipo, Numero_Cuota as 'No Cuota', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Valor_Pagado as Valor, Descuento, Valor_Descuento as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+        }
+        internal static DataTable ValorReportPagos(string FechaInicio, string FechaFin)
+        {
+            return Conexion.consulta("SELECT sum(Valor_Pagado) as valor, count(*) as pagos FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto WHERE Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+        }
     }
 }

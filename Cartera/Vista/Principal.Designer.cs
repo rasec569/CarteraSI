@@ -146,6 +146,7 @@ namespace Cartera.Vista
             this.BtReportes.TabIndex = 6;
             this.BtReportes.Text = "Reportes";
             this.BtReportes.UseVisualStyleBackColor = true;
+            this.BtReportes.Click += new System.EventHandler(this.BtReportes_Click);
             // 
             // BtProyectos
             // 

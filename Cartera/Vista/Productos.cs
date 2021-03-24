@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cartera.Controlador;
+using Cartera.Reportes;
 
 namespace Cartera.Vista
 {
@@ -15,9 +16,12 @@ namespace Cartera.Vista
     {
         CProducto producto = new CProducto();
         DataTable DtProductos = new DataTable();
+        DataTable DtReport = new DataTable();
+        private ReportesPDF reportesPDF;
         public Productos()
         {
             InitializeComponent();
+            reportesPDF = new ReportesPDF();
         }
 
         private void Productos_Load(object sender, EventArgs e)
@@ -28,81 +32,50 @@ namespace Cartera.Vista
         private void CargarProducto()
         {
             dataGridView1.DataSource = producto.cargarProductos();
-            dataGridView1.Columns["Id_Producto"].Visible = false;
-            dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
-            dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
-            dataGridView1.Columns["Id_Financiacion"].Visible = false;
-            dataGridView1.Columns[1].HeaderText = "Producto";
-            dataGridView1.Columns[2].HeaderText = "Contrato";
-            dataGridView1.Columns[3].HeaderText = "Forma Pago";
-            dataGridView1.Columns[4].HeaderText = "Valor";
-            dataGridView1.Columns[4].DefaultCellStyle.Format = "n1";
-            dataGridView1.Columns[5].HeaderText = "Fecha Venta";
-            dataGridView1.Columns[6].HeaderText = "Valor Entrada";
-            dataGridView1.Columns["Valor_Entrada"].Visible = false;
-            dataGridView1.Columns[7].HeaderText = "Proyecto";
-            dataGridView1.Columns[8].HeaderText = "Tipo Producto";
-            dataGridView1.Columns[9].HeaderText = "Valor sin Interes";
-            dataGridView1.Columns["Valor_Sin_interes"].Visible = false;
-            dataGridView1.Columns[10].HeaderText = "Cuotas sin Interes";
-            dataGridView1.Columns["Cuotas_Sin_interes"].Visible = false;
-            dataGridView1.Columns[11].HeaderText = "Valor Cuota Sin interes";
-            dataGridView1.Columns["Valor_Cuota_Sin_interes"].Visible = false;
-            dataGridView1.Columns[12].HeaderText = "Valor con Interes";
-            dataGridView1.Columns["Valor_Con_Interes"].Visible = false;
-            dataGridView1.Columns[13].HeaderText = "Cuotas con Interes";
-            dataGridView1.Columns["Cuotas_Con_Interes"].Visible = false;
-            dataGridView1.Columns[14].HeaderText = "Valor Cuota Con Interes";
-            dataGridView1.Columns["Valor_Cuota_Con_Interes"].Visible = false;
-            dataGridView1.Columns[15].HeaderText = "Porcentaje Interes";
-            dataGridView1.Columns["Valor_Interes"].Visible = false;
-            dataGridView1.Columns[16].HeaderText = "Fecha Recaudo";
-            dataGridView1.Columns["Fecha_Recaudo"].Visible = false;
-
+            FormtearGridView();
+            DataTable DtValorProductos = producto.ValorReportProducto();
+            int total = int.Parse(DtValorProductos.Rows[0]["valor"].ToString());
+            labelValor.Text = "TOTAL: $" + String.Format("{0:N1}", total);
+            labelCantidad.Text = "CANTIDAD: " + DtValorProductos.Rows[0]["productos"].ToString();
         }
 
         private void BtBuscarProducto_Click(object sender, EventArgs e)
         {
             dataGridView1.DataSource = "";
             dataGridView1.DataSource = producto.BuscarProductos(txtBuscarProducto.Text);
+            FormtearGridView();
+        }
+        void FormtearGridView()
+        {
             dataGridView1.Columns["Id_Producto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
             dataGridView1.Columns["Id_Financiacion"].Visible = false;
-            dataGridView1.Columns[1].HeaderText = "Producto";
-            dataGridView1.Columns[2].HeaderText = "Contrato";
-            dataGridView1.Columns[3].HeaderText = "Forma Pago";
-            dataGridView1.Columns[4].HeaderText = "Valor";
             dataGridView1.Columns[4].DefaultCellStyle.Format = "n1";
-            dataGridView1.Columns[5].HeaderText = "Fecha Venta";
-            dataGridView1.Columns[6].HeaderText = "Valor Entrada";
-            dataGridView1.Columns["Valor_Entrada"].Visible = false;
-            dataGridView1.Columns[7].HeaderText = "Proyecto";
-            dataGridView1.Columns[8].HeaderText = "Tipo Producto";
-            dataGridView1.Columns[9].HeaderText = "Valor sin Interes";
-            dataGridView1.Columns["Valor_Sin_interes"].Visible = false;
-            dataGridView1.Columns[10].HeaderText = "Cuotas sin Interes";
-            dataGridView1.Columns["Cuotas_Sin_interes"].Visible = false;
-            dataGridView1.Columns[11].HeaderText = "Valor Cuota Sin interes";
-            dataGridView1.Columns["Valor_Cuota_Sin_interes"].Visible = false;
-            dataGridView1.Columns[12].HeaderText = "Valor con Interes";
-            dataGridView1.Columns["Valor_Con_Interes"].Visible = false;
-            dataGridView1.Columns[13].HeaderText = "Cuotas con Interes";
-            dataGridView1.Columns["Cuotas_Con_Interes"].Visible = false;
-            dataGridView1.Columns[14].HeaderText = "Valor Cuota Con Interes";
-            dataGridView1.Columns["Valor_Cuota_Con_Interes"].Visible = false;
-            dataGridView1.Columns[15].HeaderText = "Porcentaje Interes";
-            dataGridView1.Columns["Valor_Interes"].Visible = false;
-            dataGridView1.Columns[16].HeaderText = "Fecha Recaudo";
-            dataGridView1.Columns["Fecha_Recaudo"].Visible = false;
+            dataGridView1.Columns["Inicial"].Visible = false;
+            dataGridView1.Columns["Valor 30"].Visible = false;
+            dataGridView1.Columns["Cuotas 30"].Visible = false;
+            dataGridView1.Columns["Valor Cuota 30"].Visible = false;
+            dataGridView1.Columns["Valor 70"].Visible = false;
+            dataGridView1.Columns["Cuotas 70"].Visible = false;
+            dataGridView1.Columns["Valor Cuota 70"].Visible = false;
+            dataGridView1.Columns["Interes"].Visible = false;
+            dataGridView1.Columns["Fecha Recaudo"].Visible = false;
         }
         void autocompletar()
         {
             AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
             DtProductos = producto.cargarProductos();
+            DtReport = DtProductos.Copy();
+            DtReport.Columns.Remove("Id_Producto");
+            DtReport.Columns.Remove("Fk_Id_Proyecto");
+            DtReport.Columns.Remove("Fk_Id_Tipo_Producto");
+            DtReport.Columns.Remove("Id_Financiacion");
+            DtReport.Columns.Remove("Observaciones");
+
             for (int i = 0; i < DtProductos.Rows.Count; i++)
             {
-                lista.Add(DtProductos.Rows[i]["Nombre_Producto"].ToString());
+                lista.Add(DtProductos.Rows[i]["Producto"].ToString());
             }
             txtBuscarProducto.AutoCompleteCustomSource = lista;
         }
@@ -122,7 +95,7 @@ namespace Cartera.Vista
             if (n != -1)
             {
                 idproducto = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();
-                nombreproducto = dataGridView1.Rows[n].Cells["Nombre_Producto"].Value.ToString();
+                nombreproducto = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
                 
             }
 //BtBorrar.Enabled = true;
@@ -139,6 +112,9 @@ namespace Cartera.Vista
             }
         }
 
-       
+        private void button1_Click(object sender, EventArgs e)
+        {
+            reportesPDF.Productos(DtReport);
+        }
     }
 }

@@ -47,7 +47,7 @@ namespace Cartera.Modelo
 
         internal static DataTable BuscarFechaspagos(int productoid)
         {
-			return Conexion.consulta("SELECT Fecha_Pago, Fecha_Recaudo, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion,max(Numero_Cuota) as Cuotas_Pagadas FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto INNER JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "'");
+			return Conexion.consulta("SELECT Fecha_Pago, Fecha_Recaudo, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion,max(Numero_Cuota) as Cuotas_Pagadas FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto LEFT JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "'");
 
 		}
 
@@ -68,7 +68,14 @@ namespace Cartera.Modelo
 		}
 		internal static int ActulizarValorRecaudado(int productoid, int carteraid )
         {
-			string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado) FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto), Saldo=(Total_Cartera-Valor_Recaudado) WHERE Id_Cartera='" + carteraid + "'";
+			string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado) FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto) WHERE Id_Cartera='" + carteraid + "'";
+			//string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado), FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto) WHERE Id_Cartera='" + carteraid + "'";
+			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+			return cmd.ExecuteNonQuery();
+		}
+		internal static int ActulizarSaldo(int carteraid)
+		{
+			string sql = "UPDATE Cartera SET Saldo=(Total_Cartera-Valor_Recaudado) WHERE Id_Cartera='" + carteraid + "'";
 			//string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado), FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto) WHERE Id_Cartera='" + carteraid + "'";
 			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
 			return cmd.ExecuteNonQuery();

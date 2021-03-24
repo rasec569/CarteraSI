@@ -33,13 +33,16 @@
             this.txtNombreP = new System.Windows.Forms.TextBox();
             this.txtUbicacion = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.BtGuardarProyecto = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.BtLimpiar = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.BtBorrar = new System.Windows.Forms.Button();
+            this.BtLimpiar = new System.Windows.Forms.Button();
+            this.BtGuardarProyecto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
@@ -47,56 +50,38 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(37, 31);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 13;
-            this.label2.Text = "Proyecto";
+            this.label2.Text = "Nombre";
             // 
             // txtNombreP
             // 
             this.txtNombreP.Location = new System.Drawing.Point(92, 28);
             this.txtNombreP.Name = "txtNombreP";
-            this.txtNombreP.Size = new System.Drawing.Size(224, 20);
+            this.txtNombreP.Size = new System.Drawing.Size(283, 20);
             this.txtNombreP.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.txtNombreP, "Nombre del Proyecto");
             // 
             // txtUbicacion
             // 
-            this.txtUbicacion.Location = new System.Drawing.Point(406, 28);
+            this.txtUbicacion.Location = new System.Drawing.Point(440, 21);
             this.txtUbicacion.Name = "txtUbicacion";
-            this.txtUbicacion.Size = new System.Drawing.Size(224, 20);
+            this.txtUbicacion.Size = new System.Drawing.Size(293, 20);
             this.txtUbicacion.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.txtUbicacion, "Ubicación del Proyecto");
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(345, 31);
+            this.label3.Location = new System.Drawing.Point(379, 24);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 15;
             this.label3.Text = "Ubicación";
             // 
-            // BtGuardarProyecto
-            // 
-            this.BtGuardarProyecto.Location = new System.Drawing.Point(657, 26);
-            this.BtGuardarProyecto.Name = "BtGuardarProyecto";
-            this.BtGuardarProyecto.Size = new System.Drawing.Size(75, 23);
-            this.BtGuardarProyecto.TabIndex = 17;
-            this.BtGuardarProyecto.Text = "Guardar";
-            this.BtGuardarProyecto.UseVisualStyleBackColor = true;
-            this.BtGuardarProyecto.Click += new System.EventHandler(this.BtGuardarProyecto_Click);
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // BtLimpiar
-            // 
-            this.BtLimpiar.Location = new System.Drawing.Point(738, 25);
-            this.BtLimpiar.Name = "BtLimpiar";
-            this.BtLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.BtLimpiar.TabIndex = 19;
-            this.BtLimpiar.Text = "Limpiar";
-            this.BtLimpiar.UseVisualStyleBackColor = true;
-            this.BtLimpiar.Click += new System.EventHandler(this.BtLimpiar_Click);
             // 
             // dataGridView1
             // 
@@ -109,36 +94,71 @@
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick_1);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.BtBorrar);
+            this.groupBox1.Controls.Add(this.BtLimpiar);
+            this.groupBox1.Controls.Add(this.BtGuardarProyecto);
+            this.groupBox1.Controls.Add(this.txtUbicacion);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Location = new System.Drawing.Point(12, 7);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(907, 57);
+            this.groupBox1.TabIndex = 22;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Proyecto";
+            // 
             // BtBorrar
             // 
             this.BtBorrar.Enabled = false;
-            this.BtBorrar.Location = new System.Drawing.Point(819, 25);
+            this.BtBorrar.Image = global::Cartera.Properties.Resources.Eliminar;
+            this.BtBorrar.Location = new System.Drawing.Point(844, 14);
             this.BtBorrar.Name = "BtBorrar";
-            this.BtBorrar.Size = new System.Drawing.Size(75, 23);
+            this.BtBorrar.Size = new System.Drawing.Size(39, 33);
             this.BtBorrar.TabIndex = 21;
-            this.BtBorrar.Text = "Borrar";
+            this.toolTip1.SetToolTip(this.BtBorrar, "Eliminar");
             this.BtBorrar.UseVisualStyleBackColor = true;
             this.BtBorrar.Click += new System.EventHandler(this.BtBorrar_Click);
+            // 
+            // BtLimpiar
+            // 
+            this.BtLimpiar.Image = global::Cartera.Properties.Resources.limpiar;
+            this.BtLimpiar.Location = new System.Drawing.Point(799, 14);
+            this.BtLimpiar.Name = "BtLimpiar";
+            this.BtLimpiar.Size = new System.Drawing.Size(39, 33);
+            this.BtLimpiar.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.BtLimpiar, "Limpiar");
+            this.BtLimpiar.UseVisualStyleBackColor = true;
+            this.BtLimpiar.Click += new System.EventHandler(this.BtLimpiar_Click);
+            // 
+            // BtGuardarProyecto
+            // 
+            this.BtGuardarProyecto.Image = global::Cartera.Properties.Resources.Guardar1;
+            this.BtGuardarProyecto.Location = new System.Drawing.Point(754, 14);
+            this.BtGuardarProyecto.Name = "BtGuardarProyecto";
+            this.BtGuardarProyecto.Size = new System.Drawing.Size(39, 33);
+            this.BtGuardarProyecto.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.BtGuardarProyecto, "Guardar");
+            this.BtGuardarProyecto.UseVisualStyleBackColor = true;
+            this.BtGuardarProyecto.Click += new System.EventHandler(this.BtGuardarProyecto_Click);
             // 
             // Proyectos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(931, 537);
-            this.Controls.Add(this.BtBorrar);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.BtLimpiar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNombreP);
-            this.Controls.Add(this.txtUbicacion);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.BtGuardarProyecto);
+            this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Proyectos";
             this.Text = "Proyectos";
             this.Load += new System.EventHandler(this.Proyectos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,5 +175,7 @@
         private System.Windows.Forms.Button BtLimpiar;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button BtBorrar;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

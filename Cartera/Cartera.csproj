@@ -167,11 +167,11 @@
     <Compile Include="Vista\RegistrarPago.Designer.cs">
       <DependentUpon>RegistrarPago.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\RepPagos.cs">
+    <Compile Include="Vista\Reportes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\RepPagos.Designer.cs">
-      <DependentUpon>RepPagos.cs</DependentUpon>
+    <Compile Include="Vista\Reportes.Designer.cs">
+      <DependentUpon>Reportes.cs</DependentUpon>
     </Compile>
     <Compile Include="Vista\Seguimiento.cs">
       <SubType>Form</SubType>
@@ -221,8 +221,8 @@
     <EmbeddedResource Include="Vista\RegistrarPago.resx">
       <DependentUpon>RegistrarPago.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vista\RepPagos.resx">
-      <DependentUpon>RepPagos.cs</DependentUpon>
+    <EmbeddedResource Include="Vista\Reportes.resx">
+      <DependentUpon>Reportes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Seguimiento.resx">
       <DependentUpon>Seguimiento.cs</DependentUpon>
@@ -282,6 +282,8 @@
     <None Include="img\Nuevo Cliente.png" />
     <None Include="img\buscar.png" />
     <None Include="img\Guardar1.png" />
+    <None Include="img\limpiar.png" />
+    <None Include="img\Eliminar.png" />
     <Content Include="img\logo San Isidro.png" />
     <None Include="img\ReporPdf.png" />
   </ItemGroup>

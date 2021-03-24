@@ -120,11 +120,13 @@ namespace Cartera.Vista
             // 
             // dateFechaPago
             // 
-            this.dateFechaPago.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateFechaPago.CustomFormat = "yyyy-MM-dd";
+            this.dateFechaPago.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFechaPago.Location = new System.Drawing.Point(127, 129);
             this.dateFechaPago.Name = "dateFechaPago";
             this.dateFechaPago.Size = new System.Drawing.Size(182, 20);
             this.dateFechaPago.TabIndex = 10;
+            this.dateFechaPago.Value = new System.DateTime(2021, 3, 23, 15, 0, 0, 0);
             // 
             // label7
             // 

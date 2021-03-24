@@ -25,12 +25,12 @@ namespace Cartera.Modelo
 
         public static DataTable cargarProductos()
         {
-            return Conexion.consulta("SELECT Id_Producto, Nombre_Producto, Numero_contrato, Forma_pago, Valor_Producto, Fecha_Venta, Valor_Entrada, Proyecto_Nombre, Nom_Tipo_Producto, Valor_Sin_interes, Cuotas_Sin_interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto , Id_Financiacion FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo';");
+            return Conexion.consulta("SELECT Id_Producto, Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_pago as 'Forma Pago', Valor_Producto as Valor, Fecha_Venta as 'Fecha Venta', Valor_Entrada 'Inicial', Proyecto_Nombre as Proyecto, Nom_Tipo_Producto as 'Tipo', Valor_Sin_interes as 'Valor 30', Cuotas_Sin_interes as 'Cuotas 30', Valor_Cuota_Sin_interes as 'Valor Cuota 30', Valor_Con_Interes as 'Valor 70', Cuotas_Con_Interes as 'Cuotas 70', Valor_Cuota_Con_Interes as 'Valor Cuota 70', Valor_Interes as 'Interes', Fecha_Recaudo as 'Fecha Recaudo', Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto , Id_Financiacion FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' GROUP BY Id_Producto;");
             
         }
         public static DataTable BuscarProductos(string Nombre_Producto)
         {            
-            return Conexion.consulta("SELECT Id_Producto, Nombre_Producto, Numero_contrato, Forma_pago, Valor_Producto, Fecha_Venta, Valor_Entrada, Proyecto_Nombre, Nom_Tipo_Producto, Valor_Sin_interes, Cuotas_Sin_interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto, Id_Financiacion FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto = Id_Producto WHERE Nombre_Producto = '" + Nombre_Producto + "' AND Estado_Cliente = 'Activo';");
+            return Conexion.consulta("SELECT Id_Producto, Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_pago as 'Forma Pago', Valor_Producto as Valor, Fecha_Venta as 'Fecha Venta', Valor_Entrada 'Inicial', Proyecto_Nombre as Proyecto, Nom_Tipo_Producto as 'Tipo', Valor_Sin_interes as 'Valor 30', Cuotas_Sin_interes as 'Cuotas 30', Valor_Cuota_Sin_interes as 'Valor Cuota 30', Valor_Con_Interes as 'Valor 70', Cuotas_Con_Interes as 'Cuotas 70', Valor_Cuota_Con_Interes as 'Valor Cuota 70', Valor_Interes as 'Interes', Fecha_Recaudo as 'Fecha Recaudo', Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto , Id_Financiacion FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto = Id_Producto WHERE Nombre_Producto = '" + Nombre_Producto + "' AND Estado_Cliente = 'Activo';");
         }
         public static DataTable cargarProductosCliente(int IdCliente)
         {
@@ -82,6 +82,18 @@ namespace Cartera.Modelo
         public static DataTable ultimoProducto()
         {
             return Conexion.consulta("SELECT max(Id_Producto) FROM Producto ORDER BY Id_Producto DESC");
+        }
+        public static DataTable ReportVentas(string FechaInicio, string FechaFin)
+        {
+            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_Pago as 'Forma Pago', Valor_Producto as Valor, Fecha_Venta as Fecha, Cedula,Nombre, Apellido FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fecha_Venta BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' AND Estado_Cliente='Activo';");
+        }
+        public static DataTable ValorReportVentas(string FechaInicio, string FechaFin)
+        {
+            return Conexion.consulta("SELECT count(Id_Producto)as productos, sum(Valor_Producto) as valor FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto  WHERE Fecha_Venta BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'AND Estado_Cliente='Activo';");
+        }
+        public static DataTable ValorReportProducto()
+        {
+            return Conexion.consulta("SELECT count(Id_Producto)as productos, sum(Valor_Producto) as valor FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' ;");
         }
 
     }

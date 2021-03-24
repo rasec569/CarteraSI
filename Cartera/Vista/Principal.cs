@@ -121,5 +121,11 @@ namespace Cartera.Vista
             ActivateButton(sender);
             FormularioHijo<Carteras>();
         }
+
+        private void BtReportes_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender);
+            FormularioHijo<Reportes>();
+        }
     }
 }

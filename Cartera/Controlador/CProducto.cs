@@ -34,7 +34,18 @@ namespace Cartera.Controlador
         public int actualizarProducto(int id_Producto, string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Total, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
         {
             return MProducto.actualizarProducto(id_Producto,  Nombre_Producto, Numero_contrato, Forma_Pago, Valor_Total, Fecha_Venta, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto);
-            }
-        
+        }
+        public DataTable ReportVentas(string FechaInicio, string FechaFin)
+        {
+            return MProducto.ReportVentas(FechaInicio, FechaFin);
+        }
+        public DataTable ValorReportVentas(string FechaInicio, string FechaFin)
+        {
+            return MProducto.ValorReportVentas(FechaInicio, FechaFin);
+        }
+        public DataTable ValorReportProducto()
+        {
+            return MProducto.ValorReportProducto();
+        }
     }
 }
