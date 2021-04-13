@@ -55,15 +55,15 @@ namespace Cartera.Vista
             int total= int.Parse(DtValoreCartera.Rows[0]["total"].ToString());
             int deuda= int.Parse(DtValoreCartera.Rows[0]["saldo"].ToString());
             int pagado = int.Parse(DtValoreCartera.Rows[0]["recaudo"].ToString());
-            labelTotal.Text="Total: $"+ String.Format("{0:N2}", total);
-            labelDeuda.Text = "Valor Deuda: $" + String.Format("{0:N2}", deuda);
-            labelRecaudo.Text = "Valor Recaudado: $" + String.Format("{0:N2}", pagado);
+            labelTotal.Text="Total: $"+ String.Format("{0:N0}", total);
+            labelDeuda.Text = "Valor Deuda: $" + String.Format("{0:N0}", deuda);
+            labelRecaudo.Text = "Valor Recaudado: $" + String.Format("{0:N0}", pagado);
 
             dataGridView1.Columns["Id_Cliente"].Visible = false;
-            dataGridView1.Columns[5].DefaultCellStyle.Format = "n1";
+            dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
             //dataGridView1.Columns["Id_Producto"].Visible = false;
-            dataGridView1.Columns[7].DefaultCellStyle.Format = "n1";
-            dataGridView1.Columns[8].DefaultCellStyle.Format = "n1";
+            dataGridView1.Columns[7].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns[8].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns["Id_Cartera"].Visible = false;            
 
             if (Validarestados == true)
@@ -94,27 +94,27 @@ namespace Cartera.Vista
             string Estados = comboEstados.Items[comboEstados.SelectedIndex].ToString();
             if (Estados == "Menos de 30 días")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'Menos de 30 días'";
+                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Menos de 30 días'";
             }
             else if (Estados == "De 31 a 60 días")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'De 31 a 60 días'";
+                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 31 a 60 días'";
             }
             else if (Estados == "De 61 a 90 días")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'De 61 a 90 días'";
+                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 61 a 90 días'";
             }
             else if (Estados == "De 91 a 180 días")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'De 91 a 180 días'";
+                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 91 a 180 días'";
             }
             else if (Estados == "Mas de 360 días")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'Mas de 360 días'";
+                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Mas de 360 días'";
             }
             else if (Estados == "Al Dia")
             {
-                DtCartera.DefaultView.RowFilter = $"Estado LIKE 'Al Dia'";
+                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Al Dia'";
             }
             else if(Estados=="Todo")
             {
@@ -160,11 +160,11 @@ namespace Cartera.Vista
                     string datoDT2 = dtproducto.Rows[j]["Id_Producto"].ToString();
                     DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(datoDT2));
 
-                    if (dtproducto.Rows[j]["Forma_Pago"].ToString()== "Contado")
+                    if (dtproducto.Rows[j]["Forma Pago"].ToString()== "Contado")
                     {
                         for (int h = 0; h < dtfechas.Rows.Count; h++)
                         {
-                            if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
+                            if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha Pago"].ToString()))
                             {
                                 cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Al Dia");
                             }
@@ -180,14 +180,19 @@ namespace Cartera.Vista
                         {
                             if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Recaudo"].ToString()))
                             {
+                                string fecha1 = dtfechas.Rows[h]["Fecha_Pago"].ToString();
                                 string fecha2 = dtfechas.Rows[h]["Fecha_Recaudo"].ToString();
+                                DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                                 DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                                 DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                                var days = int.Parse(((actual - date_2).Days).ToString());
-                                var cuotas= int.Parse(dtfechas.Rows[h]["Cuotas_Pagadas"].ToString());
-                                int DiasMora = (cuotas * 30)- days;
+                                //var days = int.Parse(((actual - date_2).Days).ToString());
+                                TimeSpan Ultimo = actual.Subtract(date_1);
+                                //MessageBox.Show(" dias:"+ Diff_dates.Days);
+                                var pagos= int.Parse(dtfechas.Rows[h]["Cuotas_Pagadas"].ToString());
+                                //int DiasMora = days- (pagos * 30);
                                 string estado="";
-                                switch (DiasMora)
+                                //switch (DiasMora)
+                                switch (Ultimo.Days)
                                 {
                                     case int n when n <= 30:
                                         estado = "Menos de 30 días";
@@ -222,6 +227,7 @@ namespace Cartera.Vista
         private void BtHistorialPago_Click(object sender, EventArgs e)
         {
             HistorialPagos Hp = new HistorialPagos();
+            Hp.FormClosed += Pagos_FormClose;
             Hp.ShowDialog();
         }
         private void button1_Click_1(object sender, EventArgs e)

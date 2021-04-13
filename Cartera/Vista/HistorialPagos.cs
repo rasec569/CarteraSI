@@ -21,6 +21,7 @@ namespace Cartera.Vista
         CPago pago = new CPago();
         CProducto producto = new CProducto();
         string productoId = "";
+        string carteraId ="";
         string clienteid = "";
         string Nom_Producto, Nom_Proyecto;
         int ProductoVal,ValorPagado,ValorDeuda;
@@ -45,7 +46,9 @@ namespace Cartera.Vista
         {
             try
             {
-                reportesPDF.HistorialPagos(dtpagos, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, TxtTotalVal.Text, TxtDeuda.Text, TxtPagado.Text);
+                DataTable dtreporte = new DataTable();
+                dtreporte = pago.ReportesPagosCliente(productoId);
+                reportesPDF.HistorialPagos(dtreporte, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, labelTotal.Text, labelDeuda.Text, labelPagado.Text);
                 //printPreviewDialog1.Show();
             }
             catch(Exception ex)
@@ -93,10 +96,11 @@ namespace Cartera.Vista
                     cliente.BuscarClientesCedula(txtCedula.Text);
                     DataTable DtUsuario = cliente.BuscarClientesCedula(txtCedula.Text);
                     clienteid = DtUsuario.Rows[0]["Id_Cliente"].ToString();
+                    carteraId= DtUsuario.Rows[0]["Fk_Id_Cartera"].ToString();
                     txtCedula.Text = DtUsuario.Rows[0]["Cedula"].ToString();
                     txtNombre.Text = DtUsuario.Rows[0]["Nombre"].ToString() + " " + DtUsuario.Rows[0]["Apellido"].ToString();
-                    txtFecha.Text = DateTime.Now.ToShortDateString();
-                    ListarPagosCliente();
+                    labelFecha.Text="Fecha: "+ DateTime.Now.ToShortDateString(); 
+                    ListarProudctosCliente();
                     btLimpiar.Enabled = true;                    
                 }
              }
@@ -116,20 +120,15 @@ namespace Cartera.Vista
             }    
             return ok;
         }
-        private void ListarPagosCliente()
+        private void ListarProudctosCliente()
         {             
             dataGridView1.DataSource = producto.cargarProductosCliente(int.Parse(clienteid));
             dataGridView1.Columns["Id_Producto"].Visible = false;
-            dataGridView1.Columns[1].HeaderText = "Producto";
-            dataGridView1.Columns[2].HeaderText = "Contrato";
-            dataGridView1.Columns[3].HeaderText = "Forma Pago";
-            dataGridView1.Columns[4].HeaderText = "Valor Producto";
-            dataGridView1.Columns[5].HeaderText = "Fecha Venta";
             dataGridView1.Columns["Observaciones"].Visible = false;
-            dataGridView1.Columns[7].HeaderText = "Proyecto";
-            dataGridView1.Columns[8].HeaderText = "Tipo Producto";
             dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
+            dataGridView1.Columns[4].DefaultCellStyle.Format = "N0";
+            dataGridView1.Columns[5].DefaultCellStyle.Format = "N0";
             // pago.ListarPagosCliente();
         }
 
@@ -158,19 +157,11 @@ namespace Cartera.Vista
                 if (n != -1)
                 {
                     // Porcentaje, Numero_Cuota, Fecha_Pago, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto
-                    productoId = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();
-                    dtpagos = pago.ListarPagosCliente(productoId);
-                    DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
-                    dataGridView2.DataSource = dtpagos;
-                    Nom_Producto = dataGridView1.Rows[n].Cells["Nombre_Producto"].Value.ToString();
-                    Nom_Proyecto = dataGridView1.Rows[n].Cells["Proyecto_Nombre"].Value.ToString();
-                    ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
-                    dataGridView2.Columns[0].HeaderText = "N° Cuota";
-                    ProductoVal = int.Parse(dataGridView1.Rows[n].Cells["Valor_Producto"].Value.ToString());
-                    ValorDeuda = ProductoVal - ValorPagado;
-                    TxtTotalVal.Text = String.Format("{0:N2}", ProductoVal);
-                    TxtDeuda.Text = String.Format("{0:N2}", ValorDeuda);
-                    TxtPagado.Text = String.Format("{0:N2}", ValorPagado);
+                    productoId = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();                    
+                    Nom_Producto = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
+                    Nom_Proyecto = dataGridView1.Rows[n].Cells["Proyecto"].Value.ToString();
+                    ProductoVal = int.Parse(dataGridView1.Rows[n].Cells["Valor Total"].Value.ToString());
+                    ListarPagosCliente();
                 }
                 BtImprimir.Enabled = true;
                 dataGridView2.Visible = true;
@@ -179,8 +170,67 @@ namespace Cartera.Vista
             catch
             {
                 MessageBox.Show("Sin Pagos");
+            }            
+        }
+        private void ListarPagosCliente()
+        {
+            DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
+            ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
+            ValorDeuda = ProductoVal - ValorPagado;
+            labelDeuda.Text = "Deuda: $" + String.Format("{0:N0}", ValorDeuda);
+            labelPagado.Text = "Valor Pagado: $" + String.Format("{0:N0}", ValorPagado);
+            labelTotal.Text = "Valor Producto: $" + String.Format("{0:N0}", ProductoVal);
+            dtpagos = pago.ListarPagosCliente(productoId);            
+            dataGridView2.DataSource = dtpagos;
+            dataGridView2.Columns["Id_Pagos"].Visible = false;
+            dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView2.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView2.Columns[1].Width = 50;
+            dataGridView2.Columns[2].Width = 80;
+            dataGridView2.Columns[3].Width = 230;
+            dataGridView2.Columns[4].DefaultCellStyle.Format = "N0";
+        }
+
+        private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int n = e.RowIndex;
+                if (n != -1)
+                {
+                    int id_pagos = int.Parse(dataGridView2.Rows[n].Cells["Id_Pagos"].Value.ToString());
+                    string pago= dataGridView2.Rows[n].Cells["Pago"].Value.ToString();
+                    string tipo = dataGridView2.Rows[n].Cells["Tipo Pago"].Value.ToString();
+                    string referencia = dataGridView2.Rows[n].Cells["Referencia"].Value.ToString();
+                    string concepto = dataGridView2.Rows[n].Cells["Concepto"].Value.ToString();
+                    string valor = dataGridView2.Rows[n].Cells["Valor"].Value.ToString();
+                    string fecha = dataGridView2.Rows[n].Cells["Fecha"].Value.ToString();
+                    string descuento = dataGridView2.Rows[n].Cells["Descuento"].Value.ToString();
+                    string valordescuento = dataGridView2.Rows[n].Cells["Valor Descuento"].Value.ToString();
+                    RegistrarPago Rp = new RegistrarPago(txtCedula.Text, txtNombre.Text, carteraId, int.Parse(productoId), Nom_Producto, id_pagos,pago, tipo, referencia, concepto, fecha, valor, descuento,valordescuento);
+                    Rp.FormClosed += Pagos_FormClose;
+                    Rp.ShowDialog();
+                }
             }
-            
+            catch
+            {
+                MessageBox.Show("Sin Pagos");
+            }
+        }
+        private void Pagos_FormClose(object sender, FormClosedEventArgs e)
+        {
+            Form frm = sender as Form;
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                ListarPagosCliente();
+            }
+
+        }
+
+        private void HistorialPagos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
@@ -207,10 +257,6 @@ namespace Cartera.Vista
             dataGridView1.Visible = true;
             txtCedula.Clear();
             txtNombre.Clear();
-            txtFecha.Clear();
-            TxtTotalVal.Clear();
-            TxtDeuda.Clear();
-            TxtPagado.Clear();
             clienteid = "";
         }
         //public static int GetPageCount(PrintDocument printDocument)

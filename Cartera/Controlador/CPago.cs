@@ -15,9 +15,13 @@ namespace Cartera.Controlador
             return MPago.ConsultarUltimaCuota(productoid);
         }
 
-        public int RegistrarPago(string Porcentaje,string Numero_Cuota,string Fecha_Pago, string Referencia_Pago,string Valor_Pagado,string Descuento,string Valor_Descuento,string Fk_Id_Producto)
+        public int RegistrarPago(string Porcentaje,string Numero_Cuota,string Fecha_Pago,string Concepto, string Referencia_Pago,string Valor_Pagado,string Descuento,string Valor_Descuento,string Fk_Id_Producto)
         {
-            return MPago.RegistrarPago(Porcentaje, Numero_Cuota, Fecha_Pago, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto);
+            return MPago.RegistrarPago(Porcentaje, Numero_Cuota, Fecha_Pago, Concepto,Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto);
+        }
+        public int ActulizarPago(int idpago, string Porcentaje, string Numero_Cuota, string Fecha_Pago, string Concepto, string Referencia_Pago, string Valor_Pagado, string Descuento, string Valor_Descuento)
+        {
+            return MPago.ActulizarPago(idpago, Porcentaje, Numero_Cuota, Fecha_Pago, Concepto, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento);
         }
         public DataTable SumarValorRecaudado(string productoid)
         {
@@ -26,6 +30,10 @@ namespace Cartera.Controlador
         public DataTable ListarPagosCliente(string productoid)
         {
             return MPago.ListarPagosCliente(productoid);
+        }
+        public DataTable ReportesPagosCliente(string productoid)
+        {
+            return MPago.ReportesPagosCliente(productoid);
         }
         public DataTable Tota_Recaudado_Producto(string productoid)
         {

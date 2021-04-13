@@ -25,30 +25,31 @@ namespace Cartera.Modelo
 
         public static DataTable cargarProductos()
         {
-            return Conexion.consulta("SELECT Id_Producto, Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_pago as 'Forma Pago', Valor_Producto as Valor, Fecha_Venta as 'Fecha Venta', Valor_Entrada 'Inicial', Proyecto_Nombre as Proyecto, Nom_Tipo_Producto as 'Tipo', Valor_Sin_interes as 'Valor 30', Cuotas_Sin_interes as 'Cuotas 30', Valor_Cuota_Sin_interes as 'Valor Cuota 30', Valor_Con_Interes as 'Valor 70', Cuotas_Con_Interes as 'Cuotas 70', Valor_Cuota_Con_Interes as 'Valor Cuota 70', Valor_Interes as 'Interes', Fecha_Recaudo as 'Fecha Recaudo', Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto , Id_Financiacion FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' GROUP BY Id_Producto;");
+            return Conexion.consulta("SELECT Id_Producto, Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_pago as 'Forma Pago', Valor_Neto as 'Valor Neto', Valor_Producto as 'Valor Total', Fecha_Venta as 'Fecha Venta', Valor_Entrada 'Inicial', Proyecto_Nombre as Proyecto, Nom_Tipo_Producto as 'Tipo', Valor_Sin_interes as 'Valor 30', Cuotas_Sin_interes as 'Cuotas 30', Valor_Cuota_Sin_interes as 'Valor Cuota 30', Valor_Con_Interes as 'Valor 70', Cuotas_Con_Interes as 'Cuotas 70', Valor_Cuota_Con_Interes as 'Valor Cuota 70', Valor_Interes as 'Interes', Fecha_Recaudo as 'Fecha Recaudo', Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto , Id_Financiacion FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' GROUP BY Id_Producto;");
             
         }
         public static DataTable BuscarProductos(string Nombre_Producto)
         {            
-            return Conexion.consulta("SELECT Id_Producto, Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_pago as 'Forma Pago', Valor_Producto as Valor, Fecha_Venta as 'Fecha Venta', Valor_Entrada 'Inicial', Proyecto_Nombre as Proyecto, Nom_Tipo_Producto as 'Tipo', Valor_Sin_interes as 'Valor 30', Cuotas_Sin_interes as 'Cuotas 30', Valor_Cuota_Sin_interes as 'Valor Cuota 30', Valor_Con_Interes as 'Valor 70', Cuotas_Con_Interes as 'Cuotas 70', Valor_Cuota_Con_Interes as 'Valor Cuota 70', Valor_Interes as 'Interes', Fecha_Recaudo as 'Fecha Recaudo', Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto , Id_Financiacion FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto = Id_Producto WHERE Nombre_Producto = '" + Nombre_Producto + "' AND Estado_Cliente = 'Activo';");
+            return Conexion.consulta("SELECT Id_Producto, Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_pago as 'Forma Pago',  Valor_Neto as 'Valor Neto', Valor_Producto as 'Valor Total', Fecha_Venta as 'Fecha Venta', Valor_Entrada 'Inicial', Proyecto_Nombre as Proyecto, Nom_Tipo_Producto as 'Tipo', Valor_Sin_interes as 'Valor 30', Cuotas_Sin_interes as 'Cuotas 30', Valor_Cuota_Sin_interes as 'Valor Cuota 30', Valor_Con_Interes as 'Valor 70', Cuotas_Con_Interes as 'Cuotas 70', Valor_Cuota_Con_Interes as 'Valor Cuota 70', Valor_Interes as 'Interes', Fecha_Recaudo as 'Fecha Recaudo', Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto , Id_Financiacion FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto = Id_Producto WHERE Nombre_Producto = '" + Nombre_Producto + "' AND Estado_Cliente = 'Activo';");
         }
         public static DataTable cargarProductosCliente(int IdCliente)
         {
-            return Conexion.consulta("SELECT Id_Producto, Nombre_Producto, Numero_contrato, Forma_pago, Valor_Producto, Fecha_Venta, Observaciones, Proyecto_Nombre, Nom_Tipo_Producto, Fk_Id_Proyecto, Fk_Id_Tipo_Producto FROM Cliente_Producto INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER join Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER join Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto WHERE Pfk_ID_Cliente =" + IdCliente + " AND Estado_Cliente ='Activo'");
+            return Conexion.consulta("SELECT Id_Producto, Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_pago as 'Forma Pago', Valor_Neto as 'Valor Neto', Valor_Producto as 'Valor Total', Fecha_Venta as 'Fecha Venta', Observaciones, Proyecto_Nombre as Proyecto, Nom_Tipo_Producto as 'Tipo Producto', Fk_Id_Proyecto, Fk_Id_Tipo_Producto FROM Cliente_Producto INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER join Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER join Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto WHERE Pfk_ID_Cliente =" + IdCliente + " AND Estado_Cliente ='Activo'");
 
             //return Conexion.consulta("SELECT Id_Producto, Nombre_Producto, Numero_contrato, Forma_pago, Valor_Producto, Fecha_Venta, Observaciones, Proyecto_Nombre, Nom_Tipo_Producto, Id_Financiacion, Valor_Producto_Financiacion, Valor_Entrada, Valor_Sin_interes, Cuotas_Sin_interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Fk_Id_Proyecto, Fk_Id_Tipo_Producto FROM Cliente_Producto INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER join Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER join Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Financiacion on Fk_Producto= Id_Producto WHERE Pfk_ID_Cliente = " + IdCliente + "");
             //ajustar consulta porque falta tener en cuenta la tabla de Cliente_Producto en el join
         }
 
-        public static int crearProducto(string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Producto, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
+        public static int crearProducto(string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Neto, int Valor_Producto, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
         {
-            string sql = "INSERT INTO Producto(Nombre_Producto, Numero_contrato, Forma_Pago, Valor_Producto, Fecha_Venta, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto) VALUES(@Nombre_Producto, @Numero_contrato, @Forma_Pago, @Valor_Producto, @Fecha_Venta, @Observaciones, @Fk_Id_Proyecto, @Fk_Id_Tipo_Producto)";
+            string sql = "INSERT INTO Producto(Nombre_Producto, Numero_contrato, Forma_Pago, Valor_Neto, Valor_Producto, Fecha_Venta, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto) VALUES(@Nombre_Producto, @Numero_contrato, @Forma_Pago, @Valor_Neto, @Valor_Producto, @Fecha_Venta, @Observaciones, @Fk_Id_Proyecto, @Fk_Id_Tipo_Producto)";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
             try
             {
                 cmd.Parameters.Add(new SQLiteParameter("@Nombre_Producto", Nombre_Producto));
                 cmd.Parameters.Add(new SQLiteParameter("@Numero_contrato", Numero_contrato));
                 cmd.Parameters.Add(new SQLiteParameter("@Forma_Pago", Forma_Pago));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Neto", Valor_Neto));
                 cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto", Valor_Producto));
                 cmd.Parameters.Add(new SQLiteParameter("@Fecha_Venta", Fecha_Venta));
                 cmd.Parameters.Add(new SQLiteParameter("@Observaciones", Observaciones));
@@ -64,13 +65,14 @@ namespace Cartera.Modelo
             return cmd.ExecuteNonQuery();
         }
 
-        public static int actualizarProducto(int id_Producto, string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Producto, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
+        public static int actualizarProducto(int id_Producto, string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Neto, int Valor_Producto, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
         {
-            string sql = "UPDATE Producto SET Nombre_Producto=@Nombre_Producto , Numero_contrato=@Numero_contrato, Forma_Pago=@Forma_Pago, Valor_Producto=@Valor_Producto, Fecha_Venta=@Fecha_Venta, Observaciones=@Observaciones, Fk_Id_Proyecto=@Fk_Id_Proyecto, Fk_Id_Tipo_Producto=@Fk_Id_Tipo_Producto WHERE Id_Producto =" + id_Producto + "";
+            string sql = "UPDATE Producto SET Nombre_Producto=@Nombre_Producto , Numero_contrato=@Numero_contrato, Forma_Pago=@Forma_Pago, Valor_Neto=@Valor_Neto, Valor_Producto=@Valor_Producto, Fecha_Venta=@Fecha_Venta, Observaciones=@Observaciones, Fk_Id_Proyecto=@Fk_Id_Proyecto, Fk_Id_Tipo_Producto=@Fk_Id_Tipo_Producto WHERE Id_Producto =" + id_Producto + "";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
             cmd.Parameters.Add(new SQLiteParameter("@Nombre_Producto", Nombre_Producto));
             cmd.Parameters.Add(new SQLiteParameter("@Numero_contrato", Numero_contrato));
             cmd.Parameters.Add(new SQLiteParameter("@Forma_Pago", Forma_Pago));
+            cmd.Parameters.Add(new SQLiteParameter("@Valor_Neto", Valor_Neto));
             cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto", Valor_Producto));
             cmd.Parameters.Add(new SQLiteParameter("@Fecha_Venta", Fecha_Venta));
             cmd.Parameters.Add(new SQLiteParameter("@Observaciones", Observaciones));
@@ -93,7 +95,8 @@ namespace Cartera.Modelo
         }
         public static DataTable ValorReportProducto()
         {
-            return Conexion.consulta("SELECT count(Id_Producto)as productos, sum(Valor_Producto) as valor FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' ;");
+            //arreglar consulta para que no tenga los valores de las demas financiaciones
+            return Conexion.consulta("SELECT count(Id_Producto)as productos, sum(Valor_Producto) as valor FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' and Estado_Financiacion='Activa';");
         }
 
     }

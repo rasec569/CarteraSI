@@ -103,7 +103,7 @@ namespace Cartera.Reportes
                                 //    DateTimeFormatInfo dtinfo = new CultureInfo("es-ES", false).DateTimeFormat;
                                 //    fecha = dtinfo.GetMonthName(Fechai.Month) + " " + Fechai.Day + " DE " + Fechai.Year + " (A) " + dtinfo.GetMonthName(Fechaf.Month) + " " + Fechaf.Day + " DE " + Fechaf.Year;
                                 //}
-                                texto.Add(" VALOR PAGADO: $" + valor_pagado + " DEUDA: $" + Valor_deduda + " VALOR PRODUCTO: $" + valor_total + " FECHA REPORTE: " + DateTime.Now.ToString());
+                                texto.Add( valor_pagado +" "+ Valor_deduda +" "+valor_total + " Fecha Reporte: " + DateTime.Now.ToString());
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
@@ -128,7 +128,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 16f, 17f, 17f, 17f, 17f, 16f }, 100, 8));
+                                document.Add(TablasLetras(report, new float[] { 8f, 10f, 32, 10f, 10f, 10f, 10f, 10f }, 100, 8));
                             }
                             else
                             {
@@ -400,7 +400,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 8f, 6f, 6f, 6f, 7f, 6f, 9f, 5f, 6f, 6f, 6f, 6f, 6f, 6f, 5f, 7f }, 100, 6));
+                                document.Add(TablasLetras(report, new float[] { 6f, 6f, 7f, 6f, 6f, 7f, 6f, 9f, 5f, 6f, 6f, 6f, 6f, 6f, 6f, 5f, 7f }, 100, 6));
                             }
                             else
                             {
@@ -673,7 +673,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 13f, 12f, 12f, 12f, 12f, 13f,13f, 13f }, 100, 8));
+                                document.Add(TablasLetras(report, new float[] { 15f, 5f, 10f, 20, 12f, 12f, 12f,12f, 12f }, 100, 8));
                             }
                             else
                             {

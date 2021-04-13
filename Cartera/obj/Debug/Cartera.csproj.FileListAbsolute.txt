@@ -68,3 +68,4 @@ C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\bin\Debug\itextsharp.dll
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\bin\Debug\itextsharp.xml
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Reportes.resources
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.csprojAssemblyReference.cache
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Soporte.resources

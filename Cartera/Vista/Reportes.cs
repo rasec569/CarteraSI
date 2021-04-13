@@ -70,6 +70,9 @@ namespace Cartera.Vista
             labelTotal.Text = "TOTAL: $" + String.Format("{0:N1}", total);
             labelNumero.Text ="CANTIDAD: "+ DtValorPagos.Rows[0]["pagos"].ToString();
             dataGridView1.DataSource = DtPagos;
+            dataGridView1.Columns[1].Width = 50;
+            dataGridView1.Columns[2].Width = 80;
+            dataGridView1.Columns[3].Width = 230;
             }
             catch
             {

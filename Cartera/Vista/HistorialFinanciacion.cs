@@ -38,16 +38,17 @@ namespace Cartera.Vista
             dataGridView1.Columns[1].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[2].HeaderText = "Valor 30";
             dataGridView1.Columns[2].DefaultCellStyle.Format = "n1";
-            dataGridView1.Columns[3].HeaderText = "Numero de cuotas 30";
+            dataGridView1.Columns[3].HeaderText = "cuotas 30";
             dataGridView1.Columns[4].HeaderText = "Valor cuotas 30";
             dataGridView1.Columns[4].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[5].HeaderText = "Valor 70";
             dataGridView1.Columns[5].DefaultCellStyle.Format = "n1";
-            dataGridView1.Columns[6].HeaderText = "Numero de cuotas 70";
+            dataGridView1.Columns[6].HeaderText = "cuotas 70";
             dataGridView1.Columns[7].HeaderText = "Valor cuotas 70";
             dataGridView1.Columns[7].DefaultCellStyle.Format = "n1";
             dataGridView1.Columns[8].HeaderText = "Interes";
             dataGridView1.Columns[9].HeaderText = "Fecha recaudo";
+            dataGridView1.Columns[10].HeaderText = "Estado";
         }
     }
 }

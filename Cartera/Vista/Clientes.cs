@@ -108,15 +108,9 @@ namespace Cartera.Vista
         {
             dataGridView2.DataSource = producto.cargarProductosCliente(int.Parse(Cliente_id));
             dataGridView2.Columns["Id_Producto"].Visible = false;
-            dataGridView2.Columns[1].HeaderText = "Producto";
-            dataGridView2.Columns[2].HeaderText = "Contrato";
-            dataGridView2.Columns[3].HeaderText = "Forma Pago";
-            dataGridView2.Columns[4].HeaderText = "Valor Producto";
-            dataGridView2.Columns[4].DefaultCellStyle.Format = "n1";
-            dataGridView2.Columns[5].HeaderText = "Fecha Venta";
+            dataGridView2.Columns[4].DefaultCellStyle.Format = "n0";
+            dataGridView2.Columns[5].DefaultCellStyle.Format = "n0";
             dataGridView2.Columns["Observaciones"].Visible = false;
-            dataGridView2.Columns[7].HeaderText = "Proyecto";
-            dataGridView2.Columns[8].HeaderText = "Tipo Producto";
             dataGridView2.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView2.Columns["Fk_Id_Tipo_Producto"].Visible = false;
         }
@@ -124,6 +118,7 @@ namespace Cartera.Vista
         {
             AutoCompleteStringCollection lista = new AutoCompleteStringCollection();            
 
+            DtCliente = cliente.cargarClientes();
             for (int i = 0; i < DtCliente.Rows.Count; i++)
             {
                 lista.Add(DtCliente.Rows[i]["Cedula"].ToString());
@@ -208,7 +203,7 @@ namespace Cartera.Vista
                                 int rt3 = cliente_producto.InsertCliente_Producto(Cliente_id, Producto_id);
                                 if (rt3 != 0)
                                 {
-                                    int rt4 = producto.actualizarProducto(int.Parse(Producto_id), txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
+                                    int rt4 = producto.actualizarProducto(int.Parse(Producto_id), txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
                                     cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
                                     if ((rt4 != 0) && (ComboFormaPago.Text == "Financiado"))
                                     {
@@ -218,10 +213,6 @@ namespace Cartera.Vista
                                 }
                             }
                         }
-                    }
-                    else if (comboEstadoCliente.Text == "Disolución")
-                    {
-
                     }
                     else
                     {
@@ -234,7 +225,7 @@ namespace Cartera.Vista
                             {
                                 if (Producto_id == "")
                                 {
-                                    int retorno3 = producto.crearProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
+                                    int retorno3 = producto.crearProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
                                     if (retorno3 != 0)
                                     {
                                         Cliente_id = cliente.ultimoCliente().Rows[0]["max(Id_Cliente)"].ToString();
@@ -267,7 +258,7 @@ namespace Cartera.Vista
                     cliente.actualizarCliente(Cliente_id, txtCedula.Text, txtNombres.Text, txtApellidos.Text, txtTelefono.Text, txtDireccion.Text, txtCorreo.Text, Cartera_id);
                     if ((Producto_id == "") && (txtNombreProducto.Text != ""))
                     {
-                        int retorno = producto.crearProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
+                        int retorno = producto.crearProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
 
                         if (retorno != 0)
                         {
@@ -282,7 +273,7 @@ namespace Cartera.Vista
                     }
                     else if (txtNombreProducto.Text != "")
                     {
-                        producto.actualizarProducto(int.Parse(Producto_id), txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
+                        producto.actualizarProducto(int.Parse(Producto_id), txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
                         cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
                         if ((ComboFormaPago.Text == "Financiado") & (checkBox1.Checked == false))
                         {
@@ -291,7 +282,8 @@ namespace Cartera.Vista
                         }
                         else
                         {
-                            financiacion.CambiarFinanciacion(Financiacion_id, txtValorTotal.Text, txtValorEntrada.Text, txtValorSin.Text, txtValorCuotaSin.Text, numCuotaSinInteres.Value.ToString(), txtValorCon.Text, numCuotasInteres.Value.ToString(), txtValorCuotaInteres.Text, numValorInteres.Value.ToString(), DateRecaudo.Text, int.Parse(Producto_id));
+                            financiacion.InactivarFinanciacion(int.Parse(Financiacion_id));
+                            financiacion.CambiarFinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, int.Parse(Producto_id));
                             checkBox1.Checked = false;
                         }
                     }
@@ -325,11 +317,11 @@ namespace Cartera.Vista
             txtValorCon.Clear();
             txtValorCuotaSin.Clear();
             txtValorCuotaInteres.Clear();
-            numValorInteres.ResetText();
-            numCuotasInteres.ResetText();
-            numCuotaSinInteres.ResetText();
+            numValorInteres.Text = "1";
+            numCuotasInteres.Text = "1";
+            numCuotaSinInteres.Text = "1";
         }
-        private void LimpiarUsuario()
+            private void LimpiarUsuario()
         {
             txtCedula.Clear();
             txtNombres.Clear();
@@ -469,14 +461,15 @@ namespace Cartera.Vista
                 {
                     LimpiarProducto();
                     Producto_id = dataGridView2.Rows[n].Cells["Id_Producto"].Value.ToString();
-                    txtNombreProducto.Text = dataGridView2.Rows[n].Cells["Nombre_Producto"].Value.ToString();
-                    txtContrato.Text = dataGridView2.Rows[n].Cells["Numero_contrato"].Value.ToString();
+                    txtNombreProducto.Text = dataGridView2.Rows[n].Cells["Producto"].Value.ToString();
+                    txtContrato.Text = dataGridView2.Rows[n].Cells["Contrato"].Value.ToString();
                     // fotmatear campo valor
-                    valor = int.Parse(dataGridView2.Rows[n].Cells["Valor_Producto"].Value.ToString());
-                    txtValor.Text = valor.ToString("N", CultureInfo.CurrentCulture);
+                    valor = int.Parse(dataGridView2.Rows[n].Cells["Valor Total"].Value.ToString());
+                    int Neto = int.Parse(dataGridView2.Rows[n].Cells["Valor Neto"].Value.ToString());
+                    txtValor.Text = Neto.ToString("N0", CultureInfo.CurrentCulture);
                     txtObeservaciones.Text = dataGridView2.Rows[n].Cells["Observaciones"].Value.ToString();
-                    DateVenta.Text = dataGridView2.Rows[n].Cells["Fecha_Venta"].Value.ToString();
-                    ComboFormaPago.SelectedItem = dataGridView2.Rows[n].Cells["Forma_Pago"].Value.ToString();
+                    DateVenta.Text = dataGridView2.Rows[n].Cells["Fecha Venta"].Value.ToString();
+                    ComboFormaPago.SelectedItem = dataGridView2.Rows[n].Cells["Forma Pago"].Value.ToString();
                     comboProyecto.DataSource = proyecto.listarProyectos();
                     comboProyecto.DisplayMember = "Proyecto_Nombre";
                     comboProyecto.ValueMember = "Id_Proyecto";
@@ -485,7 +478,7 @@ namespace Cartera.Vista
                     comboTipoProducto.DisplayMember = "Nom_Tipo_Producto";
                     comboTipoProducto.ValueMember = "Id_Tipo_Producto";
                     comboTipoProducto.SelectedIndex = int.Parse(dataGridView2.Rows[n].Cells["Fk_Id_Tipo_Producto"].Value.ToString());
-                    if (dataGridView2.Rows[n].Cells["Forma_Pago"].Value.ToString() == "Contado")
+                    if (dataGridView2.Rows[n].Cells["Forma Pago"].Value.ToString() == "Contado")
                     {
                         Bloquear_Financiado();
                     }
@@ -494,20 +487,25 @@ namespace Cartera.Vista
                         DataTable DtFinanciacion = financiacion.FinanciacionProducto(int.Parse(Producto_id));
                         Financiacion_id = DtFinanciacion.Rows[0]["Id_Financiacion"].ToString();
                         //txtValorTotal.Text = DtFinanciacion.Rows[0]["Valor_Producto_Financiacion"].ToString();
-                        txtValorSin.Text = DtFinanciacion.Rows[0]["Valor_Sin_interes"].ToString();
-                        txtValorEntrada.Text = DtFinanciacion.Rows[0]["Valor_Entrada"].ToString();
-                        txtValorCon.Text = DtFinanciacion.Rows[0]["Valor_Con_Interes"].ToString();
+                        int ValorSin = int.Parse(DtFinanciacion.Rows[0]["Valor_Sin_interes"].ToString());
+                        txtValorSin.Text = ValorSin.ToString("N0", CultureInfo.CurrentCulture);
+                        int ValorEntr = int.Parse(DtFinanciacion.Rows[0]["Valor_Entrada"].ToString());
+                        txtValorEntrada.Text = ValorEntr.ToString("N0", CultureInfo.CurrentCulture);
+                        int ValorCon = int.Parse(DtFinanciacion.Rows[0]["Valor_Con_Interes"].ToString());
+                        txtValorCon.Text = ValorCon.ToString("N0", CultureInfo.CurrentCulture);
                         DateRecaudo.Text = DtFinanciacion.Rows[0]["Fecha_Recaudo"].ToString();
                         numCuotaSinInteres.Text = DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString();
                         numCuotasInteres.Text = DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString();
-                        txtValorCuotaSin.Text = DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString();
+                        int valorcuotasin = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString());
+                        txtValorCuotaSin.Text = valorcuotasin.ToString("N0", CultureInfo.CurrentCulture);
                         numValorInteres.Text = DtFinanciacion.Rows[0]["Valor_Interes"].ToString();
-                        txtValorCuotaInteres.Text = DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString();
+                        int valorcuotaint= int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
+                        txtValorCuotaInteres.Text = valorcuotaint.ToString("N0", CultureInfo.CurrentCulture);
                     }
                     label24.Visible = true;
                     comboEstadoCliente.Visible = true;
                     dateFechaEstado.Visible = true;
-                    txtValorTotal.Text = valor.ToString("N", CultureInfo.CurrentCulture);
+                    //txtValorTotal.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
                 }
             }
             catch
@@ -606,36 +604,50 @@ namespace Cartera.Vista
         }
         private void txtValor_Leave(object sender, EventArgs e)
         {
+            //try
+            //{
+            //    if (ComboFormaPago.Text == "Financiado")
+            //    {
+            //        txtValorSin.Clear();
+            //        txtValorCon.Clear();
+            //        val_total = Convert.ToInt32(txtValor.Text);
+            //        double Exectos = 0.3 * val_total;
+            //        double Con_interes = 0.7 * val_total;
+            //        txtValorSin.Text = String.Format("{0:N0}", Exectos);
+            //        txtValorCon.Text = String.Format("{0:N0}", Con_interes);
+            //    }
+            //    else
+            //    {
+            //        valor = int.Parse(txtValor.Text);
+            //        txtValorTotal.Text = valor.ToString("N", CultureInfo.CurrentCulture);
+            //    }
 
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Valor no admitido");
+            //    errorProvider1.SetError(txtValorEntrada, "No se admiten letras");
+            //}
             try
             {
-                if (ComboFormaPago.Text == "Financiado")
-                {
-                    txtValorSin.Clear();
-                    txtValorCon.Clear();
-                    val_total = Convert.ToInt32(txtValor.Text);
-                    double Exectos = 0.3 * val_total;
-                    double Con_interes = 0.7 * val_total;
-                    txtValorSin.Text = String.Format("{0:N0}", Exectos);
-                    txtValorCon.Text = String.Format("{0:N0}", Con_interes);
-                }
-                else
+                if (ComboFormaPago.Text == "Contado")
                 {
                     valor = int.Parse(txtValor.Text);
-                    txtValorTotal.Text = valor.ToString("N", CultureInfo.CurrentCulture);
+                    txtValorTotal.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
                 }
-
+                if (!string.IsNullOrEmpty(txtValor.Text))
+                {
+                    valor = int.Parse(txtValor.Text);
+                    txtValor.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
+                }
             }
             catch
             {
                 MessageBox.Show("Valor no admitido");
-                errorProvider1.SetError(txtValorEntrada, "No se admiten letras");
+                errorProvider1.SetError(txtValorEntrada, "Error");
             }
-            if (!string.IsNullOrEmpty(txtValor.Text))
-            {
-                valor = int.Parse(txtValor.Text);
-                txtValor.Text = valor.ToString("N", CultureInfo.CurrentCulture);
-            }
+
+
         }
         private void txtValor_Enter(object sender, EventArgs e)
         {
@@ -734,9 +746,14 @@ namespace Cartera.Vista
         {
             try
             {
-                if (txtValorSin.Text != "")
+                //if (txtValorSin.Text != "")
+                //{
+                //    txtValorCon.Text = String.Format("{0:N0}", (val_total - int.Parse(txtValorSin.Text)));
+                //}
+                if (!string.IsNullOrEmpty(txtValorSin.Text))
                 {
-                    txtValorCon.Text = String.Format("{0:N0}", (val_total - int.Parse(txtValorSin.Text)));
+                    valor = int.Parse(txtValorSin.Text);
+                    txtValorSin.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
                 }
             }
             catch
@@ -748,42 +765,67 @@ namespace Cartera.Vista
 
         private void numCuotaSinInteres_ValueChanged(object sender, EventArgs e)
         {
-            if (txtValorEntrada.Text != "")
+            try
             {
-                txtValorCuotaSin.Clear();
-                txtValorCuotaSin.Text = String.Format("{0:N0}", ((Convert.ToDouble(txtValorSin.Text) - Convert.ToDouble(txtValorEntrada.Text)) / Convert.ToDouble(numCuotaSinInteres.Value)));
+                if (ComboFormaPago.Text == "Financiado")
+                {
+                    if (txtValorEntrada.Text != "")                        
+                    {
+                        double valor30= (Convert.ToDouble(txtValorSin.Text) - Convert.ToDouble(txtValorEntrada.Text)) / Convert.ToDouble(numCuotaSinInteres.Value);
+                        txtValorCuotaSin.Clear();
+                        txtValorCuotaSin.Text = String.Format("{0:N0}", valor30);
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("No hay valor inicial");
+                    }
+                }
+
             }
-            else
+            catch
             {
-                MessageBox.Show("No hay valor inicial");
-            }           
+                MessageBox.Show("Digite el valor 30");
+            }
+                                  
         }
 
         private void numCuotasInteres_ValueChanged(object sender, EventArgs e)
         {
-            if (numCuotasInteres.Value <= 18)
+            try
             {
-                numValorInteres.Text = "0";
-                double valor70 = Convert.ToDouble(txtValorCon.Text);
-                double cuotas70 = Convert.ToDouble(numCuotasInteres.Value);
-                double valorcuota = valor70 / cuotas70;
-                txtValorCuotaInteres.Clear();
-                txtValorCuotaInteres.Text = String.Format("{0:N0}", valorcuota);
-                txtValorTotal.Text = txtValor.Text;
-                txtValorTotal.Text = String.Format("{0:N0}", Convert.ToDouble(txtValor.Text));
+                if (ComboFormaPago.Text == "Financiado")
+                {
+                    double valor70 = Convert.ToDouble(txtValorCon.Text);
+                    double cuotas70 = Convert.ToDouble(numCuotasInteres.Value);
+                    if (numCuotasInteres.Value <= 18)
+                    {
+                        numValorInteres.Text = "0";
+                    }
+                    else
+                    {
+                        numValorInteres.Text = "1";
+                        //double valorinteres = (Convert.ToDouble(txtValorCon.Text) * (Convert.ToDouble(numValorInteres.Value) / 100));
+                        //double valorcuota = (valor70 + valorinteres) / cuotas70;
+                        //txtValorCuotaInteres.Clear();
+                        //txtValorCuotaInteres.Text = String.Format("{0:N0}", valorcuota);
+                        //double valorneto = int.Parse(Convert.ToDouble(txtValor.Text).ToString());
+                        //txtValorTotal.Text = String.Format("{0:N0}", (valorneto + valorinteres));
+                    }
+
+                    double valorcuota = valor70 / cuotas70;
+                    txtValorCuotaInteres.Clear();
+                    txtValorCuotaInteres.Text = String.Format("{0:N0}", valorcuota);
+                    int valTotal = int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()) + int.Parse(Convert.ToDouble(txtValorCon.Text).ToString());
+                    txtValorTotal.Text = valTotal.ToString();
+                    txtValorTotal.Text = String.Format("{0:N0}", Convert.ToDouble(txtValorTotal.Text));
+                }
             }
-            else
+            catch
             {
-                numValorInteres.Text = "1";
-                double valor70 = Convert.ToDouble(txtValorCon.Text);
-                double cuotas70 = Convert.ToDouble(numCuotasInteres.Value);
-                double valorinteres = (Convert.ToDouble(txtValorCon.Text) * (Convert.ToDouble(numValorInteres.Value) / 100));
-                double valorcuota = (valor70 + valorinteres) / cuotas70;
-                txtValorCuotaInteres.Clear();
-                txtValorCuotaInteres.Text = String.Format("{0:N0}", valorcuota);
-                double valorneto = int.Parse(Convert.ToDouble(txtValor.Text).ToString());
-                txtValorTotal.Text = String.Format("{0:N0}", (valorneto + valorinteres));
+                MessageBox.Show("Digite el valor 70");
             }
+                       
         }
 
         private void txtValorEntrada_Leave(object sender, EventArgs e)
@@ -799,6 +841,39 @@ namespace Cartera.Vista
         private void button2_Click(object sender, EventArgs e)
         {
             reportesPDF.Clientes(DtReportes);
+        }
+
+        private void txtValorSin_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtValorSin.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtValorSin, "No se admiten letras");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
+            }
+        }
+
+        private void txtValorCon_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(txtValorCon.Text))
+                {
+                    valor = int.Parse(txtValorCon.Text);
+                    txtValorCon.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

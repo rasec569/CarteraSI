@@ -16,12 +16,14 @@ namespace Cartera.Vista
     {
         int productoid = 0;
         int carteraId = 0;
+        int pagoId = 0;
         CProducto producto = new CProducto();
         CCartera cartera = new CCartera();
         CPago pago = new CPago();
         CCliente cliente = new CCliente();
         int clienteId = 0;
         DataTable DtNombres = new DataTable();
+        bool modificar = false;
         public RegistrarPago()
         {
             InitializeComponent();
@@ -53,6 +55,31 @@ namespace Cartera.Vista
             CargarProducto();
 
         }
+        public RegistrarPago(string cedula,string nombre, string id_cartera,int id_producto, string producto, int id_pagos, string pago,string tipopago, string referencia, string concepto, string fecha, string valor, string descuento, string valordescuento)
+        {
+            InitializeComponent();
+            modificar = true;
+            Txtcedula.Text = cedula;
+            txtNombre.Text = nombre;
+            productoid = id_producto;
+            carteraId = int.Parse(id_cartera);
+            txtProducto.Text = producto;
+            pagoId = id_pagos;
+            txtCuota.Text = pago;
+            comboTipoPago.Text = tipopago;
+            txtReferencia.Text = referencia;
+            txtConcepto.Text = concepto;
+            dateFechaPago.Text = fecha;
+            txtValor.Text =  String.Format("{0:N0}", int.Parse(valor));
+            if (!string.IsNullOrEmpty(comboDescuento.Text))
+            {
+                comboDescuento.Text = descuento;
+            }
+            comboDescuento.Text = "Seleccionar";
+            txtValorDescuento.Text = valordescuento;
+            panelProductos.Visible = false;
+            Btbuscar.Enabled = false;
+        }
 
         private void RegistrarPago_Load(object sender, EventArgs e)
         {
@@ -64,14 +91,26 @@ namespace Cartera.Vista
             ValidarCampos();
             if (ValidarCampos() == true)
             {
-                if (comboDescuento.Text == "Seleccionar")
+                if (modificar == false)
                 {
-                    pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtReferencia.Text, txtValor.Text, "", "", productoid.ToString());
+                    if (comboDescuento.Text == "Seleccionar")
+                    {
+                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString() , "", "", productoid.ToString());
+                    }
+                    else
+                    {
+                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), comboDescuento.Text, txtValorDescuento.Text, productoid.ToString());
+                    }
                 }
-                else
+                string descuento = "";
+                if (comboDescuento.Text != "Seleccionar")
                 {
-                    pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtReferencia.Text, txtValor.Text, comboDescuento.Text, txtValorDescuento.Text, productoid.ToString());
+                    descuento = comboDescuento.Text;
                 }
+
+                pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, txtValorDescuento.Text);
+                modificar = false;
+
                 cartera.ActulizarValorRecaudado(productoid, carteraId);
                 cartera.ActulizarSaldo(carteraId);
                 this.DialogResult = DialogResult.OK;
@@ -96,7 +135,7 @@ namespace Cartera.Vista
                     panelProductos.Visible = false;
                     productoid = int.Parse(dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString());
 
-                    txtProducto.Text = dataGridView1.Rows[n].Cells["Nombre_Producto"].Value.ToString();
+                    txtProducto.Text = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
 
                     DataTable Dtcuota = pago.ConsultarUltimaCuota(productoid);
                     string num_cuota = Dtcuota.Rows[0]["max(Numero_Cuota)"].ToString();
@@ -119,14 +158,8 @@ namespace Cartera.Vista
         {
             dataGridView1.DataSource = producto.cargarProductosCliente(clienteId);
             dataGridView1.Columns["Id_Producto"].Visible = false;
-            dataGridView1.Columns[1].HeaderText = "Producto";
-            dataGridView1.Columns[2].HeaderText = "Contrato";
-            dataGridView1.Columns[3].HeaderText = "Forma Pago";
-            dataGridView1.Columns[4].HeaderText = "Valor Producto";
-            dataGridView1.Columns[5].HeaderText = "Fecha Venta";
             dataGridView1.Columns["Observaciones"].Visible = false;
-            dataGridView1.Columns[7].HeaderText = "Proyecto";
-            dataGridView1.Columns["Nom_Tipo_Producto"].Visible=false;
+            dataGridView1.Columns["Tipo Producto"].Visible=false;
             dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
         }
@@ -138,43 +171,23 @@ namespace Cartera.Vista
                 ok = false;
                 errorProvider1.SetError(txtValor, "Digite Valor del Pago");
             }
-            else
-            {
-                ok = true;
-                errorProvider1.Clear();
-            }
             if (txtReferencia.Text == "")
             {
                 ok = false;
                 errorProvider1.SetError(txtReferencia, "Digite Referencia de Pago");
-            }
-            else
-            {
-                ok = true;
-                errorProvider1.Clear();
-            }
+            }            
             if (comboTipoPago.Text == "Seleccionar")
             {
                 ok = false;
                 errorProvider1.SetError(comboTipoPago, "Seleccione Tipo de Pago");
             }
-            else
-            {
-                ok = true;
-                errorProvider1.Clear();
-            }
-
+            
             if (comboDescuento.Text != "Seleccionar")
             {
                 if (txtValorDescuento.Text == "")
                 {
                     ok = false;
                     errorProvider1.SetError(txtValorDescuento, "Digite Valor Descuento");
-                }
-                else
-                {
-                    ok = true;
-                    errorProvider1.Clear();
                 }
             }
             return ok;
@@ -219,6 +232,25 @@ namespace Cartera.Vista
         private void RegistrarPago_FormClosing(object sender, FormClosingEventArgs e)
         {
 
+        }
+
+        private void txtValor_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                if (!string.IsNullOrEmpty(txtValor.Text))
+                {
+                    int valor;
+                    valor = int.Parse(txtValor.Text);
+                    txtValor.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
+                }
+            }
+            catch
+            {
+                //MessageBox.Show("Valor no admitido");
+                //errorProvider1.SetError(txtValor, "Error");
+            }
         }
     }    
 }

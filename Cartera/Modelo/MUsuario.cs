@@ -30,7 +30,7 @@ namespace Cartera.Modelo
 
         internal static DataTable listarUsuario()
         {
-            return Conexion.consulta("Select Nom_Usuario, Contraseña from Usuario");
+            return Conexion.consulta("Select Id_usuario, Nom_Usuario as Usuario, Contraseña as Pass from Usuario");
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Cartera.Vista
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 19);
+            this.label1.Location = new System.Drawing.Point(12, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 13);
             this.label1.TabIndex = 0;
@@ -64,29 +64,29 @@ namespace Cartera.Vista
             // 
             // BtGuardarTipoPro
             // 
-            this.BtGuardarTipoPro.Location = new System.Drawing.Point(226, 14);
+            this.BtGuardarTipoPro.Image = global::Cartera.Properties.Resources.Guardar1;
+            this.BtGuardarTipoPro.Location = new System.Drawing.Point(304, 11);
             this.BtGuardarTipoPro.Name = "BtGuardarTipoPro";
-            this.BtGuardarTipoPro.Size = new System.Drawing.Size(56, 23);
+            this.BtGuardarTipoPro.Size = new System.Drawing.Size(30, 24);
             this.BtGuardarTipoPro.TabIndex = 2;
-            this.BtGuardarTipoPro.Text = "Guardar";
             this.BtGuardarTipoPro.UseVisualStyleBackColor = true;
             this.BtGuardarTipoPro.Click += new System.EventHandler(this.BtGuardarTipoPro_Click);
             // 
             // TxtNomTipoPro
             // 
-            this.TxtNomTipoPro.Location = new System.Drawing.Point(91, 16);
+            this.TxtNomTipoPro.Location = new System.Drawing.Point(92, 14);
             this.TxtNomTipoPro.Name = "TxtNomTipoPro";
-            this.TxtNomTipoPro.Size = new System.Drawing.Size(129, 20);
+            this.TxtNomTipoPro.Size = new System.Drawing.Size(189, 20);
             this.TxtNomTipoPro.TabIndex = 3;
             // 
             // Bt_EliminarTipoPro
             // 
             this.Bt_EliminarTipoPro.Enabled = false;
-            this.Bt_EliminarTipoPro.Location = new System.Drawing.Point(288, 14);
+            this.Bt_EliminarTipoPro.Image = global::Cartera.Properties.Resources.Eliminar;
+            this.Bt_EliminarTipoPro.Location = new System.Drawing.Point(340, 11);
             this.Bt_EliminarTipoPro.Name = "Bt_EliminarTipoPro";
-            this.Bt_EliminarTipoPro.Size = new System.Drawing.Size(56, 23);
+            this.Bt_EliminarTipoPro.Size = new System.Drawing.Size(30, 25);
             this.Bt_EliminarTipoPro.TabIndex = 4;
-            this.Bt_EliminarTipoPro.Text = "Eliminar";
             this.Bt_EliminarTipoPro.UseVisualStyleBackColor = true;
             this.Bt_EliminarTipoPro.Click += new System.EventHandler(this.Bt_EliminarTipoPro_Click);
             // 
@@ -97,11 +97,11 @@ namespace Cartera.Vista
             // BtLimpiarTp
             // 
             this.BtLimpiarTp.Enabled = false;
-            this.BtLimpiarTp.Location = new System.Drawing.Point(350, 14);
+            this.BtLimpiarTp.Image = global::Cartera.Properties.Resources.limpiar;
+            this.BtLimpiarTp.Location = new System.Drawing.Point(376, 10);
             this.BtLimpiarTp.Name = "BtLimpiarTp";
-            this.BtLimpiarTp.Size = new System.Drawing.Size(56, 23);
+            this.BtLimpiarTp.Size = new System.Drawing.Size(30, 25);
             this.BtLimpiarTp.TabIndex = 5;
-            this.BtLimpiarTp.Text = "Limpiar";
             this.BtLimpiarTp.UseVisualStyleBackColor = true;
             this.BtLimpiarTp.Click += new System.EventHandler(this.BtLimpiarTp_Click);
             // 

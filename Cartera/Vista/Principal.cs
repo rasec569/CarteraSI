@@ -119,7 +119,7 @@ namespace Cartera.Vista
         private void BtSoporte_Click(object sender, EventArgs e)
         {
             ActivateButton(sender);
-            FormularioHijo<Carteras>();
+            FormularioHijo<Soporte>();
         }
 
         private void BtReportes_Click(object sender, EventArgs e)
