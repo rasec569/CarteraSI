@@ -107,6 +107,7 @@ namespace Cartera.Vista
             this.BtGuardarProyecto.Size = new System.Drawing.Size(39, 33);
             this.BtGuardarProyecto.TabIndex = 17;
             this.BtGuardarProyecto.UseVisualStyleBackColor = true;
+            this.BtGuardarProyecto.Click += new System.EventHandler(this.BtGuardarProyecto_Click);
             // 
             // txtUbicacion
             // 

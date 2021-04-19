@@ -88,35 +88,8 @@ namespace Cartera.Vista
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ValidarCampos();
-            if (ValidarCampos() == true)
-            {
-                if (modificar == false)
-                {
-                    if (comboDescuento.Text == "Seleccionar")
-                    {
-                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString() , "", "", productoid.ToString());
-                    }
-                    else
-                    {
-                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), comboDescuento.Text, txtValorDescuento.Text, productoid.ToString());
-                    }
-                }
-                string descuento = "";
-                if (comboDescuento.Text != "Seleccionar")
-                {
-                    descuento = comboDescuento.Text;
-                }
-
-                pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, txtValorDescuento.Text);
-                modificar = false;
-
-                cartera.ActulizarValorRecaudado(productoid, carteraId);
-                cartera.ActulizarSaldo(carteraId);
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            }
+            
+        }
         
 
         private void label6_Click(object sender, EventArgs e)
@@ -250,6 +223,38 @@ namespace Cartera.Vista
             {
                 //MessageBox.Show("Valor no admitido");
                 //errorProvider1.SetError(txtValor, "Error");
+            }
+        }
+
+        private void BtRegistrarPago_Click(object sender, EventArgs e)
+        {
+            ValidarCampos();
+            if (ValidarCampos() == true)
+            {
+                if (modificar == false)
+                {
+                    if (comboDescuento.Text == "Seleccionar")
+                    {
+                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), "", "", productoid.ToString());
+                    }
+                    else
+                    {
+                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), comboDescuento.Text, txtValorDescuento.Text, productoid.ToString());
+                    }
+                }
+                string descuento = "";
+                if (comboDescuento.Text != "Seleccionar")
+                {
+                    descuento = comboDescuento.Text;
+                }
+
+                pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, txtValorDescuento.Text);
+                modificar = false;
+
+                cartera.ActulizarValorRecaudado(productoid, carteraId);
+                cartera.ActulizarSaldo(carteraId);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
     }    

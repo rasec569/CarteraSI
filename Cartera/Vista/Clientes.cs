@@ -28,7 +28,6 @@ namespace Cartera.Vista
         public static string Producto_id = "";
         public static string Financiacion_id = "";
         public static int valor = 0;
-        int val_total=0;
 
 
 

@@ -161,6 +161,7 @@ namespace Cartera.Vista
             // 
             this.labelTotal.AutoSize = true;
             this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotal.ForeColor = System.Drawing.Color.DodgerBlue;
             this.labelTotal.Location = new System.Drawing.Point(26, 20);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(36, 13);
@@ -244,6 +245,7 @@ namespace Cartera.Vista
             // 
             this.labelRecaudo.AutoSize = true;
             this.labelRecaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelRecaudo.ForeColor = System.Drawing.Color.Green;
             this.labelRecaudo.Location = new System.Drawing.Point(469, 500);
             this.labelRecaudo.Name = "labelRecaudo";
             this.labelRecaudo.Size = new System.Drawing.Size(105, 13);
@@ -255,6 +257,7 @@ namespace Cartera.Vista
             // 
             this.labelDeuda.AutoSize = true;
             this.labelDeuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDeuda.ForeColor = System.Drawing.Color.Crimson;
             this.labelDeuda.Location = new System.Drawing.Point(725, 500);
             this.labelDeuda.Name = "labelDeuda";
             this.labelDeuda.Size = new System.Drawing.Size(77, 13);

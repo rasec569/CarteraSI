@@ -23,8 +23,9 @@ namespace Cartera.Vista
         string productoId = "";
         string carteraId ="";
         string clienteid = "";
+        bool clearall = true;
         string Nom_Producto, Nom_Proyecto;
-        int ProductoVal,ValorPagado,ValorDeuda;
+        int ProductoVal,ValorPagado,ValorDeuda,ValorNeto;
         private ReportesPDF reportesPDF;
         DataTable dtpagos = new DataTable();
         public HistorialPagos()
@@ -48,10 +49,10 @@ namespace Cartera.Vista
             {
                 DataTable dtreporte = new DataTable();
                 dtreporte = pago.ReportesPagosCliente(productoId);
-                reportesPDF.HistorialPagos(dtreporte, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, labelTotal.Text, labelDeuda.Text, labelPagado.Text);
+                reportesPDF.HistorialPagos(dtreporte, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, labelNeto.Text, labelTotal.Text, labelDeuda.Text, labelPagado.Text);
                 //printPreviewDialog1.Show();
             }
-            catch(Exception ex)
+            catch/*(Exception ex)*/
             {
                 //printPreviewDialog1.Close();
             }
@@ -93,6 +94,8 @@ namespace Cartera.Vista
                 ValidarCampos();
                 if ((error != true) && (ValidarCampos() == true))
                 {
+                    clearall = false;
+                    limpiar();
                     cliente.BuscarClientesCedula(txtCedula.Text);
                     DataTable DtUsuario = cliente.BuscarClientesCedula(txtCedula.Text);
                     clienteid = DtUsuario.Rows[0]["Id_Cliente"].ToString();
@@ -121,7 +124,8 @@ namespace Cartera.Vista
             return ok;
         }
         private void ListarProudctosCliente()
-        {             
+        {
+            dataGridView2.Visible = false;         
             dataGridView1.DataSource = producto.cargarProductosCliente(int.Parse(clienteid));
             dataGridView1.Columns["Id_Producto"].Visible = false;
             dataGridView1.Columns["Observaciones"].Visible = false;
@@ -131,6 +135,28 @@ namespace Cartera.Vista
             dataGridView1.Columns[5].DefaultCellStyle.Format = "N0";
             // pago.ListarPagosCliente();
         }
+        private void limpiar()
+        {
+            dataGridView1.DataSource = "";
+            dataGridView2.DataSource = "";
+            btLimpiar.Enabled = false;
+            BtImprimir.Enabled = false;
+            dataGridView2.Visible = false;
+            dataGridView1.Visible = true;
+            labelTotal.Visible = false;
+            labelPagado.Visible = false;
+            labelNeto.Visible = false;
+            labelDeuda.Visible = false;
+            BtImprimir.Enabled = false;
+            txtNombre.Clear();
+            clienteid = "";
+            if (clearall == true)
+            {
+                txtCedula.Clear();
+            }
+            
+        }
+
 
         private void txtCedula_TextChanged(object sender, EventArgs e)
         {
@@ -160,6 +186,7 @@ namespace Cartera.Vista
                     productoId = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();                    
                     Nom_Producto = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
                     Nom_Proyecto = dataGridView1.Rows[n].Cells["Proyecto"].Value.ToString();
+                    ValorNeto = int.Parse(dataGridView1.Rows[n].Cells["Valor Neto"].Value.ToString());
                     ProductoVal = int.Parse(dataGridView1.Rows[n].Cells["Valor Total"].Value.ToString());
                     ListarPagosCliente();
                 }
@@ -177,9 +204,14 @@ namespace Cartera.Vista
             DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
             ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
             ValorDeuda = ProductoVal - ValorPagado;
-            labelDeuda.Text = "Deuda: $" + String.Format("{0:N0}", ValorDeuda);
-            labelPagado.Text = "Valor Pagado: $" + String.Format("{0:N0}", ValorPagado);
-            labelTotal.Text = "Valor Producto: $" + String.Format("{0:N0}", ProductoVal);
+            labelDeuda.Visible = true;
+            labelPagado.Visible = true;
+            labelTotal.Visible = true;
+            labelNeto.Visible = true;
+            labelDeuda.Text = "SALDO: $" + String.Format("{0:N0}", ValorDeuda);
+            labelPagado.Text = "TOTAL ABONADO: $" + String.Format("{0:N0}", ValorPagado);
+            labelTotal.Text = "VALOR TOTAL: $" + String.Format("{0:N0}", ProductoVal);
+            labelNeto.Text= "VALOR NETO: $" + String.Format("{0:N0}", ProductoVal);
             dtpagos = pago.ListarPagosCliente(productoId);            
             dataGridView2.DataSource = dtpagos;
             dataGridView2.Columns["Id_Pagos"].Visible = false;
@@ -187,8 +219,9 @@ namespace Cartera.Vista
             dataGridView2.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView2.Columns[1].Width = 50;
             dataGridView2.Columns[2].Width = 80;
-            dataGridView2.Columns[3].Width = 230;
-            dataGridView2.Columns[4].DefaultCellStyle.Format = "N0";
+            dataGridView2.Columns[3].Width = 280;
+            dataGridView2.Columns[4].Width = 150;
+            dataGridView2.Columns[5].DefaultCellStyle.Format = "N0";
         }
 
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -249,15 +282,8 @@ namespace Cartera.Vista
 
         private void btLimpiar_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = "";
-            dataGridView2.DataSource = "";
-            btLimpiar.Enabled = false;
-            BtImprimir.Enabled = false;
-            dataGridView2.Visible = false;
-            dataGridView1.Visible = true;
-            txtCedula.Clear();
-            txtNombre.Clear();
-            clienteid = "";
+            clearall = true;
+            limpiar();
         }
         //public static int GetPageCount(PrintDocument printDocument)
         //{

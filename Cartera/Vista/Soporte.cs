@@ -15,6 +15,7 @@ namespace Cartera.Vista
     {
         CUsuario usuario = new CUsuario();
         DataTable dtUsuarios = new DataTable();
+        string user="";
         public Soporte()
         {
             InitializeComponent();
@@ -30,16 +31,20 @@ namespace Cartera.Vista
             dtUsuarios = usuario.listarUsuario();
             dataGridView1.DataSource = dtUsuarios;
             dataGridView1.Columns["Id_usuario"].Visible = false;
+            user = dtUsuarios.Rows[0]["Usuario"].ToString();
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            string user = dtUsuarios.Rows[0]["Usuario"].ToString();
-            
-            if (e.ColumnIndex == 2 && e.Value != null /*&& user != "admin"*/)
+            if (e.ColumnIndex == 2 && e.Value != null)
             {
                 e.Value = new string('*', e.Value.ToString().Length);
             }
+        }
+
+        private void BtGuardarProyecto_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Cartera.Reportes
 {
     public class ReportesPDF
     {
-        public void HistorialPagos(DataTable report, string cedula, string Nombres, string producto, string proyecto, string valor_total,string Valor_deduda, string valor_pagado)
+        public void HistorialPagos(DataTable report, string cedula, string Nombres, string producto, string proyecto, string valor_neto, string valor_total,string Valor_deduda, string valor_pagado)
         {
             //string nombre = "Historial de pagos";
             
@@ -84,7 +84,7 @@ namespace Cartera.Reportes
                                 texto.RemoveAt(0);
 
                                 texto.Font = FontFactory.GetFont("Verdana", 7);
-                                texto.Add("HISTORIAL PAGOS - CLIENTE: " + cedula + " " + Nombres + " PRODUCTO: " + producto + " " + proyecto);
+                                texto.Add("HISTORIAL PAGOS - CLIENTE");
                                 document.Add(texto);
                                 texto.RemoveAt(0);
                                 //string fecha;
@@ -103,17 +103,15 @@ namespace Cartera.Reportes
                                 //    DateTimeFormatInfo dtinfo = new CultureInfo("es-ES", false).DateTimeFormat;
                                 //    fecha = dtinfo.GetMonthName(Fechai.Month) + " " + Fechai.Day + " DE " + Fechai.Year + " (A) " + dtinfo.GetMonthName(Fechaf.Month) + " " + Fechaf.Day + " DE " + Fechaf.Year;
                                 //}
-                                texto.Add( valor_pagado +" "+ Valor_deduda +" "+valor_total + " Fecha Reporte: " + DateTime.Now.ToString());
+                                texto.Add(cedula + " " + Nombres + " PRODUCTO: " + producto + " " + proyecto);                                
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                //texto.Add(Nombres);
-                                //document.Add(texto);
-                                //texto.RemoveAt(0);
+                                texto.Add(" Fecha Reporte: " + DateTime.Now.ToString());
+                                document.Add(texto);
+                                texto.RemoveAt(0);
 
-                                //texto.Add(cedula);
-                                //document.Add(texto);
-                                //texto.RemoveAt(0);
+                               
 
                                 document.Add(new Paragraph(" "));
 
@@ -128,13 +126,36 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 8f, 10f, 32, 10f, 10f, 10f, 10f, 10f }, 100, 8));
+                                document.Add(TablasLetras(report, new float[] { 5f, 10f, 33f, 17f, 10f, 10f, 10f, 10f, 10f }, 100, 7));
                             }
                             else
                             {
                                 document.Add(new Paragraph(" "));
-                            }
+                            }                            
                         }
+                        //int height = (int)(document.PageSize.Height - texto.TotalLeading);
+                        //pdfContent.MoveTo(30, document.PageSize.Height - height);
+                        //pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - height);
+                        //pdfContent.Stroke();
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
+                        texto.Add("________________________________________________________________________________________________________________________________________________");
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Alignment = Element.ALIGN_RIGHT;
+                        texto.IndentationRight = 30;
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                        texto.Add(valor_neto);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add(valor_pagado);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add(Valor_deduda);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add(valor_total);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
                     }
                     catch(Exception ex)
                     {
@@ -903,7 +924,10 @@ namespace Cartera.Reportes
                 //We are going to add two strings in header. Create separate Phrase object with font setting and string to be included
                 Phrase p1Header = new Phrase("", FontFactory.GetFont("verdana", 8));
                 Phrase p2Header = new Phrase("", FontFactory.GetFont("verdana", 8));
-                Image image1 = Image.GetInstance(@"C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\img\logo San Isidro.png");
+                var path=AppDomain.CurrentDomain.BaseDirectory;
+                string ruta = path + @"img\logo San Isidro.png";
+                Image image1 = Image.GetInstance(ruta);
+                //global::Cartera.Properties.Resources.logo_2_San_Isidro;
                 //image1.ScalePercent(50f);
                 image1.Alignment = Element.ALIGN_LEFT;
                 image1.ScaleAbsoluteWidth(60);

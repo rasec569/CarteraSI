@@ -43,7 +43,6 @@ namespace Cartera.Vista
             this.comboDescuento = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtValorDescuento = new System.Windows.Forms.TextBox();
-            this.BtRegistrarPago = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Btbuscar = new System.Windows.Forms.Button();
             this.Txtcedula = new System.Windows.Forms.TextBox();
@@ -57,6 +56,9 @@ namespace Cartera.Vista
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtConcepto = new System.Windows.Forms.TextBox();
+            this.BtRegistrarPago = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.TxtEntidad = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.panelProductos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -104,7 +106,7 @@ namespace Cartera.Vista
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(50, 153);
+            this.label6.Location = new System.Drawing.Point(50, 178);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 13);
             this.label6.TabIndex = 9;
@@ -115,7 +117,7 @@ namespace Cartera.Vista
             // 
             this.dateFechaPago.CustomFormat = "yyyy-MM-dd";
             this.dateFechaPago.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateFechaPago.Location = new System.Drawing.Point(127, 150);
+            this.dateFechaPago.Location = new System.Drawing.Point(127, 175);
             this.dateFechaPago.Name = "dateFechaPago";
             this.dateFechaPago.Size = new System.Drawing.Size(182, 20);
             this.dateFechaPago.TabIndex = 10;
@@ -124,7 +126,7 @@ namespace Cartera.Vista
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(335, 153);
+            this.label7.Location = new System.Drawing.Point(335, 178);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(71, 13);
             this.label7.TabIndex = 11;
@@ -132,7 +134,7 @@ namespace Cartera.Vista
             // 
             // txtValor
             // 
-            this.txtValor.Location = new System.Drawing.Point(426, 150);
+            this.txtValor.Location = new System.Drawing.Point(426, 175);
             this.txtValor.Name = "txtValor";
             this.txtValor.Size = new System.Drawing.Size(125, 20);
             this.txtValor.TabIndex = 12;
@@ -141,7 +143,7 @@ namespace Cartera.Vista
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(50, 176);
+            this.label8.Location = new System.Drawing.Point(50, 201);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(59, 13);
             this.label8.TabIndex = 13;
@@ -154,7 +156,7 @@ namespace Cartera.Vista
             "Pago oportuno",
             "Oferta expecial",
             "Otros"});
-            this.comboDescuento.Location = new System.Drawing.Point(127, 175);
+            this.comboDescuento.Location = new System.Drawing.Point(127, 200);
             this.comboDescuento.Name = "comboDescuento";
             this.comboDescuento.Size = new System.Drawing.Size(182, 21);
             this.comboDescuento.TabIndex = 14;
@@ -164,7 +166,7 @@ namespace Cartera.Vista
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(335, 177);
+            this.label9.Location = new System.Drawing.Point(335, 202);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(84, 13);
             this.label9.TabIndex = 15;
@@ -173,40 +175,30 @@ namespace Cartera.Vista
             // txtValorDescuento
             // 
             this.txtValorDescuento.Enabled = false;
-            this.txtValorDescuento.Location = new System.Drawing.Point(426, 174);
+            this.txtValorDescuento.Location = new System.Drawing.Point(426, 199);
             this.txtValorDescuento.Name = "txtValorDescuento";
             this.txtValorDescuento.Size = new System.Drawing.Size(125, 20);
             this.txtValorDescuento.TabIndex = 16;
-            // 
-            // BtRegistrarPago
-            // 
-            this.BtRegistrarPago.Location = new System.Drawing.Point(273, 203);
-            this.BtRegistrarPago.Name = "BtRegistrarPago";
-            this.BtRegistrarPago.Size = new System.Drawing.Size(75, 23);
-            this.BtRegistrarPago.TabIndex = 17;
-            this.BtRegistrarPago.Text = "Guardar";
-            this.BtRegistrarPago.UseVisualStyleBackColor = true;
-            this.BtRegistrarPago.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.Btbuscar);
             this.groupBox1.Controls.Add(this.Txtcedula);
             this.groupBox1.Controls.Add(this.txtNombre);
-            this.groupBox1.Location = new System.Drawing.Point(20, 9);
+            this.groupBox1.Location = new System.Drawing.Point(12, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(575, 50);
+            this.groupBox1.Size = new System.Drawing.Size(597, 50);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
             // 
             // Btbuscar
             // 
-            this.Btbuscar.Location = new System.Drawing.Point(483, 17);
+            this.Btbuscar.Image = global::Cartera.Properties.Resources.buscar;
+            this.Btbuscar.Location = new System.Drawing.Point(536, 15);
             this.Btbuscar.Name = "Btbuscar";
-            this.Btbuscar.Size = new System.Drawing.Size(71, 23);
+            this.Btbuscar.Size = new System.Drawing.Size(33, 27);
             this.Btbuscar.TabIndex = 21;
-            this.Btbuscar.Text = "Buscar";
             this.Btbuscar.UseVisualStyleBackColor = true;
             this.Btbuscar.Click += new System.EventHandler(this.Btbuscar_Click);
             // 
@@ -215,7 +207,7 @@ namespace Cartera.Vista
             this.Txtcedula.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Txtcedula.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.Txtcedula.Enabled = false;
-            this.Txtcedula.Location = new System.Drawing.Point(8, 19);
+            this.Txtcedula.Location = new System.Drawing.Point(38, 19);
             this.Txtcedula.Name = "Txtcedula";
             this.Txtcedula.Size = new System.Drawing.Size(134, 20);
             this.Txtcedula.TabIndex = 20;
@@ -224,7 +216,8 @@ namespace Cartera.Vista
             // txtNombre
             // 
             this.txtNombre.Enabled = false;
-            this.txtNombre.Location = new System.Drawing.Point(148, 19);
+            this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombre.Location = new System.Drawing.Point(191, 19);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(317, 20);
             this.txtNombre.TabIndex = 19;
@@ -259,15 +252,15 @@ namespace Cartera.Vista
             this.panelProductos.Controls.Add(this.dataGridView1);
             this.panelProductos.Location = new System.Drawing.Point(3, 65);
             this.panelProductos.Name = "panelProductos";
-            this.panelProductos.Size = new System.Drawing.Size(615, 166);
+            this.panelProductos.Size = new System.Drawing.Size(615, 195);
             this.panelProductos.TabIndex = 23;
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 0);
+            this.dataGridView1.Location = new System.Drawing.Point(8, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(598, 160);
+            this.dataGridView1.Size = new System.Drawing.Size(598, 189);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
@@ -301,12 +294,45 @@ namespace Cartera.Vista
             this.txtConcepto.Size = new System.Drawing.Size(424, 20);
             this.txtConcepto.TabIndex = 30;
             // 
+            // BtRegistrarPago
+            // 
+            this.BtRegistrarPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtRegistrarPago.Image = global::Cartera.Properties.Resources.Guardar1;
+            this.BtRegistrarPago.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtRegistrarPago.Location = new System.Drawing.Point(287, 227);
+            this.BtRegistrarPago.Name = "BtRegistrarPago";
+            this.BtRegistrarPago.Size = new System.Drawing.Size(77, 26);
+            this.BtRegistrarPago.TabIndex = 31;
+            this.BtRegistrarPago.Text = "Guardar";
+            this.BtRegistrarPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtRegistrarPago.UseVisualStyleBackColor = true;
+            this.BtRegistrarPago.Click += new System.EventHandler(this.BtRegistrarPago_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(50, 153);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(43, 13);
+            this.label10.TabIndex = 32;
+            this.label10.Text = "Entidad";
+            // 
+            // TxtEntidad
+            // 
+            this.TxtEntidad.Location = new System.Drawing.Point(127, 150);
+            this.TxtEntidad.Name = "TxtEntidad";
+            this.TxtEntidad.Size = new System.Drawing.Size(424, 20);
+            this.TxtEntidad.TabIndex = 33;
+            // 
             // RegistrarPago
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 238);
+            this.ClientSize = new System.Drawing.Size(621, 265);
             this.Controls.Add(this.panelProductos);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.TxtEntidad);
+            this.Controls.Add(this.BtRegistrarPago);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtConcepto);
             this.Controls.Add(this.label3);
@@ -315,7 +341,6 @@ namespace Cartera.Vista
             this.Controls.Add(this.txtProducto);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtCuota);
-            this.Controls.Add(this.BtRegistrarPago);
             this.Controls.Add(this.txtValorDescuento);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.comboDescuento);
@@ -358,7 +383,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.ComboBox comboDescuento;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtValorDescuento;
-        private System.Windows.Forms.Button BtRegistrarPago;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox Txtcedula;
         private System.Windows.Forms.TextBox txtNombre;
@@ -372,5 +396,8 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtConcepto;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox TxtEntidad;
+        private System.Windows.Forms.Button BtRegistrarPago;
     }
 }

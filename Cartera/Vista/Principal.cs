@@ -20,7 +20,7 @@ namespace Cartera.Vista
         private void Principal_Load(object sender, EventArgs e)
         {
             //BtCarteras_Click(this, new EventArgs());
-           FormularioHijo<Carteras>();
+            FormularioHijo<Carteras>();
             BtCarteras.BackColor = Color.DarkSeaGreen;
             BtCarteras.ForeColor = Color.White;
             BtCarteras.Font = new System.Drawing.Font("Bernard MT Condensed", 16.75F);

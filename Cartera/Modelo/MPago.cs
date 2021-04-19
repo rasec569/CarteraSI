@@ -25,14 +25,15 @@ namespace Cartera.Modelo
             throw new NotImplementedException();
         }
 
-        internal static int RegistrarPago(string porcentaje, string numero_Cuota, string fecha_Pago, string Concepto, string referencia_Pago, string valor_Pagado, string descuento, string valor_Descuento, string fk_Id_Producto)
+        internal static int RegistrarPago(string porcentaje, string numero_Cuota, string fecha_Pago, string Concepto, string Entidad, string referencia_Pago, string valor_Pagado, string descuento, string valor_Descuento, string fk_Id_Producto)
         {
-            string sql = "INSERT INTO Pagos(Porcentaje, Numero_Cuota, Fecha_Pago, Concepto, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto)VALUES(@Porcentaje, @Numero_Cuota, @Fecha_Pago, @Concepto, @Referencia_Pago, @Valor_Pagado, @Descuento, @Valor_Descuento, @Fk_Id_Producto)";
+            string sql = "INSERT INTO Pagos(Porcentaje, Numero_Cuota, Fecha_Pago, Concepto, Entidad, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto)VALUES(@Porcentaje, @Numero_Cuota, @Fecha_Pago, @Concepto, @Entidad, @Referencia_Pago, @Valor_Pagado, @Descuento, @Valor_Descuento, @Fk_Id_Producto)";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
             cmd.Parameters.Add(new SQLiteParameter("@Porcentaje", porcentaje));
             cmd.Parameters.Add(new SQLiteParameter("@Numero_Cuota", numero_Cuota));
             cmd.Parameters.Add(new SQLiteParameter("@Fecha_Pago", fecha_Pago));
             cmd.Parameters.Add(new SQLiteParameter("@Concepto", Concepto));
+            cmd.Parameters.Add(new SQLiteParameter("@Entidad", Entidad));
             cmd.Parameters.Add(new SQLiteParameter("@Referencia_Pago", referencia_Pago));
             cmd.Parameters.Add(new SQLiteParameter("@Valor_Pagado", valor_Pagado));
             cmd.Parameters.Add(new SQLiteParameter("@Descuento", descuento));
@@ -40,14 +41,15 @@ namespace Cartera.Modelo
             cmd.Parameters.Add(new SQLiteParameter("@Fk_Id_Producto", fk_Id_Producto));
             return cmd.ExecuteNonQuery();
         }
-        internal static int ActulizarPago(int idpago, string porcentaje, string numero_Cuota, string fecha_Pago, string Concepto, string referencia_Pago, string valor_Pagado, string descuento, string valor_Descuento)
+        internal static int ActulizarPago(int idpago, string porcentaje, string numero_Cuota, string fecha_Pago, string Concepto, string Entidad, string referencia_Pago, string valor_Pagado, string descuento, string valor_Descuento)
         {
-            string sql = "UPDATE Pagos SET Porcentaje=@Porcentaje, Numero_Cuota=@Numero_Cuota, Fecha_Pago=@Fecha_Pago, Concepto=@Concepto, Referencia_Pago=@Referencia_Pago, Valor_Pagado=@Valor_Pagado, Descuento=@Descuento, Valor_Descuento=@Valor_Descuento WHERE Id_Pagos= "+ idpago + ";";
+            string sql = "UPDATE Pagos SET Porcentaje=@Porcentaje, Numero_Cuota=@Numero_Cuota, Fecha_Pago=@Fecha_Pago, Concepto=@Concepto, Entidad=@Entidad, Referencia_Pago=@Referencia_Pago, Valor_Pagado=@Valor_Pagado, Descuento=@Descuento, Valor_Descuento=@Valor_Descuento WHERE Id_Pagos= " + idpago + ";";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
             cmd.Parameters.Add(new SQLiteParameter("@Porcentaje", porcentaje));
             cmd.Parameters.Add(new SQLiteParameter("@Numero_Cuota", numero_Cuota));
             cmd.Parameters.Add(new SQLiteParameter("@Fecha_Pago", fecha_Pago));
             cmd.Parameters.Add(new SQLiteParameter("@Concepto", Concepto));
+            cmd.Parameters.Add(new SQLiteParameter("@Entidad", Entidad));
             cmd.Parameters.Add(new SQLiteParameter("@Referencia_Pago", referencia_Pago));
             cmd.Parameters.Add(new SQLiteParameter("@Valor_Pagado", valor_Pagado));
             cmd.Parameters.Add(new SQLiteParameter("@Descuento", descuento));
@@ -57,11 +59,11 @@ namespace Cartera.Modelo
 
         internal static DataTable ListarPagosCliente(string productoid)
         {
-            return Conexion.consulta("SELECT  Id_Pagos, Numero_Cuota as 'Pago', Porcentaje as 'Tipo Pago', Concepto, Valor_Pagado as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
+            return Conexion.consulta("SELECT  Id_Pagos, Numero_Cuota as 'Pago', Porcentaje as 'Tipo Pago', Concepto, Entidad, Valor_Pagado as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
         }
         internal static DataTable ReportesPagosCliente(string productoid)
         {
-            return Conexion.consulta("SELECT  Numero_Cuota as 'Pago', Porcentaje as 'Tipo Pago', Concepto, Valor_Pagado as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
+            return Conexion.consulta("SELECT  Numero_Cuota as 'Pago', Porcentaje as 'Tipo Pago', Concepto, Entidad, Valor_Pagado as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
         }
 
         internal static DataTable Tota_Recaudado_Producto(string productoid)
