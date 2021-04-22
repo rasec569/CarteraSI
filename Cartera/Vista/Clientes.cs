@@ -829,7 +829,19 @@ namespace Cartera.Vista
 
         private void txtValorEntrada_Leave(object sender, EventArgs e)
         {
-            txtValorEntrada.Text = String.Format("{0:N0}", double.Parse(txtValorEntrada.Text));
+            try
+            {
+                if (!string.IsNullOrEmpty(txtValorEntrada.Text))
+                {
+                    int valor;
+                    valor = int.Parse(txtValorEntrada.Text);
+                    txtValorEntrada.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
+                }
+            }
+            catch
+            {
+            }
+            
         }
 
         private void PanelSuperior_Paint(object sender, PaintEventArgs e)

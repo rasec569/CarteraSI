@@ -51,7 +51,8 @@ namespace Cartera.Vista
             dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
             dataGridView1.Columns["Id_Financiacion"].Visible = false;
-            dataGridView1.Columns[4].DefaultCellStyle.Format = "n1";
+            dataGridView1.Columns[4].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns["Inicial"].Visible = false;
             dataGridView1.Columns["Valor 30"].Visible = false;
             dataGridView1.Columns["Cuotas 30"].Visible = false;

@@ -41,6 +41,14 @@ namespace Cartera.Modelo
             cmd.Parameters.Add(new SQLiteParameter("@Fk_Id_Producto", fk_Id_Producto));
             return cmd.ExecuteNonQuery();
         }
+
+        internal static int EliminarPago(int idpago)
+        {
+            string sql = "DELETE FROM Pagos WHERE Id_Pagos = '" + idpago + "'";
+            SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+            return cmd.ExecuteNonQuery();
+        }
+
         internal static int ActulizarPago(int idpago, string porcentaje, string numero_Cuota, string fecha_Pago, string Concepto, string Entidad, string referencia_Pago, string valor_Pagado, string descuento, string valor_Descuento)
         {
             string sql = "UPDATE Pagos SET Porcentaje=@Porcentaje, Numero_Cuota=@Numero_Cuota, Fecha_Pago=@Fecha_Pago, Concepto=@Concepto, Entidad=@Entidad, Referencia_Pago=@Referencia_Pago, Valor_Pagado=@Valor_Pagado, Descuento=@Descuento, Valor_Descuento=@Valor_Descuento WHERE Id_Pagos= " + idpago + ";";

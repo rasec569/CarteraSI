@@ -35,6 +35,10 @@ namespace Cartera.Controlador
         {
             return MProducto.actualizarProducto(id_Producto,  Nombre_Producto, Numero_contrato, Forma_Pago, Valor_Neto, Valor_Total, Fecha_Venta, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto);
         }
+        public int actualizarValorProducto(int id_Producto, int Valor_Producto)
+        {
+            return MProducto.actualizarValorProducto(id_Producto, Valor_Producto);
+        }
         public DataTable ReportVentas(string FechaInicio, string FechaFin)
         {
             return MProducto.ReportVentas(FechaInicio, FechaFin);
@@ -46,6 +50,10 @@ namespace Cartera.Controlador
         public DataTable ValorReportProducto()
         {
             return MProducto.ValorReportProducto();
+        }
+        public DataTable ClienteProducto(int IdProducto)
+        {
+            return MProducto.ClienteProducto(IdProducto);
         }
     }
 }

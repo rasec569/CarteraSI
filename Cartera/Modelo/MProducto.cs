@@ -80,6 +80,13 @@ namespace Cartera.Modelo
             cmd.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", Fk_Id_Tipo_Producto));
             return cmd.ExecuteNonQuery();
         }
+        public static int actualizarValorProducto(int id_Producto, int Valor_Producto)
+        {
+            string sql = "UPDATE Producto SET Valor_Producto=@Valor_Producto WHERE Id_Producto =" + id_Producto + "";
+            SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+            cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto", Valor_Producto));
+            return cmd.ExecuteNonQuery();
+        }
 
         public static DataTable ultimoProducto()
         {
@@ -97,6 +104,10 @@ namespace Cartera.Modelo
         {
             //arreglar consulta para que no tenga los valores de las demas financiaciones
             return Conexion.consulta("SELECT count(Id_Producto)as productos, sum(Valor_Producto) as valor FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' and Estado_Financiacion='Activa';");
+        }
+        public static DataTable ClienteProducto(int IdProducto)
+        {
+            return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Telefono, Correo FROM Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto WHERE Id_Producto='" + IdProducto + "' AND Estado_Cliente= 'Activo';");
         }
 
     }

@@ -55,9 +55,9 @@ namespace Cartera.Vista
             int total= int.Parse(DtValoreCartera.Rows[0]["total"].ToString());
             int deuda= int.Parse(DtValoreCartera.Rows[0]["saldo"].ToString());
             int pagado = int.Parse(DtValoreCartera.Rows[0]["recaudo"].ToString());
-            labelTotal.Text="Total: $"+ String.Format("{0:N0}", total);
-            labelDeuda.Text = "Valor Deuda: $" + String.Format("{0:N0}", deuda);
-            labelRecaudo.Text = "Valor Recaudado: $" + String.Format("{0:N0}", pagado);
+            labelTotal.Text="TOTAL: $"+ String.Format("{0:N0}", total);
+            labelDeuda.Text = "VALOR DEUDA: $" + String.Format("{0:N0}", deuda);
+            labelRecaudo.Text = "VALOR RECAUDADO: $" + String.Format("{0:N0}", pagado);
 
             dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";

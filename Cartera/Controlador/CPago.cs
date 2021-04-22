@@ -23,6 +23,10 @@ namespace Cartera.Controlador
         {
             return MPago.ActulizarPago(idpago, Porcentaje, Numero_Cuota, Fecha_Pago, Concepto, Entidad, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento);
         }
+        public int EliminarPago(int idpago)
+        {
+            return MPago.EliminarPago(idpago);
+        }
         public DataTable SumarValorRecaudado(string productoid)
         {
             return MPago.SumarValorRecaudado(productoid);

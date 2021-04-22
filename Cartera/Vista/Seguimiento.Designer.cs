@@ -37,8 +37,11 @@ namespace Cartera.Vista
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtproducto = new System.Windows.Forms.TextBox();
+            this.LbConctato = new System.Windows.Forms.Label();
+            this.LbPropietario = new System.Windows.Forms.Label();
+            this.LbNomProducto = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -46,11 +49,13 @@ namespace Cartera.Vista
             // 
             // GuardarSegui
             // 
-            this.GuardarSegui.Location = new System.Drawing.Point(503, 16);
+            this.GuardarSegui.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.GuardarSegui.Image = global::Cartera.Properties.Resources.Guardar1;
+            this.GuardarSegui.Location = new System.Drawing.Point(723, 44);
             this.GuardarSegui.Name = "GuardarSegui";
-            this.GuardarSegui.Size = new System.Drawing.Size(75, 23);
+            this.GuardarSegui.Size = new System.Drawing.Size(40, 30);
             this.GuardarSegui.TabIndex = 0;
-            this.GuardarSegui.Text = "Guardar";
+            this.toolTip1.SetToolTip(this.GuardarSegui, "Guardar Seguimiento");
             this.GuardarSegui.UseVisualStyleBackColor = true;
             this.GuardarSegui.Click += new System.EventHandler(this.GuardarSegui_Click);
             // 
@@ -58,13 +63,14 @@ namespace Cartera.Vista
             // 
             this.txtcomentario.Location = new System.Drawing.Point(83, 50);
             this.txtcomentario.Name = "txtcomentario";
-            this.txtcomentario.Size = new System.Drawing.Size(495, 20);
+            this.txtcomentario.Size = new System.Drawing.Size(512, 20);
             this.txtcomentario.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.txtcomentario, "Observaciones  o Comentarios da la comunicación con el Cliente");
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(390, 20);
+            this.dateTimePicker1.Location = new System.Drawing.Point(613, 50);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(104, 20);
             this.dateTimePicker1.TabIndex = 2;
@@ -76,7 +82,7 @@ namespace Cartera.Vista
             this.dataGridView1.Location = new System.Drawing.Point(12, 101);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(600, 226);
+            this.dataGridView1.Size = new System.Drawing.Size(778, 226);
             this.dataGridView1.TabIndex = 3;
             // 
             // label1
@@ -90,25 +96,51 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtproducto);
+            this.groupBox1.Controls.Add(this.LbConctato);
+            this.groupBox1.Controls.Add(this.LbPropietario);
+            this.groupBox1.Controls.Add(this.LbNomProducto);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.GuardarSegui);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
             this.groupBox1.Controls.Add(this.txtcomentario);
             this.groupBox1.Location = new System.Drawing.Point(21, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(600, 83);
+            this.groupBox1.Size = new System.Drawing.Size(769, 83);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Producto";
             // 
-            // txtproducto
+            // LbConctato
             // 
-            this.txtproducto.Enabled = false;
-            this.txtproducto.Location = new System.Drawing.Point(20, 19);
-            this.txtproducto.Name = "txtproducto";
-            this.txtproducto.Size = new System.Drawing.Size(354, 20);
-            this.txtproducto.TabIndex = 5;
+            this.LbConctato.AutoSize = true;
+            this.LbConctato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbConctato.Location = new System.Drawing.Point(420, 22);
+            this.LbConctato.Name = "LbConctato";
+            this.LbConctato.Size = new System.Drawing.Size(58, 13);
+            this.LbConctato.TabIndex = 8;
+            this.LbConctato.Text = "Contacto";
+            this.toolTip1.SetToolTip(this.LbConctato, "Medio de contacto del Cliente");
+            // 
+            // LbPropietario
+            // 
+            this.LbPropietario.AutoSize = true;
+            this.LbPropietario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbPropietario.Location = new System.Drawing.Point(114, 22);
+            this.LbPropietario.Name = "LbPropietario";
+            this.LbPropietario.Size = new System.Drawing.Size(68, 13);
+            this.LbPropietario.TabIndex = 7;
+            this.LbPropietario.Text = "Propietario";
+            this.toolTip1.SetToolTip(this.LbPropietario, "Nombre del Propietario");
+            // 
+            // LbNomProducto
+            // 
+            this.LbNomProducto.AutoSize = true;
+            this.LbNomProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbNomProducto.Location = new System.Drawing.Point(17, 22);
+            this.LbNomProducto.Name = "LbNomProducto";
+            this.LbNomProducto.Size = new System.Drawing.Size(58, 13);
+            this.LbNomProducto.TabIndex = 6;
+            this.LbNomProducto.Text = "Producto";
             // 
             // errorProvider1
             // 
@@ -118,7 +150,7 @@ namespace Cartera.Vista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 330);
+            this.ClientSize = new System.Drawing.Size(802, 330);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -143,7 +175,10 @@ namespace Cartera.Vista
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtproducto;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label LbNomProducto;
+        private System.Windows.Forms.Label LbPropietario;
+        private System.Windows.Forms.Label LbConctato;
     }
 }

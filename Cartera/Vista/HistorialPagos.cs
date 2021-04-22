@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace Cartera.Vista
             {
                 DataTable dtreporte = new DataTable();
                 dtreporte = pago.ReportesPagosCliente(productoId);
-                reportesPDF.HistorialPagos(dtreporte, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, labelNeto.Text, labelTotal.Text, labelDeuda.Text, labelPagado.Text);
+                reportesPDF.HistorialPagos(dtreporte, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, TxtDeudaFecha.Text, labelNeto.Text, labelTotal.Text, labelDeuda.Text, labelPagado.Text);
                 //printPreviewDialog1.Show();
             }
             catch/*(Exception ex)*/
@@ -147,6 +148,8 @@ namespace Cartera.Vista
             labelPagado.Visible = false;
             labelNeto.Visible = false;
             labelDeuda.Visible = false;
+            labelSaldoFecha.Visible = false;
+            TxtDeudaFecha.Visible = false;
             BtImprimir.Enabled = false;
             txtNombre.Clear();
             clienteid = "";
@@ -208,10 +211,12 @@ namespace Cartera.Vista
             labelPagado.Visible = true;
             labelTotal.Visible = true;
             labelNeto.Visible = true;
-            labelDeuda.Text = "SALDO: $" + String.Format("{0:N0}", ValorDeuda);
+            labelSaldoFecha.Visible = true;
+            TxtDeudaFecha.Visible = true;
+            labelDeuda.Text = "SALDO AL FINAL: $" + String.Format("{0:N0}", ValorDeuda);
             labelPagado.Text = "TOTAL ABONADO: $" + String.Format("{0:N0}", ValorPagado);
             labelTotal.Text = "VALOR TOTAL: $" + String.Format("{0:N0}", ProductoVal);
-            labelNeto.Text= "VALOR NETO: $" + String.Format("{0:N0}", ProductoVal);
+            labelNeto.Text= "VALOR NETO: $" + String.Format("{0:N0}", ValorNeto);
             dtpagos = pago.ListarPagosCliente(productoId);            
             dataGridView2.DataSource = dtpagos;
             dataGridView2.Columns["Id_Pagos"].Visible = false;
@@ -236,11 +241,12 @@ namespace Cartera.Vista
                     string tipo = dataGridView2.Rows[n].Cells["Tipo Pago"].Value.ToString();
                     string referencia = dataGridView2.Rows[n].Cells["Referencia"].Value.ToString();
                     string concepto = dataGridView2.Rows[n].Cells["Concepto"].Value.ToString();
+                    string entidad = dataGridView2.Rows[n].Cells["Entidad"].Value.ToString();
                     string valor = dataGridView2.Rows[n].Cells["Valor"].Value.ToString();
                     string fecha = dataGridView2.Rows[n].Cells["Fecha"].Value.ToString();
                     string descuento = dataGridView2.Rows[n].Cells["Descuento"].Value.ToString();
                     string valordescuento = dataGridView2.Rows[n].Cells["Valor Descuento"].Value.ToString();
-                    RegistrarPago Rp = new RegistrarPago(txtCedula.Text, txtNombre.Text, carteraId, int.Parse(productoId), Nom_Producto, id_pagos,pago, tipo, referencia, concepto, fecha, valor, descuento,valordescuento);
+                    RegistrarPago Rp = new RegistrarPago(txtCedula.Text, txtNombre.Text, carteraId, int.Parse(productoId), Nom_Producto, id_pagos,pago, tipo, referencia, concepto, entidad, fecha, valor, descuento,valordescuento);
                     Rp.FormClosed += Pagos_FormClose;
                     Rp.ShowDialog();
                 }
@@ -258,6 +264,39 @@ namespace Cartera.Vista
                 ListarPagosCliente();
             }
 
+        }
+
+        private void TxtDeudaFecha_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(TxtDeudaFecha.Text))
+                {
+                    int valor = int.Parse(TxtDeudaFecha.Text);
+                    TxtDeudaFecha.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void TxtDeudaFecha_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in TxtDeudaFecha.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(TxtDeudaFecha, "No se admiten letras");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
+            }
         }
 
         private void HistorialPagos_FormClosed(object sender, FormClosedEventArgs e)

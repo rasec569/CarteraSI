@@ -14,7 +14,7 @@ namespace Cartera.Reportes
 {
     public class ReportesPDF
     {
-        public void HistorialPagos(DataTable report, string cedula, string Nombres, string producto, string proyecto, string valor_neto, string valor_total,string Valor_deduda, string valor_pagado)
+        public void HistorialPagos(DataTable report, string cedula, string Nombres, string producto, string proyecto, string deuda_fecha, string valor_neto, string valor_total,string Valor_deduda, string valor_pagado)
         {
             //string nombre = "Historial de pagos";
             
@@ -141,6 +141,13 @@ namespace Cartera.Reportes
                         texto.Add("________________________________________________________________________________________________________________________________________________");
                         document.Add(texto);
                         texto.RemoveAt(0);
+                        if (!string.IsNullOrEmpty(deuda_fecha))
+                        {
+                            texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                            texto.Add("Si desea cancelar a la fecha del reporte el saldo a pagar es de: $"+deuda_fecha);
+                            document.Add(texto);
+                            texto.RemoveAt(0);
+                        }
                         texto.Alignment = Element.ALIGN_RIGHT;
                         texto.IndentationRight = 30;
                         texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
@@ -240,7 +247,7 @@ namespace Cartera.Reportes
                                 texto.RemoveAt(0);
 
                                 texto.Font = FontFactory.GetFont("Verdana", 7);
-                                texto.Add("REPORTE - CARTERA " +  " FECHA: " + DateTime.Now.ToString());
+                                texto.Add("REPORTE - CARTERA ");
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
@@ -260,7 +267,7 @@ namespace Cartera.Reportes
                                 //    DateTimeFormatInfo dtinfo = new CultureInfo("es-ES", false).DateTimeFormat;
                                 //    fecha = dtinfo.GetMonthName(Fechai.Month) + " " + Fechai.Day + " DE " + Fechai.Year + " (A) " + dtinfo.GetMonthName(Fechaf.Month) + " " + Fechaf.Day + " DE " + Fechaf.Year;
                                 //}
-                                texto.Add( total +" "+ recaudado +" "+ deuda);
+                                texto.Add(" FECHA REPORTE: " + DateTime.Now.ToString());
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
@@ -292,6 +299,22 @@ namespace Cartera.Reportes
                                 document.Add(new Paragraph(" "));
                             }
                         }
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
+                        texto.Add("________________________________________________________________________________________________________________________________________________");
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Alignment = Element.ALIGN_RIGHT;
+                        texto.IndentationRight = 30;
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                        texto.Add(deuda);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add(recaudado);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add(total);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
                     }
                     catch (Exception ex)
                     {
@@ -421,7 +444,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 6f, 6f, 7f, 6f, 6f, 7f, 6f, 9f, 5f, 6f, 6f, 6f, 6f, 6f, 6f, 5f, 7f }, 100, 6));
+                                document.Add(TablasLetras(report, new float[] { 6f, 6f, 7f, 6f, 6f, 7f, 6f, 9f, 5f, 6f, 6f, 6f, 6f, 6f, 6f, 5f, 7f }, 100, 5));
                             }
                             else
                             {
@@ -557,7 +580,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 12f, 20f, 20f, 12f, 18f, 18f }, 100, 7));
+                                document.Add(TablasLetras(report, new float[] { 8f, 16f, 16f, 8f, 30f, 20f }, 100, 6));
                             }
                             else
                             {
@@ -675,7 +698,7 @@ namespace Cartera.Reportes
                                 //document.Add(texto);
                                 //texto.RemoveAt(0);
 
-                                texto.Add(total + " " + numero+" FECHA REPORTE: " + DateTime.Now.ToString());
+                                texto.Add("FECHA REPORTE: " + DateTime.Now.ToString());
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
@@ -694,13 +717,26 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 15f, 5f, 10f, 20, 12f, 12f, 12f,12f, 12f }, 100, 8));
+                                document.Add(TablasLetras(report, new float[] { 11f, 4f, 0f, 40f, 9f, 9f, 8f, 12f, 8f }, 100, 6));
                             }
                             else
                             {
                                 document.Add(new Paragraph(" "));
                             }
                         }
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
+                        texto.Add("________________________________________________________________________________________________________________________________________________");
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Alignment = Element.ALIGN_RIGHT;
+                        texto.IndentationRight = 30;
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                        texto.Add(numero);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add(total);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
                     }
                     catch (Exception ex)
                     {
@@ -812,7 +848,7 @@ namespace Cartera.Reportes
                                 //document.Add(texto);
                                 //texto.RemoveAt(0);
 
-                                texto.Add(total + " " + numero + " FECHA REPORTE: " + DateTime.Now.ToString());
+                                texto.Add(" FECHA REPORTE: " + DateTime.Now.ToString());
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
@@ -838,6 +874,19 @@ namespace Cartera.Reportes
                                 document.Add(new Paragraph(" "));
                             }
                         }
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
+                        texto.Add("________________________________________________________________________________________________________________________________________________");
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Alignment = Element.ALIGN_RIGHT;
+                        texto.IndentationRight = 30;
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                        texto.Add(numero);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add(total);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
                     }
                     catch (Exception ex)
                     {

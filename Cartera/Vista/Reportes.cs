@@ -34,7 +34,8 @@ namespace Cartera.Vista
             CargarRpPagos();
             try
             {
-                dataGridView1.Columns[5].DefaultCellStyle.Format = "n1";
+                dataGridView1.Columns[6].DefaultCellStyle.Format = "n0";
+                dataGridView1.Columns[8].DefaultCellStyle.Format = "n0";
             }
             catch
             {
@@ -49,7 +50,7 @@ namespace Cartera.Vista
                 DtVentas = producto.ReportVentas(dateInicio2.Text, datefin2.Text);
                 DataTable DtValorVentas = producto.ValorReportVentas(dateInicio2.Text, datefin2.Text);
                 int total = int.Parse(DtValorVentas.Rows[0]["valor"].ToString()); 
-                labelTotalVentas.Text ="TOTAL: $" + String.Format("{0:N1}", total);
+                labelTotalVentas.Text ="TOTAL VENTAS: $" + String.Format("{0:N0}", total);
                 labelVentas.Text = "CANTIDAD: " + DtValorVentas.Rows[0]["productos"].ToString();
                 dataGridView2.DataSource = DtVentas;
                 dataGridView2.Columns[3].DefaultCellStyle.Format = "n1";
@@ -67,7 +68,7 @@ namespace Cartera.Vista
             DtPagos = pagos.reportPagos(dateInicio.Text, datefin.Text);
             DataTable DtValorPagos = pagos.ValorReportPagos(dateInicio.Text, datefin.Text);
             int total = int.Parse(DtValorPagos.Rows[0]["valor"].ToString());
-            labelTotal.Text = "TOTAL: $" + String.Format("{0:N1}", total);
+            labelTotal.Text = "TOTAL INGRESOS: $" + String.Format("{0:N0}", total);
             labelNumero.Text ="CANTIDAD: "+ DtValorPagos.Rows[0]["pagos"].ToString();
             dataGridView1.DataSource = DtPagos;
             dataGridView1.Columns[1].Width = 50;

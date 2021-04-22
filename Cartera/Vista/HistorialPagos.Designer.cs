@@ -48,6 +48,8 @@ namespace Cartera.Vista
             this.labelPagado = new System.Windows.Forms.Label();
             this.labelDeuda = new System.Windows.Forms.Label();
             this.labelNeto = new System.Windows.Forms.Label();
+            this.labelSaldoFecha = new System.Windows.Forms.Label();
+            this.TxtDeudaFecha = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -188,7 +190,7 @@ namespace Cartera.Vista
             this.labelTotal.AutoSize = true;
             this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTotal.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.labelTotal.Location = new System.Drawing.Point(814, 384);
+            this.labelTotal.Location = new System.Drawing.Point(845, 384);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(96, 13);
             this.labelTotal.TabIndex = 22;
@@ -201,7 +203,7 @@ namespace Cartera.Vista
             this.labelPagado.AutoSize = true;
             this.labelPagado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPagado.ForeColor = System.Drawing.Color.Green;
-            this.labelPagado.Location = new System.Drawing.Point(453, 384);
+            this.labelPagado.Location = new System.Drawing.Point(448, 384);
             this.labelPagado.Name = "labelPagado";
             this.labelPagado.Size = new System.Drawing.Size(116, 13);
             this.labelPagado.TabIndex = 21;
@@ -214,11 +216,11 @@ namespace Cartera.Vista
             this.labelDeuda.AutoSize = true;
             this.labelDeuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDeuda.ForeColor = System.Drawing.Color.Crimson;
-            this.labelDeuda.Location = new System.Drawing.Point(656, 384);
+            this.labelDeuda.Location = new System.Drawing.Point(650, 384);
             this.labelDeuda.Name = "labelDeuda";
-            this.labelDeuda.Size = new System.Drawing.Size(52, 13);
+            this.labelDeuda.Size = new System.Drawing.Size(103, 13);
             this.labelDeuda.TabIndex = 20;
-            this.labelDeuda.Text = "SALDO:";
+            this.labelDeuda.Text = "SALDO AL FINA:";
             this.toolTip1.SetToolTip(this.labelDeuda, "Saldo a pagar por Cliente");
             this.labelDeuda.Visible = false;
             // 
@@ -226,7 +228,7 @@ namespace Cartera.Vista
             // 
             this.labelNeto.AutoSize = true;
             this.labelNeto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNeto.Location = new System.Drawing.Point(271, 384);
+            this.labelNeto.Location = new System.Drawing.Point(266, 384);
             this.labelNeto.Name = "labelNeto";
             this.labelNeto.Size = new System.Drawing.Size(90, 13);
             this.labelNeto.TabIndex = 23;
@@ -234,11 +236,42 @@ namespace Cartera.Vista
             this.toolTip1.SetToolTip(this.labelNeto, "Valor Neto Producto");
             this.labelNeto.Visible = false;
             // 
+            // labelSaldoFecha
+            // 
+            this.labelSaldoFecha.AutoSize = true;
+            this.labelSaldoFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSaldoFecha.ForeColor = System.Drawing.Color.DarkOrange;
+            this.labelSaldoFecha.Location = new System.Drawing.Point(12, 384);
+            this.labelSaldoFecha.Name = "labelSaldoFecha";
+            this.labelSaldoFecha.Size = new System.Drawing.Size(134, 13);
+            this.labelSaldoFecha.TabIndex = 24;
+            this.labelSaldoFecha.Text = "SALDO AL LA FECHA:";
+            this.toolTip1.SetToolTip(this.labelSaldoFecha, "Valor Neto Producto");
+            this.labelSaldoFecha.Visible = false;
+            // 
+            // TxtDeudaFecha
+            // 
+            this.TxtDeudaFecha.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.TxtDeudaFecha.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TxtDeudaFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtDeudaFecha.ForeColor = System.Drawing.Color.DarkOrange;
+            this.TxtDeudaFecha.Location = new System.Drawing.Point(148, 381);
+            this.TxtDeudaFecha.Name = "TxtDeudaFecha";
+            this.TxtDeudaFecha.Size = new System.Drawing.Size(110, 20);
+            this.TxtDeudaFecha.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.TxtDeudaFecha, "Digite la cedula del cliente");
+            this.TxtDeudaFecha.Visible = false;
+            this.TxtDeudaFecha.TextChanged += new System.EventHandler(this.TxtDeudaFecha_TextChanged);
+            this.TxtDeudaFecha.Leave += new System.EventHandler(this.TxtDeudaFecha_Leave);
+            // 
             // HistorialPagos
             // 
+            this.AcceptButton = this.BtBuscar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1034, 405);
+            this.Controls.Add(this.TxtDeudaFecha);
+            this.Controls.Add(this.labelSaldoFecha);
             this.Controls.Add(this.labelNeto);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.labelPagado);
@@ -283,5 +316,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.Label labelPagado;
         private System.Windows.Forms.Label labelDeuda;
+        private System.Windows.Forms.Label labelSaldoFecha;
+        private System.Windows.Forms.TextBox TxtDeudaFecha;
     }
 }

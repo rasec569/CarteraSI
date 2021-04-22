@@ -15,6 +15,7 @@ namespace Cartera.Vista
     public partial class RegistrarPago : Form
     {
         int productoid = 0;
+        int valortotal = 0;
         int carteraId = 0;
         int pagoId = 0;
         CProducto producto = new CProducto();
@@ -55,7 +56,7 @@ namespace Cartera.Vista
             CargarProducto();
 
         }
-        public RegistrarPago(string cedula,string nombre, string id_cartera,int id_producto, string producto, int id_pagos, string pago,string tipopago, string referencia, string concepto, string fecha, string valor, string descuento, string valordescuento)
+        public RegistrarPago(string cedula,string nombre, string id_cartera,int id_producto, string producto, int id_pagos, string pago,string tipopago, string referencia, string concepto, string entidad, string fecha, string valor, string descuento, string valordescuento)
         {
             InitializeComponent();
             modificar = true;
@@ -69,6 +70,7 @@ namespace Cartera.Vista
             comboTipoPago.Text = tipopago;
             txtReferencia.Text = referencia;
             txtConcepto.Text = concepto;
+            TxtEntidad.Text = entidad;
             dateFechaPago.Text = fecha;
             txtValor.Text =  String.Format("{0:N0}", int.Parse(valor));
             if (!string.IsNullOrEmpty(comboDescuento.Text))
@@ -76,7 +78,12 @@ namespace Cartera.Vista
                 comboDescuento.Text = descuento;
             }
             comboDescuento.Text = "Seleccionar";
-            txtValorDescuento.Text = valordescuento;
+            comboDescuento.Enabled = false;
+            if (!string.IsNullOrEmpty(txtValorDescuento.Text))
+            {
+                txtValorDescuento.Text = String.Format("{0:N0}", int.Parse(valordescuento));
+                txtValorDescuento.Enabled = false;
+            }            
             panelProductos.Visible = false;
             Btbuscar.Enabled = false;
         }
@@ -107,7 +114,7 @@ namespace Cartera.Vista
 
                     panelProductos.Visible = false;
                     productoid = int.Parse(dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString());
-
+                    valortotal = int.Parse(dataGridView1.Rows[n].Cells["Valor Total"].Value.ToString());                   
                     txtProducto.Text = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
 
                     DataTable Dtcuota = pago.ConsultarUltimaCuota(productoid);
@@ -184,6 +191,7 @@ namespace Cartera.Vista
             dataGridView1.DataSource = "";            
             DataTable dtclientes = cliente.BuscarClientesCedula(Txtcedula.Text);
             clienteId =int.Parse(dtclientes.Rows[0]["Id_Cliente"].ToString());
+            carteraId= int.Parse(dtclientes.Rows[0]["Fk_Id_Cartera"].ToString());
             txtNombre.Text= dtclientes.Rows[0]["Nombre"].ToString();
             CargarProducto();
            // string clienteid = "";
@@ -239,23 +247,57 @@ namespace Cartera.Vista
                     }
                     else
                     {
-                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), comboDescuento.Text, txtValorDescuento.Text, productoid.ToString());
+                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), comboDescuento.Text, Convert.ToDouble(txtValorDescuento.Text).ToString(), productoid.ToString());
+                        int nuevo = valortotal - int.Parse(Convert.ToDouble(txtValorDescuento.Text).ToString());
+                        producto.actualizarValorProducto(productoid, nuevo);
+                        cartera.ActulizarValorTotal(int.Parse(clienteId.ToString()), carteraId);
                     }
                 }
-                string descuento = "";
-                if (comboDescuento.Text != "Seleccionar")
+                else
                 {
-                    descuento = comboDescuento.Text;
+                    string descuento = "";
+                    if (comboDescuento.Text != "Seleccionar")
+                    {
+                        descuento = comboDescuento.Text;
+                        pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, Convert.ToDouble(txtValorDescuento.Text).ToString());
+                        modificar = false;
+                    }
+                    else
+                    {
+                        pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, Convert.ToDouble(txtValorDescuento.Text).ToString());
+                        modificar = false;
+                    }
                 }
-
-                pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, txtValorDescuento.Text);
-                modificar = false;
-
                 cartera.ActulizarValorRecaudado(productoid, carteraId);
                 cartera.ActulizarSaldo(carteraId);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+        }
+
+        private void BtEliminar_Click(object sender, EventArgs e)
+        {
+            pago.EliminarPago(pagoId);
+            cartera.ActulizarValorRecaudado(productoid, carteraId);
+            cartera.ActulizarSaldo(carteraId);
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void txtValorDescuento_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(txtValorDescuento.Text))
+                {
+                    int valor;
+                    valor = int.Parse(txtValorDescuento.Text);
+                    txtValorDescuento.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
+                }
+            }
+            catch
+            {
+            }   
         }
     }    
 }

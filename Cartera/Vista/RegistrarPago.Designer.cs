@@ -56,9 +56,10 @@ namespace Cartera.Vista
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtConcepto = new System.Windows.Forms.TextBox();
-            this.BtRegistrarPago = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.TxtEntidad = new System.Windows.Forms.TextBox();
+            this.BtEliminar = new System.Windows.Forms.Button();
+            this.BtRegistrarPago = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panelProductos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -101,7 +102,7 @@ namespace Cartera.Vista
             this.txtReferencia.Location = new System.Drawing.Point(426, 100);
             this.txtReferencia.Name = "txtReferencia";
             this.txtReferencia.Size = new System.Drawing.Size(125, 20);
-            this.txtReferencia.TabIndex = 8;
+            this.txtReferencia.TabIndex = 6;
             // 
             // label6
             // 
@@ -137,7 +138,7 @@ namespace Cartera.Vista
             this.txtValor.Location = new System.Drawing.Point(426, 175);
             this.txtValor.Name = "txtValor";
             this.txtValor.Size = new System.Drawing.Size(125, 20);
-            this.txtValor.TabIndex = 12;
+            this.txtValor.TabIndex = 11;
             this.txtValor.Leave += new System.EventHandler(this.txtValor_Leave);
             // 
             // label8
@@ -153,13 +154,14 @@ namespace Cartera.Vista
             // 
             this.comboDescuento.FormattingEnabled = true;
             this.comboDescuento.Items.AddRange(new object[] {
+            "Pago anticipado",
             "Pago oportuno",
             "Oferta expecial",
             "Otros"});
             this.comboDescuento.Location = new System.Drawing.Point(127, 200);
             this.comboDescuento.Name = "comboDescuento";
             this.comboDescuento.Size = new System.Drawing.Size(182, 21);
-            this.comboDescuento.TabIndex = 14;
+            this.comboDescuento.TabIndex = 12;
             this.comboDescuento.Text = "Seleccionar";
             this.comboDescuento.SelectedIndexChanged += new System.EventHandler(this.comboDescuento_SelectedIndexChanged);
             // 
@@ -178,7 +180,8 @@ namespace Cartera.Vista
             this.txtValorDescuento.Location = new System.Drawing.Point(426, 199);
             this.txtValorDescuento.Name = "txtValorDescuento";
             this.txtValorDescuento.Size = new System.Drawing.Size(125, 20);
-            this.txtValorDescuento.TabIndex = 16;
+            this.txtValorDescuento.TabIndex = 13;
+            this.txtValorDescuento.Leave += new System.EventHandler(this.txtValorDescuento_Leave);
             // 
             // groupBox1
             // 
@@ -198,7 +201,7 @@ namespace Cartera.Vista
             this.Btbuscar.Location = new System.Drawing.Point(536, 15);
             this.Btbuscar.Name = "Btbuscar";
             this.Btbuscar.Size = new System.Drawing.Size(33, 27);
-            this.Btbuscar.TabIndex = 21;
+            this.Btbuscar.TabIndex = 2;
             this.Btbuscar.UseVisualStyleBackColor = true;
             this.Btbuscar.Click += new System.EventHandler(this.Btbuscar_Click);
             // 
@@ -210,7 +213,7 @@ namespace Cartera.Vista
             this.Txtcedula.Location = new System.Drawing.Point(38, 19);
             this.Txtcedula.Name = "Txtcedula";
             this.Txtcedula.Size = new System.Drawing.Size(134, 20);
-            this.Txtcedula.TabIndex = 20;
+            this.Txtcedula.TabIndex = 1;
             this.Txtcedula.TextChanged += new System.EventHandler(this.Txtcedula_TextChanged);
             // 
             // txtNombre
@@ -228,7 +231,7 @@ namespace Cartera.Vista
             this.txtCuota.Location = new System.Drawing.Point(426, 74);
             this.txtCuota.Name = "txtCuota";
             this.txtCuota.Size = new System.Drawing.Size(57, 20);
-            this.txtCuota.TabIndex = 20;
+            this.txtCuota.TabIndex = 4;
             // 
             // txtProducto
             // 
@@ -236,7 +239,7 @@ namespace Cartera.Vista
             this.txtProducto.Location = new System.Drawing.Point(127, 74);
             this.txtProducto.Name = "txtProducto";
             this.txtProducto.Size = new System.Drawing.Size(182, 20);
-            this.txtProducto.TabIndex = 21;
+            this.txtProducto.TabIndex = 3;
             // 
             // label1
             // 
@@ -252,7 +255,7 @@ namespace Cartera.Vista
             this.panelProductos.Controls.Add(this.dataGridView1);
             this.panelProductos.Location = new System.Drawing.Point(3, 65);
             this.panelProductos.Name = "panelProductos";
-            this.panelProductos.Size = new System.Drawing.Size(615, 195);
+            this.panelProductos.Size = new System.Drawing.Size(615, 200);
             this.panelProductos.TabIndex = 23;
             // 
             // dataGridView1
@@ -260,7 +263,7 @@ namespace Cartera.Vista
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(8, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(598, 189);
+            this.dataGridView1.Size = new System.Drawing.Size(598, 194);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
@@ -292,21 +295,7 @@ namespace Cartera.Vista
             this.txtConcepto.Location = new System.Drawing.Point(127, 125);
             this.txtConcepto.Name = "txtConcepto";
             this.txtConcepto.Size = new System.Drawing.Size(424, 20);
-            this.txtConcepto.TabIndex = 30;
-            // 
-            // BtRegistrarPago
-            // 
-            this.BtRegistrarPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtRegistrarPago.Image = global::Cartera.Properties.Resources.Guardar1;
-            this.BtRegistrarPago.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtRegistrarPago.Location = new System.Drawing.Point(287, 227);
-            this.BtRegistrarPago.Name = "BtRegistrarPago";
-            this.BtRegistrarPago.Size = new System.Drawing.Size(77, 26);
-            this.BtRegistrarPago.TabIndex = 31;
-            this.BtRegistrarPago.Text = "Guardar";
-            this.BtRegistrarPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtRegistrarPago.UseVisualStyleBackColor = true;
-            this.BtRegistrarPago.Click += new System.EventHandler(this.BtRegistrarPago_Click);
+            this.txtConcepto.TabIndex = 7;
             // 
             // label10
             // 
@@ -322,17 +311,47 @@ namespace Cartera.Vista
             this.TxtEntidad.Location = new System.Drawing.Point(127, 150);
             this.TxtEntidad.Name = "TxtEntidad";
             this.TxtEntidad.Size = new System.Drawing.Size(424, 20);
-            this.TxtEntidad.TabIndex = 33;
+            this.TxtEntidad.TabIndex = 8;
+            // 
+            // BtEliminar
+            // 
+            this.BtEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtEliminar.Image = global::Cartera.Properties.Resources.Eliminar;
+            this.BtEliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtEliminar.Location = new System.Drawing.Point(338, 230);
+            this.BtEliminar.Name = "BtEliminar";
+            this.BtEliminar.Size = new System.Drawing.Size(77, 26);
+            this.BtEliminar.TabIndex = 15;
+            this.BtEliminar.Text = "Eliminar";
+            this.BtEliminar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtEliminar.UseVisualStyleBackColor = true;
+            this.BtEliminar.Click += new System.EventHandler(this.BtEliminar_Click);
+            // 
+            // BtRegistrarPago
+            // 
+            this.BtRegistrarPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtRegistrarPago.Image = global::Cartera.Properties.Resources.Guardar1;
+            this.BtRegistrarPago.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtRegistrarPago.Location = new System.Drawing.Point(232, 230);
+            this.BtRegistrarPago.Name = "BtRegistrarPago";
+            this.BtRegistrarPago.Size = new System.Drawing.Size(77, 26);
+            this.BtRegistrarPago.TabIndex = 14;
+            this.BtRegistrarPago.Text = "Guardar";
+            this.BtRegistrarPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtRegistrarPago.UseVisualStyleBackColor = true;
+            this.BtRegistrarPago.Click += new System.EventHandler(this.BtRegistrarPago_Click);
             // 
             // RegistrarPago
             // 
+            this.AcceptButton = this.Btbuscar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(621, 265);
             this.Controls.Add(this.panelProductos);
+            this.Controls.Add(this.BtEliminar);
+            this.Controls.Add(this.BtRegistrarPago);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.TxtEntidad);
-            this.Controls.Add(this.BtRegistrarPago);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtConcepto);
             this.Controls.Add(this.label3);
@@ -398,6 +417,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.TextBox txtConcepto;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox TxtEntidad;
+        private System.Windows.Forms.Button BtEliminar;
         private System.Windows.Forms.Button BtRegistrarPago;
     }
 }
