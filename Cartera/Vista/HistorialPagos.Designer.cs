@@ -77,7 +77,6 @@ namespace Cartera.Vista
             this.txtCedula.TabIndex = 3;
             this.toolTip1.SetToolTip(this.txtCedula, "Digite la cedula del cliente");
             this.txtCedula.TextChanged += new System.EventHandler(this.txtCedula_TextChanged);
-            this.txtCedula.Enter += new System.EventHandler(this.txtCedula_Enter);
             // 
             // txtNombre
             // 

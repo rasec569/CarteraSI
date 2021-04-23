@@ -80,14 +80,6 @@ namespace Cartera.Vista
         {
             autocompletar();
         }
-
-
-
-        private void txtCedula_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void BtBuscar_Click(object sender, EventArgs e)
         {
              try
@@ -246,14 +238,14 @@ namespace Cartera.Vista
                     string fecha = dataGridView2.Rows[n].Cells["Fecha"].Value.ToString();
                     string descuento = dataGridView2.Rows[n].Cells["Descuento"].Value.ToString();
                     string valordescuento = dataGridView2.Rows[n].Cells["Valor Descuento"].Value.ToString();
-                    RegistrarPago Rp = new RegistrarPago(txtCedula.Text, txtNombre.Text, carteraId, int.Parse(productoId), Nom_Producto, id_pagos,pago, tipo, referencia, concepto, entidad, fecha, valor, descuento,valordescuento);
+                    RegistrarPago Rp = new RegistrarPago(txtCedula.Text, txtNombre.Text, carteraId, int.Parse(productoId), Nom_Producto, id_pagos,pago, tipo, referencia, concepto, entidad, fecha, valor, descuento,valordescuento,clienteid, ProductoVal);
                     Rp.FormClosed += Pagos_FormClose;
                     Rp.ShowDialog();
                 }
             }
             catch
             {
-                MessageBox.Show("Sin Pagos");
+                MessageBox.Show("Error");
             }
         }
         private void Pagos_FormClose(object sender, FormClosedEventArgs e)
@@ -263,7 +255,6 @@ namespace Cartera.Vista
             {
                 ListarPagosCliente();
             }
-
         }
 
         private void TxtDeudaFecha_Leave(object sender, EventArgs e)
@@ -313,12 +304,6 @@ namespace Cartera.Vista
                 cell.ToolTipText = "Doble clic para ver pagos";
             }
         }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btLimpiar_Click(object sender, EventArgs e)
         {
             clearall = true;

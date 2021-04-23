@@ -18,6 +18,7 @@ namespace Cartera.Vista
         int valortotal = 0;
         int carteraId = 0;
         int pagoId = 0;
+        int valdescuento = 0;
         CProducto producto = new CProducto();
         CCartera cartera = new CCartera();
         CPago pago = new CPago();
@@ -56,10 +57,12 @@ namespace Cartera.Vista
             CargarProducto();
 
         }
-        public RegistrarPago(string cedula,string nombre, string id_cartera,int id_producto, string producto, int id_pagos, string pago,string tipopago, string referencia, string concepto, string entidad, string fecha, string valor, string descuento, string valordescuento)
+        public RegistrarPago(string cedula,string nombre, string id_cartera,int id_producto, string producto, int id_pagos, string pago,string tipopago, string referencia, string concepto, string entidad, string fecha, string valor, string descuento, string valordescuento, string idcliente, int valproducto)
         {
             InitializeComponent();
             modificar = true;
+            clienteId = int.Parse(idcliente);
+            valortotal = valproducto;
             Txtcedula.Text = cedula;
             txtNombre.Text = nombre;
             productoid = id_producto;
@@ -73,17 +76,20 @@ namespace Cartera.Vista
             TxtEntidad.Text = entidad;
             dateFechaPago.Text = fecha;
             txtValor.Text =  String.Format("{0:N0}", int.Parse(valor));
-            if (!string.IsNullOrEmpty(comboDescuento.Text))
+
+            if (string.IsNullOrEmpty(descuento))
             {
-                comboDescuento.Text = descuento;
+                comboDescuento.Text = "Seleccionar";
+                comboDescuento.Enabled = false;
             }
-            comboDescuento.Text = "Seleccionar";
-            comboDescuento.Enabled = false;
-            if (!string.IsNullOrEmpty(txtValorDescuento.Text))
+            else
             {
+                valdescuento = int.Parse(valordescuento);
+                comboDescuento.Text = descuento;
+                comboDescuento.Enabled = false;
                 txtValorDescuento.Text = String.Format("{0:N0}", int.Parse(valordescuento));
                 txtValorDescuento.Enabled = false;
-            }            
+            }
             panelProductos.Visible = false;
             Btbuscar.Enabled = false;
         }
@@ -91,17 +97,6 @@ namespace Cartera.Vista
         private void RegistrarPago_Load(object sender, EventArgs e)
         {
             autocompletar();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-        
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -171,13 +166,7 @@ namespace Cartera.Vista
                 }
             }
             return ok;
-        }
-
-        private void Txtcedula_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        }       
         private void comboDescuento_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(comboDescuento.Text!= "Seleccionar")
@@ -185,7 +174,6 @@ namespace Cartera.Vista
                 txtValorDescuento.Enabled = true;
             }
         }
-
         private void Btbuscar_Click(object sender, EventArgs e)
         {
             dataGridView1.DataSource = "";            
@@ -200,7 +188,6 @@ namespace Cartera.Vista
 
 
         }
-
         private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex >= 0 & e.RowIndex >= 0)
@@ -209,12 +196,10 @@ namespace Cartera.Vista
                 cell.ToolTipText = "Doble clic para realziar pago";
             }
         }
-
         private void RegistrarPago_FormClosing(object sender, FormClosingEventArgs e)
         {
 
         }
-
         private void txtValor_Leave(object sender, EventArgs e)
         {
             try
@@ -233,7 +218,6 @@ namespace Cartera.Vista
                 //errorProvider1.SetError(txtValor, "Error");
             }
         }
-
         private void BtRegistrarPago_Click(object sender, EventArgs e)
         {
             ValidarCampos();
@@ -256,17 +240,14 @@ namespace Cartera.Vista
                 else
                 {
                     string descuento = "";
+                    string valordescuento="";
                     if (comboDescuento.Text != "Seleccionar")
                     {
                         descuento = comboDescuento.Text;
-                        pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, Convert.ToDouble(txtValorDescuento.Text).ToString());
-                        modificar = false;
+                        valordescuento = Convert.ToDouble(txtValorDescuento.Text).ToString();
                     }
-                    else
-                    {
-                        pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, Convert.ToDouble(txtValorDescuento.Text).ToString());
-                        modificar = false;
-                    }
+                    pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, valordescuento);
+                    modificar = false;
                 }
                 cartera.ActulizarValorRecaudado(productoid, carteraId);
                 cartera.ActulizarSaldo(carteraId);
@@ -274,16 +255,23 @@ namespace Cartera.Vista
                 this.Close();
             }
         }
-
         private void BtEliminar_Click(object sender, EventArgs e)
         {
-            pago.EliminarPago(pagoId);
-            cartera.ActulizarValorRecaudado(productoid, carteraId);
-            cartera.ActulizarSaldo(carteraId);
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (MessageBox.Show("¿Está seguro de eliminar el Pago?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {                
+                pago.EliminarPago(pagoId);
+                if (valdescuento != 0)
+                {
+                    int nuevo = valortotal + valdescuento;
+                    producto.actualizarValorProducto(productoid, nuevo);                    
+                }
+                cartera.ActulizarValorTotal(int.Parse(clienteId.ToString()), carteraId);
+                cartera.ActulizarValorRecaudado(productoid, carteraId);
+                cartera.ActulizarSaldo(carteraId);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }            
         }
-
         private void txtValorDescuento_Leave(object sender, EventArgs e)
         {
             try
