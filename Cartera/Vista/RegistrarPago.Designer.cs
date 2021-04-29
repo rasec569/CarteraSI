@@ -345,6 +345,7 @@ namespace Cartera.Vista
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(621, 265);
+            this.Controls.Add(this.panelProductos);
             this.Controls.Add(this.BtEliminar);
             this.Controls.Add(this.BtRegistrarPago);
             this.Controls.Add(this.label10);
@@ -368,7 +369,6 @@ namespace Cartera.Vista
             this.Controls.Add(this.comboTipoPago);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.panelProductos);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

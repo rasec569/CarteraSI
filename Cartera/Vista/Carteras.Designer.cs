@@ -75,6 +75,7 @@ namespace Cartera.Vista
             this.dataGridView1.Size = new System.Drawing.Size(904, 416);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter_1);
             // 
             // panel1
@@ -194,7 +195,7 @@ namespace Cartera.Vista
             this.comboEstados.FormattingEnabled = true;
             this.comboEstados.Items.AddRange(new object[] {
             "Todo",
-            "Al Dia",
+            "Pagado",
             "Menos de 30 días",
             "De 31 a 60 días",
             "De 61 a 90 días",

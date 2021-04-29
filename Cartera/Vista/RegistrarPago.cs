@@ -70,6 +70,7 @@ namespace Cartera.Vista
             txtProducto.Text = producto;
             pagoId = id_pagos;
             txtCuota.Text = pago;
+            txtCuota.Enabled = true;
             comboTipoPago.Text = tipopago;
             txtReferencia.Text = referencia;
             txtConcepto.Text = concepto;

@@ -112,9 +112,9 @@ namespace Cartera.Vista
             {
                 DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Mas de 360 días'";
             }
-            else if (Estados == "Al Dia")
+            else if (Estados == "Pagado")
             {
-                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Al Dia'";
+                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Pagado'";
             }
             else if(Estados=="Todo")
             {
@@ -154,72 +154,80 @@ namespace Cartera.Vista
             for (int i = 0; i < DtCartera.Rows.Count; i++)
             {
                 string datoDT = DtCartera.Rows[i]["Id_Cliente"].ToString();
-                DataTable dtproducto = producto.cargarProductosCliente(int.Parse(datoDT));
-                for (int j = 0; j < dtproducto.Rows.Count; j++)
+                if(int.Parse(DtCartera.Rows[i]["Recaudado"].ToString())- int.Parse(DtCartera.Rows[i]["Total"].ToString()) == 0)
                 {
-                    string datoDT2 = dtproducto.Rows[j]["Id_Producto"].ToString();
-                    DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(datoDT2));
+                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado");
+                    //dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Aquamarine;
+                }
+                else
+                {
+                    DataTable dtproducto = producto.cargarProductosCliente(int.Parse(datoDT));
+                    for (int j = 0; j < dtproducto.Rows.Count; j++)
+                    {
+                        string datoDT2 = dtproducto.Rows[j]["Id_Producto"].ToString();
+                        DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(datoDT2));
 
-                    if (dtproducto.Rows[j]["Forma Pago"].ToString()== "Contado")
-                    {
-                        for (int h = 0; h < dtfechas.Rows.Count; h++)
+                        if (dtproducto.Rows[j]["Forma Pago"].ToString() == "Contado")
                         {
-                            if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha Pago"].ToString()))
+                            for (int h = 0; h < dtfechas.Rows.Count; h++)
                             {
-                                cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Al Dia");
-                            }
-                            else
-                            {
-                                cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos Contado");
-                            }
-                        }                    
-                    }
-                    else
-                    {
-                        for (int h = 0; h < dtfechas.Rows.Count; h++)
-                        {
-                            if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Recaudo"].ToString()))
-                            {
-                                string fecha1 = dtfechas.Rows[h]["Fecha_Pago"].ToString();
-                                string fecha2 = dtfechas.Rows[h]["Fecha_Recaudo"].ToString();
-                                DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                                DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                                DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                                //var days = int.Parse(((actual - date_2).Days).ToString());
-                                TimeSpan Ultimo = actual.Subtract(date_1);
-                                //MessageBox.Show(" dias:"+ Diff_dates.Days);
-                                var pagos= int.Parse(dtfechas.Rows[h]["Cuotas_Pagadas"].ToString());
-                                //int DiasMora = days- (pagos * 30);
-                                string estado="";
-                                //switch (DiasMora)
-                                switch (Ultimo.Days)
+                                if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha Pago"].ToString()))
                                 {
-                                    case int n when n <= 30:
-                                        estado = "Menos de 30 días";
-                                        break;
-                                   case int n when n <= 60:
-                                        estado = "De 31 a 60 días";
-                                        break;
-                                    case int n when n <= 90:
-                                        estado = "De 61 a 90 días";
-                                        break;
-                                    case int n when n <= 180:
-                                        estado = "De 91 a 180 días";
-                                        break;
-                                    case int n when n <= 360:
-                                        estado = "Mas de 360 días";
-                                        break;
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Al Dia");
                                 }
-                                cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), estado);
-                            }
-                            else if (string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
-                            {
-                                cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos credito");
-                                
+                                else
+                                {
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos Contado");
+                                }
                             }
                         }
-                    }                    
-                }
+                        else
+                        {
+                            for (int h = 0; h < dtfechas.Rows.Count; h++)
+                            {
+                                if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Recaudo"].ToString()))
+                                {
+                                    string fecha1 = dtfechas.Rows[h]["Fecha_Pago"].ToString();
+                                    string fecha2 = dtfechas.Rows[h]["Fecha_Recaudo"].ToString();
+                                    DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                                    DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                                    DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                                    //var days = int.Parse(((actual - date_2).Days).ToString());
+                                    TimeSpan Ultimo = actual.Subtract(date_1);
+                                    //MessageBox.Show(" dias:"+ Diff_dates.Days);
+                                    var pagos = int.Parse(dtfechas.Rows[h]["Cuotas_Pagadas"].ToString());
+                                    //int DiasMora = days- (pagos * 30);
+                                    string estado = "";
+                                    //switch (DiasMora)
+                                    switch (Ultimo.Days)
+                                    {
+                                        case int n when n <= 30:
+                                            estado = "Menos de 30 días";
+                                            break;
+                                        case int n when n <= 60:
+                                            estado = "De 31 a 60 días";
+                                            break;
+                                        case int n when n <= 90:
+                                            estado = "De 61 a 90 días";
+                                            break;
+                                        case int n when n <= 180:
+                                            estado = "De 91 a 180 días";
+                                            break;
+                                        case int n when n <= 360:
+                                            estado = "Mas de 360 días";
+                                            break;
+                                    }
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), estado);
+                                }
+                                else if (string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
+                                {
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos credito");
+
+                                }
+                            }
+                        }
+                    }
+                }                
             }
             Validarestados = false;
             CargarCartera();
@@ -267,6 +275,30 @@ namespace Cartera.Vista
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridView dgv = sender as DataGridView;
+            int n = e.RowIndex;
+            try
+            {
+                if (dgv.Columns[e.ColumnIndex].Name == "Pago")  //Si es la columna a evaluar
+                {
+                    
+                    if (n != -1)
+                    {
+                        if (e.Value.ToString().Contains("Pagado"))   //Si el valor de la celda contiene la palabra hora
+                        {
+                            e.CellStyle.ForeColor = Color.Green;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }            
         }
     }
 }

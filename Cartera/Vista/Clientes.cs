@@ -678,9 +678,17 @@ namespace Cartera.Vista
             }
             else if (comboEstadoCliente.Text == "Disolver")
             {
-                cliente_producto.EstadoDisolver(Cliente_id, Producto_id, dateFechaEstado.Text);
-                Panel_Registrar_user.Visible = false;
-                CargarClientes();
+                // aqui
+                if (MessageBox.Show("¿Está seguro de Disolver el contrato?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    cliente_producto.EstadoDisolver(Cliente_id, Producto_id, dateFechaEstado.Text);
+                    Panel_Registrar_user.Visible = false;
+                    CargarClientes();
+                    cartera.ActulizarValorTotal(int.Parse(Cliente_id.ToString()), Cartera_id);
+                    cartera.ActulizarValorRecaudado(int.Parse(Producto_id), int.Parse(Cliente_id));
+                    cartera.ActulizarSaldo(Cartera_id);
+                }
+                    
             }
 
         }
