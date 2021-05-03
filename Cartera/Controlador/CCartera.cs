@@ -28,9 +28,9 @@ namespace Cartera.Controlador
         {
             return MCartera.CarteraCliente(cedula);
         }
-        public int ActulizarValorRecaudado(int productoid, int carteraid)
+        public int ActulizarValorRecaudado(int carteraid)
         {
-            return MCartera.ActulizarValorRecaudado(productoid, carteraid);
+            return MCartera.ActulizarValorRecaudado(carteraid);
         }
         public int ActulizarSaldo(int carteraid)
         {
@@ -45,9 +45,9 @@ namespace Cartera.Controlador
             var result = MCartera.BuscarFechaspagos(productoid);
             return result;
         }
-        public int ActulizarEstados(string carteraid, string estado)
+        public int ActulizarEstados(string carteraid, string estado, int cuotas, int venvidas, int mora)
         {
-            return MCartera.ActulizarEstados(carteraid, estado);
+            return MCartera.ActulizarEstados(carteraid, estado, cuotas, venvidas, mora);
         }
         public DataTable TotalesCartera()
         {

@@ -21,6 +21,8 @@ namespace Cartera.Vista
         DataTable DtCartera = new DataTable();
         DataTable DtCliente = new DataTable();
         DataTable DtReporte=new DataTable();
+        DateTime fecha_anterior;
+        string estadoanterior = "";
         bool Validarestados = true;
         private ReportesPDF reportesPDF;
         public Carteras()
@@ -72,7 +74,6 @@ namespace Cartera.Vista
             }
             
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             RegistrarPago Rp = new RegistrarPago();
@@ -153,80 +154,121 @@ namespace Cartera.Vista
         {
             for (int i = 0; i < DtCartera.Rows.Count; i++)
             {
-                string datoDT = DtCartera.Rows[i]["Id_Cliente"].ToString();
+                string Cliente = DtCartera.Rows[i]["Id_Cliente"].ToString();
                 if(int.Parse(DtCartera.Rows[i]["Recaudado"].ToString())- int.Parse(DtCartera.Rows[i]["Total"].ToString()) == 0)
                 {
-                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado");
+                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado", 0, 0, 0);
                     //dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Aquamarine;
                 }
                 else
                 {
-                    DataTable dtproducto = producto.cargarProductosCliente(int.Parse(datoDT));
-                    for (int j = 0; j < dtproducto.Rows.Count; j++)
+                    DataTable dtproducto = producto.cargarProductosCliente(int.Parse(Cliente));
+                    for (int j = 0; j < dtproducto.Rows.Count; j++)                        
                     {
-                        string datoDT2 = dtproducto.Rows[j]["Id_Producto"].ToString();
-                        DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(datoDT2));
-
+                        string Producto = dtproducto.Rows[j]["Id_Producto"].ToString();
+                        DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(Producto));
                         if (dtproducto.Rows[j]["Forma Pago"].ToString() == "Contado")
                         {
                             for (int h = 0; h < dtfechas.Rows.Count; h++)
                             {
                                 if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha Pago"].ToString()))
                                 {
-                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Al Dia");
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado", 0, 0, 0);
                                 }
                                 else
                                 {
-                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos Contado");
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos Contado", 0, 0, 0);
                                 }
                             }
                         }
                         else
                         {
+                            
                             for (int h = 0; h < dtfechas.Rows.Count; h++)
                             {
                                 if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Recaudo"].ToString()))
                                 {
+                                    bool cambio = true;
                                     string fecha1 = dtfechas.Rows[h]["Fecha_Pago"].ToString();
                                     string fecha2 = dtfechas.Rows[h]["Fecha_Recaudo"].ToString();
+                                    int cuotas30= int.Parse(dtfechas.Rows[h]["Cuotas_Sin_interes"].ToString());
+                                    int vaalor30 = int.Parse(dtfechas.Rows[h]["Valor_Sin_interes"].ToString());
+                                    int cuotas70 = int.Parse(dtfechas.Rows[h]["Cuotas_Con_Interes"].ToString());
+                                    int valor70 = int.Parse(dtfechas.Rows[h]["Valor_Con_Interes"].ToString());
+                                    int cuotas = int.Parse(dtfechas.Rows[h]["Cuotas"].ToString());
                                     DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                                     DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                                     DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                                    //var days = int.Parse(((actual - date_2).Days).ToString());
+                                    
+                                    //var days1 = int.Parse(((actual - date_2).Days).ToString());
+
                                     TimeSpan Ultimo = actual.Subtract(date_1);
-                                    //MessageBox.Show(" dias:"+ Diff_dates.Days);
-                                    var pagos = int.Parse(dtfechas.Rows[h]["Cuotas_Pagadas"].ToString());
-                                    //int DiasMora = days- (pagos * 30);
-                                    string estado = "";
-                                    //switch (DiasMora)
-                                    switch (Ultimo.Days)
+                                    TimeSpan trascurrido = actual.Subtract(date_2);
+                                    //var total = int.Parse(dtfechas.Rows[h]["Valor_Producto"].ToString());
+                                    int dia = int.Parse(trascurrido.Days.ToString());
+                                    int meses = dia/30;
+                                    //MessageBox.Show(" Cuotas: "+ cuotas + "Vencidas: "+ meses+"restantes"+ (cuotas-meses));
+                                    string estado = "";                                   
+                                    if (cambio == true)
                                     {
-                                        case int n when n <= 30:
-                                            estado = "Menos de 30 días";
-                                            break;
-                                        case int n when n <= 60:
-                                            estado = "De 31 a 60 días";
-                                            break;
-                                        case int n when n <= 90:
-                                            estado = "De 61 a 90 días";
-                                            break;
-                                        case int n when n <= 180:
-                                            estado = "De 91 a 180 días";
-                                            break;
-                                        case int n when n <= 360:
-                                            estado = "Mas de 360 días";
-                                            break;
+                                        //switch (DiasMora)
+                                        switch (Ultimo.Days)
+                                        {
+                                            case int n when n <= 30:
+                                                estado = "Menos de 30 días";
+                                                break;
+                                            case int n when n <= 60:
+                                                estado = "De 31 a 60 días";
+                                                break;
+                                            case int n when n <= 90:
+                                                estado = "De 61 a 90 días";
+                                                break;
+                                            case int n when n <= 180:
+                                                estado = "De 91 a 180 días";
+                                                break;
+                                            case int n when n <= 360:
+                                                estado = "De 181 a 360 días";
+                                                break;
+                                            case int n when n >= 360:
+                                                estado = "Mas de 360 días";
+                                                break;
+                                        }
                                     }
-                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), estado);
+                                    if (dtproducto.Rows.Count > 1)
+                                    {
+                                        if (fecha_anterior.ToString() == "01/01/0001 12:00:00 a.m.")
+                                        {
+                                            fecha_anterior = date_1;
+                                            estadoanterior = estado;
+                                        }
+                                        else
+                                        {
+                                            int result = DateTime.Compare(date_1, fecha_anterior);
+                                            if (result < 0)
+                                            {
+                                                cambio = false;
+                                            }
+                                            else if (result == 0)
+                                            {
+                                                cambio = true;
+                                            }
+                                            else
+                                            {
+                                                cambio = true;
+                                            }
+                                        }
+                                    }
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), estado, cuotas, meses , (cuotas - meses));
                                 }
                                 else if (string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
                                 {
-                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos credito");
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos credito",0,0,0);
 
                                 }
                             }
                         }
-                    }
+                       
+                    }                    
                 }                
             }
             Validarestados = false;
@@ -290,8 +332,30 @@ namespace Cartera.Vista
                     {
                         if (e.Value.ToString().Contains("Pagado"))   //Si el valor de la celda contiene la palabra hora
                         {
-                            e.CellStyle.ForeColor = Color.Green;
+                            e.CellStyle.ForeColor = Color.DarkGreen;
+                            e.CellStyle.BackColor = Color.Aquamarine;
                         }
+                        else if (e.Value.ToString().Contains("Mas de 360 días"))
+                        {
+                            e.CellStyle.ForeColor = Color.Crimson;
+                            e.CellStyle.BackColor = Color.Orange;
+                        }
+                        //else if (e.Value.ToString().Contains("De 91 a 180 días"))
+                        //{
+                        //    e.CellStyle.ForeColor = Color.OrangeRed;
+                        //}
+                        //else if(e.Value.ToString().Contains("De 61 a 90 días"))
+                        //{
+                        //    e.CellStyle.ForeColor = Color.Orange;
+                        //}
+                        //else if (e.Value.ToString().Contains("De 31 a 60 días"))
+                        //{
+                        //    e.CellStyle.ForeColor = Color.BlueViolet;
+                        //}
+                        //else if (e.Value.ToString().Contains("Menos de 30 días"))
+                        //{
+                        //    e.CellStyle.ForeColor = Color.DodgerBlue;
+                        //}
                     }
                 }
             }

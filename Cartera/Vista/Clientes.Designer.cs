@@ -133,7 +133,6 @@ namespace Cartera.Vista
             this.PanelSuperior.Name = "PanelSuperior";
             this.PanelSuperior.Size = new System.Drawing.Size(931, 64);
             this.PanelSuperior.TabIndex = 0;
-            this.PanelSuperior.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelSuperior_Paint);
             // 
             // BtNuevoCliente
             // 

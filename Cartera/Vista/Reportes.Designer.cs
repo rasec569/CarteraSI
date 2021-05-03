@@ -56,6 +56,7 @@ namespace Cartera.Vista
             this.labelVentas = new System.Windows.Forms.Label();
             this.labelTotalVentas = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -71,6 +72,7 @@ namespace Cartera.Vista
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(5, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -340,6 +342,16 @@ namespace Cartera.Vista
             this.labelTotalVentas.Text = "Total";
             this.toolTip1.SetToolTip(this.labelTotalVentas, "Valor Total Ventas");
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(914, 503);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Trasferencia y Disoluciones";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
             // Reportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -395,5 +407,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label labelVentas;
         private System.Windows.Forms.Label labelTotalVentas;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TabPage tabPage3;
     }
 }

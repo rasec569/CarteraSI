@@ -250,7 +250,7 @@ namespace Cartera.Vista
                     pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, valordescuento);
                     modificar = false;
                 }
-                cartera.ActulizarValorRecaudado(productoid, carteraId);
+                cartera.ActulizarValorRecaudado( carteraId);
                 cartera.ActulizarSaldo(carteraId);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
@@ -267,7 +267,7 @@ namespace Cartera.Vista
                     producto.actualizarValorProducto(productoid, nuevo);                    
                 }
                 cartera.ActulizarValorTotal(int.Parse(clienteId.ToString()), carteraId);
-                cartera.ActulizarValorRecaudado(productoid, carteraId);
+                cartera.ActulizarValorRecaudado(carteraId);
                 cartera.ActulizarSaldo(carteraId);
                 this.DialogResult = DialogResult.OK;
                 this.Close();

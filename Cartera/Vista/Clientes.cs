@@ -91,7 +91,6 @@ namespace Cartera.Vista
             {
                 MessageBox.Show("error");
             }
-
         }
         private void CargarClientes()
         {
@@ -124,7 +123,6 @@ namespace Cartera.Vista
             }
             txtBuscarCliente.AutoCompleteCustomSource = lista;
         }
-
         private bool ValidarCampos()
         {
             bool ok = true;
@@ -316,9 +314,9 @@ namespace Cartera.Vista
             txtValorCon.Clear();
             txtValorCuotaSin.Clear();
             txtValorCuotaInteres.Clear();
-            numValorInteres.Text = "1";
-            numCuotasInteres.Text = "1";
-            numCuotaSinInteres.Text = "1";
+            numValorInteres.Text = "";
+            numCuotasInteres.Text = "";
+            numCuotaSinInteres.Text = "";
         }
             private void LimpiarUsuario()
         {
@@ -348,7 +346,6 @@ namespace Cartera.Vista
             //Panel_Clientes.Visible = false
 
         }
-
         private void txtNombres_TextChanged(object sender, EventArgs e)
         {
             foreach (char caracter in txtNombres.Text)
@@ -364,9 +361,7 @@ namespace Cartera.Vista
                     errorProvider1.Clear();
                 }
             }
-
         }
-
         private void txtApellidos_TextChanged(object sender, EventArgs e)
         {
             foreach (char caracter in txtApellidos.Text)
@@ -383,7 +378,6 @@ namespace Cartera.Vista
                 }
             }
         }
-
         private void txtCedula_TextChanged(object sender, EventArgs e)
         {
             foreach (char caracter in txtCedula.Text)
@@ -400,7 +394,6 @@ namespace Cartera.Vista
                 }
             }
         }
-
         private void txtTelefono_TextChanged(object sender, EventArgs e)
         {
             foreach (char caracter in txtTelefono.Text)
@@ -417,8 +410,6 @@ namespace Cartera.Vista
                 }
             }
         }
-
-
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -450,7 +441,6 @@ namespace Cartera.Vista
                 BtGuardarCliente.Enabled = false;
             }
         }
-
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -468,7 +458,9 @@ namespace Cartera.Vista
                     txtValor.Text = Neto.ToString("N0", CultureInfo.CurrentCulture);
                     txtObeservaciones.Text = dataGridView2.Rows[n].Cells["Observaciones"].Value.ToString();
                     DateVenta.Text = dataGridView2.Rows[n].Cells["Fecha Venta"].Value.ToString();
-                    ComboFormaPago.SelectedItem = dataGridView2.Rows[n].Cells["Forma Pago"].Value.ToString();
+
+                    string forma_pago = dataGridView2.Rows[n].Cells["Forma Pago"].Value.ToString();
+                    ComboFormaPago.Text = forma_pago;
                     comboProyecto.DataSource = proyecto.listarProyectos();
                     comboProyecto.DisplayMember = "Proyecto_Nombre";
                     comboProyecto.ValueMember = "Id_Proyecto";
@@ -477,11 +469,7 @@ namespace Cartera.Vista
                     comboTipoProducto.DisplayMember = "Nom_Tipo_Producto";
                     comboTipoProducto.ValueMember = "Id_Tipo_Producto";
                     comboTipoProducto.SelectedIndex = int.Parse(dataGridView2.Rows[n].Cells["Fk_Id_Tipo_Producto"].Value.ToString());
-                    if (dataGridView2.Rows[n].Cells["Forma Pago"].Value.ToString() == "Contado")
-                    {
-                        Bloquear_Financiado();
-                    }
-                    else
+                    if (forma_pago == "Financiado")
                     {
                         DataTable DtFinanciacion = financiacion.FinanciacionProducto(int.Parse(Producto_id));
                         Financiacion_id = DtFinanciacion.Rows[0]["Id_Financiacion"].ToString();
@@ -498,9 +486,11 @@ namespace Cartera.Vista
                         int valorcuotasin = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString());
                         txtValorCuotaSin.Text = valorcuotasin.ToString("N0", CultureInfo.CurrentCulture);
                         numValorInteres.Text = DtFinanciacion.Rows[0]["Valor_Interes"].ToString();
-                        int valorcuotaint= int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
+                        int valorcuotaint = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
                         txtValorCuotaInteres.Text = valorcuotaint.ToString("N0", CultureInfo.CurrentCulture);
                     }
+                    int total = int.Parse(dataGridView2.Rows[n].Cells["Valor Total"].Value.ToString());
+                    txtValorTotal.Text = total.ToString("N0", CultureInfo.CurrentCulture);                   
                     label24.Visible = true;
                     comboEstadoCliente.Visible = true;
                     dateFechaEstado.Visible = true;
@@ -538,7 +528,6 @@ namespace Cartera.Vista
             numCuotasInteres.Enabled = true;
             checkBox1.Enabled = true;
         }
-
         private void ComboFormaPago_SelectedValueChanged(object sender, EventArgs e)
         {
             if (ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString() == "Contado")
@@ -551,7 +540,6 @@ namespace Cartera.Vista
                 Habilitar_Financiado();
             }
         }
-
         private void txtValor_TextChanged(object sender, EventArgs e)
         {
 
@@ -583,7 +571,24 @@ namespace Cartera.Vista
                     error = false;
                     errorProvider1.Clear();
                 }
-            }           
+            }
+            //if para validar campos
+            if (!string.IsNullOrEmpty(txtValorSin.Text)  && !string.IsNullOrEmpty(txtValorEntrada.Text))
+            {
+                double valor30 = (Convert.ToDouble(txtValorSin.Text) - Convert.ToDouble(txtValorEntrada.Text));
+                if (valor30 == 0)
+                {
+                    numCuotaSinInteres.Text = "0";
+                    txtValorCuotaSin.Text = "0";
+                    txtValorCuotaSin.Enabled = false;
+                    numCuotaSinInteres.Enabled = false;
+                }
+                else
+                {
+                    txtValorCuotaSin.Enabled = true;
+                    numCuotaSinInteres.Enabled = true;
+                }
+            }                
         }  
         private void txtValorCon_TextChanged(object sender, EventArgs e)
         {
@@ -599,6 +604,23 @@ namespace Cartera.Vista
                     error = false;
                     errorProvider1.Clear();
                 }
+            }
+            if (txtValorCon.Text=="0")
+            {
+                numCuotasInteres.Text = "0";                
+                txtValorCuotaInteres.Text = "0";
+                numValorInteres.Text = "0";
+                numCuotasInteres.Enabled = false;
+                numValorInteres.Enabled = false;
+                txtValorCuotaInteres.Enabled = false;
+                string valTotal = int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()).ToString();
+                txtValorTotal.Text = String.Format("{0:N0}", Convert.ToDouble(valTotal));
+            }
+            else
+            {
+                numCuotasInteres.Enabled = true;
+                numValorInteres.Enabled = true;
+                txtValorCuotaInteres.Enabled = true;
             }
         }
         private void txtValor_Leave(object sender, EventArgs e)
@@ -645,8 +667,6 @@ namespace Cartera.Vista
                 MessageBox.Show("Valor no admitido");
                 errorProvider1.SetError(txtValorEntrada, "Error");
             }
-
-
         }
         private void txtValor_Enter(object sender, EventArgs e)
         {
@@ -678,21 +698,17 @@ namespace Cartera.Vista
             }
             else if (comboEstadoCliente.Text == "Disolver")
             {
-                // aqui
                 if (MessageBox.Show("¿Está seguro de Disolver el contrato?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     cliente_producto.EstadoDisolver(Cliente_id, Producto_id, dateFechaEstado.Text);
                     Panel_Registrar_user.Visible = false;
                     CargarClientes();
                     cartera.ActulizarValorTotal(int.Parse(Cliente_id.ToString()), Cartera_id);
-                    cartera.ActulizarValorRecaudado(int.Parse(Producto_id), int.Parse(Cliente_id));
+                    cartera.ActulizarValorRecaudado(int.Parse(Cliente_id));
                     cartera.ActulizarSaldo(Cartera_id);
-                }
-                    
+                }                    
             }
-
         }
-
         private void dataGridView2_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex >= 0 & e.RowIndex >= 0)
@@ -701,7 +717,6 @@ namespace Cartera.Vista
                 cell.ToolTipText = "Doble clic para modificar producto";
             }
         }
-
         private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex >= 0 & e.RowIndex >= 0)
@@ -716,7 +731,6 @@ namespace Cartera.Vista
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.pictureBox1, "Clic para ver historial cliente");
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (Producto_id != "" && Cliente_id != "" && Financiacion_id != "")
@@ -737,18 +751,15 @@ namespace Cartera.Vista
                 MessageBox.Show("Seleccione un producto con financiación");
             }
         }
-
         private void BtHistorialFinan_MouseHover(object sender, EventArgs e)
         {
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.BtHistorialFinan, "Clic para ver historial financiación");
         }
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             LimpiarFinanciacion();
         }
-
         private void txtValorSin_Leave(object sender, EventArgs e)
         {
             try
@@ -766,10 +777,8 @@ namespace Cartera.Vista
             catch
             {
 
-            }
-                                
+            }                                
         }
-
         private void numCuotaSinInteres_ValueChanged(object sender, EventArgs e)
         {
             try
@@ -793,8 +802,7 @@ namespace Cartera.Vista
             catch
             {
                 MessageBox.Show("Digite el valor 30");
-            }
-                                  
+            }                                  
         }
 
         private void numCuotasInteres_ValueChanged(object sender, EventArgs e)
@@ -826,15 +834,15 @@ namespace Cartera.Vista
                     int valTotal = int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()) + int.Parse(Convert.ToDouble(txtValorCon.Text).ToString());
                     txtValorTotal.Text = valTotal.ToString();
                     txtValorTotal.Text = String.Format("{0:N0}", Convert.ToDouble(txtValorTotal.Text));
-                }
+
+
+                }                
             }
             catch
             {
                 MessageBox.Show("Digite el valor 70");
-            }
-                       
+            }                       
         }
-
         private void txtValorEntrada_Leave(object sender, EventArgs e)
         {
             try
@@ -844,17 +852,11 @@ namespace Cartera.Vista
                     int valor;
                     valor = int.Parse(txtValorEntrada.Text);
                     txtValorEntrada.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
-                }
+                }                
             }
             catch
             {
-            }
-            
-        }
-
-        private void PanelSuperior_Paint(object sender, PaintEventArgs e)
-        {
-
+            }            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -882,12 +884,12 @@ namespace Cartera.Vista
         private void txtValorCon_Leave(object sender, EventArgs e)
         {
             try
-            {
-                if (!string.IsNullOrEmpty(txtValorCon.Text))
-                {
-                    valor = int.Parse(txtValorCon.Text);
-                    txtValorCon.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
-                }
+            {   if (!string.IsNullOrEmpty(txtValorCon.Text))
+                    {
+                        valor = int.Parse(txtValorCon.Text);
+                        txtValorCon.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
+                    }
+                               
             }
             catch
             {
