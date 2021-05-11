@@ -326,27 +326,27 @@ namespace Cartera.Vista
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(308, 101);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(34, 13);
+            this.label13.Size = new System.Drawing.Size(88, 13);
             this.label13.TabIndex = 31;
-            this.label13.Text = "Inicial";
+            this.label13.Text = "Valor Separación";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(308, 156);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(46, 13);
+            this.label14.Size = new System.Drawing.Size(61, 13);
             this.label14.TabIndex = 32;
-            this.label14.Text = "Valor 70";
+            this.label14.Text = "Valor Saldo";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(307, 76);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(46, 13);
+            this.label15.Size = new System.Drawing.Size(61, 13);
             this.label15.TabIndex = 33;
-            this.label15.Text = "Valor 30";
+            this.label15.Text = "Valor Inicial";
             // 
             // txtNombreProducto
             // 

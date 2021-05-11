@@ -79,9 +79,10 @@ namespace Cartera.Vista
             // 
             this.comboTipoPago.FormattingEnabled = true;
             this.comboTipoPago.Items.AddRange(new object[] {
-            "Entrada",
-            "Sin interes",
-            "Con interes"});
+            "Inicial sin Interes",
+            "Inicial con Interes",
+            "Saldo sin Interes",
+            "Saldo con Interes"});
             this.comboTipoPago.Location = new System.Drawing.Point(127, 99);
             this.comboTipoPago.Name = "comboTipoPago";
             this.comboTipoPago.Size = new System.Drawing.Size(182, 21);
@@ -93,9 +94,9 @@ namespace Cartera.Vista
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(335, 77);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.Size = new System.Drawing.Size(75, 13);
             this.label5.TabIndex = 7;
-            this.label5.Text = "Numero Pago";
+            this.label5.Text = "Numero Cuota";
             // 
             // txtReferencia
             // 
@@ -128,9 +129,9 @@ namespace Cartera.Vista
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(335, 178);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(71, 13);
+            this.label7.Size = new System.Drawing.Size(62, 13);
             this.label7.TabIndex = 11;
-            this.label7.Text = "Valor Pagado";
+            this.label7.Text = "Valor Cuota";
             // 
             // txtValor
             // 
@@ -225,7 +226,6 @@ namespace Cartera.Vista
             // 
             // txtCuota
             // 
-            this.txtCuota.Enabled = false;
             this.txtCuota.Location = new System.Drawing.Point(426, 74);
             this.txtCuota.Name = "txtCuota";
             this.txtCuota.Size = new System.Drawing.Size(57, 20);
@@ -374,7 +374,7 @@ namespace Cartera.Vista
             this.MinimizeBox = false;
             this.Name = "RegistrarPago";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Registrar Pago";
+            this.Text = "Registrar Cuota";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistrarPago_FormClosing);
             this.Load += new System.EventHandler(this.RegistrarPago_Load);
             this.groupBox1.ResumeLayout(false);
