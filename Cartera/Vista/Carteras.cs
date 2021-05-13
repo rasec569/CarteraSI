@@ -18,6 +18,7 @@ namespace Cartera.Vista
         CCartera cartera = new CCartera();
         CCliente cliente = new CCliente();
         CProducto producto = new CProducto();
+        CPago pago = new CPago();
         DataTable DtCartera = new DataTable();
         DataTable DtCliente = new DataTable();
         DataTable DtReporte=new DataTable();
@@ -199,40 +200,45 @@ namespace Cartera.Vista
                                     bool cambio = true;
                                     string fecha1 = dtfechas.Rows[h]["Fecha_Pago"].ToString();
                                     string fecha2 = dtfechas.Rows[h]["Fecha_Recaudo"].ToString();
-                                    int valorinicial = int.Parse(dtfechas.Rows[h]["Valor_Entrada"].ToString());
-                                    int cuotas30= int.Parse(dtfechas.Rows[h]["Cuotas_Sin_interes"].ToString());
-                                    int valor30 = int.Parse(dtfechas.Rows[h]["Valor_Sin_interes"].ToString());
-                                    int valorcuota30 = int.Parse(dtfechas.Rows[h]["Valor_Cuota_Sin_interes"].ToString());
-                                    int cuotas70 = int.Parse(dtfechas.Rows[h]["Cuotas_Con_Interes"].ToString());
-                                    int valor70 = int.Parse(dtfechas.Rows[h]["Valor_Con_Interes"].ToString());
-                                    int Pagado = int.Parse(dtfechas.Rows[h]["Pagado"].ToString());
+                                    //int valorinicial = int.Parse(dtfechas.Rows[h]["Valor_Entrada"].ToString());
+                                    //int cuotas30= int.Parse(dtfechas.Rows[h]["Cuotas_Sin_interes"].ToString());
+                                    //int valor30 = int.Parse(dtfechas.Rows[h]["Valor_Sin_interes"].ToString());
+                                    //int valorcuota30 = int.Parse(dtfechas.Rows[h]["Valor_Cuota_Sin_interes"].ToString());
+                                    //int cuotas70 = int.Parse(dtfechas.Rows[h]["Cuotas_Con_Interes"].ToString());
+                                    //int valor70 = int.Parse(dtfechas.Rows[h]["Valor_Con_Interes"].ToString());
+                                    //int Pagado = int.Parse(dtfechas.Rows[h]["Pagado"].ToString());
                                     int cuotas = int.Parse(dtfechas.Rows[h]["Cuotas"].ToString());
+                                    DataTable dtcuotas= pago.ConsultarCuotas(int.Parse(Producto));
+                                    int pagos = int.Parse(dtcuotas.Rows[h]["Cuotas"].ToString());
+
                                     DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                                     DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                                     DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                                    int mora=0;                                                                      
+                                    //int mora=0;                                                                      
                                     //var days1 = int.Parse(((actual - date_2).Days).ToString());
 
                                     TimeSpan Ultimo = actual.Subtract(date_1);
                                     TimeSpan trascurrido = actual.Subtract(date_2);
-                                    
+
                                     int dia = int.Parse(trascurrido.Days.ToString());
-                                    int meses = dia/30;
-                                    if (Pagado <= valor30 && cuotas30 > 0)
-                                    {
-                                        int pagado30= (Pagado - valorinicial);
-                                        int ensayo = (pagado30 / valorcuota30);
-                                        //int cuotaspagadas = (int)Math.Round(double.Parse(ensayo, 0));
-                                        mora = meses- ensayo;
-                                    }
-                                    else if (cuotas70 > 0)
-                                    {
-                                        int pagado70 = valor30- Pagado;
-                                        int valorcuota70 = (valor70/ cuotas70);
-                                        int ensayo = (pagado70 / valorcuota70);
-                                        //double cuotaspagadas = Math.Round(double.Parse(ensayo, 0));
-                                        mora = meses - ensayo;
-                                    }
+                                    int meses = dia / 30;
+                                    //cambio provicional int mora = meses- pagos;
+                                    int mora = pagos;
+                                    //if (Pagado <= valor30 && cuotas30 > 0)
+                                    //{
+                                    //    int pagado30= (Pagado - valorinicial);
+                                    //    int ensayo = (pagado30 / valorcuota30);
+                                    //    //int cuotaspagadas = (int)Math.Round(double.Parse(ensayo, 0));
+                                    //    mora = meses- ensayo;
+                                    //}
+                                    //else if (cuotas70 > 0)
+                                    //{
+                                    //    int pagado70 = valor30- Pagado;
+                                    //    int valorcuota70 = (valor70/ cuotas70);
+                                    //    int ensayo = (pagado70 / valorcuota70);
+                                    //    //double cuotaspagadas = Math.Round(double.Parse(ensayo, 0));
+                                    //    mora = meses - ensayo;
+                                    //}
                                     //MessageBox.Show(" Cuotas: "+ cuotas + "Vencidas: "+ meses+"restantes"+ (cuotas-meses));
                                     string estado = "";                                   
                                     if (cambio == true)
@@ -359,12 +365,13 @@ namespace Cartera.Vista
                         if (e.Value.ToString().Contains("Pagado"))   //Si el valor de la celda contiene la palabra hora
                         {
                             e.CellStyle.ForeColor = Color.DarkGreen;
-                            e.CellStyle.BackColor = Color.Aquamarine;
+                            e.CellStyle.BackColor = Color.LightGreen;
                         }
                         else if (e.Value.ToString().Contains("Mas de 360 días"))
                         {
                             e.CellStyle.ForeColor = Color.Crimson;
                             e.CellStyle.BackColor = Color.Orange;
+                            //e.CellStyle.BackColor = Color.PaleVioletRed;
                         }
                         //else if (e.Value.ToString().Contains("De 91 a 180 días"))
                         //{

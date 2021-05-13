@@ -114,7 +114,7 @@ namespace Cartera.Vista
                     txtProducto.Text = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
 
                     DataTable Dtcuota = pago.ConsultarUltimaCuota(productoid);
-                    string num_cuota = Dtcuota.Rows[0]["max(Numero_Cuota)"].ToString();
+                    string num_cuota = Dtcuota.Rows[0]["Numero_Cuota"].ToString();
                     if (num_cuota == "")
                     {
                         txtCuota.Text = "1";

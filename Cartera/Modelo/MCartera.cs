@@ -50,14 +50,15 @@ namespace Cartera.Modelo
 
         internal static DataTable BuscarFechaspagos(int productoid)
         {
-			return Conexion.consulta("SELECT max(Fecha_Pago) as Fecha_Pago, Fecha_Recaudo, Cuotas_Sin_interes, Valor_Entrada, Valor_Sin_interes, Cuotas_Con_Interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Sin_interes+Cuotas_Con_Interes as Cuotas,  sum(Valor_Pagado) as Pagado, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto LEFT JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "';");
+			return Conexion.consulta("SELECT max(Fecha_Pago) as Fecha_Pago, Fecha_Recaudo, Cuotas_Sin_interes+Cuotas_Con_Interes as Cuotas, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto LEFT JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "';");
+			//return Conexion.consulta("SELECT max(Fecha_Pago) as Fecha_Pago, Fecha_Recaudo, Cuotas_Sin_interes, Valor_Entrada, Valor_Sin_interes, Cuotas_Con_Interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Sin_interes+Cuotas_Con_Interes as Cuotas,  sum(Valor_Pagado) as Pagado, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto LEFT JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "';");
 
 		}
 
         internal static DataTable ListarCartera()
         {
             //return Conexion.consulta("SELECT Id_Cliente, Cedula, Nombre, Apellido, Estado_cartera, Valor_Recaudado, Id_Producto, Nombre_Producto, Valor_Mora, Total_Cartera, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' ORDER by Nombre");
-            return Conexion.consulta("SELECT Id_Cliente, Cedula, Nombre as Nombres, Apellido as Apellidos, Estado_cartera as Pago ,Cuotas, Vencidas,Mora, Valor_Recaudado as Recaudado, count(Id_Producto) as Productos, Saldo, Total_Cartera as Total, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' GROUP by Id_Cliente ORDER by Nombre;");
+            return Conexion.consulta("SELECT Id_Cliente, Cedula, Nombre as Nombres, Apellido as Apellidos, Estado_cartera as Pago ,Cuotas, Vencidas as Meses, Mora as Pagas, Valor_Recaudado as Recaudado, count(Id_Producto) as Productos, Saldo, Total_Cartera as Total, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' GROUP by Id_Cliente ORDER by Nombre;");
         }
 		internal static DataTable CarteraCliente(string cedula)
 		{

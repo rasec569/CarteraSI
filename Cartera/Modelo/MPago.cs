@@ -14,17 +14,21 @@ namespace Cartera.Modelo
         public string Procentaje { get; set; }
         public int Numero_Cuota { get; set; }
         public string Fecha_Pago { get; set; }
-        public string Referencia_Pago { get; set; }
+        public string Referencia_Pago { get; set; }  
         public int Valor_Pagado { get; set; }
         public string Descuento { get; set; }
         public int Valor_Descuento { get; set; }
 
         internal static DataTable ConsultarUltimaCuota(int productoid)
         {
-            return Conexion.consulta("Select max(Numero_Cuota)  from Pagos where Fk_Id_Producto = '"+ productoid + "'");
+            return Conexion.consulta("Select Numero_Cuota, max(Id_Pagos) from Pagos where Fk_Id_Producto = '" + productoid + "';");
             throw new NotImplementedException();
         }
-
+        internal static DataTable ConsultarCuotas(int productoid)
+        {
+            return Conexion.consulta("Select count(Id_Pagos) as cuotas from Pagos where Fk_Id_Producto = '" + productoid + "';");
+            throw new NotImplementedException();
+        }
         internal static int RegistrarPago(string porcentaje, string numero_Cuota, string fecha_Pago, string Concepto, string Entidad, string referencia_Pago, string valor_Pagado, string descuento, string valor_Descuento, string fk_Id_Producto)
         {
             string sql = "INSERT INTO Pagos(Porcentaje, Numero_Cuota, Fecha_Pago, Concepto, Entidad, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto)VALUES(@Porcentaje, @Numero_Cuota, @Fecha_Pago, @Concepto, @Entidad, @Referencia_Pago, @Valor_Pagado, @Descuento, @Valor_Descuento, @Fk_Id_Producto)";
@@ -67,11 +71,11 @@ namespace Cartera.Modelo
 
         internal static DataTable ListarPagosCliente(string productoid)
         {
-            return Conexion.consulta("SELECT  Id_Pagos, Numero_Cuota as 'Pago', Porcentaje as 'Tipo Pago', Concepto, Entidad, Valor_Pagado as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
+            return Conexion.consulta("SELECT  Id_Pagos, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo', Concepto, Entidad, Valor_Pagado as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
         }
         internal static DataTable ReportesPagosCliente(string productoid)
         {
-            return Conexion.consulta("SELECT  Numero_Cuota as 'Pago', Porcentaje as 'Tipo Pago', Concepto, Entidad, Valor_Pagado as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
+            return Conexion.consulta("SELECT  Numero_Cuota as 'Cuota', Porcentaje as 'Tipo', Concepto, Entidad, Valor_Pagado as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
         }
 
         internal static DataTable Tota_Recaudado_Producto(string productoid)
