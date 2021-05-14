@@ -63,18 +63,19 @@ namespace Cartera.Vista
             labelRecaudo.Text = "VALOR RECAUDADO: $" + String.Format("{0:N0}", pagado);
 
             dataGridView1.Columns["Id_Cliente"].Visible = false;
-            dataGridView1.Columns[8].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns[9].DefaultCellStyle.Format = "n0";
             //dataGridView1.Columns["Id_Producto"].Visible = false;
-            dataGridView1.Columns[10].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns[11].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns[12].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns["Id_Cartera"].Visible = false;
             dataGridView1.Columns[2].Width = 120;
             dataGridView1.Columns[3].Width = 120;
             dataGridView1.Columns[4].Width = 100;
-            dataGridView1.Columns[5].Width = 50;
-            dataGridView1.Columns[6].Width = 60;
-            dataGridView1.Columns[7].Width = 50;
-            dataGridView1.Columns[9].Width = 70;
+            dataGridView1.Columns[5].Width = 45;
+            dataGridView1.Columns[6].Width = 40;
+            dataGridView1.Columns[7].Width = 40;
+            dataGridView1.Columns[8].Width = 40;
+            dataGridView1.Columns[10].Width = 60;
             //dataGridView1.Columns[3].Width = 230;
 
             if (Validarestados == true)
@@ -166,7 +167,7 @@ namespace Cartera.Vista
                 string Cliente = DtCartera.Rows[i]["Id_Cliente"].ToString();
                 if(int.Parse(DtCartera.Rows[i]["Recaudado"].ToString())- int.Parse(DtCartera.Rows[i]["Total"].ToString()) == 0)
                 {
-                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado", 0, 0, 0);
+                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado", 0, 0, 0, 0);
                     //dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Aquamarine;
                 }
                 else
@@ -182,11 +183,11 @@ namespace Cartera.Vista
                             {
                                 if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha Pago"].ToString()))
                                 {
-                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado", 0, 0, 0);
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado", 0, 0, 0, 0);
                                 }
                                 else
                                 {
-                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos Contado", 0, 0, 0);
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos Contado", 0, 0, 0, 0);
                                 }
                             }
                         }
@@ -223,7 +224,26 @@ namespace Cartera.Vista
                                     int dia = int.Parse(trascurrido.Days.ToString());
                                     int meses = dia / 30;
                                     //cambio provicional int mora = meses- pagos;
-                                    int mora = pagos;
+                                    int mora = 0;
+                                    if (cuotas < meses)
+                                    {
+                                        if (cuotas < pagos)
+                                        {
+                                            mora = cuotas;
+                                        }
+                                        else
+                                        {
+                                            mora = cuotas - pagos;
+                                        }
+                                    }
+                                    else if(meses - pagos<=0)
+                                    {
+                                        mora = 0;
+                                    } 
+                                    else
+                                    {                                       
+                                        mora = meses - pagos;                                                                           
+                                    }
                                     //if (Pagado <= valor30 && cuotas30 > 0)
                                     //{
                                     //    int pagado30= (Pagado - valorinicial);
@@ -290,11 +310,11 @@ namespace Cartera.Vista
                                             }
                                         }
                                     }
-                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), estado, cuotas, meses , mora);
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), estado, cuotas, meses, pagos , mora);
                                 }
                                 else if (string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
                                 {
-                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos credito",0,0,0);
+                                    cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos credito", 0, 0, 0, 0);
 
                                 }
                             }

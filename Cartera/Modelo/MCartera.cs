@@ -35,13 +35,14 @@ namespace Cartera.Modelo
 			return Conexion.consulta("UPDATE Cartera SET Total_Cartera=(SELECT sum(Valor_Producto) FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Pfk_ID_Cliente = '"+clienteid+ "' GROUP by Id_Producto=Id_Producto) WHERE Id_Cartera='" + carteraid + "';");
         }
 
-        internal static int ActulizarEstados(string carteraid,string estado, int cuotas, int venvidas, int mora)
+        internal static int ActulizarEstados(string carteraid,string estado, int cuotas, int meses, int pagas, int mora)
         {
-			string sql = "UPDATE Cartera SET Estado_cartera = @Estado_cartera, Cuotas=@Cuotas, Vencidas=@Vencidas, Mora=@Mora WHERE Id_Cartera='" + carteraid + "';";
+			string sql = "UPDATE Cartera SET Estado_cartera = @Estado_cartera, Cuotas=@Cuotas, Meses=@Meses, Pagas=@Pagas, Mora=@Mora WHERE Id_Cartera='" + carteraid + "';";
 			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
 			cmd.Parameters.Add(new SQLiteParameter("@Estado_cartera", estado));
 			cmd.Parameters.Add(new SQLiteParameter("@Cuotas", cuotas));
-			cmd.Parameters.Add(new SQLiteParameter("@Vencidas", venvidas));
+			cmd.Parameters.Add(new SQLiteParameter("@Meses", meses));
+			cmd.Parameters.Add(new SQLiteParameter("@Pagas", pagas));
 			cmd.Parameters.Add(new SQLiteParameter("@Mora", mora));
 			return cmd.ExecuteNonQuery();
 
@@ -58,7 +59,7 @@ namespace Cartera.Modelo
         internal static DataTable ListarCartera()
         {
             //return Conexion.consulta("SELECT Id_Cliente, Cedula, Nombre, Apellido, Estado_cartera, Valor_Recaudado, Id_Producto, Nombre_Producto, Valor_Mora, Total_Cartera, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' ORDER by Nombre");
-            return Conexion.consulta("SELECT Id_Cliente, Cedula, Nombre as Nombres, Apellido as Apellidos, Estado_cartera as Pago ,Cuotas, Vencidas as Meses, Mora as Pagas, Valor_Recaudado as Recaudado, count(Id_Producto) as Productos, Saldo, Total_Cartera as Total, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' GROUP by Id_Cliente ORDER by Nombre;");
+            return Conexion.consulta("SELECT Id_Cliente, Cedula, Nombre as Nombres, Apellido as Apellidos, Estado_cartera as Pago ,Cuotas, Meses, Pagas, Mora, Valor_Recaudado as Recaudado, count(Id_Producto) as Productos, Saldo, Total_Cartera as Total, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' GROUP by Id_Cliente ORDER by Nombre;");
         }
 		internal static DataTable CarteraCliente(string cedula)
 		{

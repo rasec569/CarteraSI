@@ -45,9 +45,9 @@ namespace Cartera.Controlador
             var result = MCartera.BuscarFechaspagos(productoid);
             return result;
         }
-        public int ActulizarEstados(string carteraid, string estado, int cuotas, int venvidas, int mora)
+        public int ActulizarEstados(string carteraid, string estado, int cuotas, int meses , int pagas, int mora)
         {
-            return MCartera.ActulizarEstados(carteraid, estado, cuotas, venvidas, mora);
+            return MCartera.ActulizarEstados(carteraid, estado, cuotas, meses, pagas, mora);
         }
         public DataTable TotalesCartera()
         {
