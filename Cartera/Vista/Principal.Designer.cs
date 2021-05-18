@@ -32,6 +32,13 @@ namespace Cartera.Vista
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.PanelMenu = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.BtSoporte = new System.Windows.Forms.Button();
             this.BtCarteras = new System.Windows.Forms.Button();
             this.BtSalir = new System.Windows.Forms.Button();
@@ -42,13 +49,6 @@ namespace Cartera.Vista
             this.BtClientes = new System.Windows.Forms.Button();
             this.PanelContenedor = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
             this.PanelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -77,6 +77,62 @@ namespace Cartera.Vista
             this.PanelMenu.Name = "PanelMenu";
             this.PanelMenu.Size = new System.Drawing.Size(206, 613);
             this.PanelMenu.TabIndex = 0;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel7.Location = new System.Drawing.Point(7, 437);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(5, 41);
+            this.panel7.TabIndex = 22;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel5.Location = new System.Drawing.Point(7, 392);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(5, 41);
+            this.panel5.TabIndex = 21;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel3.Location = new System.Drawing.Point(7, 298);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(5, 41);
+            this.panel3.TabIndex = 21;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel6.Location = new System.Drawing.Point(7, 345);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(5, 41);
+            this.panel6.TabIndex = 22;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel2.Location = new System.Drawing.Point(7, 204);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(5, 41);
+            this.panel2.TabIndex = 13;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel4.Location = new System.Drawing.Point(7, 251);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(5, 41);
+            this.panel4.TabIndex = 22;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel1.Location = new System.Drawing.Point(7, 157);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(5, 41);
+            this.panel1.TabIndex = 20;
             // 
             // BtSoporte
             // 
@@ -232,62 +288,6 @@ namespace Cartera.Vista
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.panel1.Location = new System.Drawing.Point(7, 157);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(5, 41);
-            this.panel1.TabIndex = 20;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.panel2.Location = new System.Drawing.Point(7, 204);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(5, 41);
-            this.panel2.TabIndex = 13;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.panel3.Location = new System.Drawing.Point(7, 298);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(5, 41);
-            this.panel3.TabIndex = 21;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.panel4.Location = new System.Drawing.Point(7, 251);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(5, 41);
-            this.panel4.TabIndex = 22;
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.panel5.Location = new System.Drawing.Point(7, 392);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(5, 41);
-            this.panel5.TabIndex = 21;
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.panel6.Location = new System.Drawing.Point(7, 345);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(5, 41);
-            this.panel6.TabIndex = 22;
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.panel7.Location = new System.Drawing.Point(7, 437);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(5, 41);
-            this.panel7.TabIndex = 22;
             // 
             // Principal
             // 

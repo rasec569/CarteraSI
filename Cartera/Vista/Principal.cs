@@ -45,7 +45,7 @@ namespace Cartera.Vista
             {
                 if (previousBtn.GetType() == typeof(Button))
                 {
-                    previousBtn.BackColor = Color.LightCyan;
+                    previousBtn.BackColor = SystemColors.Control;
                     previousBtn.ForeColor = Color.FromArgb(12, 60, 12);
                     previousBtn.Font = new System.Drawing.Font("Bernard MT Condensed", 15.75F);
                 }

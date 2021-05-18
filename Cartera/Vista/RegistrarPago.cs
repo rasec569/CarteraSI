@@ -19,6 +19,7 @@ namespace Cartera.Vista
         int carteraId = 0;
         int pagoId = 0;
         int valdescuento = 0;
+        bool error = false;
         CProducto producto = new CProducto();
         CCartera cartera = new CCartera();
         CPago pago = new CPago();
@@ -222,7 +223,7 @@ namespace Cartera.Vista
         private void BtRegistrarPago_Click(object sender, EventArgs e)
         {
             ValidarCampos();
-            if (ValidarCampos() == true)
+            if ((error != true) && (ValidarCampos() == true))
             {
                 if (modificar == false)
                 {
@@ -287,6 +288,57 @@ namespace Cartera.Vista
             catch
             {
             }   
+        }
+
+        private void txtValor_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtValor.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtValor, "No se admiten letras");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
+            }
+        }
+
+        private void txtCuota_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtCuota.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtCuota, "No se admiten letras");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
+            }
+        }
+
+        private void txtValorDescuento_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtValorDescuento.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtValorDescuento, "No se admiten letras");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
+            }
         }
     }    
 }

@@ -237,6 +237,7 @@ namespace Cartera.Vista
             // 
             // txtCedula
             // 
+            this.txtCedula.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCedula.Location = new System.Drawing.Point(90, 74);
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.Size = new System.Drawing.Size(243, 20);
@@ -263,6 +264,7 @@ namespace Cartera.Vista
             // 
             // txtApellidos
             // 
+            this.txtApellidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtApellidos.Location = new System.Drawing.Point(90, 129);
             this.txtApellidos.Name = "txtApellidos";
             this.txtApellidos.Size = new System.Drawing.Size(243, 20);
@@ -271,6 +273,7 @@ namespace Cartera.Vista
             // 
             // txtTelefono
             // 
+            this.txtTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTelefono.Location = new System.Drawing.Point(90, 155);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(243, 20);
@@ -325,7 +328,7 @@ namespace Cartera.Vista
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(303, 101);
+            this.label13.Location = new System.Drawing.Point(307, 101);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(104, 13);
             this.label13.TabIndex = 31;
@@ -334,7 +337,7 @@ namespace Cartera.Vista
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(303, 156);
+            this.label14.Location = new System.Drawing.Point(307, 156);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(72, 13);
             this.label14.TabIndex = 32;
@@ -343,7 +346,7 @@ namespace Cartera.Vista
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(302, 76);
+            this.label15.Location = new System.Drawing.Point(306, 76);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(74, 13);
             this.label15.TabIndex = 33;
@@ -351,25 +354,28 @@ namespace Cartera.Vista
             // 
             // txtNombreProducto
             // 
-            this.txtNombreProducto.Location = new System.Drawing.Point(104, 20);
+            this.txtNombreProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombreProducto.Location = new System.Drawing.Point(117, 20);
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(178, 20);
             this.txtNombreProducto.TabIndex = 8;
             // 
             // txtContrato
             // 
-            this.txtContrato.Location = new System.Drawing.Point(105, 45);
+            this.txtContrato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContrato.Location = new System.Drawing.Point(118, 45);
             this.txtContrato.Name = "txtContrato";
             this.txtContrato.Size = new System.Drawing.Size(177, 20);
             this.txtContrato.TabIndex = 9;
             // 
             // ComboFormaPago
             // 
+            this.ComboFormaPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboFormaPago.FormattingEnabled = true;
             this.ComboFormaPago.Items.AddRange(new object[] {
             "Contado",
             "Financiado"});
-            this.ComboFormaPago.Location = new System.Drawing.Point(105, 71);
+            this.ComboFormaPago.Location = new System.Drawing.Point(118, 71);
             this.ComboFormaPago.Name = "ComboFormaPago";
             this.ComboFormaPago.Size = new System.Drawing.Size(177, 21);
             this.ComboFormaPago.TabIndex = 10;
@@ -378,7 +384,8 @@ namespace Cartera.Vista
             // 
             // txtValor
             // 
-            this.txtValor.Location = new System.Drawing.Point(105, 98);
+            this.txtValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValor.Location = new System.Drawing.Point(118, 98);
             this.txtValor.Name = "txtValor";
             this.txtValor.Size = new System.Drawing.Size(177, 20);
             this.txtValor.TabIndex = 11;
@@ -389,7 +396,7 @@ namespace Cartera.Vista
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(302, 49);
+            this.label16.Location = new System.Drawing.Point(306, 49);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(97, 13);
             this.label16.TabIndex = 38;
@@ -398,9 +405,9 @@ namespace Cartera.Vista
             // DateRecaudo
             // 
             this.DateRecaudo.CustomFormat = "yyyy-MM-dd";
-            this.DateRecaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DateRecaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateRecaudo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DateRecaudo.Location = new System.Drawing.Point(410, 46);
+            this.DateRecaudo.Location = new System.Drawing.Point(414, 46);
             this.DateRecaudo.Name = "DateRecaudo";
             this.DateRecaudo.Size = new System.Drawing.Size(149, 20);
             this.DateRecaudo.TabIndex = 15;
@@ -417,16 +424,17 @@ namespace Cartera.Vista
             // DateVenta
             // 
             this.DateVenta.CustomFormat = "yyyy-MM-dd";
-            this.DateVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DateVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateVenta.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DateVenta.Location = new System.Drawing.Point(105, 127);
+            this.DateVenta.Location = new System.Drawing.Point(118, 127);
             this.DateVenta.Name = "DateVenta";
             this.DateVenta.Size = new System.Drawing.Size(177, 20);
             this.DateVenta.TabIndex = 12;
             // 
             // txtValorEntrada
             // 
-            this.txtValorEntrada.Location = new System.Drawing.Point(411, 98);
+            this.txtValorEntrada.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorEntrada.Location = new System.Drawing.Point(415, 98);
             this.txtValorEntrada.Name = "txtValorEntrada";
             this.txtValorEntrada.Size = new System.Drawing.Size(149, 20);
             this.txtValorEntrada.TabIndex = 17;
@@ -435,7 +443,8 @@ namespace Cartera.Vista
             // 
             // txtValorSin
             // 
-            this.txtValorSin.Location = new System.Drawing.Point(409, 73);
+            this.txtValorSin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorSin.Location = new System.Drawing.Point(413, 73);
             this.txtValorSin.Name = "txtValorSin";
             this.txtValorSin.Size = new System.Drawing.Size(148, 20);
             this.txtValorSin.TabIndex = 16;
@@ -444,7 +453,8 @@ namespace Cartera.Vista
             // 
             // txtValorCon
             // 
-            this.txtValorCon.Location = new System.Drawing.Point(410, 152);
+            this.txtValorCon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorCon.Location = new System.Drawing.Point(414, 152);
             this.txtValorCon.Name = "txtValorCon";
             this.txtValorCon.Size = new System.Drawing.Size(148, 20);
             this.txtValorCon.TabIndex = 20;
@@ -454,7 +464,7 @@ namespace Cartera.Vista
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(302, 126);
+            this.label18.Location = new System.Drawing.Point(306, 126);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(101, 13);
             this.label18.TabIndex = 45;
@@ -462,7 +472,8 @@ namespace Cartera.Vista
             // 
             // numCuotaSinInteres
             // 
-            this.numCuotaSinInteres.Location = new System.Drawing.Point(410, 123);
+            this.numCuotaSinInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numCuotaSinInteres.Location = new System.Drawing.Point(414, 123);
             this.numCuotaSinInteres.Maximum = new decimal(new int[] {
             36,
             0,
@@ -475,7 +486,8 @@ namespace Cartera.Vista
             // 
             // numCuotasInteres
             // 
-            this.numCuotasInteres.Location = new System.Drawing.Point(410, 180);
+            this.numCuotasInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numCuotasInteres.Location = new System.Drawing.Point(414, 180);
             this.numCuotasInteres.Maximum = new decimal(new int[] {
             36,
             0,
@@ -489,7 +501,7 @@ namespace Cartera.Vista
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(303, 185);
+            this.label21.Location = new System.Drawing.Point(307, 185);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(101, 13);
             this.label21.TabIndex = 50;
@@ -498,7 +510,8 @@ namespace Cartera.Vista
             // txtValorCuotaSin
             // 
             this.txtValorCuotaSin.Enabled = false;
-            this.txtValorCuotaSin.Location = new System.Drawing.Point(460, 124);
+            this.txtValorCuotaSin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorCuotaSin.Location = new System.Drawing.Point(464, 124);
             this.txtValorCuotaSin.Name = "txtValorCuotaSin";
             this.txtValorCuotaSin.Size = new System.Drawing.Size(98, 20);
             this.txtValorCuotaSin.TabIndex = 19;
@@ -514,7 +527,8 @@ namespace Cartera.Vista
             // 
             // txtObeservaciones
             // 
-            this.txtObeservaciones.Location = new System.Drawing.Point(104, 237);
+            this.txtObeservaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtObeservaciones.Location = new System.Drawing.Point(118, 237);
             this.txtObeservaciones.Name = "txtObeservaciones";
             this.txtObeservaciones.Size = new System.Drawing.Size(446, 20);
             this.txtObeservaciones.TabIndex = 26;
@@ -522,7 +536,7 @@ namespace Cartera.Vista
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(302, 211);
+            this.label20.Location = new System.Drawing.Point(306, 211);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(86, 13);
             this.label20.TabIndex = 55;
@@ -556,7 +570,7 @@ namespace Cartera.Vista
             // 
             // dateFechaEstado
             // 
-            this.dateFechaEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateFechaEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateFechaEstado.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateFechaEstado.Location = new System.Drawing.Point(236, 234);
             this.dateFechaEstado.Name = "dateFechaEstado";
@@ -566,6 +580,7 @@ namespace Cartera.Vista
             // 
             // comboEstadoCliente
             // 
+            this.comboEstadoCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboEstadoCliente.FormattingEnabled = true;
             this.comboEstadoCliente.Items.AddRange(new object[] {
             "Ceder",
@@ -602,6 +617,7 @@ namespace Cartera.Vista
             // 
             // txtNombres
             // 
+            this.txtNombres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombres.Location = new System.Drawing.Point(90, 103);
             this.txtNombres.Name = "txtNombres";
             this.txtNombres.Size = new System.Drawing.Size(243, 20);
@@ -628,6 +644,7 @@ namespace Cartera.Vista
             // 
             // txtCorreo
             // 
+            this.txtCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCorreo.Location = new System.Drawing.Point(90, 181);
             this.txtCorreo.Name = "txtCorreo";
             this.txtCorreo.Size = new System.Drawing.Size(243, 20);
@@ -635,6 +652,7 @@ namespace Cartera.Vista
             // 
             // txtDireccion
             // 
+            this.txtDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDireccion.Location = new System.Drawing.Point(90, 208);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(243, 20);
@@ -701,7 +719,7 @@ namespace Cartera.Vista
             // BtHistorialFinan
             // 
             this.BtHistorialFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialFinan.Image")));
-            this.BtHistorialFinan.Location = new System.Drawing.Point(397, 9);
+            this.BtHistorialFinan.Location = new System.Drawing.Point(401, 9);
             this.BtHistorialFinan.Name = "BtHistorialFinan";
             this.BtHistorialFinan.Size = new System.Drawing.Size(33, 31);
             this.BtHistorialFinan.TabIndex = 66;
@@ -712,7 +730,8 @@ namespace Cartera.Vista
             // txtValorCuotaInteres
             // 
             this.txtValorCuotaInteres.Enabled = false;
-            this.txtValorCuotaInteres.Location = new System.Drawing.Point(460, 180);
+            this.txtValorCuotaInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorCuotaInteres.Location = new System.Drawing.Point(464, 180);
             this.txtValorCuotaInteres.Name = "txtValorCuotaInteres";
             this.txtValorCuotaInteres.Size = new System.Drawing.Size(98, 20);
             this.txtValorCuotaInteres.TabIndex = 22;
@@ -721,7 +740,7 @@ namespace Cartera.Vista
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(467, 209);
+            this.checkBox1.Location = new System.Drawing.Point(471, 209);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(91, 17);
             this.checkBox1.TabIndex = 24;
@@ -740,7 +759,8 @@ namespace Cartera.Vista
             // 
             // txtValorTotal
             // 
-            this.txtValorTotal.Location = new System.Drawing.Point(104, 208);
+            this.txtValorTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorTotal.Location = new System.Drawing.Point(117, 208);
             this.txtValorTotal.Name = "txtValorTotal";
             this.txtValorTotal.Size = new System.Drawing.Size(177, 20);
             this.txtValorTotal.TabIndex = 25;
@@ -756,8 +776,9 @@ namespace Cartera.Vista
             // 
             // comboTipoProducto
             // 
+            this.comboTipoProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboTipoProducto.FormattingEnabled = true;
-            this.comboTipoProducto.Location = new System.Drawing.Point(104, 181);
+            this.comboTipoProducto.Location = new System.Drawing.Point(117, 181);
             this.comboTipoProducto.Name = "comboTipoProducto";
             this.comboTipoProducto.Size = new System.Drawing.Size(178, 21);
             this.comboTipoProducto.TabIndex = 14;
@@ -774,8 +795,9 @@ namespace Cartera.Vista
             // 
             // comboProyecto
             // 
+            this.comboProyecto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboProyecto.FormattingEnabled = true;
-            this.comboProyecto.Location = new System.Drawing.Point(104, 154);
+            this.comboProyecto.Location = new System.Drawing.Point(117, 154);
             this.comboProyecto.Name = "comboProyecto";
             this.comboProyecto.Size = new System.Drawing.Size(178, 21);
             this.comboProyecto.TabIndex = 13;
@@ -783,7 +805,8 @@ namespace Cartera.Vista
             // 
             // numValorInteres
             // 
-            this.numValorInteres.Location = new System.Drawing.Point(410, 207);
+            this.numValorInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numValorInteres.Location = new System.Drawing.Point(414, 207);
             this.numValorInteres.Name = "numValorInteres";
             this.numValorInteres.Size = new System.Drawing.Size(44, 20);
             this.numValorInteres.TabIndex = 23;

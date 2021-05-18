@@ -143,6 +143,7 @@ namespace Cartera.Vista
             this.txtValor.Name = "txtValor";
             this.txtValor.Size = new System.Drawing.Size(125, 20);
             this.txtValor.TabIndex = 11;
+            this.txtValor.TextChanged += new System.EventHandler(this.txtValor_TextChanged);
             this.txtValor.Leave += new System.EventHandler(this.txtValor_Leave);
             // 
             // label8
@@ -187,6 +188,7 @@ namespace Cartera.Vista
             this.txtValorDescuento.Name = "txtValorDescuento";
             this.txtValorDescuento.Size = new System.Drawing.Size(125, 20);
             this.txtValorDescuento.TabIndex = 13;
+            this.txtValorDescuento.TextChanged += new System.EventHandler(this.txtValorDescuento_TextChanged);
             this.txtValorDescuento.Leave += new System.EventHandler(this.txtValorDescuento_Leave);
             // 
             // groupBox1
@@ -237,6 +239,7 @@ namespace Cartera.Vista
             this.txtCuota.Name = "txtCuota";
             this.txtCuota.Size = new System.Drawing.Size(57, 20);
             this.txtCuota.TabIndex = 4;
+            this.txtCuota.TextChanged += new System.EventHandler(this.txtCuota_TextChanged);
             // 
             // txtProducto
             // 
