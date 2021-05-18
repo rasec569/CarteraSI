@@ -50,10 +50,17 @@ namespace Cartera.Vista
             this.labelNeto = new System.Windows.Forms.Label();
             this.labelSaldoFecha = new System.Windows.Forms.Label();
             this.TxtDeudaFecha = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelCuotas = new System.Windows.Forms.Label();
+            this.labelPagadas = new System.Windows.Forms.Label();
+            this.labelMora = new System.Windows.Forms.Label();
+            this.labelMeses = new System.Windows.Forms.Label();
+            this.labelmes = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -98,6 +105,7 @@ namespace Cartera.Vista
             this.groupBox1.Controls.Add(this.BtImprimir);
             this.groupBox1.Controls.Add(this.txtCedula);
             this.groupBox1.Controls.Add(this.txtNombre);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1010, 60);
@@ -133,7 +141,7 @@ namespace Cartera.Vista
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(277, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "Nombre";
             // 
@@ -142,7 +150,7 @@ namespace Cartera.Vista
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(25, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "Cedula";
             // 
@@ -177,9 +185,9 @@ namespace Cartera.Vista
             // 
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(12, 70);
+            this.dataGridView2.Location = new System.Drawing.Point(12, 122);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(1010, 305);
+            this.dataGridView2.Size = new System.Drawing.Size(1010, 253);
             this.dataGridView2.TabIndex = 6;
             this.dataGridView2.Visible = false;
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
@@ -189,7 +197,7 @@ namespace Cartera.Vista
             this.labelTotal.AutoSize = true;
             this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTotal.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.labelTotal.Location = new System.Drawing.Point(845, 384);
+            this.labelTotal.Location = new System.Drawing.Point(845, 396);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(96, 13);
             this.labelTotal.TabIndex = 22;
@@ -202,7 +210,7 @@ namespace Cartera.Vista
             this.labelPagado.AutoSize = true;
             this.labelPagado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPagado.ForeColor = System.Drawing.Color.Green;
-            this.labelPagado.Location = new System.Drawing.Point(448, 384);
+            this.labelPagado.Location = new System.Drawing.Point(448, 396);
             this.labelPagado.Name = "labelPagado";
             this.labelPagado.Size = new System.Drawing.Size(116, 13);
             this.labelPagado.TabIndex = 21;
@@ -215,7 +223,7 @@ namespace Cartera.Vista
             this.labelDeuda.AutoSize = true;
             this.labelDeuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDeuda.ForeColor = System.Drawing.Color.Crimson;
-            this.labelDeuda.Location = new System.Drawing.Point(650, 384);
+            this.labelDeuda.Location = new System.Drawing.Point(650, 396);
             this.labelDeuda.Name = "labelDeuda";
             this.labelDeuda.Size = new System.Drawing.Size(103, 13);
             this.labelDeuda.TabIndex = 20;
@@ -227,7 +235,7 @@ namespace Cartera.Vista
             // 
             this.labelNeto.AutoSize = true;
             this.labelNeto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNeto.Location = new System.Drawing.Point(266, 384);
+            this.labelNeto.Location = new System.Drawing.Point(266, 396);
             this.labelNeto.Name = "labelNeto";
             this.labelNeto.Size = new System.Drawing.Size(90, 13);
             this.labelNeto.TabIndex = 23;
@@ -240,7 +248,7 @@ namespace Cartera.Vista
             this.labelSaldoFecha.AutoSize = true;
             this.labelSaldoFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSaldoFecha.ForeColor = System.Drawing.Color.DarkOrange;
-            this.labelSaldoFecha.Location = new System.Drawing.Point(12, 384);
+            this.labelSaldoFecha.Location = new System.Drawing.Point(12, 396);
             this.labelSaldoFecha.Name = "labelSaldoFecha";
             this.labelSaldoFecha.Size = new System.Drawing.Size(134, 13);
             this.labelSaldoFecha.TabIndex = 24;
@@ -254,7 +262,7 @@ namespace Cartera.Vista
             this.TxtDeudaFecha.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TxtDeudaFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtDeudaFecha.ForeColor = System.Drawing.Color.DarkOrange;
-            this.TxtDeudaFecha.Location = new System.Drawing.Point(148, 381);
+            this.TxtDeudaFecha.Location = new System.Drawing.Point(148, 393);
             this.TxtDeudaFecha.Name = "TxtDeudaFecha";
             this.TxtDeudaFecha.Size = new System.Drawing.Size(110, 20);
             this.TxtDeudaFecha.TabIndex = 12;
@@ -263,12 +271,79 @@ namespace Cartera.Vista
             this.TxtDeudaFecha.TextChanged += new System.EventHandler(this.TxtDeudaFecha_TextChanged);
             this.TxtDeudaFecha.Leave += new System.EventHandler(this.TxtDeudaFecha_Leave);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.labelmes);
+            this.groupBox2.Controls.Add(this.labelMeses);
+            this.groupBox2.Controls.Add(this.labelMora);
+            this.groupBox2.Controls.Add(this.labelPagadas);
+            this.groupBox2.Controls.Add(this.labelCuotas);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(12, 70);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1010, 56);
+            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Estado";
+            this.groupBox2.Visible = false;
+            // 
+            // labelCuotas
+            // 
+            this.labelCuotas.AutoSize = true;
+            this.labelCuotas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCuotas.Location = new System.Drawing.Point(53, 27);
+            this.labelCuotas.Name = "labelCuotas";
+            this.labelCuotas.Size = new System.Drawing.Size(46, 13);
+            this.labelCuotas.TabIndex = 0;
+            this.labelCuotas.Text = "Cuotas";
+            // 
+            // labelPagadas
+            // 
+            this.labelPagadas.AutoSize = true;
+            this.labelPagadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPagadas.Location = new System.Drawing.Point(428, 27);
+            this.labelPagadas.Name = "labelPagadas";
+            this.labelPagadas.Size = new System.Drawing.Size(46, 13);
+            this.labelPagadas.TabIndex = 1;
+            this.labelPagadas.Text = "Cuotas";
+            // 
+            // labelMora
+            // 
+            this.labelMora.AutoSize = true;
+            this.labelMora.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMora.Location = new System.Drawing.Point(613, 27);
+            this.labelMora.Name = "labelMora";
+            this.labelMora.Size = new System.Drawing.Size(46, 13);
+            this.labelMora.TabIndex = 2;
+            this.labelMora.Text = "Cuotas";
+            // 
+            // labelMeses
+            // 
+            this.labelMeses.AutoSize = true;
+            this.labelMeses.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMeses.Location = new System.Drawing.Point(799, 27);
+            this.labelMeses.Name = "labelMeses";
+            this.labelMeses.Size = new System.Drawing.Size(46, 13);
+            this.labelMeses.TabIndex = 3;
+            this.labelMeses.Text = "Cuotas";
+            // 
+            // labelmes
+            // 
+            this.labelmes.AutoSize = true;
+            this.labelmes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelmes.Location = new System.Drawing.Point(224, 27);
+            this.labelmes.Name = "labelmes";
+            this.labelmes.Size = new System.Drawing.Size(46, 13);
+            this.labelmes.TabIndex = 4;
+            this.labelmes.Text = "Cuotas";
+            // 
             // HistorialPagos
             // 
             this.AcceptButton = this.BtBuscar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1034, 405);
+            this.ClientSize = new System.Drawing.Size(1034, 424);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.TxtDeudaFecha);
             this.Controls.Add(this.labelSaldoFecha);
             this.Controls.Add(this.labelNeto);
@@ -291,6 +366,8 @@ namespace Cartera.Vista
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -317,5 +394,11 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label labelDeuda;
         private System.Windows.Forms.Label labelSaldoFecha;
         private System.Windows.Forms.TextBox TxtDeudaFecha;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label labelMeses;
+        private System.Windows.Forms.Label labelMora;
+        private System.Windows.Forms.Label labelPagadas;
+        private System.Windows.Forms.Label labelCuotas;
+        private System.Windows.Forms.Label labelmes;
     }
 }

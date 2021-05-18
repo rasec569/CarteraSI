@@ -122,11 +122,14 @@
     <value>True</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Usuario.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold, Italic</value>
+  </data>
   <data name="Usuario.Location" type="System.Drawing.Point, System.Drawing">
-    <value>123, 168</value>
+    <value>122, 168</value>
   </data>
   <data name="Usuario.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 13</value>
+    <value>50, 13</value>
   </data>
   <data name="Usuario.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -147,7 +150,7 @@
     <value>6</value>
   </data>
   <data name="textUser.Location" type="System.Drawing.Point, System.Drawing">
-    <value>172, 165</value>
+    <value>173, 165</value>
   </data>
   <data name="textUser.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -168,7 +171,7 @@
     <value>5</value>
   </data>
   <data name="textPass.Location" type="System.Drawing.Point, System.Drawing">
-    <value>178, 195</value>
+    <value>181, 195</value>
   </data>
   <data name="textPass.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
     <value>*</value>
@@ -212,6 +215,9 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="buttonInicio.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold, Italic</value>
+  </data>
   <data name="buttonInicio.Location" type="System.Drawing.Point, System.Drawing">
     <value>157, 243</value>
   </data>
@@ -239,11 +245,14 @@
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold, Italic</value>
+  </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 198</value>
+    <value>107, 198</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 13</value>
+    <value>71, 13</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>

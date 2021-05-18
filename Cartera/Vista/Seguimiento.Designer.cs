@@ -69,6 +69,7 @@ namespace Cartera.Vista
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker1.Location = new System.Drawing.Point(613, 50);
             this.dateTimePicker1.Name = "dateTimePicker1";
@@ -90,7 +91,7 @@ namespace Cartera.Vista
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(17, 53);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Comentario";
             // 
@@ -103,6 +104,7 @@ namespace Cartera.Vista
             this.groupBox1.Controls.Add(this.GuardarSegui);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
             this.groupBox1.Controls.Add(this.txtcomentario);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(21, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(769, 83);
@@ -113,7 +115,7 @@ namespace Cartera.Vista
             // LbConctato
             // 
             this.LbConctato.AutoSize = true;
-            this.LbConctato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbConctato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbConctato.Location = new System.Drawing.Point(420, 22);
             this.LbConctato.Name = "LbConctato";
             this.LbConctato.Size = new System.Drawing.Size(58, 13);
@@ -124,7 +126,7 @@ namespace Cartera.Vista
             // LbPropietario
             // 
             this.LbPropietario.AutoSize = true;
-            this.LbPropietario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbPropietario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbPropietario.Location = new System.Drawing.Point(114, 22);
             this.LbPropietario.Name = "LbPropietario";
             this.LbPropietario.Size = new System.Drawing.Size(68, 13);
@@ -135,7 +137,7 @@ namespace Cartera.Vista
             // LbNomProducto
             // 
             this.LbNomProducto.AutoSize = true;
-            this.LbNomProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbNomProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbNomProducto.Location = new System.Drawing.Point(17, 22);
             this.LbNomProducto.Name = "LbNomProducto";
             this.LbNomProducto.Size = new System.Drawing.Size(58, 13);

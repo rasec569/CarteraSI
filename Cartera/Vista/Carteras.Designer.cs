@@ -63,7 +63,7 @@ namespace Cartera.Vista
             this.flowLayoutPanel1.Controls.Add(this.dataGridView1);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 65);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(907, 420);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(978, 508);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // dataGridView1
@@ -72,7 +72,7 @@ namespace Cartera.Vista
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(904, 416);
+            this.dataGridView1.Size = new System.Drawing.Size(975, 505);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
@@ -86,16 +86,17 @@ namespace Cartera.Vista
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(931, 68);
+            this.panel1.Size = new System.Drawing.Size(1002, 68);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 27);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(37, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Cedula";
             // 
@@ -104,9 +105,10 @@ namespace Cartera.Vista
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.Txtcedula);
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Location = new System.Drawing.Point(16, 8);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(15, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(339, 49);
+            this.groupBox1.Size = new System.Drawing.Size(374, 49);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
@@ -126,9 +128,9 @@ namespace Cartera.Vista
             // 
             this.Txtcedula.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Txtcedula.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.Txtcedula.Location = new System.Drawing.Point(72, 16);
+            this.Txtcedula.Location = new System.Drawing.Point(68, 17);
             this.Txtcedula.Name = "Txtcedula";
-            this.Txtcedula.Size = new System.Drawing.Size(163, 20);
+            this.Txtcedula.Size = new System.Drawing.Size(167, 20);
             this.Txtcedula.TabIndex = 5;
             this.toolTip1.SetToolTip(this.Txtcedula, "Digite cdulda del cliente");
             // 
@@ -151,9 +153,10 @@ namespace Cartera.Vista
             this.groupBox2.Controls.Add(this.comboEstados);
             this.groupBox2.Controls.Add(this.BtPago);
             this.groupBox2.Controls.Add(this.BtHistorialPago);
-            this.groupBox2.Location = new System.Drawing.Point(374, 8);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(408, 8);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(545, 49);
+            this.groupBox2.Size = new System.Drawing.Size(582, 49);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Cartera";
@@ -173,7 +176,7 @@ namespace Cartera.Vista
             // button2
             // 
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Location = new System.Drawing.Point(505, 12);
+            this.button2.Location = new System.Drawing.Point(531, 12);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(33, 28);
             this.button2.TabIndex = 4;
@@ -186,12 +189,13 @@ namespace Cartera.Vista
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(221, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Pagos";
             // 
             // comboEstados
             // 
+            this.comboEstados.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboEstados.FormattingEnabled = true;
             this.comboEstados.Items.AddRange(new object[] {
             "Todo",
@@ -203,7 +207,7 @@ namespace Cartera.Vista
             "Mas de 360 días"});
             this.comboEstados.Location = new System.Drawing.Point(272, 16);
             this.comboEstados.Name = "comboEstados";
-            this.comboEstados.Size = new System.Drawing.Size(152, 21);
+            this.comboEstados.Size = new System.Drawing.Size(162, 21);
             this.comboEstados.TabIndex = 2;
             this.comboEstados.Text = "seleccione una opción";
             this.toolTip1.SetToolTip(this.comboEstados, "Seleccione un estado");
@@ -212,7 +216,7 @@ namespace Cartera.Vista
             // BtPago
             // 
             this.BtPago.Image = ((System.Drawing.Image)(resources.GetObject("BtPago.Image")));
-            this.BtPago.Location = new System.Drawing.Point(466, 12);
+            this.BtPago.Location = new System.Drawing.Point(492, 12);
             this.BtPago.Name = "BtPago";
             this.BtPago.Size = new System.Drawing.Size(33, 28);
             this.BtPago.TabIndex = 0;
@@ -223,7 +227,7 @@ namespace Cartera.Vista
             // BtHistorialPago
             // 
             this.BtHistorialPago.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialPago.Image")));
-            this.BtHistorialPago.Location = new System.Drawing.Point(427, 12);
+            this.BtHistorialPago.Location = new System.Drawing.Point(453, 12);
             this.BtHistorialPago.Name = "BtHistorialPago";
             this.BtHistorialPago.Size = new System.Drawing.Size(33, 28);
             this.BtHistorialPago.TabIndex = 3;
@@ -239,7 +243,7 @@ namespace Cartera.Vista
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(931, 537);
+            this.panel2.Size = new System.Drawing.Size(1002, 620);
             this.panel2.TabIndex = 1;
             // 
             // labelRecaudo
@@ -247,7 +251,7 @@ namespace Cartera.Vista
             this.labelRecaudo.AutoSize = true;
             this.labelRecaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRecaudo.ForeColor = System.Drawing.Color.Green;
-            this.labelRecaudo.Location = new System.Drawing.Point(469, 500);
+            this.labelRecaudo.Location = new System.Drawing.Point(551, 591);
             this.labelRecaudo.Name = "labelRecaudo";
             this.labelRecaudo.Size = new System.Drawing.Size(105, 13);
             this.labelRecaudo.TabIndex = 23;
@@ -259,7 +263,7 @@ namespace Cartera.Vista
             this.labelDeuda.AutoSize = true;
             this.labelDeuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDeuda.ForeColor = System.Drawing.Color.Crimson;
-            this.labelDeuda.Location = new System.Drawing.Point(725, 500);
+            this.labelDeuda.Location = new System.Drawing.Point(801, 591);
             this.labelDeuda.Name = "labelDeuda";
             this.labelDeuda.Size = new System.Drawing.Size(77, 13);
             this.labelDeuda.TabIndex = 21;
@@ -270,7 +274,7 @@ namespace Cartera.Vista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(931, 537);
+            this.ClientSize = new System.Drawing.Size(1002, 620);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

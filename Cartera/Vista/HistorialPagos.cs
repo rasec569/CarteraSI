@@ -18,13 +18,15 @@ namespace Cartera.Vista
     public partial class HistorialPagos : Form
     {
         CCliente cliente = new CCliente();
-        bool error = false;
+        CCartera cartera = new CCartera();
         CPago pago = new CPago();
         CProducto producto = new CProducto();
+        bool error = false;        
         string productoId = "";
         string carteraId ="";
         string clienteid = "";
         bool clearall = true;
+        int cuotas, meses, pagos, mora, mes_mora;
         string Nom_Producto, Nom_Proyecto;
         int ProductoVal,ValorPagado,ValorDeuda,ValorNeto;
         private ReportesPDF reportesPDF;
@@ -39,18 +41,13 @@ namespace Cartera.Vista
         {
             InitializeComponent();
         }
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void BtImprimir_Click(object sender, EventArgs e)
         {
             try
             {
                 DataTable dtreporte = new DataTable();
                 dtreporte = pago.ReportesPagosCliente(productoId);
-                reportesPDF.HistorialPagos(dtreporte, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, TxtDeudaFecha.Text, labelNeto.Text, labelTotal.Text, labelDeuda.Text, labelPagado.Text);
+                reportesPDF.HistorialPagos(dtreporte, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, TxtDeudaFecha.Text, labelNeto.Text, labelTotal.Text, labelDeuda.Text, labelPagado.Text, cuotas, meses, pagos, mora, mes_mora);
                 //printPreviewDialog1.Show();
             }
             catch/*(Exception ex)*/
@@ -60,8 +57,7 @@ namespace Cartera.Vista
             //var pagos= pago.ListarPagosCliente(productoId);
             //var rpth = new ReportClass();
             //rpth.SetDataSource(pagos);
-        }
-        
+        }       
             
         void autocompletar()
         {
@@ -74,7 +70,6 @@ namespace Cartera.Vista
             }
             txtCedula.AutoCompleteCustomSource = lista;
         }
-
 
         private void HistorialPagos_Load(object sender, EventArgs e)
         {
@@ -130,6 +125,7 @@ namespace Cartera.Vista
         }
         private void limpiar()
         {
+            groupBox2.Visible = false;
             dataGridView1.DataSource = "";
             dataGridView2.DataSource = "";
             btLimpiar.Enabled = false;
@@ -183,7 +179,9 @@ namespace Cartera.Vista
                     Nom_Proyecto = dataGridView1.Rows[n].Cells["Proyecto"].Value.ToString();
                     ValorNeto = int.Parse(dataGridView1.Rows[n].Cells["Valor Neto"].Value.ToString());
                     ProductoVal = int.Parse(dataGridView1.Rows[n].Cells["Valor Total"].Value.ToString());
+                    //this.Height += 200;
                     ListarPagosCliente();
+                    estadoPagoCliente();
                 }
                 BtImprimir.Enabled = true;
                 dataGridView2.Visible = true;
@@ -193,6 +191,57 @@ namespace Cartera.Vista
             {
                 MessageBox.Show("Sin Pagos");
             }            
+        }
+        private void estadoPagoCliente()
+        {
+            groupBox2.Visible = true;
+            DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(productoId));
+            if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[0]["Fecha_Recaudo"].ToString()))
+            {
+                string fecha1 = dtfechas.Rows[0]["Fecha_Pago"].ToString();
+                string fecha2 = dtfechas.Rows[0]["Fecha_Recaudo"].ToString();
+                cuotas = int.Parse(dtfechas.Rows[0]["Cuotas"].ToString())+1;
+                DataTable dtcuotas = pago.ConsultarCuotas(int.Parse(productoId));
+                pagos = int.Parse(dtcuotas.Rows[0]["Cuotas"].ToString());
+                DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                TimeSpan Ultimo = actual.Subtract(date_1);
+                TimeSpan trascurrido = actual.Subtract(date_2);
+
+                int dia = int.Parse(trascurrido.Days.ToString());
+                meses = dia / 30;
+                mes_mora = 0;
+                mora = 0;
+                if (cuotas < meses)
+                {
+                    mes_mora = meses - pagos;
+                    if (cuotas < pagos)
+                    {
+                        mora = cuotas;
+                    }
+                    else
+                    {
+                        mora = cuotas - pagos;
+                    }
+                }
+                else if (meses - pagos <= 0)
+                {
+                    mora = 0;
+                    mes_mora = 0;
+                }
+                else
+                {
+                    mora = meses - pagos;
+                    mes_mora = meses - pagos;
+                }
+                labelCuotas.Text = "Cuotas Pactadas:  " + cuotas;
+                labelmes.Text = "Meses Transcurridos:  " + meses;
+                labelPagadas.Text = "Cuotas Pagadas:  " + pagos;
+                labelMora.Text = "Cuotas en Mora:  " + mora;
+                labelMeses.Text = "Meses en Mora:  " + mes_mora;
+
+            }
         }
         private void ListarPagosCliente()
         {

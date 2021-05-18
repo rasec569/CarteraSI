@@ -36,10 +36,10 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.BtBorrar = new System.Windows.Forms.Button();
             this.BtLimpiar = new System.Windows.Forms.Button();
             this.BtGuardarProyecto = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -48,9 +48,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 31);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(29, 31);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 13;
             this.label2.Text = "Nombre";
             // 
@@ -58,24 +59,24 @@
             // 
             this.txtNombreP.Location = new System.Drawing.Point(92, 28);
             this.txtNombreP.Name = "txtNombreP";
-            this.txtNombreP.Size = new System.Drawing.Size(283, 20);
+            this.txtNombreP.Size = new System.Drawing.Size(318, 20);
             this.txtNombreP.TabIndex = 14;
             this.toolTip1.SetToolTip(this.txtNombreP, "Nombre del Proyecto");
             // 
             // txtUbicacion
             // 
-            this.txtUbicacion.Location = new System.Drawing.Point(440, 21);
+            this.txtUbicacion.Location = new System.Drawing.Point(472, 21);
             this.txtUbicacion.Name = "txtUbicacion";
-            this.txtUbicacion.Size = new System.Drawing.Size(293, 20);
+            this.txtUbicacion.Size = new System.Drawing.Size(352, 20);
             this.txtUbicacion.TabIndex = 16;
             this.toolTip1.SetToolTip(this.txtUbicacion, "Ubicación del Proyecto");
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(379, 24);
+            this.label3.Location = new System.Drawing.Point(403, 24);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.Size = new System.Drawing.Size(64, 13);
             this.label3.TabIndex = 15;
             this.label3.Text = "Ubicación";
             // 
@@ -89,7 +90,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 75);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(907, 450);
+            this.dataGridView1.Size = new System.Drawing.Size(978, 533);
             this.dataGridView1.TabIndex = 20;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick_1);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
@@ -101,9 +102,10 @@
             this.groupBox1.Controls.Add(this.BtGuardarProyecto);
             this.groupBox1.Controls.Add(this.txtUbicacion);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(907, 57);
+            this.groupBox1.Size = new System.Drawing.Size(978, 57);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Proyecto";
@@ -112,7 +114,7 @@
             // 
             this.BtBorrar.Enabled = false;
             this.BtBorrar.Image = global::Cartera.Properties.Resources.Eliminar;
-            this.BtBorrar.Location = new System.Drawing.Point(844, 14);
+            this.BtBorrar.Location = new System.Drawing.Point(933, 14);
             this.BtBorrar.Name = "BtBorrar";
             this.BtBorrar.Size = new System.Drawing.Size(39, 33);
             this.BtBorrar.TabIndex = 21;
@@ -123,7 +125,7 @@
             // BtLimpiar
             // 
             this.BtLimpiar.Image = global::Cartera.Properties.Resources.limpiar;
-            this.BtLimpiar.Location = new System.Drawing.Point(799, 14);
+            this.BtLimpiar.Location = new System.Drawing.Point(882, 14);
             this.BtLimpiar.Name = "BtLimpiar";
             this.BtLimpiar.Size = new System.Drawing.Size(39, 33);
             this.BtLimpiar.TabIndex = 19;
@@ -134,7 +136,7 @@
             // BtGuardarProyecto
             // 
             this.BtGuardarProyecto.Image = global::Cartera.Properties.Resources.Guardar1;
-            this.BtGuardarProyecto.Location = new System.Drawing.Point(754, 14);
+            this.BtGuardarProyecto.Location = new System.Drawing.Point(830, 14);
             this.BtGuardarProyecto.Name = "BtGuardarProyecto";
             this.BtGuardarProyecto.Size = new System.Drawing.Size(39, 33);
             this.BtGuardarProyecto.TabIndex = 17;
@@ -146,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(931, 537);
+            this.ClientSize = new System.Drawing.Size(1002, 620);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNombreP);

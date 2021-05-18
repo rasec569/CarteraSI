@@ -14,7 +14,7 @@ namespace Cartera.Reportes
 {
     public class ReportesPDF
     {
-        public void HistorialPagos(DataTable report, string cedula, string Nombres, string producto, string proyecto, string deuda_fecha, string valor_neto, string valor_total,string Valor_deduda, string valor_pagado)
+        public void HistorialPagos(DataTable report, string cedula, string Nombres, string producto, string proyecto, string deuda_fecha, string valor_neto, string valor_total,string Valor_deduda, string valor_pagado, int cuotas, int meses, int pagos, int mora, int mes_mora)
         {
             //string nombre = "Historial de pagos";
             
@@ -109,9 +109,7 @@ namespace Cartera.Reportes
 
                                 texto.Add(" Fecha Reporte: " + DateTime.Now.ToString());
                                 document.Add(texto);
-                                texto.RemoveAt(0);
-
-                               
+                                texto.RemoveAt(0);                                
 
                                 document.Add(new Paragraph(" "));
 
@@ -141,6 +139,11 @@ namespace Cartera.Reportes
                         texto.Add("________________________________________________________________________________________________________________________________________________");
                         document.Add(texto);
                         texto.RemoveAt(0);
+                        texto.Alignment = Element.ALIGN_LEFT;
+                        texto.Add("CUOTAS PACTADAS: " + cuotas + "  MESES TRANSCURRIDOS: " + meses + "  CUOTAS PAGADAS: " + pagos + "  CUOTAS EN MORA: " + mora + "  MESES EN MORA: " + mes_mora);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+
                         if (!string.IsNullOrEmpty(deuda_fecha))
                         {
                             texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);

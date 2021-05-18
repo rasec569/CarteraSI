@@ -45,9 +45,10 @@ namespace Cartera.Vista
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tipo Producto";
             // 
@@ -74,7 +75,7 @@ namespace Cartera.Vista
             // 
             // TxtNomTipoPro
             // 
-            this.TxtNomTipoPro.Location = new System.Drawing.Point(92, 14);
+            this.TxtNomTipoPro.Location = new System.Drawing.Point(102, 14);
             this.TxtNomTipoPro.Name = "TxtNomTipoPro";
             this.TxtNomTipoPro.Size = new System.Drawing.Size(189, 20);
             this.TxtNomTipoPro.TabIndex = 3;

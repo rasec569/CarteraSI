@@ -42,6 +42,13 @@ namespace Cartera.Vista
             this.BtClientes = new System.Windows.Forms.Button();
             this.PanelContenedor = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.PanelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -49,7 +56,14 @@ namespace Cartera.Vista
             // PanelMenu
             // 
             this.PanelMenu.AutoSize = true;
-            this.PanelMenu.BackColor = System.Drawing.Color.LightCyan;
+            this.PanelMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.PanelMenu.Controls.Add(this.panel7);
+            this.PanelMenu.Controls.Add(this.panel5);
+            this.PanelMenu.Controls.Add(this.panel3);
+            this.PanelMenu.Controls.Add(this.panel6);
+            this.PanelMenu.Controls.Add(this.panel2);
+            this.PanelMenu.Controls.Add(this.panel4);
+            this.PanelMenu.Controls.Add(this.panel1);
             this.PanelMenu.Controls.Add(this.BtSoporte);
             this.PanelMenu.Controls.Add(this.BtCarteras);
             this.PanelMenu.Controls.Add(this.BtSalir);
@@ -61,7 +75,7 @@ namespace Cartera.Vista
             this.PanelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.PanelMenu.Location = new System.Drawing.Point(0, 0);
             this.PanelMenu.Name = "PanelMenu";
-            this.PanelMenu.Size = new System.Drawing.Size(206, 537);
+            this.PanelMenu.Size = new System.Drawing.Size(206, 613);
             this.PanelMenu.TabIndex = 0;
             // 
             // BtSoporte
@@ -74,7 +88,7 @@ namespace Cartera.Vista
             this.BtSoporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
             this.BtSoporte.Image = ((System.Drawing.Image)(resources.GetObject("BtSoporte.Image")));
             this.BtSoporte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtSoporte.Location = new System.Drawing.Point(13, 390);
+            this.BtSoporte.Location = new System.Drawing.Point(12, 392);
             this.BtSoporte.Name = "BtSoporte";
             this.BtSoporte.Size = new System.Drawing.Size(188, 41);
             this.BtSoporte.TabIndex = 11;
@@ -110,7 +124,7 @@ namespace Cartera.Vista
             this.BtSalir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
             this.BtSalir.Image = ((System.Drawing.Image)(resources.GetObject("BtSalir.Image")));
             this.BtSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtSalir.Location = new System.Drawing.Point(15, 437);
+            this.BtSalir.Location = new System.Drawing.Point(12, 437);
             this.BtSalir.Name = "BtSalir";
             this.BtSalir.Size = new System.Drawing.Size(188, 41);
             this.BtSalir.TabIndex = 8;
@@ -210,7 +224,7 @@ namespace Cartera.Vista
             this.PanelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelContenedor.Location = new System.Drawing.Point(206, 0);
             this.PanelContenedor.Name = "PanelContenedor";
-            this.PanelContenedor.Size = new System.Drawing.Size(928, 537);
+            this.PanelContenedor.Size = new System.Drawing.Size(1002, 613);
             this.PanelContenedor.TabIndex = 1;
             this.PanelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelContenedor_Paint);
             // 
@@ -219,13 +233,69 @@ namespace Cartera.Vista
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel1.Location = new System.Drawing.Point(7, 157);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(5, 41);
+            this.panel1.TabIndex = 20;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel2.Location = new System.Drawing.Point(7, 204);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(5, 41);
+            this.panel2.TabIndex = 13;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel3.Location = new System.Drawing.Point(7, 298);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(5, 41);
+            this.panel3.TabIndex = 21;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel4.Location = new System.Drawing.Point(7, 251);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(5, 41);
+            this.panel4.TabIndex = 22;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel5.Location = new System.Drawing.Point(7, 392);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(5, 41);
+            this.panel5.TabIndex = 21;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel6.Location = new System.Drawing.Point(7, 345);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(5, 41);
+            this.panel6.TabIndex = 22;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.panel7.Location = new System.Drawing.Point(7, 437);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(5, 41);
+            this.panel7.TabIndex = 22;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1134, 537);
+            this.ClientSize = new System.Drawing.Size(1208, 613);
             this.Controls.Add(this.PanelContenedor);
             this.Controls.Add(this.PanelMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -257,6 +327,13 @@ namespace Cartera.Vista
         private System.Windows.Forms.Button BtCarteras;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button BtSoporte;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel4;
     }
 }
 
