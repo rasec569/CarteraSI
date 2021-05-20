@@ -18,8 +18,10 @@ namespace Cartera.Vista
     {
         CPago pagos = new CPago();
         CProducto producto= new CProducto();
+        CCartera cartera = new CCartera();
         DataTable DtPagos = new DataTable();
         DataTable DtVentas = new DataTable();
+        DataTable DtDisolucion = new DataTable();
         private ReportesPDF reportesPDF;
         public Reportes()
         {
@@ -28,6 +30,7 @@ namespace Cartera.Vista
             DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
             dateInicio.Text = actual.AddMonths(-1).ToString();
             dateInicio2.Text = actual.AddMonths(-1).ToString();
+            dateInicio3.Text = actual.AddMonths(-1).ToString();
         }        
         private void Reportes_Load(object sender, EventArgs e)
         {
@@ -53,7 +56,7 @@ namespace Cartera.Vista
                 labelTotalVentas.Text ="TOTAL VENTAS: $" + String.Format("{0:N0}", total);
                 labelVentas.Text = "CANTIDAD: " + DtValorVentas.Rows[0]["productos"].ToString();
                 dataGridView2.DataSource = DtVentas;
-                dataGridView2.Columns[3].DefaultCellStyle.Format = "n1";
+                dataGridView2.Columns[3].DefaultCellStyle.Format = "n0";
             }
             catch
             {
@@ -80,6 +83,31 @@ namespace Cartera.Vista
                 MessageBox.Show("Sin datos para el reporte");
             }
         }    
+        void CargarDisoluciones()
+        {
+            try
+            {
+                DtDisolucion = cartera.Disoluciones(dateInicio3.Text, datefin3.Text);
+                DataTable DtValorDisolucion=cartera.TotalDisoluciones(dateInicio3.Text, datefin3.Text);
+                int total = int.Parse(DtValorDisolucion.Rows[0]["Total Devuelto"].ToString());
+                labelTot.Text = "TOTAL DEVUELTO: $" + String.Format("{0:N0}", total);
+                labelCant.Text = "CANTIDAD: " + DtValorDisolucion.Rows[0]["Cantiad"].ToString();
+                dataGridView3.DataSource = DtDisolucion;
+                dataGridView3.Columns[1].Width = 130;
+                dataGridView3.Columns[2].Width = 130;
+                dataGridView3.Columns[5].DefaultCellStyle.Format = "n0";
+                dataGridView3.Columns[6].DefaultCellStyle.Format = "n0";
+                dataGridView3.Columns[7].DefaultCellStyle.Format = "n0";
+                dataGridView3.Columns[8].Width = 50;
+                dataGridView3.Columns[9].Width = 50;
+                dataGridView3.Columns[10].Width = 50;
+                dataGridView3.Columns[11].Width = 50;
+            }
+            catch
+            {
+                MessageBox.Show("Sin datos para el reporte");
+            }
+        }
 
         private void BtBuscar_Click(object sender, EventArgs e)
         {
@@ -110,6 +138,15 @@ namespace Cartera.Vista
             {
                 CargarRpVentas();
             }
+            else if (tabControl1.SelectedIndex == 2)
+            {
+                CargarDisoluciones();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            CargarDisoluciones();
         }
     }
 }

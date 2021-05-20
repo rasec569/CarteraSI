@@ -53,5 +53,13 @@ namespace Cartera.Controlador
         {
             return MCartera.TotalesCartera();
         }
+        public DataTable Disoluciones(string FechaInicio, string FechaFin)
+        {
+            return MCartera.Disoluciones( FechaInicio, FechaFin);
+        }
+        public DataTable TotalDisoluciones(string FechaInicio, string FechaFin)
+        {
+            return MCartera.TotalDisoluciones(FechaInicio, FechaFin);
+        }
     }
 }

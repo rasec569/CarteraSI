@@ -30,6 +30,10 @@ namespace Cartera.Vista
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -56,18 +60,18 @@ namespace Cartera.Vista
             this.labelVentas = new System.Windows.Forms.Label();
             this.labelTotalVentas = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.datefin3 = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateInicio3 = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.labelCant = new System.Windows.Forms.Label();
+            this.labelTot = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -78,9 +82,9 @@ namespace Cartera.Vista
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -125,10 +129,26 @@ namespace Cartera.Vista
             // dataGridView1
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle22;
             this.dataGridView1.Location = new System.Drawing.Point(6, 82);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(980, 507);
+            this.dataGridView1.Size = new System.Drawing.Size(975, 492);
             this.dataGridView1.TabIndex = 4;
             // 
             // groupBox1
@@ -160,7 +180,7 @@ namespace Cartera.Vista
             // datefin
             // 
             this.datefin.CustomFormat = "yyyy-MM-dd";
-            this.datefin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datefin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.datefin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datefin.Location = new System.Drawing.Point(271, 27);
             this.datefin.Name = "datefin";
@@ -180,7 +200,7 @@ namespace Cartera.Vista
             // dateInicio
             // 
             this.dateInicio.CustomFormat = "yyyy-MM-dd";
-            this.dateInicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateInicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateInicio.Location = new System.Drawing.Point(85, 26);
             this.dateInicio.Name = "dateInicio";
@@ -224,7 +244,7 @@ namespace Cartera.Vista
             // 
             this.labelTotal.AutoSize = true;
             this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTotal.Location = new System.Drawing.Point(24, 32);
+            this.labelTotal.Location = new System.Drawing.Point(23, 30);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(36, 13);
             this.labelTotal.TabIndex = 9;
@@ -260,10 +280,26 @@ namespace Cartera.Vista
             // dataGridView2
             // 
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle24;
             this.dataGridView2.Location = new System.Drawing.Point(6, 82);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(980, 507);
+            this.dataGridView2.Size = new System.Drawing.Size(980, 492);
             this.dataGridView2.TabIndex = 15;
             // 
             // groupBox3
@@ -295,7 +331,7 @@ namespace Cartera.Vista
             // datefin2
             // 
             this.datefin2.CustomFormat = "yyyy-MM-dd";
-            this.datefin2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datefin2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.datefin2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datefin2.Location = new System.Drawing.Point(241, 26);
             this.datefin2.Name = "datefin2";
@@ -315,7 +351,7 @@ namespace Cartera.Vista
             // dateInicio2
             // 
             this.dateInicio2.CustomFormat = "yyyy-MM-dd";
-            this.dateInicio2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateInicio2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateInicio2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateInicio2.Location = new System.Drawing.Point(68, 26);
             this.dateInicio2.Name = "dateInicio2";
@@ -359,7 +395,7 @@ namespace Cartera.Vista
             // 
             this.labelTotalVentas.AutoSize = true;
             this.labelTotalVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTotalVentas.Location = new System.Drawing.Point(24, 32);
+            this.labelTotalVentas.Location = new System.Drawing.Point(28, 29);
             this.labelTotalVentas.Name = "labelTotalVentas";
             this.labelTotalVentas.Size = new System.Drawing.Size(36, 13);
             this.labelTotalVentas.TabIndex = 9;
@@ -372,7 +408,7 @@ namespace Cartera.Vista
             this.tabPage3.Controls.Add(this.dataGridView3);
             this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Controls.Add(this.groupBox6);
-            this.tabPage3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -391,21 +427,12 @@ namespace Cartera.Vista
             this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // dataGridView3
-            // 
-            this.dataGridView3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(6, 78);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(980, 507);
-            this.dataGridView3.TabIndex = 19;
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.button3);
-            this.groupBox5.Controls.Add(this.dateTimePicker1);
+            this.groupBox5.Controls.Add(this.datefin3);
             this.groupBox5.Controls.Add(this.label5);
-            this.groupBox5.Controls.Add(this.dateTimePicker2);
+            this.groupBox5.Controls.Add(this.dateInicio3);
             this.groupBox5.Controls.Add(this.label6);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(26, 9);
@@ -424,17 +451,18 @@ namespace Cartera.Vista
             this.button3.TabIndex = 7;
             this.toolTip1.SetToolTip(this.button3, "Buscar Ventas");
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // dateTimePicker1
+            // datefin3
             // 
-            this.dateTimePicker1.CustomFormat = "yyyy-MM-dd";
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(241, 26);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(108, 20);
-            this.dateTimePicker1.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.dateTimePicker1, "Fecha Final Reporte");
+            this.datefin3.CustomFormat = "dd/MM/yyyy";
+            this.datefin3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datefin3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datefin3.Location = new System.Drawing.Point(241, 26);
+            this.datefin3.Name = "datefin3";
+            this.datefin3.Size = new System.Drawing.Size(108, 20);
+            this.datefin3.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.datefin3, "Fecha Final Reporte");
             // 
             // label5
             // 
@@ -445,16 +473,16 @@ namespace Cartera.Vista
             this.label5.TabIndex = 0;
             this.label5.Text = "Inicial";
             // 
-            // dateTimePicker2
+            // dateInicio3
             // 
-            this.dateTimePicker2.CustomFormat = "yyyy-MM-dd";
-            this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(68, 26);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(119, 20);
-            this.dateTimePicker2.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.dateTimePicker2, "Fecha Inicial Reporte");
+            this.dateInicio3.CustomFormat = "dd/MM/yyyy";
+            this.dateInicio3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateInicio3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateInicio3.Location = new System.Drawing.Point(68, 26);
+            this.dateInicio3.Name = "dateInicio3";
+            this.dateInicio3.Size = new System.Drawing.Size(119, 20);
+            this.dateInicio3.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.dateInicio3, "Fecha Inicial Reporte");
             // 
             // label6
             // 
@@ -467,37 +495,46 @@ namespace Cartera.Vista
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.label7);
-            this.groupBox6.Controls.Add(this.label8);
+            this.groupBox6.Controls.Add(this.labelCant);
+            this.groupBox6.Controls.Add(this.labelTot);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox6.Location = new System.Drawing.Point(508, 10);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(405, 62);
             this.groupBox6.TabIndex = 18;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Ventas";
+            this.groupBox6.Text = "Disoluciones";
             // 
-            // label7
+            // labelCant
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(224, 30);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(46, 13);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Ventas";
-            this.toolTip1.SetToolTip(this.label7, "Numero de Ventas");
+            this.labelCant.AutoSize = true;
+            this.labelCant.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCant.Location = new System.Drawing.Point(262, 29);
+            this.labelCant.Name = "labelCant";
+            this.labelCant.Size = new System.Drawing.Size(57, 13);
+            this.labelCant.TabIndex = 11;
+            this.labelCant.Text = "Cantidad";
+            this.toolTip1.SetToolTip(this.labelCant, "Numero de Ventas");
             // 
-            // label8
+            // labelTot
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(24, 32);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 13);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Total";
-            this.toolTip1.SetToolTip(this.label8, "Valor Total Ventas");
+            this.labelTot.AutoSize = true;
+            this.labelTot.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTot.Location = new System.Drawing.Point(23, 29);
+            this.labelTot.Name = "labelTot";
+            this.labelTot.Size = new System.Drawing.Size(36, 13);
+            this.labelTot.TabIndex = 9;
+            this.labelTot.Text = "Total";
+            this.toolTip1.SetToolTip(this.labelTot, "Valor Total Ventas");
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Location = new System.Drawing.Point(6, 78);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.Size = new System.Drawing.Size(968, 496);
+            this.dataGridView3.TabIndex = 19;
             // 
             // Reportes
             // 
@@ -523,11 +560,11 @@ namespace Cartera.Vista
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -562,15 +599,15 @@ namespace Cartera.Vista
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker datefin3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateInicio3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelCant;
+        private System.Windows.Forms.Label labelTot;
+        private System.Windows.Forms.DataGridView dataGridView3;
     }
 }

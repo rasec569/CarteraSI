@@ -295,7 +295,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 10f, 20f, 20f, 14f, 7f, 8f, 7f, 10f, 10f, 10f, 10f}, 100, 7));
+                                document.Add(TablasLetras(report, new float[] { 10f, 19f, 20f, 14f, 7f, 7f, 7f, 7f, 10f, 8f, 9f, 9f}, 100, 7));
                             }
                             else
                             {

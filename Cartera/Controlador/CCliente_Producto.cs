@@ -26,5 +26,6 @@ namespace Cartera.Controlador
         {
             return MCliente_Producto.EstadoDisolver(id_Cliente, Id_Producto, fechacambio);
         }
+
     }
 }

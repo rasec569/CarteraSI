@@ -43,6 +43,7 @@ namespace Cartera.Vista
             // Usuario
             // 
             resources.ApplyResources(this.Usuario, "Usuario");
+            this.Usuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(50)))), ((int)(((byte)(0)))));
             this.Usuario.Name = "Usuario";
             // 
             // textUser
@@ -70,6 +71,7 @@ namespace Cartera.Vista
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(50)))), ((int)(((byte)(0)))));
             this.label2.Name = "label2";
             // 
             // pictureBox1
