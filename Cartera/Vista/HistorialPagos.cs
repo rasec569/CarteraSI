@@ -278,8 +278,8 @@ namespace Cartera.Vista
                 if (n != -1)
                 {
                     int id_pagos = int.Parse(dataGridView2.Rows[n].Cells["Id_Pagos"].Value.ToString());
-                    string pago= dataGridView2.Rows[n].Cells["Pago"].Value.ToString();
-                    string tipo = dataGridView2.Rows[n].Cells["Tipo Pago"].Value.ToString();
+                    string pago= dataGridView2.Rows[n].Cells["Cuota"].Value.ToString();
+                    string tipo = dataGridView2.Rows[n].Cells["Tipo"].Value.ToString();
                     string referencia = dataGridView2.Rows[n].Cells["Referencia"].Value.ToString();
                     string concepto = dataGridView2.Rows[n].Cells["Concepto"].Value.ToString();
                     string entidad = dataGridView2.Rows[n].Cells["Entidad"].Value.ToString();

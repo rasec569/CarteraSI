@@ -180,7 +180,7 @@ namespace Cartera.Reportes
                 //return file;
             }            
         }
-        public void Cartera(DataTable report, string total, string recaudado, string deuda )
+        public void Cartera(DataTable report, string total, string recaudado, string deuda, string proyecto )
         {
             //string nombre = "Historial de pagos";
 
@@ -250,7 +250,7 @@ namespace Cartera.Reportes
                                 texto.RemoveAt(0);
 
                                 texto.Font = FontFactory.GetFont("Verdana", 7);
-                                texto.Add("REPORTE - CARTERA ");
+                                texto.Add("REPORTE - CARTERA "+ proyecto);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 

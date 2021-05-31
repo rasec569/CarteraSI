@@ -14,6 +14,10 @@ namespace Cartera.Controlador
         {
            return MProducto.cargarProductos();
         }
+        public DataTable cargarProductosProyecto(int proyectoid)
+        {
+            return MProducto.cargarProductosProyecto(proyectoid);
+        }
         public DataTable BuscarProductos(string Nombre_Producto)
         {
             return MProducto.BuscarProductos(Nombre_Producto);

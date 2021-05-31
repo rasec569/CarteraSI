@@ -24,6 +24,10 @@ namespace Cartera.Controlador
         {
             return MCartera.ListarCartera();
         }
+        public  DataTable ListarCarteraProyecto(int proyectoid)
+        {
+            return MCartera.ListarCarteraProyecto(proyectoid);
+        }
         public DataTable CarteraCliente(string cedula)
         {
             return MCartera.CarteraCliente(cedula);

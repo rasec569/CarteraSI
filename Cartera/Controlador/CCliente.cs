@@ -15,6 +15,10 @@ namespace Cartera.Controlador
         {
             return MCliente.cargarClientes();
         }
+        public DataTable cargarClientesProyecto(int proyectoid)
+        {
+            return MCliente.cargarClientesProyecto(proyectoid);
+        }
 
         public DataTable cargarClientes(string nombre) 
         {

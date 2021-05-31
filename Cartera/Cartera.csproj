@@ -293,6 +293,7 @@
     <None Include="img\Guardar1.png" />
     <None Include="img\limpiar.png" />
     <None Include="img\Eliminar.png" />
+    <None Include="img\home2.png" />
     <Content Include="img\logo San Isidro.png" />
     <None Include="img\ReporPdf.png" />
   </ItemGroup>

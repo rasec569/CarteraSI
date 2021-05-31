@@ -80,6 +80,8 @@ namespace Cartera.Vista
                     Cartera_id = int.Parse(DtUsuario.Rows[0]["Fk_Id_Cartera"].ToString());
                     CargarProducto();
                     BtGuardarCliente.Enabled = true;
+                    comboProyectos.Enabled = false;
+                    label26.Enabled = false;
                     button2.Enabled = false;
                 }
                 else
@@ -285,7 +287,7 @@ namespace Cartera.Vista
                         }
                     }
                 }
-
+                BtBuscarCliente.Enabled = true;
                 Panel_Registrar_user.Visible = false;
                 //Panel_Clientes.Visible = true;
                 CargarClientes();
@@ -417,7 +419,8 @@ namespace Cartera.Vista
                 int n = e.RowIndex;
                 if (n != -1)
                 {
-                    BtBuscarCliente.Enabled = false;
+                    comboProyectos.Enabled = false;
+                    label26.Enabled = false;
                     button2.Enabled = false;
                     Panel_Registrar_user.Visible = true;
                     BtGuardarCliente.Enabled = true;
@@ -897,6 +900,48 @@ namespace Cartera.Vista
             {
 
             }
+        }
+        private void comboProyectos_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (comboProyectos.Text == "TODOS LOS PROYECTOS")
+            {
+                comboProyectos.DataSource = proyecto.listarProyectos();
+                comboProyectos.DisplayMember = "Proyecto_Nombre";
+                comboProyectos.ValueMember = "Id_Proyecto";
+            }
+        }
+
+        private void comboProyectos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DtCliente = cliente.cargarClientesProyecto(int.Parse(comboProyectos.SelectedIndex.ToString()));
+            DtReportes = DtCliente.Copy();
+            dataGridView1.DataSource = DtCliente;
+            dataGridView1.Columns["Id_Cliente"].Visible = false;
+            dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
+            DtReportes.Columns.Remove("Id_Cliente");
+            DtReportes.Columns.Remove("Fk_Id_Cartera");
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Panel_Registrar_user.Visible = false;
+            BtGuardarCliente.Enabled = false;
+            dateFechaEstado.Visible = false;
+            comboEstadoCliente.Visible = false;
+            comboProyectos.Enabled = true;
+            label26.Enabled = true;
+            comboProyectos.Text = "TODOS LOS PROYECTOS";
+            LimpiarUsuario();
+            LimpiarProducto();
+            Bloquear_Financiado();
+            BtBuscarCliente.Enabled = true;
+            button2.Enabled = true;
+            Cartera_id = 0;
+            Cliente_id = "";
+            Producto_id = "";
+            Financiacion_id = "";
+            dataGridView2.DataSource = "";
+            CargarClientes();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Cartera.Vista
         CProducto producto = new CProducto();
         DataTable DtProductos = new DataTable();
         DataTable DtReport = new DataTable();
+        CProyecto proyecto = new CProyecto();
         private ReportesPDF reportesPDF;
         public Productos()
         {
@@ -31,12 +32,20 @@ namespace Cartera.Vista
         }
         private void CargarProducto()
         {
-            dataGridView1.DataSource = producto.cargarProductos();
+            DtProductos = producto.cargarProductos();
+            DtReport = DtProductos.Copy();
+            DtReport.Columns.Remove("Id_Producto");
+            DtReport.Columns.Remove("Fk_Id_Proyecto");
+            DtReport.Columns.Remove("Fk_Id_Tipo_Producto");
+            DtReport.Columns.Remove("Id_Financiacion");
+            DtReport.Columns.Remove("Observaciones");
+            dataGridView1.DataSource = DtProductos;
             FormtearGridView();
             DataTable DtValorProductos = producto.ValorReportProducto();
-            int total = int.Parse(DtValorProductos.Rows[0]["valor"].ToString());
-            labelValor.Text = "TOTAL: $" + String.Format("{0:N1}", total);
+            Int64 total = Int64.Parse(DtValorProductos.Rows[0]["valor"].ToString());
+            labelValor.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
             labelCantidad.Text = "CANTIDAD: " + DtValorProductos.Rows[0]["productos"].ToString();
+
         }
 
         private void BtBuscarProducto_Click(object sender, EventArgs e)
@@ -67,12 +76,6 @@ namespace Cartera.Vista
         {
             AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
             DtProductos = producto.cargarProductos();
-            DtReport = DtProductos.Copy();
-            DtReport.Columns.Remove("Id_Producto");
-            DtReport.Columns.Remove("Fk_Id_Proyecto");
-            DtReport.Columns.Remove("Fk_Id_Tipo_Producto");
-            DtReport.Columns.Remove("Id_Financiacion");
-            DtReport.Columns.Remove("Observaciones");
 
             for (int i = 0; i < DtProductos.Rows.Count; i++)
             {
@@ -116,6 +119,44 @@ namespace Cartera.Vista
         private void button1_Click(object sender, EventArgs e)
         {
             reportesPDF.Productos(DtReport);
+        }
+
+        private void comboProyectos_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (comboProyectos.Text == "TODOS LOS PROYECTOS")
+            {
+                comboProyectos.DataSource = proyecto.listarProyectos();
+                comboProyectos.DisplayMember = "Proyecto_Nombre";
+                comboProyectos.ValueMember = "Id_Proyecto";
+            }
+
+        }
+
+        private void comboProyectos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                DtProductos = producto.cargarProductosProyecto(int.Parse(comboProyectos.SelectedIndex.ToString()));
+                DtReport = DtProductos.Copy();
+                DtReport.Columns.Remove("Id_Producto");
+                DtReport.Columns.Remove("Fk_Id_Proyecto");
+                DtReport.Columns.Remove("Fk_Id_Tipo_Producto");
+                DtReport.Columns.Remove("Id_Financiacion");
+                DtReport.Columns.Remove("Observaciones");
+                dataGridView1.DataSource = DtProductos;
+                FormtearGridView();
+                Int64 total = 0;
+                foreach (DataRow row in DtProductos.Rows)
+                {
+                    total += Convert.ToInt32(row["Valor Total"]);
+                }
+                labelValor.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
+                labelCantidad.Text = "CANTIDAD: " + DtProductos.Rows.Count;
+            }
+            catch
+            {
+
+            }
         }
     }
 }

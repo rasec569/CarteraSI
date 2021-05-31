@@ -41,6 +41,8 @@ namespace Cartera.Vista
             this.btTipoProducto = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label26 = new System.Windows.Forms.Label();
+            this.comboProyectos = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -60,7 +62,7 @@ namespace Cartera.Vista
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 22);
+            this.label1.Location = new System.Drawing.Point(6, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 1;
@@ -70,21 +72,23 @@ namespace Cartera.Vista
             // 
             this.txtBuscarProducto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtBuscarProducto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtBuscarProducto.Location = new System.Drawing.Point(85, 19);
+            this.txtBuscarProducto.Location = new System.Drawing.Point(62, 19);
             this.txtBuscarProducto.Name = "txtBuscarProducto";
-            this.txtBuscarProducto.Size = new System.Drawing.Size(276, 20);
+            this.txtBuscarProducto.Size = new System.Drawing.Size(145, 20);
             this.txtBuscarProducto.TabIndex = 2;
             this.toolTip1.SetToolTip(this.txtBuscarProducto, "Busqueda por nombre");
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label26);
+            this.groupBox1.Controls.Add(this.comboProyectos);
             this.groupBox1.Controls.Add(this.txtBuscarProducto);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.BtBuscarProducto);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(413, 52);
+            this.groupBox1.Size = new System.Drawing.Size(603, 52);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buscar";
@@ -92,7 +96,7 @@ namespace Cartera.Vista
             // BtBuscarProducto
             // 
             this.BtBuscarProducto.Image = global::Cartera.Properties.Resources.buscar;
-            this.BtBuscarProducto.Location = new System.Drawing.Point(367, 14);
+            this.BtBuscarProducto.Location = new System.Drawing.Point(213, 13);
             this.BtBuscarProducto.Name = "BtBuscarProducto";
             this.BtBuscarProducto.Size = new System.Drawing.Size(34, 29);
             this.BtBuscarProducto.TabIndex = 3;
@@ -117,9 +121,9 @@ namespace Cartera.Vista
             this.groupBox2.Controls.Add(this.labelValor);
             this.groupBox2.Controls.Add(this.labelCantidad);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(477, 13);
+            this.groupBox2.Location = new System.Drawing.Point(621, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(329, 52);
+            this.groupBox2.Size = new System.Drawing.Size(281, 52);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Productos";
@@ -128,7 +132,7 @@ namespace Cartera.Vista
             // 
             this.labelValor.AutoSize = true;
             this.labelValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelValor.Location = new System.Drawing.Point(143, 22);
+            this.labelValor.Location = new System.Drawing.Point(119, 22);
             this.labelValor.Name = "labelValor";
             this.labelValor.Size = new System.Drawing.Size(36, 13);
             this.labelValor.TabIndex = 12;
@@ -138,7 +142,7 @@ namespace Cartera.Vista
             // btTipoProducto
             // 
             this.btTipoProducto.Image = global::Cartera.Properties.Resources.TipoProducto;
-            this.btTipoProducto.Location = new System.Drawing.Point(906, 27);
+            this.btTipoProducto.Location = new System.Drawing.Point(908, 27);
             this.btTipoProducto.Name = "btTipoProducto";
             this.btTipoProducto.Size = new System.Drawing.Size(33, 29);
             this.btTipoProducto.TabIndex = 8;
@@ -149,13 +153,35 @@ namespace Cartera.Vista
             // button1
             // 
             this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button1.Location = new System.Drawing.Point(945, 27);
+            this.button1.Location = new System.Drawing.Point(947, 27);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(31, 29);
             this.button1.TabIndex = 9;
             this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(261, 21);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(57, 13);
+            this.label26.TabIndex = 31;
+            this.label26.Text = "Proyecto";
+            // 
+            // comboProyectos
+            // 
+            this.comboProyectos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboProyectos.FormattingEnabled = true;
+            this.comboProyectos.Location = new System.Drawing.Point(322, 18);
+            this.comboProyectos.Name = "comboProyectos";
+            this.comboProyectos.Size = new System.Drawing.Size(275, 21);
+            this.comboProyectos.TabIndex = 32;
+            this.comboProyectos.Text = "TODOS LOS PROYECTOS";
+            this.comboProyectos.SelectedIndexChanged += new System.EventHandler(this.comboProyectos_SelectedIndexChanged);
+            this.comboProyectos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboProyectos_MouseClick);
             // 
             // Productos
             // 
@@ -193,5 +219,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelValor;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ComboBox comboProyectos;
     }
 }

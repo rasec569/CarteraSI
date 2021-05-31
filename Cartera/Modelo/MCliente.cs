@@ -20,8 +20,13 @@ namespace Cartera.Modelo
         public string Correo { get; set; }
         public int IdCartera { get; set; }
 
-        public static DataTable cargarClientes(){
-        return Conexion.consulta("Select Id_Cliente, Cedula, Nombre as Nombres, Apellido as Apellidos, Telefono, Direccion as Dirección, Correo, Fk_Id_Cartera from Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente WHERE Estado_Cliente='Activo' GROUP by Id_Cliente ORDER by Nombre");
+        public static DataTable cargarClientes()
+        {
+        return Conexion.consulta("Select Id_Cliente, Cedula, Nombre as Nombres, Apellido as Apellidos, Telefono, Direccion as Dirección, Correo, Fk_Id_Cartera from Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente WHERE Estado_Cliente='Activo' GROUP by Id_Cliente ORDER by Nombre;");
+        }
+        public static DataTable cargarClientesProyecto(int proyectoid)
+        {
+            return Conexion.consulta("Select Id_Cliente, Cedula, Nombre as Nombres, Apellido as Apellidos, Telefono, Direccion as Dirección, Correo, Fk_Id_Cartera from Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto WHERE Estado_Cliente='Activo' AND Fk_Id_Proyecto='" + proyectoid + "' GROUP by Id_Cliente ORDER by Nombre;");
         }
 
         public static DataTable cargarClientes(string nombre){
