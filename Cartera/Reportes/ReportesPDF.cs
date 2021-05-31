@@ -1014,7 +1014,7 @@ namespace Cartera.Reportes
                 pdfTab.TotalWidth = document.PageSize.Width - 20;
                 //call WriteSelectedRows of PdfTable. This writes rows from PdfWriter in PdfTable
                 //first param is start row. -1 indicates there is no end row and all the rows to be included to write
-                //Third and fourth param is x and y position to start writing
+                //Third and fourth param is x and y position to start writing                
                 pdfTab.WriteSelectedRows(0, -1, 10, document.PageSize.Height - 20, writer.DirectContent);
                 //set pdfContent value
                 pdfContent = writer.DirectContent;

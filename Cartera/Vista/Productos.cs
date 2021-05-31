@@ -158,5 +158,11 @@ namespace Cartera.Vista
 
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            comboProyectos.Text = "TODOS LOS PROYECTOS";
+            CargarProducto();
+        }
     }
 }
