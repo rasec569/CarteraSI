@@ -44,7 +44,6 @@ namespace Cartera.Vista
             this.label9 = new System.Windows.Forms.Label();
             this.txtValorDescuento = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Btbuscar = new System.Windows.Forms.Button();
             this.Txtcedula = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtCuota = new System.Windows.Forms.TextBox();
@@ -58,8 +57,11 @@ namespace Cartera.Vista
             this.txtConcepto = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.TxtEntidad = new System.Windows.Forms.TextBox();
+            this.Btbuscar = new System.Windows.Forms.Button();
             this.BtEliminar = new System.Windows.Forms.Button();
             this.BtRegistrarPago = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panelProductos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -193,6 +195,8 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.Btbuscar);
             this.groupBox1.Controls.Add(this.Txtcedula);
             this.groupBox1.Controls.Add(this.txtNombre);
@@ -203,35 +207,28 @@ namespace Cartera.Vista
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
-            // 
-            // Btbuscar
-            // 
-            this.Btbuscar.Image = global::Cartera.Properties.Resources.buscar;
-            this.Btbuscar.Location = new System.Drawing.Point(536, 15);
-            this.Btbuscar.Name = "Btbuscar";
-            this.Btbuscar.Size = new System.Drawing.Size(33, 27);
-            this.Btbuscar.TabIndex = 2;
-            this.Btbuscar.UseVisualStyleBackColor = true;
-            this.Btbuscar.Click += new System.EventHandler(this.Btbuscar_Click);
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // Txtcedula
             // 
             this.Txtcedula.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Txtcedula.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.Txtcedula.Enabled = false;
-            this.Txtcedula.Location = new System.Drawing.Point(38, 19);
+            this.Txtcedula.Location = new System.Drawing.Point(51, 19);
             this.Txtcedula.Name = "Txtcedula";
             this.Txtcedula.Size = new System.Drawing.Size(134, 20);
             this.Txtcedula.TabIndex = 1;
+            this.Txtcedula.TextChanged += new System.EventHandler(this.Txtcedula_TextChanged);
             // 
             // txtNombre
             // 
             this.txtNombre.Enabled = false;
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(191, 19);
+            this.txtNombre.Location = new System.Drawing.Point(255, 19);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(317, 20);
+            this.txtNombre.Size = new System.Drawing.Size(292, 20);
             this.txtNombre.TabIndex = 19;
+            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // txtCuota
             // 
@@ -274,6 +271,7 @@ namespace Cartera.Vista
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(598, 194);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
             // 
@@ -325,6 +323,16 @@ namespace Cartera.Vista
             this.TxtEntidad.Size = new System.Drawing.Size(444, 20);
             this.TxtEntidad.TabIndex = 8;
             // 
+            // Btbuscar
+            // 
+            this.Btbuscar.Image = global::Cartera.Properties.Resources.buscar;
+            this.Btbuscar.Location = new System.Drawing.Point(558, 15);
+            this.Btbuscar.Name = "Btbuscar";
+            this.Btbuscar.Size = new System.Drawing.Size(33, 27);
+            this.Btbuscar.TabIndex = 2;
+            this.Btbuscar.UseVisualStyleBackColor = true;
+            this.Btbuscar.Click += new System.EventHandler(this.Btbuscar_Click);
+            // 
             // BtEliminar
             // 
             this.BtEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -353,11 +361,30 @@ namespace Cartera.Vista
             this.BtRegistrarPago.UseVisualStyleBackColor = true;
             this.BtRegistrarPago.Click += new System.EventHandler(this.BtRegistrarPago_Click);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(4, 22);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(46, 13);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Cedula";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(193, 22);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(56, 13);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "Nombres";
+            // 
             // RegistrarPago
             // 
             this.AcceptButton = this.Btbuscar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(621, 265);
             this.Controls.Add(this.panelProductos);
             this.Controls.Add(this.BtEliminar);
@@ -431,5 +458,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.TextBox TxtEntidad;
         private System.Windows.Forms.Button BtEliminar;
         private System.Windows.Forms.Button BtRegistrarPago;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }

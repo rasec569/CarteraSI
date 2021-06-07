@@ -139,6 +139,19 @@ namespace Cartera.Vista
             dataGridView1.Columns["Tipo Producto"].Visible=false;
             dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
+            formatoGrid1();
+        }
+        private void formatoGrid1()
+        {
+            dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns[4].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns[1].Width = 65;
+            dataGridView1.Columns[2].Width = 65;
+            dataGridView1.Columns[3].Width = 70;
+            dataGridView1.Columns[4].Width = 65;
+            dataGridView1.Columns[5].Width = 65;
+            dataGridView1.Columns[6].Width = 65;
+            dataGridView1.Columns[8].Width = 160;
         }
         private bool ValidarCampos()
         {
@@ -182,7 +195,7 @@ namespace Cartera.Vista
             DataTable dtclientes = cliente.BuscarClientesCedula(Txtcedula.Text);
             clienteId =int.Parse(dtclientes.Rows[0]["Id_Cliente"].ToString());
             carteraId= int.Parse(dtclientes.Rows[0]["Fk_Id_Cartera"].ToString());
-            txtNombre.Text= dtclientes.Rows[0]["Nombre"].ToString();
+            txtNombre.Text= dtclientes.Rows[0]["Nombre"].ToString()+" "+dtclientes.Rows[0]["Apellido"].ToString();
             CargarProducto();
            // string clienteid = "";
             //HistorialPagos Hp = new HistorialPagos();
@@ -339,6 +352,26 @@ namespace Cartera.Vista
                     errorProvider1.Clear();
                 }
             }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Txtcedula_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }    
 }

@@ -37,6 +37,8 @@ namespace Cartera.Vista
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtLimpiar = new System.Windows.Forms.Button();
+            this.BtBorrar = new System.Windows.Forms.Button();
             this.LbConctato = new System.Windows.Forms.Label();
             this.LbPropietario = new System.Windows.Forms.Label();
             this.LbNomProducto = new System.Windows.Forms.Label();
@@ -51,9 +53,9 @@ namespace Cartera.Vista
             // 
             this.GuardarSegui.ForeColor = System.Drawing.SystemColors.ControlText;
             this.GuardarSegui.Image = global::Cartera.Properties.Resources.Guardar1;
-            this.GuardarSegui.Location = new System.Drawing.Point(723, 44);
+            this.GuardarSegui.Location = new System.Drawing.Point(694, 79);
             this.GuardarSegui.Name = "GuardarSegui";
-            this.GuardarSegui.Size = new System.Drawing.Size(40, 30);
+            this.GuardarSegui.Size = new System.Drawing.Size(30, 30);
             this.GuardarSegui.TabIndex = 0;
             this.toolTip1.SetToolTip(this.GuardarSegui, "Guardar Seguimiento");
             this.GuardarSegui.UseVisualStyleBackColor = true;
@@ -61,9 +63,11 @@ namespace Cartera.Vista
             // 
             // txtcomentario
             // 
-            this.txtcomentario.Location = new System.Drawing.Point(83, 50);
+            this.txtcomentario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtcomentario.Location = new System.Drawing.Point(20, 70);
+            this.txtcomentario.Multiline = true;
             this.txtcomentario.Name = "txtcomentario";
-            this.txtcomentario.Size = new System.Drawing.Size(512, 20);
+            this.txtcomentario.Size = new System.Drawing.Size(631, 49);
             this.txtcomentario.TabIndex = 1;
             this.toolTip1.SetToolTip(this.txtcomentario, "Observaciones  o Comentarios da la comunicación con el Cliente");
             // 
@@ -71,25 +75,28 @@ namespace Cartera.Vista
             // 
             this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(613, 50);
+            this.dateTimePicker1.Location = new System.Drawing.Point(648, 0);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(104, 20);
             this.dateTimePicker1.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.dateTimePicker1, "Fecha Seguimiento");
             // 
             // dataGridView1
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 101);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 143);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(778, 226);
+            this.dataGridView1.Size = new System.Drawing.Size(778, 240);
             this.dataGridView1.TabIndex = 3;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 53);
+            this.label1.Location = new System.Drawing.Point(17, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 4;
@@ -97,6 +104,8 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BtLimpiar);
+            this.groupBox1.Controls.Add(this.BtBorrar);
             this.groupBox1.Controls.Add(this.LbConctato);
             this.groupBox1.Controls.Add(this.LbPropietario);
             this.groupBox1.Controls.Add(this.LbNomProducto);
@@ -107,16 +116,41 @@ namespace Cartera.Vista
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(21, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(769, 83);
+            this.groupBox1.Size = new System.Drawing.Size(769, 125);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Producto";
+            // 
+            // BtLimpiar
+            // 
+            this.BtLimpiar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtLimpiar.Image = global::Cartera.Properties.Resources.limpiar;
+            this.BtLimpiar.Location = new System.Drawing.Point(657, 79);
+            this.BtLimpiar.Name = "BtLimpiar";
+            this.BtLimpiar.Size = new System.Drawing.Size(31, 30);
+            this.BtLimpiar.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.BtLimpiar, "Limpiar");
+            this.BtLimpiar.UseVisualStyleBackColor = true;
+            this.BtLimpiar.Click += new System.EventHandler(this.BtLimpiar_Click);
+            // 
+            // BtBorrar
+            // 
+            this.BtBorrar.Enabled = false;
+            this.BtBorrar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtBorrar.Image = global::Cartera.Properties.Resources.Eliminar;
+            this.BtBorrar.Location = new System.Drawing.Point(730, 79);
+            this.BtBorrar.Name = "BtBorrar";
+            this.BtBorrar.Size = new System.Drawing.Size(30, 30);
+            this.BtBorrar.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.BtBorrar, "Eliminar Seguimiento");
+            this.BtBorrar.UseVisualStyleBackColor = true;
+            this.BtBorrar.Click += new System.EventHandler(this.BtBorrar_Click);
             // 
             // LbConctato
             // 
             this.LbConctato.AutoSize = true;
             this.LbConctato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbConctato.Location = new System.Drawing.Point(420, 22);
+            this.LbConctato.Location = new System.Drawing.Point(410, 22);
             this.LbConctato.Name = "LbConctato";
             this.LbConctato.Size = new System.Drawing.Size(58, 13);
             this.LbConctato.TabIndex = 8;
@@ -127,7 +161,7 @@ namespace Cartera.Vista
             // 
             this.LbPropietario.AutoSize = true;
             this.LbPropietario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbPropietario.Location = new System.Drawing.Point(114, 22);
+            this.LbPropietario.Location = new System.Drawing.Point(96, 22);
             this.LbPropietario.Name = "LbPropietario";
             this.LbPropietario.Size = new System.Drawing.Size(68, 13);
             this.LbPropietario.TabIndex = 7;
@@ -152,7 +186,8 @@ namespace Cartera.Vista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 330);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(802, 395);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -182,5 +217,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label LbNomProducto;
         private System.Windows.Forms.Label LbPropietario;
         private System.Windows.Forms.Label LbConctato;
+        private System.Windows.Forms.Button BtBorrar;
+        private System.Windows.Forms.Button BtLimpiar;
     }
 }

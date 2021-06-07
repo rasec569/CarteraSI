@@ -20,5 +20,13 @@ namespace Cartera.Controlador
         {
             return seguimiento.GuardarSeguimiento(comentario, fecha, idproducto);
         }
+        public int EliminarSeguimiento(int Id_Seguimiento)
+        {
+            return seguimiento.EliminarSeguimiento(Id_Seguimiento);
+        }
+        public int ActualizarSeguimiento(int Id_Seguimiento, string comentario, string fecha)
+        {
+            return seguimiento.ActualizarSeguimiento(Id_Seguimiento, comentario, fecha);
+        }
     }
 }

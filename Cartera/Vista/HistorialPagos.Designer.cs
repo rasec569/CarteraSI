@@ -51,11 +51,11 @@ namespace Cartera.Vista
             this.labelSaldoFecha = new System.Windows.Forms.Label();
             this.TxtDeudaFecha = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.labelCuotas = new System.Windows.Forms.Label();
-            this.labelPagadas = new System.Windows.Forms.Label();
-            this.labelMora = new System.Windows.Forms.Label();
-            this.labelMeses = new System.Windows.Forms.Label();
             this.labelmes = new System.Windows.Forms.Label();
+            this.labelMeses = new System.Windows.Forms.Label();
+            this.labelMora = new System.Windows.Forms.Label();
+            this.labelPagadas = new System.Windows.Forms.Label();
+            this.labelCuotas = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -287,35 +287,15 @@ namespace Cartera.Vista
             this.groupBox2.Text = "Estado";
             this.groupBox2.Visible = false;
             // 
-            // labelCuotas
+            // labelmes
             // 
-            this.labelCuotas.AutoSize = true;
-            this.labelCuotas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCuotas.Location = new System.Drawing.Point(53, 27);
-            this.labelCuotas.Name = "labelCuotas";
-            this.labelCuotas.Size = new System.Drawing.Size(46, 13);
-            this.labelCuotas.TabIndex = 0;
-            this.labelCuotas.Text = "Cuotas";
-            // 
-            // labelPagadas
-            // 
-            this.labelPagadas.AutoSize = true;
-            this.labelPagadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPagadas.Location = new System.Drawing.Point(428, 27);
-            this.labelPagadas.Name = "labelPagadas";
-            this.labelPagadas.Size = new System.Drawing.Size(46, 13);
-            this.labelPagadas.TabIndex = 1;
-            this.labelPagadas.Text = "Cuotas";
-            // 
-            // labelMora
-            // 
-            this.labelMora.AutoSize = true;
-            this.labelMora.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMora.Location = new System.Drawing.Point(613, 27);
-            this.labelMora.Name = "labelMora";
-            this.labelMora.Size = new System.Drawing.Size(46, 13);
-            this.labelMora.TabIndex = 2;
-            this.labelMora.Text = "Cuotas";
+            this.labelmes.AutoSize = true;
+            this.labelmes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelmes.Location = new System.Drawing.Point(224, 27);
+            this.labelmes.Name = "labelmes";
+            this.labelmes.Size = new System.Drawing.Size(46, 13);
+            this.labelmes.TabIndex = 4;
+            this.labelmes.Text = "Cuotas";
             // 
             // labelMeses
             // 
@@ -327,21 +307,42 @@ namespace Cartera.Vista
             this.labelMeses.TabIndex = 3;
             this.labelMeses.Text = "Cuotas";
             // 
-            // labelmes
+            // labelMora
             // 
-            this.labelmes.AutoSize = true;
-            this.labelmes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelmes.Location = new System.Drawing.Point(224, 27);
-            this.labelmes.Name = "labelmes";
-            this.labelmes.Size = new System.Drawing.Size(46, 13);
-            this.labelmes.TabIndex = 4;
-            this.labelmes.Text = "Cuotas";
+            this.labelMora.AutoSize = true;
+            this.labelMora.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMora.Location = new System.Drawing.Point(613, 27);
+            this.labelMora.Name = "labelMora";
+            this.labelMora.Size = new System.Drawing.Size(46, 13);
+            this.labelMora.TabIndex = 2;
+            this.labelMora.Text = "Cuotas";
+            // 
+            // labelPagadas
+            // 
+            this.labelPagadas.AutoSize = true;
+            this.labelPagadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPagadas.Location = new System.Drawing.Point(428, 27);
+            this.labelPagadas.Name = "labelPagadas";
+            this.labelPagadas.Size = new System.Drawing.Size(46, 13);
+            this.labelPagadas.TabIndex = 1;
+            this.labelPagadas.Text = "Cuotas";
+            // 
+            // labelCuotas
+            // 
+            this.labelCuotas.AutoSize = true;
+            this.labelCuotas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCuotas.Location = new System.Drawing.Point(53, 27);
+            this.labelCuotas.Name = "labelCuotas";
+            this.labelCuotas.Size = new System.Drawing.Size(46, 13);
+            this.labelCuotas.TabIndex = 0;
+            this.labelCuotas.Text = "Cuotas";
             // 
             // HistorialPagos
             // 
             this.AcceptButton = this.BtBuscar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1034, 424);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.TxtDeudaFecha);

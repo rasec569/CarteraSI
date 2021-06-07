@@ -157,9 +157,9 @@ namespace Cartera.Vista
                     nombre = dataGridView1.Rows[n].Cells["Nombres"].Value.ToString();
                     apellido = dataGridView1.Rows[n].Cells["Apellidos"].Value.ToString();
                     carteraid = dataGridView1.Rows[n].Cells["Id_Cartera"].Value.ToString();
-                    RegistrarPago Rp = new RegistrarPago(cedula, nombre + " " + apellido, clienteid, carteraid);
-                    Rp.FormClosed += Pagos_FormClose;
-                    Rp.ShowDialog();
+                    Detalle D = new Detalle(cedula, nombre + " " + apellido, clienteid, carteraid);
+                    D.FormClosed += Pagos_FormClose;
+                    D.ShowDialog();
                 }
             }
             catch (Exception ex)
