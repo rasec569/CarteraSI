@@ -34,7 +34,7 @@ namespace Cartera.Vista
             dataGridView1.DataSource = producto.cargarProductosCliente(clienteId);
             dataGridView1.Columns["Id_Producto"].Visible = false;
             dataGridView1.Columns["Observaciones"].Visible = false;
-            dataGridView1.Columns["Tipo Producto"].Visible = false;
+            //dataGridView1.Columns["Tipo Producto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
             formatoGrid1();
@@ -58,10 +58,12 @@ namespace Cartera.Vista
             DataGridViewButtonColumn BtPago = new DataGridViewButtonColumn();
             //BtPago.Name = "Pago";
             BtPago.Name = "Pagar";
+            BtPago.HeaderText = "";
             BtPago.UseColumnTextForButtonValue = true;
             DataGridViewButtonColumn BtHistorial = new DataGridViewButtonColumn();
             //BtHistorial.Name = "Historial";
             BtHistorial.Name = "Historial";
+            BtHistorial.HeaderText = "";
             BtHistorial.UseColumnTextForButtonValue = true;
             dataGridView1.Columns.Add(BtPago);
             dataGridView1.Columns.Add(BtHistorial);
@@ -78,7 +80,17 @@ namespace Cartera.Vista
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celboton = this.dataGridView1.Rows[e.RowIndex].Cells["Pagar"] as DataGridViewButtonCell;                
-                Icon imgpagar = new Icon(Environment.CurrentDirectory + @"\\img\HistorialPagos.png");
+                Icon imgpagar = new Icon(Environment.CurrentDirectory + @"\\img\Pagos.ico");
+                e.Graphics.DrawIcon(imgpagar, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
+                this.dataGridView1.Rows[e.RowIndex].Height = imgpagar.Height + 8;
+                this.dataGridView1.Columns[e.ColumnIndex].Width = imgpagar.Width + 8;
+                e.Handled = true;
+            }
+            else if (e.ColumnIndex >= 0 && this.dataGridView1.Columns[e.ColumnIndex].Name == "Historial" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                DataGridViewButtonCell celboton = this.dataGridView1.Rows[e.RowIndex].Cells["Historial"] as DataGridViewButtonCell;
+                Icon imgpagar = new Icon(Environment.CurrentDirectory + @"\\img\HistorialPagos.ico");
                 e.Graphics.DrawIcon(imgpagar, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 this.dataGridView1.Rows[e.RowIndex].Height = imgpagar.Height + 8;
                 this.dataGridView1.Columns[e.ColumnIndex].Width = imgpagar.Width + 8;
