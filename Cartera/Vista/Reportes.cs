@@ -148,5 +148,10 @@ namespace Cartera.Vista
         {
             CargarDisoluciones();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

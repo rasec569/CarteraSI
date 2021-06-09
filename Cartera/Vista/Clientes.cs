@@ -2,6 +2,7 @@
 using Cartera.Reportes;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -101,8 +102,15 @@ namespace Cartera.Vista
             dataGridView1.DataSource = DtCliente;
             dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
+            dataGridView1.Columns[1].Width = 70;
+            dataGridView1.Columns[2].Width = 140;
+            dataGridView1.Columns[3].Width = 140;
+            dataGridView1.Columns[4].Width = 70;
+            dataGridView1.Columns[5].Width = 160;
+            dataGridView1.Columns[6].Width = 170;
             DtReportes.Columns.Remove("Id_Cliente");
             DtReportes.Columns.Remove("Fk_Id_Cartera");
+            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
         }
         private void CargarProducto()
         {
@@ -942,6 +950,14 @@ namespace Cartera.Vista
             Financiacion_id = "";
             dataGridView2.DataSource = "";
             CargarClientes();
+        }
+
+        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView1.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
         }
     }
 }

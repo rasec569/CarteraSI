@@ -63,14 +63,10 @@ namespace Cartera.Vista
             dataGridView1.Columns[4].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns["Inicial"].Visible = false;
-            dataGridView1.Columns["Valor 30"].Visible = false;
-            dataGridView1.Columns["Cuotas 30"].Visible = false;
-            dataGridView1.Columns["Valor Cuota 30"].Visible = false;
-            dataGridView1.Columns["Valor 70"].Visible = false;
-            dataGridView1.Columns["Cuotas 70"].Visible = false;
-            dataGridView1.Columns["Valor Cuota 70"].Visible = false;
+            dataGridView1.Columns["Valor Inicial"].Visible = false;
+            dataGridView1.Columns["Valor Saldo"].Visible = false;
             dataGridView1.Columns["Interes"].Visible = false;
-            dataGridView1.Columns["Fecha Recaudo"].Visible = false;
+            dataGridView1.Columns["Observaciones"].Visible = false;
         }
         void autocompletar()
         {

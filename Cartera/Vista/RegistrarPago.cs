@@ -55,7 +55,7 @@ namespace Cartera.Vista
             carteraId = int.Parse(carteraid);
             txtNombre.Text = nombre;
             Txtcedula.Text = cedula.ToString();
-            CargarProducto();
+            cargarpagocuota();
 
         }
         public RegistrarPago(string cedula,string nombre, string id_cartera,int id_producto, string producto, int id_pagos, string pago,string tipopago, string referencia, string concepto, string entidad, string fecha, string valor, string descuento, string valordescuento, string idcliente, int valproducto)
@@ -108,26 +108,29 @@ namespace Cartera.Vista
                 int n = e.RowIndex;
                 if (n != -1)
                 {
-
-                    panelProductos.Visible = false;
                     productoid = int.Parse(dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString());
                     valortotal = int.Parse(dataGridView1.Rows[n].Cells["Valor Total"].Value.ToString());                   
                     txtProducto.Text = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
-
-                    DataTable Dtcuota = pago.ConsultarUltimaCuota(productoid);
-                    string num_cuota = Dtcuota.Rows[0]["Numero_Cuota"].ToString();
-                    if (num_cuota == "")
-                    {
-                        txtCuota.Text = "1";
-                    }
-                    else {
-                        txtCuota.Text =(1 + int.Parse(num_cuota)).ToString();
-                    }
+                    cargarpagocuota();
                 }
             }
             catch
             {
                 MessageBox.Show("Valor no admitido");
+            }
+        }
+        private void cargarpagocuota()
+        {
+            panelProductos.Visible = false;
+            DataTable Dtcuota = pago.ConsultarUltimaCuota(productoid);
+            string num_cuota = Dtcuota.Rows[0]["Numero_Cuota"].ToString();
+            if (num_cuota == "")
+            {
+                txtCuota.Text = "1";
+            }
+            else
+            {
+                txtCuota.Text = (1 + int.Parse(num_cuota)).ToString();
             }
         }
 
@@ -352,26 +355,6 @@ namespace Cartera.Vista
                     errorProvider1.Clear();
                 }
             }
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtNombre_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void Txtcedula_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        }       
     }    
 }

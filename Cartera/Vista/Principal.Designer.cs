@@ -57,6 +57,7 @@ namespace Cartera.Vista
             // 
             this.PanelMenu.AutoSize = true;
             this.PanelMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.PanelMenu.Controls.Add(this.BtProductos);
             this.PanelMenu.Controls.Add(this.panel7);
             this.PanelMenu.Controls.Add(this.panel5);
             this.PanelMenu.Controls.Add(this.panel3);
@@ -70,7 +71,6 @@ namespace Cartera.Vista
             this.PanelMenu.Controls.Add(this.pictureBox1);
             this.PanelMenu.Controls.Add(this.BtReportes);
             this.PanelMenu.Controls.Add(this.BtProyectos);
-            this.PanelMenu.Controls.Add(this.BtProductos);
             this.PanelMenu.Controls.Add(this.BtClientes);
             this.PanelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.PanelMenu.Location = new System.Drawing.Point(0, 0);
@@ -228,7 +228,7 @@ namespace Cartera.Vista
             this.BtProyectos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
             this.BtProyectos.Image = ((System.Drawing.Image)(resources.GetObject("BtProyectos.Image")));
             this.BtProyectos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtProyectos.Location = new System.Drawing.Point(12, 298);
+            this.BtProyectos.Location = new System.Drawing.Point(12, 251);
             this.BtProyectos.Name = "BtProyectos";
             this.BtProyectos.Size = new System.Drawing.Size(188, 41);
             this.BtProyectos.TabIndex = 5;
@@ -246,7 +246,7 @@ namespace Cartera.Vista
             this.BtProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
             this.BtProductos.Image = ((System.Drawing.Image)(resources.GetObject("BtProductos.Image")));
             this.BtProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtProductos.Location = new System.Drawing.Point(12, 251);
+            this.BtProductos.Location = new System.Drawing.Point(12, 298);
             this.BtProductos.Name = "BtProductos";
             this.BtProductos.Size = new System.Drawing.Size(188, 41);
             this.BtProductos.TabIndex = 4;

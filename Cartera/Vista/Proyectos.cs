@@ -8,15 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cartera.Controlador;
+using Cartera.Reportes;
 
 namespace Cartera.Vista
 {
+
     public partial class Proyectos : Form
     {
         string idproyecto = "";
+        int idtipo = 0;
+        CProducto producto = new CProducto();
+        DataTable DtProductos = new DataTable();
+        DataTable DtReport = new DataTable();
         CProyecto proyecto = new CProyecto();
+        private ReportesPDF reportesPDF;
         public Proyectos()
         {
+            reportesPDF = new ReportesPDF();
             InitializeComponent();
             CargarProyectos();
         }
@@ -50,7 +58,9 @@ namespace Cartera.Vista
             //cambiar titulo de la columna
             dataGridView1.Columns["Id_Proyecto"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Nombre";
-            dataGridView1.Columns[2].HeaderText = "Ubicación";
+            dataGridView1.Columns[2].HeaderText = "Ubicación";            
+            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
+            //dataGridView1.Columns[2].Width = 270;
             //QuitarFila();
         }
         private void QuitarFila()
@@ -89,6 +99,14 @@ namespace Cartera.Vista
             txtNombreP.Clear();
             txtUbicacion.Clear();
             BtBorrar.Enabled = false;
+            panel1.Visible = false;
+            idtipo = 0;
+            idproyecto = "";
+            dataGridView2.DataSource = "";
+            dataGridView3.DataSource = "";
+            dataGridView4.DataSource = "";
+            tabControl1.SelectedIndex = 0;
+            CargarProyectos();
         }
 
         private void BtLimpiar_Click(object sender, EventArgs e)
@@ -114,19 +132,29 @@ namespace Cartera.Vista
                 txtUbicacion.Text = dataGridView1.Rows[n].Cells["Proyecto_Ubicacion"].Value.ToString();
             }
             BtBorrar.Enabled = true;
+            panel1.Visible = true;
+            CargarProducto();
         }
         private void BtBorrar_Click(object sender, EventArgs e)
         {
             if (txtNombreP.Text!="")
             {
-                proyecto.EliminarProyecto(int.Parse(idproyecto));
-                LimpiarCampos();
-                CargarProyectos();
-                BtBorrar.Enabled = true;
+                DtProductos = producto.cargarTodoProductosDetalleProyecto(int.Parse(idproyecto));
+                if (DtProductos.Rows.Count < 1)
+                {
+                    proyecto.EliminarProyecto(int.Parse(idproyecto));
+                    LimpiarCampos();
+                    CargarProyectos();
+                    BtBorrar.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("No se puede eliminar un proyecto con productos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }                
             }
             else
             {
-                MessageBox.Show("Seleccione un proyecto de la lista para eliminar");
+                MessageBox.Show("Seleccione un proyecto de la lista para eliminar", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -136,6 +164,154 @@ namespace Cartera.Vista
             {
                 DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 cell.ToolTipText = "Doble clic para modificar proyecto";
+            }
+        }
+        private void CargarProducto()
+        {
+            try
+            {
+                if (idtipo == 2)
+                {
+                    DtProductos = producto.cargarTodoProductosDetalleProyecto(int.Parse(idproyecto));
+                    dataGridView4.DataSource = DtProductos;
+                    FormtearGridView(dataGridView4);
+                    this.dataGridView4.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView4_RowPostPaint);
+                }
+                else
+                {
+                    DtProductos = producto.cargarProductosDetalleProyecto(int.Parse(idproyecto), idtipo);
+                    if (idtipo == 0)
+                    {
+                        dataGridView2.DataSource = DtProductos;
+                        FormtearGridView(dataGridView2);
+                        this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
+                    }
+                    else if (idtipo == 1)
+                    {
+                        dataGridView3.DataSource = DtProductos;
+                        FormtearGridView(dataGridView3);
+                        this.dataGridView3.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView3_RowPostPaint);
+                    }
+                }
+                
+                DtReport = DtProductos.Copy();
+                DtReport.Columns.Remove("Id_Producto");              
+                Int64 total = 0;
+                Int64 neto = 0;
+                Int64 pagado = 0;
+                foreach (DataRow row in DtProductos.Rows)
+                {
+                    total += Convert.ToInt32(row["Valor Final"]);
+                    neto += Convert.ToInt32(row["Valor Neto"]);
+                    pagado += Convert.ToInt32(row["Pagado"]);
+                }
+                labelValor.Text = "VALOR TOTAL FINAL: $ " + String.Format("{0:N0}", total);
+                labelNeto.Text= "VALOR TOTAL NETO $ " + String.Format("{0:N0}", neto);
+                labelPagado.Text = "VALOR PAGADO $ " + String.Format("{0:N0}", pagado);
+                labelCantidad.Text = "CANTIDAD: " + DtProductos.Rows.Count;                
+            }
+            catch
+            {
+                MessageBox.Show("Error al cargar productos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }           
+
+        }
+        void FormtearGridView(DataGridView Dtg)
+        {
+            Dtg.Columns["Id_Producto"].Visible = false;
+            
+            
+            if (idtipo == 2)
+            {
+                Dtg.Columns[1].Width = 70;
+                Dtg.Columns[2].Width = 70;
+                Dtg.Columns[3].Width = 70;
+                Dtg.Columns[4].Width = 170;
+                Dtg.Columns[5].Width = 170;
+                Dtg.Columns[10].Width = 80;
+            }
+            else
+            {
+                Dtg.Columns[1].Width = 70;
+                Dtg.Columns[2].Width = 70;
+                Dtg.Columns[3].Width = 70;
+                Dtg.Columns[4].Width = 200;
+                Dtg.Columns[5].Width = 200;
+            }
+            Dtg.Columns[6].DefaultCellStyle.Format = "n0";
+            Dtg.Columns[7].DefaultCellStyle.Format = "n0";
+            Dtg.Columns[8].DefaultCellStyle.Format = "n0";
+        }        	
+        
+        private void dataGridView2_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView2.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        private void dataGridView3_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView3.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 0)
+            {
+                idtipo = 0;
+                CargarProducto();
+            }
+            else if (tabControl1.SelectedIndex == 1)
+            {
+                idtipo = 1;
+                CargarProducto();
+            }
+            else if (tabControl1.SelectedIndex == 2)
+            {
+                idtipo = 2;
+                CargarProducto();
+            }           
+        }
+
+        private void dataGridView4_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView4.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {            
+            if (tabControl1.SelectedIndex == 0)
+            {
+                reportesPDF.TipoProductosProyectos(DtReport, labelValor.Text, labelNeto.Text, labelPagado.Text, labelCantidad.Text, txtNombreP.Text, "LOTES");
+            }
+            else if (tabControl1.SelectedIndex == 1)
+            {
+                
+                reportesPDF.TipoProductosProyectos(DtReport, labelValor.Text, labelNeto.Text, labelPagado.Text, labelCantidad.Text, txtNombreP.Text, "CASAS");
+            }
+            else if (tabControl1.SelectedIndex == 2)
+            {
+                reportesPDF.TodoTipoProductosProyectos(DtReport, labelValor.Text, labelNeto.Text, labelPagado.Text, labelCantidad.Text, txtNombreP.Text);
+            }
+            else
+            {
+                MessageBox.Show("Error al generar reporte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView1.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
             }
         }
     }

@@ -104,6 +104,11 @@
     <Compile Include="Modelo\MSeguimiento.cs" />
     <Compile Include="Modelo\MTipo_Producto.cs" />
     <Compile Include="Modelo\MUsuario.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\ReportesPDF.cs" />
     <Compile Include="Vista\Carteras.cs">
       <SubType>Form</SubType>
@@ -253,11 +258,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -272,9 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="img\logo 2 San Isidro.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\12a.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="img\logo 2 San Isidron final.png" />
@@ -298,9 +295,7 @@
     <None Include="img\TipoProducto.png" />
     <None Include="img\TipoProduc.png" />
     <None Include="img\Nuevo Cliente.png" />
-    <None Include="img\buscar.png" />
     <None Include="img\Guardar1.png" />
-    <None Include="img\limpiar.png" />
     <None Include="img\Eliminar.png" />
     <None Include="img\home2.png" />
     <Content Include="img\logo San Isidro.png" />

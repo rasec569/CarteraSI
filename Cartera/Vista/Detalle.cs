@@ -53,7 +53,37 @@ namespace Cartera.Vista
             dataGridView1.Columns[4].Width = 65;
             dataGridView1.Columns[5].Width = 65;
             dataGridView1.Columns[6].Width = 65;
-            dataGridView1.Columns[8].Width = 160;            
+            dataGridView1.Columns[8].Width = 160;
+
+            DataGridViewButtonColumn BtPago = new DataGridViewButtonColumn();
+            //BtPago.Name = "Pago";
+            BtPago.Name = "Pagar";
+            BtPago.UseColumnTextForButtonValue = true;
+            DataGridViewButtonColumn BtHistorial = new DataGridViewButtonColumn();
+            //BtHistorial.Name = "Historial";
+            BtHistorial.Name = "Historial";
+            BtHistorial.UseColumnTextForButtonValue = true;
+            dataGridView1.Columns.Add(BtPago);
+            dataGridView1.Columns.Add(BtHistorial);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex>=0&& this.dataGridView1.Columns[e.ColumnIndex].Name=="Pagar"&& e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                DataGridViewButtonCell celboton = this.dataGridView1.Rows[e.RowIndex].Cells["Pagar"] as DataGridViewButtonCell;                
+                Icon imgpagar = new Icon(Environment.CurrentDirectory + @"\\img\HistorialPagos.png");
+                e.Graphics.DrawIcon(imgpagar, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
+                this.dataGridView1.Rows[e.RowIndex].Height = imgpagar.Height + 8;
+                this.dataGridView1.Columns[e.ColumnIndex].Width = imgpagar.Width + 8;
+                e.Handled = true;
+            }
         }
     }
 }

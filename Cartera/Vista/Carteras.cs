@@ -62,6 +62,7 @@ namespace Cartera.Vista
             labelTotal.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
             labelDeuda.Text = "VALOR DEUDA: $ " + String.Format("{0:N0}", deuda);
             labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N0}", pagado);
+            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
 
             formatoGrid1();
         }
@@ -441,6 +442,7 @@ namespace Cartera.Vista
                 labelTotal.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
                 labelDeuda.Text = "VALOR DEUDA: $ " + String.Format("{0:N0}", deuda);
                 labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N0}", pagado);
+                this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
                 formatoGrid1();
             }
             catch
@@ -454,6 +456,14 @@ namespace Cartera.Vista
         {
             comboProyecto.Text = "TODOS LOS PROYECTOS";
             CargarCartera();
+        }
+
+        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView1.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
         }
     }
 }

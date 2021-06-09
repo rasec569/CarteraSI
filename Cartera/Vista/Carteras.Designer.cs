@@ -36,23 +36,23 @@ namespace Cartera.Vista
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.Txtcedula = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboProyecto = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.comboEstados = new System.Windows.Forms.ComboBox();
             this.BtPago = new System.Windows.Forms.Button();
             this.BtHistorialPago = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.labelTotal = new System.Windows.Forms.Label();
             this.labelRecaudo = new System.Windows.Forms.Label();
             this.labelDeuda = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.labelTotal = new System.Windows.Forms.Label();
-            this.comboProyecto = new System.Windows.Forms.ComboBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.label3 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -72,6 +72,7 @@ namespace Cartera.Vista
             // dataGridView1
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
@@ -80,6 +81,7 @@ namespace Cartera.Vista
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter_1);
+            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             // 
             // panel1
             // 
@@ -114,17 +116,6 @@ namespace Cartera.Vista
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
-            // 
-            // button3
-            // 
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(680, 15);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(33, 28);
-            this.button3.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.button3, "Limpiar");
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Txtcedula
             // 
@@ -164,6 +155,39 @@ namespace Cartera.Vista
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Cartera";
+            // 
+            // button3
+            // 
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(680, 15);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(33, 28);
+            this.button3.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.button3, "Limpiar");
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(14, 23);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Proyecto";
+            // 
+            // comboProyecto
+            // 
+            this.comboProyecto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboProyecto.FormattingEnabled = true;
+            this.comboProyecto.Location = new System.Drawing.Point(75, 20);
+            this.comboProyecto.Name = "comboProyecto";
+            this.comboProyecto.Size = new System.Drawing.Size(295, 21);
+            this.comboProyecto.TabIndex = 28;
+            this.comboProyecto.Text = "TODOS LOS PROYECTOS";
+            this.comboProyecto.SelectedIndexChanged += new System.EventHandler(this.comboProyecto_SelectedIndexChanged);
+            this.comboProyecto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboProyecto_MouseClick);
             // 
             // button2
             // 
@@ -239,6 +263,18 @@ namespace Cartera.Vista
             this.panel2.Size = new System.Drawing.Size(1002, 620);
             this.panel2.TabIndex = 1;
             // 
+            // labelTotal
+            // 
+            this.labelTotal.AutoSize = true;
+            this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotal.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.labelTotal.Location = new System.Drawing.Point(818, 590);
+            this.labelTotal.Name = "labelTotal";
+            this.labelTotal.Size = new System.Drawing.Size(36, 13);
+            this.labelTotal.TabIndex = 27;
+            this.labelTotal.Text = "Total";
+            this.toolTip1.SetToolTip(this.labelTotal, "Valor total cartera San Isidro");
+            // 
             // labelRecaudo
             // 
             this.labelRecaudo.AutoSize = true;
@@ -263,45 +299,11 @@ namespace Cartera.Vista
             this.labelDeuda.Text = "Valor Deuda";
             this.toolTip1.SetToolTip(this.labelDeuda, "Deuda por pagar a la cartera");
             // 
-            // labelTotal
-            // 
-            this.labelTotal.AutoSize = true;
-            this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTotal.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.labelTotal.Location = new System.Drawing.Point(818, 590);
-            this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(36, 13);
-            this.labelTotal.TabIndex = 27;
-            this.labelTotal.Text = "Total";
-            this.toolTip1.SetToolTip(this.labelTotal, "Valor total cartera San Isidro");
-            // 
-            // comboProyecto
-            // 
-            this.comboProyecto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboProyecto.FormattingEnabled = true;
-            this.comboProyecto.Location = new System.Drawing.Point(75, 20);
-            this.comboProyecto.Name = "comboProyecto";
-            this.comboProyecto.Size = new System.Drawing.Size(295, 21);
-            this.comboProyecto.TabIndex = 28;
-            this.comboProyecto.Text = "TODOS LOS PROYECTOS";
-            this.comboProyecto.SelectedIndexChanged += new System.EventHandler(this.comboProyecto_SelectedIndexChanged);
-            this.comboProyecto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboProyecto_MouseClick);
-            // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(14, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Proyecto";
             // 
             // Carteras
             // 
