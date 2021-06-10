@@ -29,12 +29,13 @@ namespace Cartera.Vista
         int cuotas, meses, pagos, mora, mes_mora;
         string Nom_Producto, Nom_Proyecto;
         int ProductoVal,ValorPagado,ValorDeuda,ValorNeto;
-        private ReportesPDF reportesPDF;
+        ReportesPDF reportesPDF = new ReportesPDF();
         DataTable dtpagos = new DataTable();
         public HistorialPagos()
         {
             InitializeComponent();
-            reportesPDF = new ReportesPDF();
+            //reportesPDF = new ReportesPDF();
+
             
         }
         public HistorialPagos(string cedula, string nombre, string id_cliente, string cartera, string id_producto, string nom_producto, string nom_proyecto, string neto, string valor)

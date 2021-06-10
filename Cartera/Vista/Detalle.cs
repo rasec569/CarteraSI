@@ -128,7 +128,7 @@ namespace Cartera.Vista
                     else if (e.ColumnIndex == 1)
                     {
                         HistorialPagos Hp = new HistorialPagos(Txtcedula.Text, txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, proyecto,neto, valor);
-                        this.Hide();
+                        //this.Hide();
                         Hp.MdiParent=this.MdiParent;
                         Hp.ShowDialog();
                     }
@@ -156,7 +156,7 @@ namespace Cartera.Vista
         private void Detalle_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            this.Close();
+            //this.Close();
         }
     }
 }

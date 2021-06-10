@@ -170,6 +170,7 @@ namespace Cartera.Reportes
                     catch(Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     }
                     finally
                     {
