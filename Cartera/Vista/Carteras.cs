@@ -83,6 +83,7 @@ namespace Cartera.Vista
             dataGridView1.Columns [7].Width = 45;
             dataGridView1.Columns [8].Width = 45;
             dataGridView1.Columns [10].Width = 60;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             //dataGridView1.Columns[3].Width = 230;
 
             if (Validarestados == true)
@@ -150,8 +151,9 @@ namespace Cartera.Vista
             string carteraid = "";
             try
             {
+                int x = dataGridView1.Rows.Count;
                 int n = e.RowIndex;
-                if (n != -1)
+                if (n < x)
                 {
                     clienteid = dataGridView1.Rows[n].Cells["Id_Cliente"].Value.ToString();
                     cedula = int.Parse(dataGridView1.Rows[n].Cells["Cedula"].Value.ToString());
@@ -160,7 +162,11 @@ namespace Cartera.Vista
                     carteraid = dataGridView1.Rows[n].Cells["Id_Cartera"].Value.ToString();
                     Detalle D = new Detalle(cedula, nombre + " " + apellido, clienteid, carteraid);
                     D.FormClosed += Pagos_FormClose;
-                    D.ShowDialog();
+                    D.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Campo no valido" , "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             catch (Exception ex)

@@ -99,6 +99,7 @@ namespace Cartera.Vista
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(748, 191);
             this.dataGridView1.TabIndex = 20;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
             // 
@@ -116,6 +117,7 @@ namespace Cartera.Vista
             this.Name = "Detalle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detalle Cartera";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Detalle_FormClosed);
             this.Load += new System.EventHandler(this.Detalle_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

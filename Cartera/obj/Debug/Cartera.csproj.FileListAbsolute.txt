@@ -69,3 +69,4 @@ C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\bin\Debug\System.Data.SQLite.
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.csproj.CopyComplete
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.exe
 C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.pdb
+C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\obj\Debug\Cartera.csprojAssemblyReference.cache

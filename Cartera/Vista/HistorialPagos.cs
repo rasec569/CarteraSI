@@ -37,9 +37,29 @@ namespace Cartera.Vista
             reportesPDF = new ReportesPDF();
             
         }
-        public HistorialPagos(string cedula, string nombre, string id_cliente)
+        public HistorialPagos(string cedula, string nombre, string id_cliente, string cartera, string id_producto, string nom_producto, string nom_proyecto, string neto, string valor)
         {
             InitializeComponent();
+            clearall = false;
+            limpiar();
+            clienteid = id_cliente;
+            carteraId = cartera;
+            txtCedula.Text = cedula;
+            txtNombre.Text = nombre;
+            labelFecha.Text = "Fecha: " + DateTime.Now.ToShortDateString();           
+            btLimpiar.Enabled = true;
+            productoId = id_producto;
+            Nom_Producto = nom_producto;
+            Nom_Proyecto = nom_proyecto;
+            ValorNeto = int.Parse(neto);
+            ProductoVal = int.Parse(valor);
+            //this.Height += 200;
+            ListarPagosCliente();
+            estadoPagoCliente();
+
+            BtImprimir.Enabled = true;
+            dataGridView2.Visible = true;
+            dataGridView1.Visible = false;
         }
         private void BtImprimir_Click(object sender, EventArgs e)
         {
@@ -50,8 +70,9 @@ namespace Cartera.Vista
                 reportesPDF.HistorialPagos(dtreporte, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, TxtDeudaFecha.Text, labelNeto.Text, labelTotal.Text, labelDeuda.Text, labelPagado.Text, cuotas, meses, pagos, mora, mes_mora);
                 //printPreviewDialog1.Show();
             }
-            catch/*(Exception ex)*/
+            catch(Exception ex)
             {
+                MessageBox.Show("Error hp ..." + ex);
                 //printPreviewDialog1.Close();
             }
             //var pagos= pago.ListarPagosCliente(productoId);
@@ -144,11 +165,8 @@ namespace Cartera.Vista
             if (clearall == true)
             {
                 txtCedula.Clear();
-            }
-            
+            }            
         }
-
-
         private void txtCedula_TextChanged(object sender, EventArgs e)
         {
             foreach (char caracter in txtCedula.Text)
@@ -170,19 +188,24 @@ namespace Cartera.Vista
         {
             try
             {
-                int n = e.RowIndex;
-                if (n != -1)
+                int x = dataGridView1.Rows.Count;
+                int n = e.RowIndex;                
+                if (n < x)
                 {
                     // Porcentaje, Numero_Cuota, Fecha_Pago, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto
                     productoId = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();                    
                     Nom_Producto = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
                     Nom_Proyecto = dataGridView1.Rows[n].Cells["Proyecto"].Value.ToString();
                     ValorNeto = int.Parse(dataGridView1.Rows[n].Cells["Valor Neto"].Value.ToString());
-                    ProductoVal = int.Parse(dataGridView1.Rows[n].Cells["Valor Total"].Value.ToString());
-                    //this.Height += 200;
-                    ListarPagosCliente();
-                    estadoPagoCliente();
+                    ProductoVal = int.Parse(dataGridView1.Rows[n].Cells["Valor Final"].Value.ToString());                    
                 }
+                else
+                {
+                    MessageBox.Show("Campo no valido", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                //this.Height += 200;
+                ListarPagosCliente();
+                estadoPagoCliente();
                 BtImprimir.Enabled = true;
                 dataGridView2.Visible = true;
                 dataGridView1.Visible = false;
@@ -235,14 +258,33 @@ namespace Cartera.Vista
                     mora = meses - pagos;
                     mes_mora = meses - pagos;
                 }
-                labelCuotas.Text = "Cuotas Pactadas:  " + cuotas;
-                labelmes.Text = "Meses Transcurridos:  " + meses;
-                labelPagadas.Text = "Cuotas Pagadas:  " + pagos;
-                labelMora.Text = "Cuotas en Mora:  " + mora;
-                labelMeses.Text = "Meses en Mora:  " + mes_mora;
-
+                if(ProductoVal-ValorPagado != 0)
+                {
+                    labelmes.Text = "Meses Transcurridos:  " + meses;
+                    labelMora.Text = "Cuotas en Mora:  " + mora;
+                    labelMeses.Text = "Meses en Mora:  " + mes_mora;
+                    labelPagadas.Text = "Cuotas Pagadas:  " + pagos;
+                }
+                else
+                {
+                    labelmes.Text = "Cuotas Pagadas:  " + pagos;
+                    labelMora.Text = "";
+                    labelMeses.Text = "PAGADO";
+                    labelPagadas.Text = "";
+                }
+                labelCuotas.Text = "Cuotas Pactadas:  " + cuotas;                    
+                
             }
         }
+
+        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView1.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
+
         private void ListarPagosCliente()
         {
             DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);

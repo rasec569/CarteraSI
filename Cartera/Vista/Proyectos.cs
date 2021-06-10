@@ -125,15 +125,21 @@ namespace Cartera.Vista
         {
             LimpiarCampos();
             int n = e.RowIndex;
-            if (n != -1)
+            int x = dataGridView1.Rows.Count;
+            if (n < x-1)
             {
                 idproyecto = dataGridView1.Rows[n].Cells["Id_Proyecto"].Value.ToString();
                 txtNombreP.Text = dataGridView1.Rows[n].Cells["Proyecto_Nombre"].Value.ToString();
                 txtUbicacion.Text = dataGridView1.Rows[n].Cells["Proyecto_Ubicacion"].Value.ToString();
+                BtBorrar.Enabled = true;
+                panel1.Visible = true;
+                CargarProducto();
             }
-            BtBorrar.Enabled = true;
-            panel1.Visible = true;
-            CargarProducto();
+            else
+            {
+                MessageBox.Show("Campo no valido");
+            }
+            
         }
         private void BtBorrar_Click(object sender, EventArgs e)
         {

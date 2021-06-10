@@ -48,13 +48,15 @@ namespace Cartera.Vista
             Txtcedula.AutoCompleteCustomSource = lista;
         }
 
-        public RegistrarPago(int cedula,string nombre, string clienteid, string carteraid)
+        public RegistrarPago(int cedula, string nombre, string clienteid, string carteraid, string producto, string nomProducto)
         {
             InitializeComponent();
             clienteId = int.Parse(clienteid);
             carteraId = int.Parse(carteraid);
+            productoid = int.Parse(producto);
             txtNombre.Text = nombre;
             Txtcedula.Text = cedula.ToString();
+            txtProducto.Text = nomProducto;
             cargarpagocuota();
 
         }
