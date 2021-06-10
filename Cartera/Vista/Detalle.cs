@@ -59,6 +59,7 @@ namespace Cartera.Vista
             dataGridView1.Columns[7].Width = 65;
             dataGridView1.Columns[9].Width = 160;
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
 
             DataGridViewButtonColumn BtPago = new DataGridViewButtonColumn();
             BtPago.Name = "Pagar";
@@ -110,7 +111,7 @@ namespace Cartera.Vista
             {
                 int x = dataGridView1.Rows.Count;
                 int n = e.RowIndex;
-                if (n < x-1)
+                if (n < x)
                 {
                     productoId = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();
                     productoNom = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
@@ -157,6 +158,14 @@ namespace Cartera.Vista
         {
             this.DialogResult = DialogResult.OK;
             //this.Close();
+        }
+
+        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView1.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
         }
     }
 }

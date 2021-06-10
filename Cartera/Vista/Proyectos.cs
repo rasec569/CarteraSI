@@ -58,7 +58,8 @@ namespace Cartera.Vista
             //cambiar titulo de la columna
             dataGridView1.Columns["Id_Proyecto"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Nombre";
-            dataGridView1.Columns[2].HeaderText = "Ubicación";            
+            dataGridView1.Columns[2].HeaderText = "Ubicación";
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             //dataGridView1.Columns[2].Width = 270;
             //QuitarFila();
@@ -176,45 +177,48 @@ namespace Cartera.Vista
         {
             try
             {
-                if (idtipo == 2)
+                if ((txtNombreP.Text != "") || (txtUbicacion.Text != ""))
                 {
-                    DtProductos = producto.cargarTodoProductosDetalleProyecto(int.Parse(idproyecto));
-                    dataGridView4.DataSource = DtProductos;
-                    FormtearGridView(dataGridView4);
-                    this.dataGridView4.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView4_RowPostPaint);
-                }
-                else
-                {
-                    DtProductos = producto.cargarProductosDetalleProyecto(int.Parse(idproyecto), idtipo);
-                    if (idtipo == 0)
+                    if (idtipo == 2)
                     {
-                        dataGridView2.DataSource = DtProductos;
-                        FormtearGridView(dataGridView2);
-                        this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
+                        DtProductos = producto.cargarTodoProductosDetalleProyecto(int.Parse(idproyecto));
+                        dataGridView4.DataSource = DtProductos;
+                        FormtearGridView(dataGridView4);
+                        this.dataGridView4.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView4_RowPostPaint);
                     }
-                    else if (idtipo == 1)
+                    else
                     {
-                        dataGridView3.DataSource = DtProductos;
-                        FormtearGridView(dataGridView3);
-                        this.dataGridView3.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView3_RowPostPaint);
+                        DtProductos = producto.cargarProductosDetalleProyecto(int.Parse(idproyecto), idtipo);
+                        if (idtipo == 0)
+                        {
+                            dataGridView2.DataSource = DtProductos;
+                            FormtearGridView(dataGridView2);
+                            this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
+                        }
+                        else if (idtipo == 1)
+                        {
+                            dataGridView3.DataSource = DtProductos;
+                            FormtearGridView(dataGridView3);
+                            this.dataGridView3.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView3_RowPostPaint);
+                        }
                     }
-                }
-                
-                DtReport = DtProductos.Copy();
-                DtReport.Columns.Remove("Id_Producto");              
-                Int64 total = 0;
-                Int64 neto = 0;
-                Int64 pagado = 0;
-                foreach (DataRow row in DtProductos.Rows)
-                {
-                    total += Convert.ToInt32(row["Valor Final"]);
-                    neto += Convert.ToInt32(row["Valor Neto"]);
-                    pagado += Convert.ToInt32(row["Pagado"]);
-                }
-                labelValor.Text = "VALOR TOTAL FINAL: $ " + String.Format("{0:N0}", total);
-                labelNeto.Text= "VALOR TOTAL NETO $ " + String.Format("{0:N0}", neto);
-                labelPagado.Text = "VALOR PAGADO $ " + String.Format("{0:N0}", pagado);
-                labelCantidad.Text = "CANTIDAD: " + DtProductos.Rows.Count;                
+
+                    DtReport = DtProductos.Copy();
+                    DtReport.Columns.Remove("Id_Producto");
+                    Int64 total = 0;
+                    Int64 neto = 0;
+                    Int64 pagado = 0;
+                    foreach (DataRow row in DtProductos.Rows)
+                    {
+                        total += Convert.ToInt32(row["Valor Final"]);
+                        neto += Convert.ToInt32(row["Valor Neto"]);
+                        pagado += Convert.ToInt32(row["Pagado"]);
+                    }
+                    labelValor.Text = "VALOR TOTAL FINAL: $ " + String.Format("{0:N0}", total);
+                    labelNeto.Text = "VALOR TOTAL NETO $ " + String.Format("{0:N0}", neto);
+                    labelPagado.Text = "VALOR PAGADO $ " + String.Format("{0:N0}", pagado);
+                    labelCantidad.Text = "CANTIDAD: " + DtProductos.Rows.Count;
+                }                                   
             }
             catch
             {

@@ -110,18 +110,30 @@ namespace Cartera.Vista
             dataGridView1.Columns[6].Width = 170;
             DtReportes.Columns.Remove("Id_Cliente");
             DtReportes.Columns.Remove("Fk_Id_Cartera");
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
         }
         private void CargarProducto()
         {
             dataGridView2.DataSource = producto.cargarProductosCliente(int.Parse(Cliente_id));
             dataGridView2.Columns["Id_Producto"].Visible = false;
-            dataGridView2.Columns[4].DefaultCellStyle.Format = "n0";
-            dataGridView2.Columns[5].DefaultCellStyle.Format = "n0";
             dataGridView2.Columns["Observaciones"].Visible = false;
             dataGridView2.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView2.Columns["Fk_Id_Tipo_Producto"].Visible = false;
-        }
+            dataGridView2.Columns[4].DefaultCellStyle.Format = "n0";
+            dataGridView2.Columns[5].DefaultCellStyle.Format = "n0";
+            dataGridView2.Columns[6].DefaultCellStyle.Format = "n0";
+            dataGridView2.Columns[1].Width = 70;
+            dataGridView2.Columns[2].Width = 70;
+            dataGridView2.Columns[3].Width = 75;
+            dataGridView2.Columns[4].Width = 70;
+            dataGridView2.Columns[5].Width = 70;
+            dataGridView2.Columns[6].Width = 70;
+            dataGridView2.Columns[7].Width = 70;
+            dataGridView2.Columns[9].Width = 240;
+            dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
+        }        
         void autocompletar()
         {
             AutoCompleteStringCollection lista = new AutoCompleteStringCollection();            
@@ -464,7 +476,7 @@ namespace Cartera.Vista
                     txtNombreProducto.Text = dataGridView2.Rows[n].Cells["Producto"].Value.ToString();
                     txtContrato.Text = dataGridView2.Rows[n].Cells["Contrato"].Value.ToString();
                     // fotmatear campo valor
-                    valor = int.Parse(dataGridView2.Rows[n].Cells["Valor Total"].Value.ToString());
+                    valor = int.Parse(dataGridView2.Rows[n].Cells["Valor Final"].Value.ToString());
                     int Neto = int.Parse(dataGridView2.Rows[n].Cells["Valor Neto"].Value.ToString());
                     txtValor.Text = Neto.ToString("N0", CultureInfo.CurrentCulture);
                     txtObeservaciones.Text = dataGridView2.Rows[n].Cells["Observaciones"].Value.ToString();
@@ -500,7 +512,7 @@ namespace Cartera.Vista
                         int valorcuotaint = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
                         txtValorCuotaInteres.Text = valorcuotaint.ToString("N0", CultureInfo.CurrentCulture);
                     }
-                    int total = int.Parse(dataGridView2.Rows[n].Cells["Valor Total"].Value.ToString());
+                    int total = int.Parse(dataGridView2.Rows[n].Cells["Valor Final"].Value.ToString());
                     txtValorTotal.Text = total.ToString("N0", CultureInfo.CurrentCulture);                   
                     label24.Visible = true;
                     comboEstadoCliente.Visible = true;
@@ -955,6 +967,15 @@ namespace Cartera.Vista
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             using (SolidBrush b = new SolidBrush(dataGridView1.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        private void dataGridView2_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            
+            using (SolidBrush b = new SolidBrush(dataGridView2.RowHeadersDefaultCellStyle.ForeColor))
             {
                 e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
             }
