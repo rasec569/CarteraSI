@@ -84,6 +84,7 @@
     <Compile Include="Controlador\CCartera.cs" />
     <Compile Include="Controlador\CCliente.cs" />
     <Compile Include="Controlador\CCliente_Producto.cs" />
+    <Compile Include="Controlador\CCuota.cs" />
     <Compile Include="Controlador\CFinanciacion.cs" />
     <Compile Include="Controlador\CLogin.cs" />
     <Compile Include="Controlador\CPago.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Modelo\MCartera.cs" />
     <Compile Include="Modelo\MCliente.cs" />
     <Compile Include="Modelo\MCliente_Producto.cs" />
+    <Compile Include="Modelo\MCuota.cs" />
     <Compile Include="Modelo\MFinanciacion.cs" />
     <Compile Include="Modelo\MLogin.cs" />
     <Compile Include="Modelo\MPago.cs" />

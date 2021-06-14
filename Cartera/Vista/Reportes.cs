@@ -18,6 +18,7 @@ namespace Cartera.Vista
     {
         CPago pagos = new CPago();
         CProducto producto= new CProducto();
+        CCuota cuota = new CCuota();
         CCartera cartera = new CCartera();
         DataTable DtPagos = new DataTable();
         DataTable DtVentas = new DataTable();
@@ -31,6 +32,7 @@ namespace Cartera.Vista
             dateInicio.Text = actual.AddMonths(-1).ToString();
             dateInicio2.Text = actual.AddMonths(-1).ToString();
             dateInicio3.Text = actual.AddMonths(-1).ToString();
+            dateInicio4.Text = actual.AddMonths(-1).ToString();
         }        
         private void Reportes_Load(object sender, EventArgs e)
         {
@@ -52,7 +54,7 @@ namespace Cartera.Vista
             {
                 DtVentas = producto.ReportVentas(dateInicio2.Text, datefin2.Text);
                 DataTable DtValorVentas = producto.ValorReportVentas(dateInicio2.Text, datefin2.Text);
-                int total = int.Parse(DtValorVentas.Rows[0]["valor"].ToString()); 
+                Int64 total = Int64.Parse(DtValorVentas.Rows[0]["valor"].ToString()); 
                 labelTotalVentas.Text ="TOTAL VENTAS: $" + String.Format("{0:N0}", total);
                 labelVentas.Text = "CANTIDAD: " + DtValorVentas.Rows[0]["productos"].ToString();
                 dataGridView2.DataSource = DtVentas;
@@ -70,7 +72,7 @@ namespace Cartera.Vista
             {            
             DtPagos = pagos.reportPagos(dateInicio.Text, datefin.Text);
             DataTable DtValorPagos = pagos.ValorReportPagos(dateInicio.Text, datefin.Text);
-            int total = int.Parse(DtValorPagos.Rows[0]["valor"].ToString());
+            Int64 total = Int64.Parse(DtValorPagos.Rows[0]["valor"].ToString());
             labelTotal.Text = "TOTAL INGRESOS: $" + String.Format("{0:N0}", total);
             labelNumero.Text ="CANTIDAD: "+ DtValorPagos.Rows[0]["pagos"].ToString();
             dataGridView1.DataSource = DtPagos;
@@ -83,13 +85,115 @@ namespace Cartera.Vista
                 MessageBox.Show("Sin datos para el reporte");
             }
         }    
+        void actulziarCuotas()
+        {
+            DataTable DtProducto = producto.cargarProductos();
+            for(int i=0; i<DtProducto.Rows.Count; i++)
+            {
+                string id_producto = DtProducto.Rows[i]["Id_Producto"].ToString();
+                int id_financiacion = int.Parse(DtProducto.Rows[i]["Id_Financiacion"].ToString());
+                int Valor_Producto_Financiacion = int.Parse(DtProducto.Rows[i]["Valor Total"].ToString());
+                int valor_entrada = int.Parse(DtProducto.Rows[i]["Inicial"].ToString());
+                int valor_sin_interes = int.Parse(DtProducto.Rows[i]["Valor Inicial"].ToString());
+                int Cuotas_sin_interes = int.Parse(DtProducto.Rows[i]["Cuotas Inicial"].ToString());
+                int Valor_cuota_sin_interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Inicial"].ToString());
+                int Valor_con_interes = int.Parse(DtProducto.Rows[i]["Valor Saldo"].ToString());
+                int Cuotas_Con_Interes = int.Parse(DtProducto.Rows[i]["Cuotas Saldo"].ToString());
+                int Valor_Cuota_Con_Interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Saldo"].ToString());
+                string Fecha_Recaudo = DtProducto.Rows[i]["Fecha Recaudo"].ToString();
+                DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                if (Valor_Producto_Financiacion > 0 /*&& id_financiacion !=  0*/)
+                {
+                    DataTable dtCuotas = cuota.ListarCuotas(id_financiacion);
+                    DataTable dtrecaudo = pagos.Tota_Recaudado_Producto(id_producto);
+                    int ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
+                    int num_cuota = 1;
+                    int pagado = 0;
+                    string Estado = "";
+                    pagado = valor_entrada;
+                    if (pagado <= ValorPagado)
+                    {
+                        Estado = "Pagada";
+                    }
+                    else
+                    {
+                        Estado = "Pendiente";
+                    }
+                    if (dtCuotas.Rows.Count == 0)
+                    {
+                        cuota.CrearCuota(num_cuota, valor_entrada, "Valor Separación", date.ToString("yyyy-MM-dd"), Estado, id_financiacion);
+                    }
+                    else
+                    {
+                        cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
+                    }
+                    num_cuota++;
+                    while (num_cuota <= Cuotas_sin_interes + 1)
+                    {
+                        pagado = pagado + Valor_cuota_sin_interes;
+                        if (pagado <= ValorPagado)
+                        {
+                            Estado = "Pagada";
+                        }
+                        else
+                        {
+                            Estado = "Pendiente";
+                        }
+                        if (dtCuotas.Rows.Count == 0)
+                        {
+                            cuota.CrearCuota(num_cuota, Valor_cuota_sin_interes, "Valor Inicial", date.AddMonths(num_cuota - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);
+                        }
+                        else
+                        {
+                            cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
+                        }
+                        num_cuota++;
+                    }
+                    while (num_cuota <= Cuotas_sin_interes + Cuotas_Con_Interes + 1)
+                    {
+                        pagado = pagado + Valor_Cuota_Con_Interes;
+                        if (pagado <= ValorPagado)
+                        {
+                            Estado = "Pagada";
+                        }
+                        else
+                        {
+                            Estado = "Pendiente";
+                        }
+                        if (dtCuotas.Rows.Count == 0)
+                        {
+                            cuota.CrearCuota(num_cuota, Valor_Cuota_Con_Interes, "Valor Saldo", date.AddMonths(num_cuota - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);
+                        }
+                        else
+                        {
+                            cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
+                        }
+                        num_cuota++;
+                    }
+                }
+            }
+        }
+        void CargarRpProyeccion()
+        {
+            actulziarCuotas();
+            DataTable DtProyeccion = cuota.reportProyeccion(dateInicio4.Text, datefin4.Text);
+            dataGridView4.DataSource = DtProyeccion;
+            Lbcantidadproye.Text = "CANTIDAD: " + DtProyeccion.Rows.Count;
+            Int64 total = 0;
+
+            foreach (DataRow row in DtProyeccion.Rows)
+            {
+                total += Convert.ToInt32(row["Valor a Pagar"]);
+            }
+            LbTotalProye.Text= "TOTAL: $ " + String.Format("{0:N0}", total);
+        }
         void CargarDisoluciones()
         {
             try
             {
                 DtDisolucion = cartera.Disoluciones(dateInicio3.Text, datefin3.Text);
                 DataTable DtValorDisolucion=cartera.TotalDisoluciones(dateInicio3.Text, datefin3.Text);
-                int total = int.Parse(DtValorDisolucion.Rows[0]["Total Devuelto"].ToString());
+                Int64 total = Int64.Parse(DtValorDisolucion.Rows[0]["Total Devuelto"].ToString());
                 labelTot.Text = "TOTAL DEVUELTO: $" + String.Format("{0:N0}", total);
                 labelCant.Text = "CANTIDAD: " + DtValorDisolucion.Rows[0]["Cantiad"].ToString();
                 dataGridView3.DataSource = DtDisolucion;
@@ -112,7 +216,7 @@ namespace Cartera.Vista
         private void BtBuscar_Click(object sender, EventArgs e)
         {
             CargarRpPagos();
-            dataGridView1.Columns[5].DefaultCellStyle.Format = "n1";
+            dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
         }
 
         private void BtBuscar2_Click(object sender, EventArgs e)
@@ -134,11 +238,15 @@ namespace Cartera.Vista
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex==1)
+            if (tabControl1.SelectedIndex == 1)
+            {
+                CargarRpProyeccion();
+            }
+            else if (tabControl1.SelectedIndex==2)
             {
                 CargarRpVentas();
             }
-            else if (tabControl1.SelectedIndex == 2)
+            else if (tabControl1.SelectedIndex == 3)
             {
                 CargarDisoluciones();
             }
@@ -151,7 +259,12 @@ namespace Cartera.Vista
 
         private void button2_Click(object sender, EventArgs e)
         {
+            CargarRpVentas();
+        }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            CargarRpProyeccion();
         }
     }
 }
