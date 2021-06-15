@@ -83,11 +83,20 @@ namespace Cartera.Vista
                     int Valor_Cuota_Con_Interes = int.Parse(dataGridView1.Rows[n].Cells["Valor_Cuota_Con_Interes"].Value.ToString());
                     string Fecha_Recaudo = dataGridView1.Rows[n].Cells["Fecha_Recaudo"].Value.ToString();
                     DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                    if(Valor_Producto_Financiacion >0 /*&& id_financiacion !=  0*/)
+                    label1.Text = "Valor final: $ " + String.Format("{0:N0}", Valor_Producto_Financiacion);
+                    label2.Text = "Valor inicial: $ " + String.Format("{0:N0}", valor_sin_interes);
+                    label3.Text = "Valor separación: $ " + String.Format("{0:N0}", valor_entrada);
+                    label4.Text = "Numero de cuotas inicial: " +  Cuotas_sin_interes;
+                    label5.Text = "Valor cuotas Inicial: $ " + String.Format("{0:N0}", Valor_cuota_sin_interes);
+                    label6.Text = "Valor saldo: $ " + String.Format("{0:N0}", Valor_con_interes);
+                    label7.Text = "Numero de cuotas Saldo: " + String.Format("{0:N0}", Cuotas_Con_Interes);
+                    label8.Text = "Valor cuotas saldo: $ " + String.Format("{0:N0}", Valor_Cuota_Con_Interes);
+                    if (Valor_Producto_Financiacion >0 /*&& id_financiacion !=  0*/)
                     {
                         DataTable dtCuotas= cuota.ListarCuotas(id_financiacion);
                         DataTable dtrecaudo = pago.Tota_Recaudado_Producto(ProductoId.ToString());
                         int ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
+                        label9.Text = "Valor pagado: $ " + String.Format("{0:N0}", ValorPagado);
                         int num_cuota = 1;
                         int pagado = 0;
                         string Estado = "";
@@ -153,7 +162,7 @@ namespace Cartera.Vista
                         }
                         dataGridView1.Visible = false;
                         dataGridView2.DataSource = cuota.ListarCuotas(id_financiacion);
-                        dataGridView2.Visible = true;
+                        panel1.Visible = true;
                     }
                 }
             }
