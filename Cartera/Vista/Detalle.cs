@@ -18,6 +18,7 @@ namespace Cartera.Vista
         string productoId = "";
         string productoNom = "";
         CProducto producto = new CProducto();
+        bool cargarbotones= true;
         public Detalle()
         {
             InitializeComponent();
@@ -58,42 +59,38 @@ namespace Cartera.Vista
             dataGridView1.Columns[6].Width = 65;
             dataGridView1.Columns[7].Width = 65;
             dataGridView1.Columns[9].Width = 160;
-            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
-
-            DataGridViewButtonColumn BtPago = new DataGridViewButtonColumn();
-            BtPago.Name = "Pagar";
-            BtPago.HeaderText = "";
-            BtPago.UseColumnTextForButtonValue = true;
-            DataGridViewButtonColumn BtHistorial = new DataGridViewButtonColumn();
-            BtHistorial.Name = "Historial";
-            BtHistorial.HeaderText = "";
-            BtHistorial.UseColumnTextForButtonValue = true;
-            dataGridView1.Columns.Add(BtPago);
-            dataGridView1.Columns.Add(BtHistorial);
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-           
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;            
+            if (cargarbotones == true)
+            {
+                this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
+                DataGridViewButtonColumn BtPago = new DataGridViewButtonColumn();
+                BtPago.Name = "Pagar";
+                BtPago.HeaderText = "";
+                BtPago.UseColumnTextForButtonValue = true;
+                DataGridViewButtonColumn BtHistorial = new DataGridViewButtonColumn();
+                BtHistorial.Name = "Historial";
+                BtHistorial.HeaderText = "";
+                BtHistorial.UseColumnTextForButtonValue = true;
+                dataGridView1.Columns.Add(BtPago);
+                dataGridView1.Columns.Add(BtHistorial);                
+            }            
         }
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex < 0)
                 return;
-           
-            if (e.ColumnIndex>=0 && this.dataGridView1.Columns[e.ColumnIndex].Name=="Pagar" && e.RowIndex >= 0 )
+            if (e.ColumnIndex >= 0 && this.dataGridView1.Columns[e.ColumnIndex].Name == "Pagar" && e.RowIndex >= 0)
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                DataGridViewButtonCell celboton = this.dataGridView1.Rows[e.RowIndex].Cells["Pagar"] as DataGridViewButtonCell;                
+                DataGridViewButtonCell celboton = this.dataGridView1.Rows[e.RowIndex].Cells["Pagar"] as DataGridViewButtonCell;
                 Icon PagarIcon = new Icon(Environment.CurrentDirectory + @"\\img\Pagos.ico");
                 e.Graphics.DrawIcon(PagarIcon, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 this.dataGridView1.Rows[e.RowIndex].Height = PagarIcon.Height + 8;
                 this.dataGridView1.Columns[e.ColumnIndex].Width = PagarIcon.Width + 8;
                 e.Handled = true;
             }
-            else if (e.ColumnIndex >= 0 && this.dataGridView1.Columns[e.ColumnIndex].Name == "Historial" && e.RowIndex >= 0 )
+            else if (e.ColumnIndex >= 0 && this.dataGridView1.Columns[e.ColumnIndex].Name == "Historial" && e.RowIndex >= 0)
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celboton = this.dataGridView1.Rows[e.RowIndex].Cells["Historial"] as DataGridViewButtonCell;
@@ -118,10 +115,8 @@ namespace Cartera.Vista
                     string proyecto = dataGridView1.Rows[n].Cells["Proyecto"].Value.ToString();
                     string neto = dataGridView1.Rows[n].Cells["Valor Neto"].Value.ToString();
                     string valor = dataGridView1.Rows[n].Cells["Valor Final"].Value.ToString();
-                    //I suposed you want to handle the event for column at index 1
                     if (e.ColumnIndex == 0)
-                    {
-                        
+                    {                        
                         RegistrarPago Rp = new RegistrarPago(int.Parse(Txtcedula.Text), txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom);
                         Rp.FormClosed += Pagos_FormClose;
                         Rp.ShowDialog();                        
@@ -147,17 +142,16 @@ namespace Cartera.Vista
         private void Pagos_FormClose(object sender, FormClosedEventArgs e)
         {
             Form frm = sender as Form;
-            if (frm.DialogResult == DialogResult.OK)
+            if (frm.DialogResult == DialogResult.OK )
             {
+                cargarbotones = false;
                 CargarProducto();
             }
-
         }
 
         private void Detalle_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            //this.Close();
         }
 
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -165,6 +159,17 @@ namespace Cartera.Vista
             using (SolidBrush b = new SolidBrush(dataGridView1.RowHeadersDefaultCellStyle.ForeColor))
             {
                 e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 & e.RowIndex >= 0)
+            {
+                DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells["Pagar"];
+                cell.ToolTipText = "Clic para registrar pago";
+                DataGridViewCell cell2 = this.dataGridView1.Rows[e.RowIndex].Cells["Historial"];
+                cell2.ToolTipText = "Clic para ver historial de pagos";
             }
         }
     }

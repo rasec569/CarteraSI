@@ -31,7 +31,7 @@ namespace Cartera.Vista
             productoid = idproducto;
             DataTable DtCliente= producto.ClienteProducto(int.Parse(productoid));            
             LbPropietario.Text = "Propietario: "+ DtCliente.Rows[0]["Nombre"].ToString()+" "+ DtCliente.Rows[0]["Apellido"].ToString();
-            LbConctato.Text = "Telefono: " + DtCliente.Rows[0]["Telefono"].ToString() + "  Email: " + DtCliente.Rows[0]["Correo"].ToString();
+            LbConctato.Text = "Telefono: " + DtCliente.Rows[0]["Telefono"].ToString() + " Email: " + DtCliente.Rows[0]["Correo"].ToString();
             CargarSeguimiento();
         }
 

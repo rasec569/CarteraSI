@@ -217,9 +217,23 @@ namespace Cartera.Vista
                                         bool cambio = true;
                                         string fecha1 = dtfechas.Rows[h]["Fecha_Pago"].ToString();
                                         string fecha2 = dtfechas.Rows[h]["Fecha_Recaudo"].ToString();
-                                        int cuotas = int.Parse(dtfechas.Rows[h]["Cuotas"].ToString()) + 1;
-                                        DataTable dtcuotas = pago.ConsultarCuotas(int.Parse(Producto));
-                                        int pagos = int.Parse(dtcuotas.Rows[h]["Cuotas"].ToString());
+                                        int cuotas = int.Parse(dtfechas.Rows[h]["Cuotas"].ToString());
+                                        DataTable dtcuotas = pago.ConsultarCuotas(int.Parse(Producto), "Inicial%");
+                                        int pagos = 0;
+                                        if (!string.IsNullOrEmpty(dtcuotas.Rows[h]["cuotas"].ToString()) && (int.Parse(dtcuotas.Rows[h]["cuotas"].ToString()) > int.Parse(dtfechas.Rows[h]["Cuotas_Sin_interes"].ToString())))
+                                        {
+                                            pagos = int.Parse(dtcuotas.Rows[h]["cuotas"].ToString());
+                                            dtcuotas = pago.ConsultarCuotas(int.Parse(Producto), "Saldo%");
+                                            if (!string.IsNullOrEmpty(dtcuotas.Rows[h]["cuotas"].ToString()))
+                                            {
+                                                pagos = int.Parse(dtfechas.Rows[h]["Cuotas_Sin_interes"].ToString()) + int.Parse(dtcuotas.Rows[h]["cuotas"].ToString());
+                                            }                                            
+                                        }
+                                        else
+                                        {
+                                            dtcuotas = pago.ConsultarCuotas(int.Parse(Producto), "%");
+                                            pagos = int.Parse(dtcuotas.Rows[h]["cuotas"].ToString());
+                                        }
                                         DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                                         DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                                         DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);

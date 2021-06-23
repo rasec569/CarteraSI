@@ -151,7 +151,7 @@ namespace Cartera.Vista
             // 
             this.LbConctato.AutoSize = true;
             this.LbConctato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbConctato.Location = new System.Drawing.Point(410, 22);
+            this.LbConctato.Location = new System.Drawing.Point(365, 22);
             this.LbConctato.Name = "LbConctato";
             this.LbConctato.Size = new System.Drawing.Size(58, 13);
             this.LbConctato.TabIndex = 8;
@@ -162,7 +162,7 @@ namespace Cartera.Vista
             // 
             this.LbPropietario.AutoSize = true;
             this.LbPropietario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbPropietario.Location = new System.Drawing.Point(96, 22);
+            this.LbPropietario.Location = new System.Drawing.Point(75, 22);
             this.LbPropietario.Name = "LbPropietario";
             this.LbPropietario.Size = new System.Drawing.Size(68, 13);
             this.LbPropietario.TabIndex = 7;

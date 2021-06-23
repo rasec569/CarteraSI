@@ -36,7 +36,7 @@ namespace Cartera.Modelo
 		}
 		internal static DataTable reportProyeccion(string FechaInicio, string FechaFin)
 		{
-			return Conexion.consulta("SELECT Num_Cuota as '# Cuota', Valor_Cuota as 'Valor a Pagar', Nombre_Producto as Producto, Nombre as Nombres, Apellido as Apellidos, Fecha as 'Fecha Pago', Estado FROM Cuotas INNER JOIN Financiacion on Id_Financiacion=Fk_Id_Financiacion INNER JOIN Producto on Id_Producto=Fk_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fecha BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' AND Estado_Financiacion= 'Activa' AND Estado_Cliente='Activo' ORDER BY Fecha;");
+			return Conexion.consulta("SELECT Num_Cuota as 'Cuota', Valor_Cuota as 'Valor a Pagar', Nombre_Producto as Producto, Nombre as Nombres, Apellido as Apellidos, Fecha as 'Fecha Pago', Estado FROM Cuotas INNER JOIN Financiacion on Id_Financiacion=Fk_Id_Financiacion INNER JOIN Producto on Id_Producto=Fk_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fecha BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' AND Estado_Financiacion= 'Activa' AND Estado_Cliente='Activo' ORDER BY Fecha;");
 		}
 	}
 }

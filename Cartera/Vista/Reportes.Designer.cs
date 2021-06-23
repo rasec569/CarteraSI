@@ -32,11 +32,11 @@ namespace Cartera.Vista
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -50,6 +50,18 @@ namespace Cartera.Vista
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelNumero = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button4 = new System.Windows.Forms.Button();
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.datefin4 = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dateInicio4 = new System.Windows.Forms.DateTimePicker();
+            this.label8 = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.Lbcantidadproye = new System.Windows.Forms.Label();
+            this.LbTotalProye = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.BtRP = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -75,23 +87,15 @@ namespace Cartera.Vista
             this.labelCant = new System.Windows.Forms.Label();
             this.labelTot = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.button4 = new System.Windows.Forms.Button();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.datefin4 = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
-            this.dateInicio4 = new System.Windows.Forms.DateTimePicker();
-            this.label8 = new System.Windows.Forms.Label();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.Lbcantidadproye = new System.Windows.Forms.Label();
-            this.LbTotalProye = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -100,10 +104,6 @@ namespace Cartera.Vista
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -113,7 +113,7 @@ namespace Cartera.Vista
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1000, 621);
@@ -131,14 +131,14 @@ namespace Cartera.Vista
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(992, 595);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Ingresos";
+            this.tabPage1.Text = "Ingreso observado";
             this.toolTip1.SetToolTip(this.tabPage1, "Reporte de Ingresos");
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
             this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button1.Location = new System.Drawing.Point(946, 29);
+            this.button1.Location = new System.Drawing.Point(938, 33);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(35, 34);
             this.button1.TabIndex = 8;
@@ -171,6 +171,7 @@ namespace Cartera.Vista
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(975, 492);
             this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             // 
             // groupBox1
             // 
@@ -272,294 +273,6 @@ namespace Cartera.Vista
             this.labelTotal.Text = "Total";
             this.toolTip1.SetToolTip(this.labelTotal, "Valor Total Ingresos");
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.BtRP);
-            this.tabPage2.Controls.Add(this.dataGridView2);
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(992, 595);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Ventas";
-            this.toolTip1.SetToolTip(this.tabPage2, "Reporte de Ventas");
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // BtRP
-            // 
-            this.BtRP.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.BtRP.Location = new System.Drawing.Point(935, 36);
-            this.BtRP.Name = "BtRP";
-            this.BtRP.Size = new System.Drawing.Size(35, 27);
-            this.BtRP.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.BtRP, "Guardar Reporte");
-            this.BtRP.UseVisualStyleBackColor = true;
-            this.BtRP.Click += new System.EventHandler(this.BtRP_Click);
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 82);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(980, 492);
-            this.dataGridView2.TabIndex = 15;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.BtBuscar2);
-            this.groupBox3.Controls.Add(this.datefin2);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.dateInicio2);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(26, 13);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(449, 62);
-            this.groupBox3.TabIndex = 13;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Rango de fechas";
-            // 
-            // BtBuscar2
-            // 
-            this.BtBuscar2.Image = global::Cartera.Properties.Resources.buscar;
-            this.BtBuscar2.Location = new System.Drawing.Point(383, 23);
-            this.BtBuscar2.Name = "BtBuscar2";
-            this.BtBuscar2.Size = new System.Drawing.Size(35, 27);
-            this.BtBuscar2.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.BtBuscar2, "Buscar Ventas");
-            this.BtBuscar2.UseVisualStyleBackColor = true;
-            this.BtBuscar2.Click += new System.EventHandler(this.BtBuscar2_Click);
-            // 
-            // datefin2
-            // 
-            this.datefin2.CustomFormat = "yyyy-MM-dd";
-            this.datefin2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.datefin2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datefin2.Location = new System.Drawing.Point(241, 26);
-            this.datefin2.Name = "datefin2";
-            this.datefin2.Size = new System.Drawing.Size(108, 20);
-            this.datefin2.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.datefin2, "Fecha Final Reporte");
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 30);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Inicial";
-            // 
-            // dateInicio2
-            // 
-            this.dateInicio2.CustomFormat = "yyyy-MM-dd";
-            this.dateInicio2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateInicio2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateInicio2.Location = new System.Drawing.Point(68, 26);
-            this.dateInicio2.Name = "dateInicio2";
-            this.dateInicio2.Size = new System.Drawing.Size(119, 20);
-            this.dateInicio2.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.dateInicio2, "Fecha Inicial Reporte");
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(203, 30);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Final";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.labelVentas);
-            this.groupBox4.Controls.Add(this.labelTotalVentas);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(508, 14);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(405, 62);
-            this.groupBox4.TabIndex = 14;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Ventas";
-            // 
-            // labelVentas
-            // 
-            this.labelVentas.AutoSize = true;
-            this.labelVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVentas.Location = new System.Drawing.Point(252, 29);
-            this.labelVentas.Name = "labelVentas";
-            this.labelVentas.Size = new System.Drawing.Size(46, 13);
-            this.labelVentas.TabIndex = 11;
-            this.labelVentas.Text = "Ventas";
-            this.toolTip1.SetToolTip(this.labelVentas, "Numero de Ventas");
-            // 
-            // labelTotalVentas
-            // 
-            this.labelTotalVentas.AutoSize = true;
-            this.labelTotalVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTotalVentas.Location = new System.Drawing.Point(28, 29);
-            this.labelTotalVentas.Name = "labelTotalVentas";
-            this.labelTotalVentas.Size = new System.Drawing.Size(36, 13);
-            this.labelTotalVentas.TabIndex = 9;
-            this.labelTotalVentas.Text = "Total";
-            this.toolTip1.SetToolTip(this.labelTotalVentas, "Valor Total Ventas");
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.button2);
-            this.tabPage3.Controls.Add(this.dataGridView3);
-            this.tabPage3.Controls.Add(this.groupBox5);
-            this.tabPage3.Controls.Add(this.groupBox6);
-            this.tabPage3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(992, 595);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Disoluciones";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button2.Location = new System.Drawing.Point(935, 25);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(35, 34);
-            this.button2.TabIndex = 16;
-            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // dataGridView3
-            // 
-            this.dataGridView3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(6, 78);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(968, 496);
-            this.dataGridView3.TabIndex = 19;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.button3);
-            this.groupBox5.Controls.Add(this.datefin3);
-            this.groupBox5.Controls.Add(this.label5);
-            this.groupBox5.Controls.Add(this.dateInicio3);
-            this.groupBox5.Controls.Add(this.label6);
-            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(26, 9);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(449, 62);
-            this.groupBox5.TabIndex = 17;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Rango de fechas";
-            // 
-            // button3
-            // 
-            this.button3.Image = global::Cartera.Properties.Resources.buscar;
-            this.button3.Location = new System.Drawing.Point(383, 23);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(35, 27);
-            this.button3.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.button3, "Buscar Ventas");
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // datefin3
-            // 
-            this.datefin3.CustomFormat = "dd/MM/yyyy";
-            this.datefin3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.datefin3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datefin3.Location = new System.Drawing.Point(241, 26);
-            this.datefin3.Name = "datefin3";
-            this.datefin3.Size = new System.Drawing.Size(108, 20);
-            this.datefin3.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.datefin3, "Fecha Final Reporte");
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 30);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Inicial";
-            // 
-            // dateInicio3
-            // 
-            this.dateInicio3.CustomFormat = "dd/MM/yyyy";
-            this.dateInicio3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateInicio3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateInicio3.Location = new System.Drawing.Point(68, 26);
-            this.dateInicio3.Name = "dateInicio3";
-            this.dateInicio3.Size = new System.Drawing.Size(119, 20);
-            this.dateInicio3.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.dateInicio3, "Fecha Inicial Reporte");
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(203, 30);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(34, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Final";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.labelCant);
-            this.groupBox6.Controls.Add(this.labelTot);
-            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(508, 10);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(405, 62);
-            this.groupBox6.TabIndex = 18;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Disoluciones";
-            // 
-            // labelCant
-            // 
-            this.labelCant.AutoSize = true;
-            this.labelCant.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCant.Location = new System.Drawing.Point(262, 29);
-            this.labelCant.Name = "labelCant";
-            this.labelCant.Size = new System.Drawing.Size(57, 13);
-            this.labelCant.TabIndex = 11;
-            this.labelCant.Text = "Cantidad";
-            this.toolTip1.SetToolTip(this.labelCant, "Numero de Ventas");
-            // 
-            // labelTot
-            // 
-            this.labelTot.AutoSize = true;
-            this.labelTot.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTot.Location = new System.Drawing.Point(23, 29);
-            this.labelTot.Name = "labelTot";
-            this.labelTot.Size = new System.Drawing.Size(36, 13);
-            this.labelTot.TabIndex = 9;
-            this.labelTot.Text = "Total";
-            this.toolTip1.SetToolTip(this.labelTot, "Valor Total Ventas");
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.button4);
@@ -571,13 +284,13 @@ namespace Cartera.Vista
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(992, 595);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Proyección";
+            this.tabPage4.Text = "Ingreso programado";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
             this.button4.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button4.Location = new System.Drawing.Point(943, 33);
+            this.button4.Location = new System.Drawing.Point(938, 32);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(35, 34);
             this.button4.TabIndex = 15;
@@ -605,7 +318,7 @@ namespace Cartera.Vista
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView4.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView4.Location = new System.Drawing.Point(3, 86);
+            this.dataGridView4.Location = new System.Drawing.Point(6, 82);
             this.dataGridView4.Name = "dataGridView4";
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
@@ -617,6 +330,7 @@ namespace Cartera.Vista
             this.dataGridView4.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView4.Size = new System.Drawing.Size(975, 492);
             this.dataGridView4.TabIndex = 13;
+            this.dataGridView4.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView4_RowPostPaint);
             // 
             // groupBox7
             // 
@@ -626,7 +340,7 @@ namespace Cartera.Vista
             this.groupBox7.Controls.Add(this.dateInicio4);
             this.groupBox7.Controls.Add(this.label8);
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox7.Location = new System.Drawing.Point(23, 17);
+            this.groupBox7.Location = new System.Drawing.Point(26, 13);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(480, 62);
             this.groupBox7.TabIndex = 14;
@@ -689,7 +403,7 @@ namespace Cartera.Vista
             this.groupBox8.Controls.Add(this.Lbcantidadproye);
             this.groupBox8.Controls.Add(this.LbTotalProye);
             this.groupBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox8.Location = new System.Drawing.Point(541, 18);
+            this.groupBox8.Location = new System.Drawing.Point(544, 14);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(372, 62);
             this.groupBox8.TabIndex = 16;
@@ -719,6 +433,296 @@ namespace Cartera.Vista
             this.LbTotalProye.Text = "Total";
             this.toolTip1.SetToolTip(this.LbTotalProye, "Valor Total Ingresos");
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.BtRP);
+            this.tabPage2.Controls.Add(this.dataGridView2);
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(992, 595);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Ventas";
+            this.toolTip1.SetToolTip(this.tabPage2, "Reporte de Ventas");
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // BtRP
+            // 
+            this.BtRP.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.BtRP.Location = new System.Drawing.Point(935, 29);
+            this.BtRP.Name = "BtRP";
+            this.BtRP.Size = new System.Drawing.Size(35, 34);
+            this.BtRP.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.BtRP, "Guardar Reporte");
+            this.BtRP.UseVisualStyleBackColor = true;
+            this.BtRP.Click += new System.EventHandler(this.BtRP_Click);
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridView2.Location = new System.Drawing.Point(6, 82);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(968, 492);
+            this.dataGridView2.TabIndex = 15;
+            this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.BtBuscar2);
+            this.groupBox3.Controls.Add(this.datefin2);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.dateInicio2);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(26, 13);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(449, 62);
+            this.groupBox3.TabIndex = 13;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Rango de fechas";
+            // 
+            // BtBuscar2
+            // 
+            this.BtBuscar2.Image = global::Cartera.Properties.Resources.buscar;
+            this.BtBuscar2.Location = new System.Drawing.Point(389, 23);
+            this.BtBuscar2.Name = "BtBuscar2";
+            this.BtBuscar2.Size = new System.Drawing.Size(35, 27);
+            this.BtBuscar2.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.BtBuscar2, "Buscar Ventas");
+            this.BtBuscar2.UseVisualStyleBackColor = true;
+            this.BtBuscar2.Click += new System.EventHandler(this.BtBuscar2_Click);
+            // 
+            // datefin2
+            // 
+            this.datefin2.CustomFormat = "yyyy-MM-dd";
+            this.datefin2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datefin2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datefin2.Location = new System.Drawing.Point(254, 26);
+            this.datefin2.Name = "datefin2";
+            this.datefin2.Size = new System.Drawing.Size(108, 20);
+            this.datefin2.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.datefin2, "Fecha Final Reporte");
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(34, 30);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Inicial";
+            // 
+            // dateInicio2
+            // 
+            this.dateInicio2.CustomFormat = "yyyy-MM-dd";
+            this.dateInicio2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateInicio2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateInicio2.Location = new System.Drawing.Point(81, 26);
+            this.dateInicio2.Name = "dateInicio2";
+            this.dateInicio2.Size = new System.Drawing.Size(119, 20);
+            this.dateInicio2.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.dateInicio2, "Fecha Inicial Reporte");
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(216, 30);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(34, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Final";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.labelVentas);
+            this.groupBox4.Controls.Add(this.labelTotalVentas);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(508, 14);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(405, 62);
+            this.groupBox4.TabIndex = 14;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Ventas";
+            // 
+            // labelVentas
+            // 
+            this.labelVentas.AutoSize = true;
+            this.labelVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVentas.Location = new System.Drawing.Point(252, 29);
+            this.labelVentas.Name = "labelVentas";
+            this.labelVentas.Size = new System.Drawing.Size(46, 13);
+            this.labelVentas.TabIndex = 11;
+            this.labelVentas.Text = "Ventas";
+            this.toolTip1.SetToolTip(this.labelVentas, "Numero de Ventas");
+            // 
+            // labelTotalVentas
+            // 
+            this.labelTotalVentas.AutoSize = true;
+            this.labelTotalVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotalVentas.Location = new System.Drawing.Point(28, 29);
+            this.labelTotalVentas.Name = "labelTotalVentas";
+            this.labelTotalVentas.Size = new System.Drawing.Size(36, 13);
+            this.labelTotalVentas.TabIndex = 9;
+            this.labelTotalVentas.Text = "Total";
+            this.toolTip1.SetToolTip(this.labelTotalVentas, "Valor Total Ventas");
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.button2);
+            this.tabPage3.Controls.Add(this.dataGridView3);
+            this.tabPage3.Controls.Add(this.groupBox5);
+            this.tabPage3.Controls.Add(this.groupBox6);
+            this.tabPage3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(992, 595);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Disoluciones";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button2.Location = new System.Drawing.Point(934, 29);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(35, 34);
+            this.button2.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Location = new System.Drawing.Point(5, 82);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.Size = new System.Drawing.Size(968, 496);
+            this.dataGridView3.TabIndex = 19;
+            this.dataGridView3.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView3_RowPostPaint);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.button3);
+            this.groupBox5.Controls.Add(this.datefin3);
+            this.groupBox5.Controls.Add(this.label5);
+            this.groupBox5.Controls.Add(this.dateInicio3);
+            this.groupBox5.Controls.Add(this.label6);
+            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.Location = new System.Drawing.Point(25, 13);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(449, 62);
+            this.groupBox5.TabIndex = 17;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Rango de fechas";
+            // 
+            // button3
+            // 
+            this.button3.Image = global::Cartera.Properties.Resources.buscar;
+            this.button3.Location = new System.Drawing.Point(394, 23);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(35, 27);
+            this.button3.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.button3, "Buscar Ventas");
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // datefin3
+            // 
+            this.datefin3.CustomFormat = "dd/MM/yyyy";
+            this.datefin3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datefin3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datefin3.Location = new System.Drawing.Point(255, 26);
+            this.datefin3.Name = "datefin3";
+            this.datefin3.Size = new System.Drawing.Size(108, 20);
+            this.datefin3.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.datefin3, "Fecha Final Reporte");
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(35, 30);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Inicial";
+            // 
+            // dateInicio3
+            // 
+            this.dateInicio3.CustomFormat = "dd/MM/yyyy";
+            this.dateInicio3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateInicio3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateInicio3.Location = new System.Drawing.Point(82, 26);
+            this.dateInicio3.Name = "dateInicio3";
+            this.dateInicio3.Size = new System.Drawing.Size(119, 20);
+            this.dateInicio3.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.dateInicio3, "Fecha Inicial Reporte");
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(217, 30);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(34, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Final";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.labelCant);
+            this.groupBox6.Controls.Add(this.labelTot);
+            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox6.Location = new System.Drawing.Point(507, 14);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(405, 62);
+            this.groupBox6.TabIndex = 18;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Disoluciones";
+            // 
+            // labelCant
+            // 
+            this.labelCant.AutoSize = true;
+            this.labelCant.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCant.Location = new System.Drawing.Point(262, 29);
+            this.labelCant.Name = "labelCant";
+            this.labelCant.Size = new System.Drawing.Size(57, 13);
+            this.labelCant.TabIndex = 11;
+            this.labelCant.Text = "Cantidad";
+            this.toolTip1.SetToolTip(this.labelCant, "Numero de Ventas");
+            // 
+            // labelTot
+            // 
+            this.labelTot.AutoSize = true;
+            this.labelTot.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTot.Location = new System.Drawing.Point(23, 29);
+            this.labelTot.Name = "labelTot";
+            this.labelTot.Size = new System.Drawing.Size(36, 13);
+            this.labelTot.TabIndex = 9;
+            this.labelTot.Text = "Total";
+            this.toolTip1.SetToolTip(this.labelTot, "Valor Total Ventas");
+            // 
             // Reportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -736,6 +740,12 @@ namespace Cartera.Vista
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -748,12 +758,6 @@ namespace Cartera.Vista
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }

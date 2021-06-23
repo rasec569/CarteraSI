@@ -14,9 +14,9 @@ namespace Cartera.Controlador
         {
             return MPago.ConsultarUltimaCuota(productoid);
         }
-        public DataTable ConsultarCuotas(int productoid)
+        public DataTable ConsultarCuotas(int productoid, string tipo)
         {
-            return MPago.ConsultarCuotas(productoid);
+            return MPago.ConsultarCuotas(productoid, tipo);
         }
 
         public int RegistrarPago(string Porcentaje,string Numero_Cuota,string Fecha_Pago,string Concepto, string Entidad, string Referencia_Pago,string Valor_Pagado,string Descuento,string Valor_Descuento,string Fk_Id_Producto)

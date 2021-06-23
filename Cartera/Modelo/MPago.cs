@@ -24,9 +24,9 @@ namespace Cartera.Modelo
             return Conexion.consulta("Select Numero_Cuota, max(Id_Pagos) from Pagos where Fk_Id_Producto = '" + productoid + "';");
             throw new NotImplementedException();
         }
-        internal static DataTable ConsultarCuotas(int productoid)
+        internal static DataTable ConsultarCuotas(int productoid, string tipo)
         {
-            return Conexion.consulta("Select count(Id_Pagos) as cuotas from Pagos where Fk_Id_Producto = '" + productoid + "';");
+            return Conexion.consulta("Select max(Numero_Cuota) as cuotas from Pagos where Fk_Id_Producto = '" + productoid + "'AND Porcentaje like '"+tipo+"';");
             throw new NotImplementedException();
         }
         internal static int RegistrarPago(string porcentaje, string numero_Cuota, string fecha_Pago, string Concepto, string Entidad, string referencia_Pago, string valor_Pagado, string descuento, string valor_Descuento, string fk_Id_Producto)
@@ -89,7 +89,7 @@ namespace Cartera.Modelo
         }
         internal static DataTable reportPagos(string FechaInicio, string FechaFin)
         {
-            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Pago', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, Valor_Pagado as Valor, Descuento, Valor_Descuento as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, Valor_Pagado as Valor, Descuento, Valor_Descuento as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
         }
         internal static DataTable ValorReportPagos(string FechaInicio, string FechaFin)
         {

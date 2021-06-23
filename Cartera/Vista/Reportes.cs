@@ -44,9 +44,7 @@ namespace Cartera.Vista
             }
             catch
             {
-
-            }
-            
+            }            
         }
         void CargarRpVentas()
         {
@@ -58,13 +56,19 @@ namespace Cartera.Vista
                 labelTotalVentas.Text ="TOTAL VENTAS: $" + String.Format("{0:N0}", total);
                 labelVentas.Text = "CANTIDAD: " + DtValorVentas.Rows[0]["productos"].ToString();
                 dataGridView2.DataSource = DtVentas;
-                dataGridView2.Columns[3].DefaultCellStyle.Format = "n0";
+                dataGridView2.Columns[3].DefaultCellStyle.Format = "n0"; 
+                dataGridView2.Columns["Cedula"].Visible = false;
+                dataGridView2.Columns[2].Width = 80;
+                dataGridView2.Columns[3].Width = 80;
+                dataGridView2.Columns[4].Width = 80;                
+                dataGridView2.Columns[6].Width = 250;
+                dataGridView2.Columns[7].Width = 250;
+                dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
             catch
             {
-                MessageBox.Show("Sin datos para el reporte");
-            }
-            
+                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }            
         }
         void CargarRpPagos()
         {
@@ -79,10 +83,11 @@ namespace Cartera.Vista
             dataGridView1.Columns[1].Width = 50;
             dataGridView1.Columns[2].Width = 80;
             dataGridView1.Columns[3].Width = 230;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
             catch
             {
-                MessageBox.Show("Sin datos para el reporte");
+                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }    
         void actulziarCuotas()
@@ -179,8 +184,15 @@ namespace Cartera.Vista
             DataTable DtProyeccion = cuota.reportProyeccion(dateInicio4.Text, datefin4.Text);
             dataGridView4.DataSource = DtProyeccion;
             Lbcantidadproye.Text = "CANTIDAD: " + DtProyeccion.Rows.Count;
-            Int64 total = 0;
+            dataGridView4.Columns[0].Width = 55;
+            dataGridView4.Columns[1].DefaultCellStyle.Format = "n0";
+            dataGridView4.Columns[1].Width = 80;
+            dataGridView4.Columns[2].Width = 80;
+            dataGridView4.Columns[3].Width = 250;
+            dataGridView4.Columns[4].Width = 250;
+            dataGridView4.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
+            Int64 total = 0;
             foreach (DataRow row in DtProyeccion.Rows)
             {
                 total += Convert.ToInt32(row["Valor a Pagar"]);
@@ -206,10 +218,11 @@ namespace Cartera.Vista
                 dataGridView3.Columns[9].Width = 50;
                 dataGridView3.Columns[10].Width = 50;
                 dataGridView3.Columns[11].Width = 50;
+                dataGridView3.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
             catch
             {
-                MessageBox.Show("Sin datos para el reporte");
+                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -265,6 +278,38 @@ namespace Cartera.Vista
         private void button5_Click(object sender, EventArgs e)
         {
             CargarRpProyeccion();
+        }
+
+        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView1.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        private void dataGridView4_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView4.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        private void dataGridView2_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView2.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        private void dataGridView3_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView3.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
         }
     }
 }

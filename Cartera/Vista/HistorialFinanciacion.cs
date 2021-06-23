@@ -161,8 +161,12 @@ namespace Cartera.Vista
                             num_cuota++;
                         }
                         dataGridView1.Visible = false;
-                        dataGridView2.DataSource = cuota.ListarCuotas(id_financiacion);
+                        dataGridView2.DataSource = cuota.ListarCuotas(id_financiacion);                        
                         panel1.Visible = true;
+                        dataGridView2.Columns[0].Width = 70;
+                        dataGridView2.Columns[1].Width = 80;
+                        dataGridView2.Columns[1].DefaultCellStyle.Format = "n0";
+                        dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     }
                 }
             }

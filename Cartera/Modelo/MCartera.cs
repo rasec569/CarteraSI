@@ -51,7 +51,7 @@ namespace Cartera.Modelo
 
         internal static DataTable BuscarFechaspagos(int productoid)
         {
-			return Conexion.consulta("SELECT max(Fecha_Pago) as Fecha_Pago, Fecha_Recaudo, Cuotas_Sin_interes+Cuotas_Con_Interes as Cuotas, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto LEFT JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "';");
+			return Conexion.consulta("SELECT max(Fecha_Pago) as Fecha_Pago, Fecha_Recaudo, Cuotas_Sin_interes+Cuotas_Con_Interes as Cuotas, Cuotas_Sin_interes, Cuotas_Con_Interes, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto LEFT JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "';");
 			//return Conexion.consulta("SELECT max(Fecha_Pago) as Fecha_Pago, Fecha_Recaudo, Cuotas_Sin_interes, Valor_Entrada, Valor_Sin_interes, Cuotas_Con_Interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Sin_interes+Cuotas_Con_Interes as Cuotas,  sum(Valor_Pagado) as Pagado, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto LEFT JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "';");
 
 		}
