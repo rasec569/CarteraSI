@@ -68,7 +68,18 @@ namespace Cartera.Reportes
                             }
                             else if (i == 1)
                             {
-
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) - 60);
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
                                 texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
                                 texto.Add("NIT: 901100097-1".ToUpper());
                                 texto.Alignment = 1;
@@ -235,7 +246,18 @@ namespace Cartera.Reportes
                             }
                             else if (i == 1)
                             {
-
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) - 60);
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
                                 texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
                                 texto.Add("NIT: 901100097-1".ToUpper());
                                 texto.Alignment = 1;
@@ -387,7 +409,18 @@ namespace Cartera.Reportes
                             }
                             else if (i == 1)
                             {
-
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) - 60);
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
                                 texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
                                 texto.Add("NIT: 901100097-1".ToUpper());
                                 texto.Alignment = 1;
@@ -523,7 +556,18 @@ namespace Cartera.Reportes
                             }
                             else if (i == 1)
                             {
-
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) - 60);
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
                                 texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
                                 texto.Add("NIT: 901100097-1".ToUpper());
                                 texto.Alignment = 1;
@@ -675,7 +719,18 @@ namespace Cartera.Reportes
                             }
                             else if (i == 1)
                             {
-
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) - 60);
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
                                 texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
                                 texto.Add("NIT: 901100097-1".ToUpper());
                                 texto.Alignment = 1;
@@ -827,7 +882,18 @@ namespace Cartera.Reportes
                             }
                             else if (i == 1)
                             {
-
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) - 60);
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
                                 texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
                                 texto.Add("NIT: 901100097-1".ToUpper());
                                 texto.Alignment = 1;
@@ -963,7 +1029,18 @@ namespace Cartera.Reportes
                             }
                             else if (i == 1)
                             {
-
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) - 60);
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
                                 texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
                                 texto.Add("NIT: 901100097-1".ToUpper());
                                 texto.Alignment = 1;
@@ -979,7 +1056,7 @@ namespace Cartera.Reportes
                                 texto.RemoveAt(0);
 
                                 texto.Font = FontFactory.GetFont("Verdana", 7);
-                                texto.Add("REPORTE - INGRESOS DE "+ fecha);
+                                texto.Add("REPORTE - INGRESO OBSERVADO "+ fecha);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
@@ -1059,6 +1136,172 @@ namespace Cartera.Reportes
                 //return file;
             }
         }
+        public void Programado(DataTable report, string total, string numero, string fecha)
+        {
+            //string nombre = "Historial de pagos";
+
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "PDF file|*.pdf", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    ////Dirección del proyecto donde se va a guardar
+
+
+                    ////string file = "report1.pdf";
+                    //string FilePath = dir2 + @"\Documento\" + file;
+                    var nombre = sfd.FileName;
+                    var nombre2 = sfd.Title;
+                    string file = nombre2 + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".pdf";
+                    Document document = new Document(PageSize.LETTER, 30, 20, 50, 50);
+                    try
+                    {
+                        //Save pdf file
+                        //PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.OpenOrCreate));
+                        MemoryStream m = new MemoryStream();
+
+                        //********************** Encabezado *******************************
+                        PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(nombre, FileMode.OpenOrCreate));
+                        writer.PageEvent = new HeaderFooter();
+                        //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(FilePath, FileMode.OpenOrCreate)); writer.PageEvent = new HeaderFooter();
+                                               
+                        
+
+                        Paragraph texto = new Paragraph();
+                        texto.Alignment = Element.ALIGN_CENTER;
+                        texto.Font = FontFactory.GetFont("Verdana", 12);
+                        texto.Add("URBANIZADORA Y CONSTRUCTORA SAN ISIDRO S.A.S");
+                        Paragraph info = new Paragraph();
+                        info.Alignment = 1;
+                        info.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
+                        //*********************** Encabezado *************************
+
+                        //******* abrir documento
+                        document.Open();
+
+                        //******* Lineas **********            
+                        PdfContentByte pdfContent = writer.DirectContent;
+
+                        //****** Lineas **********
+
+                        //********* inicio portada**************
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (i == 0)
+                            {
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+                            }
+                            else if (i == 1)
+                            {
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin)-60);                           
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
+
+                                texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
+                                texto.Add("NIT: 901100097-1".ToUpper());
+                                texto.Alignment = 1;
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                texto.Add("Conjunto el Encanto Calle 24 No. 19C-24 Local 4");
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                texto.Add("3126120806");
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Add("REPORTE - INGRESO PROGRAMADO " + fecha);
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                //string fecha;
+                                //if (fecha1.Equals(""))
+                                //{
+                                //    DateTime Fechaf = Convert.ToDateTime(fecha2);
+
+                                //    DateTimeFormatInfo dtinfo = new CultureInfo("es-ES", false).DateTimeFormat;
+                                //    fecha = dtinfo.GetMonthName(Fechaf.Month) + " " + Fechaf.Day + " DE " + Fechaf.Year;
+                                //}
+                                //else
+                                //{
+                                //    DateTime Fechai = Convert.ToDateTime(fecha1);
+                                //    DateTime Fechaf = Convert.ToDateTime(fecha2);
+
+                                //    DateTimeFormatInfo dtinfo = new CultureInfo("es-ES", false).DateTimeFormat;
+                                //    fecha = dtinfo.GetMonthName(Fechai.Month) + " " + Fechai.Day + " DE " + Fechai.Year + " (A) " + dtinfo.GetMonthName(Fechaf.Month) + " " + Fechaf.Day + " DE " + Fechaf.Year;
+                                //}
+                                //texto.Add(" TOTAL CARTERA: " + total + " VALOR RECAUDADO: " + recaudado + " VALOR DEUDA: " + deuda);
+                                //document.Add(texto);
+                                //texto.RemoveAt(0);
+                                //texto.Add();
+                                //document.Add(texto);
+                                //texto.RemoveAt(0);
+
+                                texto.Add("FECHA REPORTE: " + DateTime.Now.ToString());
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+
+
+                                document.Add(new Paragraph(" "));
+
+                                //*** Linea cabesera
+                                pdfContent.MoveTo(30, document.PageSize.Height - 120);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 120);
+                                pdfContent.Stroke();
+                                //*** Linea detalle
+                                pdfContent.MoveTo(30, document.PageSize.Height - 150);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 150);
+                                pdfContent.Stroke();
+                            }
+                            else if (i == 2)
+                            {
+                                document.Add(TablasLetras(report, new float[] { 6f, 14f, 14f, 23f, 23f, 10f, 10f }, 100, 6));
+                            }
+                            else
+                            {
+                                document.Add(new Paragraph(" "));
+                            }
+                        }
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
+                        texto.Add("________________________________________________________________________________________________________________________________________________");
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Alignment = Element.ALIGN_RIGHT;
+                        texto.IndentationRight = 30;
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                        texto.Add(numero);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add(total);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        //********************** Cerrar documento ********************         
+                        document.Close();
+                    }
+                }
+                //return file;
+            }
+        }
+
         public void Ventas(DataTable report, string total, string numero, string fecha)
         {
             //string nombre = "Historial de pagos";
@@ -1113,7 +1356,18 @@ namespace Cartera.Reportes
                             }
                             else if (i == 1)
                             {
-
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) - 60);
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
                                 texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
                                 texto.Add("NIT: 901100097-1".ToUpper());
                                 texto.Alignment = 1;
@@ -1279,48 +1533,48 @@ namespace Cartera.Reportes
             public void OnEndPage(PdfWriter writer, Document document)
             {
                 //We are going to add two strings in header. Create separate Phrase object with font setting and string to be included
-                Phrase p1Header = new Phrase("", FontFactory.GetFont("verdana", 8));
-                Phrase p2Header = new Phrase("", FontFactory.GetFont("verdana", 8));
-                var path=AppDomain.CurrentDomain.BaseDirectory;
-                string ruta = path + @"img\logo San Isidro.png";
-                Image image1 = Image.GetInstance(ruta);
-                //global::Cartera.Properties.Resources.logo_2_San_Isidro;
-                //image1.ScalePercent(50f);
-                image1.Alignment = Element.ALIGN_LEFT;
-                image1.ScaleAbsoluteWidth(60);
-                image1.ScaleAbsoluteHeight(60);
-                ////create iTextSharp.text Image object using local image path
-                //Image imgPDF = Image.GetInstance(@"C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\img\logo 2 San Isidro.png");
-                //imgPDF.Width = 10;
-                //imgPDF.ScaleAbsolute(55, 55);
-                ////Create PdfTable object
-                PdfPTable pdfTab = new PdfPTable(3);
-                //We will have to create separate cells to include image logo and 2 separate strings
-                PdfPCell pdfCell1 = new PdfPCell(image1);
-                PdfPCell pdfCell2 = new PdfPCell(p1Header);
-                PdfPCell pdfCell3 = new PdfPCell(p2Header);
-                //set the alignment of all three cells and set border to 0
-                pdfCell1.HorizontalAlignment = Element.ALIGN_LEFT;
-                pdfCell1.PaddingLeft = 35f;
-                pdfCell2.HorizontalAlignment = Element.ALIGN_LEFT;
-                pdfCell3.HorizontalAlignment = Element.ALIGN_RIGHT;
-                pdfCell1.VerticalAlignment = Element.ALIGN_MIDDLE;
-                pdfCell1.PaddingTop = 35f;
-                pdfCell2.VerticalAlignment = Element.ALIGN_BOTTOM;
-                pdfCell3.VerticalAlignment = Element.ALIGN_CENTER;
+                //Phrase p1Header = new Phrase("", FontFactory.GetFont("verdana", 8));
+                //Phrase p2Header = new Phrase("", FontFactory.GetFont("verdana", 8));
+                //var path=AppDomain.CurrentDomain.BaseDirectory;
+                //string ruta = path + @"img\logo San Isidro.png";
+                //Image image1 = Image.GetInstance(ruta);
+                ////global::Cartera.Properties.Resources.logo_2_San_Isidro;
+                ////image1.ScalePercent(50f);
+                //image1.Alignment = Element.ALIGN_LEFT;
+                //image1.ScaleAbsoluteWidth(60);
+                //image1.ScaleAbsoluteHeight(60);
+                //////create iTextSharp.text Image object using local image path
+                ////Image imgPDF = Image.GetInstance(@"C:\Users\RASEC\Documents\Cartera\CarteraSI\Cartera\img\logo 2 San Isidro.png");
+                ////imgPDF.Width = 10;
+                ////imgPDF.ScaleAbsolute(55, 55);
+                //////Create PdfTable object
+                //PdfPTable pdfTab = new PdfPTable(3);
+                ////We will have to create separate cells to include image logo and 2 separate strings
+                //PdfPCell pdfCell1 = new PdfPCell(image1);
+                //PdfPCell pdfCell2 = new PdfPCell(p1Header);
+                //PdfPCell pdfCell3 = new PdfPCell(p2Header);
+                ////set the alignment of all three cells and set border to 0
+                //pdfCell1.HorizontalAlignment = Element.ALIGN_LEFT;
+                //pdfCell1.PaddingLeft = 35f;
+                //pdfCell2.HorizontalAlignment = Element.ALIGN_LEFT;
+                //pdfCell3.HorizontalAlignment = Element.ALIGN_RIGHT;
+                //pdfCell1.VerticalAlignment = Element.ALIGN_MIDDLE;
+                //pdfCell1.PaddingTop = 35f;
+                //pdfCell2.VerticalAlignment = Element.ALIGN_BOTTOM;
+                //pdfCell3.VerticalAlignment = Element.ALIGN_CENTER;
 
-                pdfCell1.Border = 0;
-                pdfCell2.Border = 0;
-                pdfCell3.Border = 0;
-                //add all three cells into PdfTable
-                pdfTab.AddCell(pdfCell1);
-                pdfTab.AddCell(pdfCell2);
-                pdfTab.AddCell(pdfCell3);
-                pdfTab.TotalWidth = document.PageSize.Width - 20;
-                //call WriteSelectedRows of PdfTable. This writes rows from PdfWriter in PdfTable
-                //first param is start row. -1 indicates there is no end row and all the rows to be included to write
-                //Third and fourth param is x and y position to start writing                
-                pdfTab.WriteSelectedRows(0, -1, 10, document.PageSize.Height - 20, writer.DirectContent);
+                //pdfCell1.Border = 0;
+                //pdfCell2.Border = 0;
+                //pdfCell3.Border = 0;
+                ////add all three cells into PdfTable
+                //pdfTab.AddCell(pdfCell1);
+                //pdfTab.AddCell(pdfCell2);
+                //pdfTab.AddCell(pdfCell3);
+                //pdfTab.TotalWidth = document.PageSize.Width - 20;
+                ////call WriteSelectedRows of PdfTable. This writes rows from PdfWriter in PdfTable
+                ////first param is start row. -1 indicates there is no end row and all the rows to be included to write
+                ////Third and fourth param is x and y position to start writing                
+                //pdfTab.WriteSelectedRows(0, -1, 10, document.PageSize.Height - 20, writer.DirectContent);
                 //set pdfContent value
                 pdfContent = writer.DirectContent;
                 //Move the pointer and draw line to separate header section from rest of page

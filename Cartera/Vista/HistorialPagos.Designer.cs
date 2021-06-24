@@ -50,6 +50,7 @@ namespace Cartera.Vista
             this.labelNeto = new System.Windows.Forms.Label();
             this.labelSaldoFecha = new System.Windows.Forms.Label();
             this.TxtDeudaFecha = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelmes = new System.Windows.Forms.Label();
             this.labelMeses = new System.Windows.Forms.Label();
@@ -118,7 +119,7 @@ namespace Cartera.Vista
             // 
             this.btLimpiar.Enabled = false;
             this.btLimpiar.Image = ((System.Drawing.Image)(resources.GetObject("btLimpiar.Image")));
-            this.btLimpiar.Location = new System.Drawing.Point(917, 19);
+            this.btLimpiar.Location = new System.Drawing.Point(891, 19);
             this.btLimpiar.Name = "btLimpiar";
             this.btLimpiar.Size = new System.Drawing.Size(33, 30);
             this.btLimpiar.TabIndex = 11;
@@ -170,7 +171,7 @@ namespace Cartera.Vista
             // 
             this.BtImprimir.Enabled = false;
             this.BtImprimir.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.BtImprimir.Location = new System.Drawing.Point(956, 20);
+            this.BtImprimir.Location = new System.Drawing.Point(930, 19);
             this.BtImprimir.Name = "BtImprimir";
             this.BtImprimir.Size = new System.Drawing.Size(34, 30);
             this.BtImprimir.TabIndex = 6;
@@ -273,6 +274,17 @@ namespace Cartera.Vista
             this.TxtDeudaFecha.TextChanged += new System.EventHandler(this.TxtDeudaFecha_TextChanged);
             this.TxtDeudaFecha.Leave += new System.EventHandler(this.TxtDeudaFecha_Leave);
             // 
+            // button1
+            // 
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(982, 22);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 30);
+            this.button1.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.button1, "Financiación");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.labelmes);
@@ -346,6 +358,7 @@ namespace Cartera.Vista
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1034, 424);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.TxtDeudaFecha);
             this.Controls.Add(this.labelSaldoFecha);
@@ -403,5 +416,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label labelPagadas;
         private System.Windows.Forms.Label labelCuotas;
         private System.Windows.Forms.Label labelmes;
+        private System.Windows.Forms.Button button1;
     }
 }

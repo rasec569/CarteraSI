@@ -97,7 +97,8 @@ namespace Cartera.Vista
                         DataTable dtrecaudo = pago.Tota_Recaudado_Producto(ProductoId.ToString());
                         int ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
                         label9.Text = "Valor pagado: $ " + String.Format("{0:N0}", ValorPagado);
-                        int num_cuota = 1;
+                        int num_cuota = 0;
+                        int contador = 1;
                         int pagado = 0;
                         string Estado = "";
                         pagado = valor_entrada;
@@ -118,7 +119,7 @@ namespace Cartera.Vista
                             cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
                         }
                         num_cuota++;
-                        while (num_cuota <= Cuotas_sin_interes + 1)
+                        while (num_cuota <= Cuotas_sin_interes)
                         {
                             pagado = pagado + Valor_cuota_sin_interes;
                             if (pagado <= ValorPagado)
@@ -131,15 +132,17 @@ namespace Cartera.Vista
                             }
                             if(dtCuotas.Rows.Count == 0)
                             { 
-                            cuota.CrearCuota(num_cuota, Valor_cuota_sin_interes, "Valor Inicial", date.AddMonths(num_cuota - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);                            
+                            cuota.CrearCuota(num_cuota, Valor_cuota_sin_interes, "Valor Inicial", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);                            
                             }
                             else
                             {
                                 cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
                             }
+                            contador++;
                             num_cuota++;
                         }
-                        while (num_cuota <= Cuotas_sin_interes + Cuotas_Con_Interes + 1)
+                        num_cuota = 1;
+                        while (num_cuota <= Cuotas_sin_interes )
                         {
                             pagado = pagado + Valor_Cuota_Con_Interes;
                             if (pagado <= ValorPagado)
@@ -152,12 +155,13 @@ namespace Cartera.Vista
                             }
                             if (dtCuotas.Rows.Count == 0)
                             {
-                                cuota.CrearCuota(num_cuota, Valor_Cuota_Con_Interes, "Valor Saldo", date.AddMonths(num_cuota - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);
+                                cuota.CrearCuota(num_cuota, Valor_Cuota_Con_Interes, "Valor Saldo", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);
                             }
                             else
                             {
                                 cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
                             }
+                            contador++;
                             num_cuota++;
                         }
                         dataGridView1.Visible = false;
@@ -173,6 +177,15 @@ namespace Cartera.Vista
             catch
             {
                 MessageBox.Show("Error");
+            }
+        }
+
+        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 & e.RowIndex >= 0)
+            {
+                DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.ToolTipText = "Doble clic para ver detalle de financiación";
             }
         }
     }

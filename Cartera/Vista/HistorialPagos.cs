@@ -26,7 +26,7 @@ namespace Cartera.Vista
         string carteraId ="";
         string clienteid = "";
         bool clearall = true;
-        int cuotas, meses, pagos, mora, mes_mora, financiacion;
+        int cuotas, meses, pagos, mora, mes_mora;
         string Nom_Producto, Nom_Proyecto;
         int ProductoVal,ValorPagado,ValorDeuda,ValorNeto;
         ReportesPDF reportesPDF = new ReportesPDF();
@@ -220,7 +220,7 @@ namespace Cartera.Vista
         {
             groupBox2.Visible = true;
             DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(productoId));
-            financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString()); 
+            //financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString()); 
             if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[0]["Fecha_Recaudo"].ToString()))
             {
                 string fecha1 = dtfechas.Rows[0]["Fecha_Pago"].ToString();
@@ -291,6 +291,12 @@ namespace Cartera.Vista
                 labelCuotas.Text = "Cuotas Pactadas:  " + cuotas;                    
                 
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            HistorialFinanciacion historial = new HistorialFinanciacion(productoId);
+            historial.ShowDialog();
         }
 
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)

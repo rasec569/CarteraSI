@@ -359,7 +359,6 @@ namespace Cartera.Vista
                 DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 cell.ToolTipText = "Doble clic para Registrar pago";
             }
-
         }
         private void button3_Click(object sender, EventArgs e)
         {

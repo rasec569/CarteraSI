@@ -162,6 +162,7 @@ namespace Cartera.Vista
             // 
             this.comboDescuento.FormattingEnabled = true;
             this.comboDescuento.Items.AddRange(new object[] {
+            "Seleccionar",
             "Pago anticipado",
             "Pago oportuno",
             "Oferta expecial",

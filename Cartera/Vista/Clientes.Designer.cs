@@ -614,7 +614,7 @@ namespace Cartera.Vista
             // 
             this.dateFechaEstado.CustomFormat = "yyyy-MM-dd";
             this.dateFechaEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateFechaEstado.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateFechaEstado.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFechaEstado.Location = new System.Drawing.Point(236, 257);
             this.dateFechaEstado.Name = "dateFechaEstado";
             this.dateFechaEstado.Size = new System.Drawing.Size(97, 20);

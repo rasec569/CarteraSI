@@ -21,6 +21,7 @@ namespace Cartera.Vista
         CCuota cuota = new CCuota();
         CCartera cartera = new CCartera();
         DataTable DtPagos = new DataTable();
+        DataTable DtProgramado = new DataTable();
         DataTable DtVentas = new DataTable();
         DataTable DtDisolucion = new DataTable();
         private ReportesPDF reportesPDF;
@@ -30,9 +31,6 @@ namespace Cartera.Vista
             reportesPDF = new ReportesPDF();
             DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
             dateInicio.Text = actual.AddMonths(-1).ToString();
-            dateInicio2.Text = actual.AddMonths(-1).ToString();
-            dateInicio3.Text = actual.AddMonths(-1).ToString();
-            dateInicio4.Text = actual.AddMonths(-1).ToString();
         }        
         private void Reportes_Load(object sender, EventArgs e)
         {
@@ -46,29 +44,10 @@ namespace Cartera.Vista
             {
             }            
         }
-        void CargarRpVentas()
+        void limpiarlabel()
         {
-            try
-            {
-                DtVentas = producto.ReportVentas(dateInicio2.Text, datefin2.Text);
-                DataTable DtValorVentas = producto.ValorReportVentas(dateInicio2.Text, datefin2.Text);
-                Int64 total = Int64.Parse(DtValorVentas.Rows[0]["valor"].ToString()); 
-                labelTotalVentas.Text ="TOTAL VENTAS: $" + String.Format("{0:N0}", total);
-                labelVentas.Text = "CANTIDAD: " + DtValorVentas.Rows[0]["productos"].ToString();
-                dataGridView2.DataSource = DtVentas;
-                dataGridView2.Columns[3].DefaultCellStyle.Format = "n0"; 
-                dataGridView2.Columns["Cedula"].Visible = false;
-                dataGridView2.Columns[2].Width = 80;
-                dataGridView2.Columns[3].Width = 80;
-                dataGridView2.Columns[4].Width = 80;                
-                dataGridView2.Columns[6].Width = 250;
-                dataGridView2.Columns[7].Width = 250;
-                dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-            catch
-            {
-                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }            
+            labelTotal.Text = "";
+            labelNumero.Text = "";
         }
         void CargarRpPagos()
         {
@@ -89,7 +68,102 @@ namespace Cartera.Vista
             {
                 MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }    
+        }
+        void CargarRpProyeccion()
+        {
+            actulziarCuotas();
+            DtProgramado = cuota.reportProyeccion(dateInicio.Text, datefin.Text);
+            dataGridView4.DataSource = DtProgramado;
+            labelNumero.Text = "CANTIDAD: " + DtProgramado.Rows.Count;
+            dataGridView4.Columns[0].Width = 55;
+            dataGridView4.Columns[1].DefaultCellStyle.Format = "n0";
+            dataGridView4.Columns[1].Width = 80;
+            dataGridView4.Columns[2].Width = 80;
+            dataGridView4.Columns[3].Width = 250;
+            dataGridView4.Columns[4].Width = 250;
+            dataGridView4.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            Int64 total = 0;
+            foreach (DataRow row in DtProgramado.Rows)
+            {
+                total += Convert.ToInt32(row["Valor a Pagar"]);
+            }
+            labelTotal.Text = "TOTAL INGRESOS: $ " + String.Format("{0:N0}", total);
+        }
+        void CargarRpVentas()
+        {
+            try
+            {
+                DtVentas = producto.ReportVentas(dateInicio.Text, datefin.Text);
+                DataTable DtValorVentas = producto.ValorReportVentas(dateInicio.Text, datefin.Text);
+                Int64 total = Int64.Parse(DtValorVentas.Rows[0]["valor"].ToString());
+                labelTotal.Text = "VALOR VENTAS: $" + String.Format("{0:N0}", total);
+                labelNumero.Text = "CANTIDAD: " + DtValorVentas.Rows[0]["productos"].ToString();
+                dataGridView2.DataSource = DtVentas;
+                dataGridView2.Columns[3].DefaultCellStyle.Format = "n0";
+                dataGridView2.Columns["Cedula"].Visible = false;
+                dataGridView2.Columns[2].Width = 80;
+                dataGridView2.Columns[3].Width = 80;
+                dataGridView2.Columns[4].Width = 80;
+                dataGridView2.Columns[6].Width = 250;
+                dataGridView2.Columns[7].Width = 250;
+                dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+            catch
+            {
+                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        void CargarDisoluciones()
+        {
+            try
+            {
+                DtDisolucion = cartera.Disoluciones(dateInicio.Text, datefin.Text);
+                DataTable DtValorDisolucion = cartera.TotalDisoluciones(dateInicio.Text, datefin.Text);
+                Int64 total = Int64.Parse(DtValorDisolucion.Rows[0]["Total Devuelto"].ToString());
+                labelTotal.Text = "VALOR DEVUELTO: $" + String.Format("{0:N0}", total);
+                labelNumero.Text = "CANTIDAD: " + DtValorDisolucion.Rows[0]["Cantiad"].ToString();
+                dataGridView3.DataSource = DtDisolucion;
+                dataGridView3.Columns[1].Width = 130;
+                dataGridView3.Columns[2].Width = 130;
+                dataGridView3.Columns[5].DefaultCellStyle.Format = "n0";
+                dataGridView3.Columns[6].DefaultCellStyle.Format = "n0";
+                dataGridView3.Columns[7].DefaultCellStyle.Format = "n0";
+                dataGridView3.Columns[8].Width = 50;
+                dataGridView3.Columns[9].Width = 50;
+                dataGridView3.Columns[10].Width = 50;
+                dataGridView3.Columns[11].Width = 50;
+                dataGridView3.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+            catch
+            {
+                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        void CargarTap()
+        {
+            if (tabControl1.SelectedIndex == 0)
+            {
+                CargarRpPagos();
+                groupBox2.Text = "Ingreso Observado";
+                dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
+            }
+            else if (tabControl1.SelectedIndex == 1)
+            {
+                CargarRpProyeccion();
+                groupBox2.Text = "Ingreso Programado";
+            }
+            else if (tabControl1.SelectedIndex == 2)
+            {
+                CargarRpVentas();
+                groupBox2.Text = "Ventas";
+            }
+            else if (tabControl1.SelectedIndex == 3)
+            {
+                CargarDisoluciones();
+                groupBox2.Text = "Disoluciones";
+            }
+        }
         void actulziarCuotas()
         {
             DataTable DtProducto = producto.cargarProductos();
@@ -112,7 +186,8 @@ namespace Cartera.Vista
                     DataTable dtCuotas = cuota.ListarCuotas(id_financiacion);
                     DataTable dtrecaudo = pagos.Tota_Recaudado_Producto(id_producto);
                     int ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
-                    int num_cuota = 1;
+                    int num_cuota = 0;
+                    int contador = 1;
                     int pagado = 0;
                     string Estado = "";
                     pagado = valor_entrada;
@@ -133,7 +208,7 @@ namespace Cartera.Vista
                         cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
                     }
                     num_cuota++;
-                    while (num_cuota <= Cuotas_sin_interes + 1)
+                    while (num_cuota <= Cuotas_sin_interes)
                     {
                         pagado = pagado + Valor_cuota_sin_interes;
                         if (pagado <= ValorPagado)
@@ -146,16 +221,17 @@ namespace Cartera.Vista
                         }
                         if (dtCuotas.Rows.Count == 0)
                         {
-                            cuota.CrearCuota(num_cuota, Valor_cuota_sin_interes, "Valor Inicial", date.AddMonths(num_cuota - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);
+                            cuota.CrearCuota(num_cuota, Valor_cuota_sin_interes, "Valor Inicial", date.AddMonths(contador).ToString("yyyy-MM-dd"), Estado, id_financiacion);
                         }
                         else
                         {
                             cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
-                        }
+                        }contador++;
                         num_cuota++;
                     }
-                    while (num_cuota <= Cuotas_sin_interes + Cuotas_Con_Interes + 1)
-                    {
+                    num_cuota = 1;
+                    while (num_cuota <=  Cuotas_Con_Interes)
+                    {                        
                         pagado = pagado + Valor_Cuota_Con_Interes;
                         if (pagado <= ValorPagado)
                         {
@@ -167,119 +243,52 @@ namespace Cartera.Vista
                         }
                         if (dtCuotas.Rows.Count == 0)
                         {
-                            cuota.CrearCuota(num_cuota, Valor_Cuota_Con_Interes, "Valor Saldo", date.AddMonths(num_cuota - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);
+                            cuota.CrearCuota(num_cuota, Valor_Cuota_Con_Interes, "Valor Saldo", date.AddMonths(contador).ToString("yyyy-MM-dd"), Estado, id_financiacion);
                         }
                         else
                         {
                             cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
                         }
+                        contador++;
                         num_cuota++;
                     }
                 }
             }
         }
-        void CargarRpProyeccion()
-        {
-            actulziarCuotas();
-            DataTable DtProyeccion = cuota.reportProyeccion(dateInicio4.Text, datefin4.Text);
-            dataGridView4.DataSource = DtProyeccion;
-            Lbcantidadproye.Text = "CANTIDAD: " + DtProyeccion.Rows.Count;
-            dataGridView4.Columns[0].Width = 55;
-            dataGridView4.Columns[1].DefaultCellStyle.Format = "n0";
-            dataGridView4.Columns[1].Width = 80;
-            dataGridView4.Columns[2].Width = 80;
-            dataGridView4.Columns[3].Width = 250;
-            dataGridView4.Columns[4].Width = 250;
-            dataGridView4.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            Int64 total = 0;
-            foreach (DataRow row in DtProyeccion.Rows)
-            {
-                total += Convert.ToInt32(row["Valor a Pagar"]);
-            }
-            LbTotalProye.Text= "TOTAL: $ " + String.Format("{0:N0}", total);
-        }
-        void CargarDisoluciones()
-        {
-            try
-            {
-                DtDisolucion = cartera.Disoluciones(dateInicio3.Text, datefin3.Text);
-                DataTable DtValorDisolucion=cartera.TotalDisoluciones(dateInicio3.Text, datefin3.Text);
-                Int64 total = Int64.Parse(DtValorDisolucion.Rows[0]["Total Devuelto"].ToString());
-                labelTot.Text = "TOTAL DEVUELTO: $" + String.Format("{0:N0}", total);
-                labelCant.Text = "CANTIDAD: " + DtValorDisolucion.Rows[0]["Cantiad"].ToString();
-                dataGridView3.DataSource = DtDisolucion;
-                dataGridView3.Columns[1].Width = 130;
-                dataGridView3.Columns[2].Width = 130;
-                dataGridView3.Columns[5].DefaultCellStyle.Format = "n0";
-                dataGridView3.Columns[6].DefaultCellStyle.Format = "n0";
-                dataGridView3.Columns[7].DefaultCellStyle.Format = "n0";
-                dataGridView3.Columns[8].Width = 50;
-                dataGridView3.Columns[9].Width = 50;
-                dataGridView3.Columns[10].Width = 50;
-                dataGridView3.Columns[11].Width = 50;
-                dataGridView3.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-            catch
-            {
-                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
+        
 
         private void BtBuscar_Click(object sender, EventArgs e)
         {
-            CargarRpPagos();
-            dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
+            CargarTap();
         }
-
-        private void BtBuscar2_Click(object sender, EventArgs e)
-        {
-            CargarRpVentas();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             string fechas = dateInicio.Text + " A " + datefin.Text;
-            reportesPDF.Ingresos(DtPagos, labelTotal.Text, labelNumero.Text,  fechas);
-        }
 
-        private void BtRP_Click(object sender, EventArgs e)
-        {
-            string fechas = dateInicio2.Text +" A "+datefin2.Text;
-            reportesPDF.Ventas(DtVentas, labelTotalVentas.Text, labelVentas.Text, fechas);
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedIndex == 1)
+            if (tabControl1.SelectedIndex == 0)
             {
-                CargarRpProyeccion();
+                reportesPDF.Ingresos(DtPagos, labelTotal.Text, labelNumero.Text, fechas);
             }
-            else if (tabControl1.SelectedIndex==2)
+            else if (tabControl1.SelectedIndex == 1)
             {
-                CargarRpVentas();
+                reportesPDF.Programado(DtProgramado, labelTotal.Text, labelNumero.Text, fechas);
+            }
+            else if (tabControl1.SelectedIndex == 2)
+            {
+                reportesPDF.Ventas(DtVentas, labelTotal.Text, labelNumero.Text, fechas);
             }
             else if (tabControl1.SelectedIndex == 3)
             {
                 CargarDisoluciones();
-            }
+                groupBox2.Text = "Disoluciones";
+            }  
         }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CargarDisoluciones();
+            limpiarlabel();
+            CargarTap();
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            CargarRpVentas();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            CargarRpProyeccion();
-        }
-
+          
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             using (SolidBrush b = new SolidBrush(dataGridView1.RowHeadersDefaultCellStyle.ForeColor))
@@ -287,7 +296,6 @@ namespace Cartera.Vista
                 e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
             }
         }
-
         private void dataGridView4_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             using (SolidBrush b = new SolidBrush(dataGridView4.RowHeadersDefaultCellStyle.ForeColor))
@@ -295,7 +303,6 @@ namespace Cartera.Vista
                 e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
             }
         }
-
         private void dataGridView2_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             using (SolidBrush b = new SolidBrush(dataGridView2.RowHeadersDefaultCellStyle.ForeColor))
@@ -303,7 +310,6 @@ namespace Cartera.Vista
                 e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
             }
         }
-
         private void dataGridView3_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             using (SolidBrush b = new SolidBrush(dataGridView3.RowHeadersDefaultCellStyle.ForeColor))

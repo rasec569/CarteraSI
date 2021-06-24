@@ -62,6 +62,7 @@ namespace Cartera.Vista
             this.dataGridView1.TabIndex = 0;
             this.toolTip1.SetToolTip(this.dataGridView1, "Doble clic para ver detalles");
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
             // 
             // dataGridView2
             // 
@@ -205,7 +206,7 @@ namespace Cartera.Vista
             this.MinimizeBox = false;
             this.Name = "HistorialFinanciacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Historial Financiación";
+            this.Text = "Financiación";
             this.Load += new System.EventHandler(this.HistorialFinanciacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();

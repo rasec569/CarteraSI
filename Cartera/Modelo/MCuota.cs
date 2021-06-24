@@ -32,7 +32,7 @@ namespace Cartera.Modelo
 		internal static DataTable ListarCuotas(int financiacion)
 		{
 
-			return Conexion.consulta("SELECT Num_Cuota as '# Cuota Pactadas', Valor_Cuota as Valor, Tipo, Fecha as 'Fecha Pactada', Estado FROM Cuotas WHERE Fk_Id_Financiacion= '" + financiacion + "' ORDER by Num_Cuota;");
+			return Conexion.consulta("SELECT Num_Cuota as '# Cuota Pactadas', Valor_Cuota as Valor, Tipo, Fecha as 'Fecha Pactada', Estado FROM Cuotas WHERE Fk_Id_Financiacion= '" + financiacion + "';");
 		}
 		internal static DataTable reportProyeccion(string FechaInicio, string FechaFin)
 		{
