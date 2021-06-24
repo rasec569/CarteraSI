@@ -1301,7 +1301,6 @@ namespace Cartera.Reportes
                 //return file;
             }
         }
-
         public void Ventas(DataTable report, string total, string numero, string fecha)
         {
             //string nombre = "Historial de pagos";
@@ -1430,6 +1429,167 @@ namespace Cartera.Reportes
                             else if (i == 2)
                             {
                                 document.Add(TablasLetras(report, new float[] { 13f, 11f, 11f, 12f, 11f, 12f, 15f, 15f }, 100, 7));
+                            }
+                            else
+                            {
+                                document.Add(new Paragraph(" "));
+                            }
+                        }
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
+                        texto.Add("________________________________________________________________________________________________________________________________________________");
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Alignment = Element.ALIGN_RIGHT;
+                        texto.IndentationRight = 30;
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                        texto.Add(numero);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add(total);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        //********************** Cerrar documento ********************         
+                        document.Close();
+                    }
+                }
+                //return file;
+            }
+        }
+        public void Disolucion(DataTable report, string total, string numero, string fecha)
+        {
+            //string nombre = "Historial de pagos";
+
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "PDF file|*.pdf", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    ////Dirección del proyecto donde se va a guardar
+
+
+                    ////string file = "report1.pdf";
+                    //string FilePath = dir2 + @"\Documento\" + file;
+                    var nombre = sfd.FileName;
+                    var nombre2 = sfd.Title;
+                    string file = nombre2 + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".pdf";
+                    Document document = new Document(PageSize.LETTER, 30, 20, 50, 50);
+                    try
+                    {
+                        //Save pdf file
+                        //PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.OpenOrCreate));
+                        MemoryStream m = new MemoryStream();
+
+                        //********************** Encabezado *******************************
+                        PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(nombre, FileMode.OpenOrCreate));
+                        writer.PageEvent = new HeaderFooter();
+                        //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(FilePath, FileMode.OpenOrCreate)); writer.PageEvent = new HeaderFooter();
+
+                        Paragraph texto = new Paragraph();
+                        texto.Alignment = Element.ALIGN_CENTER;
+                        texto.Font = FontFactory.GetFont("Verdana", 12);
+                        texto.Add("URBANIZADORA Y CONSTRUCTORA SAN ISIDRO S.A.S");
+                        Paragraph info = new Paragraph();
+                        info.Alignment = 1;
+                        info.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
+                        //*********************** Encabezado *************************
+
+                        //******* abrir documento
+                        document.Open();
+
+                        //******* Lineas **********            
+                        PdfContentByte pdfContent = writer.DirectContent;
+                        //****** Lineas **********
+
+                        //********* inicio portada**************
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (i == 0)
+                            {
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+                            }
+                            else if (i == 1)
+                            {
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) - 60);
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
+                                texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
+                                texto.Add("NIT: 901100097-1".ToUpper());
+                                texto.Alignment = 1;
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                texto.Add("Conjunto el Encanto Calle 24 No. 19C-24 Local 4");
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                texto.Add("3126120806");
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Add("REPORTE - DISOLUCIONES DE " + fecha);
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                //string fecha;
+                                //if (fecha1.Equals(""))
+                                //{
+                                //    DateTime Fechaf = Convert.ToDateTime(fecha2);
+
+                                //    DateTimeFormatInfo dtinfo = new CultureInfo("es-ES", false).DateTimeFormat;
+                                //    fecha = dtinfo.GetMonthName(Fechaf.Month) + " " + Fechaf.Day + " DE " + Fechaf.Year;
+                                //}
+                                //else
+                                //{
+                                //    DateTime Fechai = Convert.ToDateTime(fecha1);
+                                //    DateTime Fechaf = Convert.ToDateTime(fecha2);
+
+                                //    DateTimeFormatInfo dtinfo = new CultureInfo("es-ES", false).DateTimeFormat;
+                                //    fecha = dtinfo.GetMonthName(Fechai.Month) + " " + Fechai.Day + " DE " + Fechai.Year + " (A) " + dtinfo.GetMonthName(Fechaf.Month) + " " + Fechaf.Day + " DE " + Fechaf.Year;
+                                //}
+                                //texto.Add(" TOTAL CARTERA: " + total + " VALOR RECAUDADO: " + recaudado + " VALOR DEUDA: " + deuda);
+                                //document.Add(texto);
+                                //texto.RemoveAt(0);
+                                //texto.Add();
+                                //document.Add(texto);
+                                //texto.RemoveAt(0);
+
+                                texto.Add(" FECHA REPORTE: " + DateTime.Now.ToString());
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+
+
+                                document.Add(new Paragraph(" "));
+
+                                //*** Linea cabesera
+                                pdfContent.MoveTo(30, document.PageSize.Height - 120);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 120);
+                                pdfContent.Stroke();
+                                //*** Linea detalle
+                                pdfContent.MoveTo(30, document.PageSize.Height - 150);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 150);
+                                pdfContent.Stroke();
+                            }
+                            else if (i == 2)
+                            {
+                                document.Add(TablasLetras(report, new float[] { 8f, 15f, 15f, 8f, 8f, 8f, 8f, 8f,5F,5F,5F,5F }, 100, 6));
                             }
                             else
                             {

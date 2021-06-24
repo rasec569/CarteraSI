@@ -279,8 +279,7 @@ namespace Cartera.Vista
             }
             else if (tabControl1.SelectedIndex == 3)
             {
-                CargarDisoluciones();
-                groupBox2.Text = "Disoluciones";
+                reportesPDF.Disolucion(DtDisolucion, labelTotal.Text, labelNumero.Text, fechas);
             }  
         }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
