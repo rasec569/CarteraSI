@@ -102,6 +102,7 @@ namespace Cartera.Vista
             this.numValorInteres = new System.Windows.Forms.NumericUpDown();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.button4 = new System.Windows.Forms.Button();
             this.PanelSuperior.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -127,6 +128,7 @@ namespace Cartera.Vista
             // 
             // PanelSuperior
             // 
+            this.PanelSuperior.Controls.Add(this.button4);
             this.PanelSuperior.Controls.Add(this.button1);
             this.PanelSuperior.Controls.Add(this.BtNuevoCliente);
             this.PanelSuperior.Controls.Add(this.button2);
@@ -141,7 +143,7 @@ namespace Cartera.Vista
             // button1
             // 
             this.button1.Image = global::Cartera.Properties.Resources.limpiar;
-            this.button1.Location = new System.Drawing.Point(801, 20);
+            this.button1.Location = new System.Drawing.Point(788, 21);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(33, 29);
             this.button1.TabIndex = 29;
@@ -152,7 +154,7 @@ namespace Cartera.Vista
             // BtNuevoCliente
             // 
             this.BtNuevoCliente.Image = global::Cartera.Properties.Resources.Nuevo_Cliente;
-            this.BtNuevoCliente.Location = new System.Drawing.Point(840, 19);
+            this.BtNuevoCliente.Location = new System.Drawing.Point(826, 21);
             this.BtNuevoCliente.Name = "BtNuevoCliente";
             this.BtNuevoCliente.Size = new System.Drawing.Size(33, 29);
             this.BtNuevoCliente.TabIndex = 3;
@@ -163,7 +165,7 @@ namespace Cartera.Vista
             // button2
             // 
             this.button2.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button2.Location = new System.Drawing.Point(918, 20);
+            this.button2.Location = new System.Drawing.Point(902, 21);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(33, 29);
             this.button2.TabIndex = 27;
@@ -242,7 +244,7 @@ namespace Cartera.Vista
             // 
             this.BtGuardarCliente.Enabled = false;
             this.BtGuardarCliente.Image = global::Cartera.Properties.Resources.Guardar1;
-            this.BtGuardarCliente.Location = new System.Drawing.Point(879, 19);
+            this.BtGuardarCliente.Location = new System.Drawing.Point(864, 21);
             this.BtGuardarCliente.Name = "BtGuardarCliente";
             this.BtGuardarCliente.Size = new System.Drawing.Size(33, 29);
             this.BtGuardarCliente.TabIndex = 26;
@@ -866,6 +868,17 @@ namespace Cartera.Vista
             this.dataGridView2.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellMouseEnter);
             this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
             // 
+            // button4
+            // 
+            this.button4.Image = global::Cartera.Properties.Resources.excel;
+            this.button4.Location = new System.Drawing.Point(940, 22);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(33, 28);
+            this.button4.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.button4, "Exportar a excel");
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -970,5 +983,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox comboProyectos;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button4;
     }
 }

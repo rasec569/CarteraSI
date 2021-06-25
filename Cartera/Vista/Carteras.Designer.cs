@@ -37,22 +37,23 @@ namespace Cartera.Vista
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Txtcedula = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.comboProyecto = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.comboEstados = new System.Windows.Forms.ComboBox();
-            this.BtPago = new System.Windows.Forms.Button();
-            this.BtHistorialPago = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelTotal = new System.Windows.Forms.Label();
             this.labelRecaudo = new System.Windows.Forms.Label();
             this.labelDeuda = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.BtPago = new System.Windows.Forms.Button();
+            this.BtHistorialPago = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -99,7 +100,7 @@ namespace Cartera.Vista
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(34, 31);
+            this.label2.Location = new System.Drawing.Point(27, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 6;
@@ -112,7 +113,7 @@ namespace Cartera.Vista
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(15, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(240, 49);
+            this.groupBox1.Size = new System.Drawing.Size(220, 49);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
@@ -121,25 +122,15 @@ namespace Cartera.Vista
             // 
             this.Txtcedula.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Txtcedula.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.Txtcedula.Location = new System.Drawing.Point(65, 20);
+            this.Txtcedula.Location = new System.Drawing.Point(60, 20);
             this.Txtcedula.Name = "Txtcedula";
-            this.Txtcedula.Size = new System.Drawing.Size(125, 20);
+            this.Txtcedula.Size = new System.Drawing.Size(110, 20);
             this.Txtcedula.TabIndex = 5;
             this.toolTip1.SetToolTip(this.Txtcedula, "Digite cdulda del cliente");
             // 
-            // button1
-            // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(196, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(33, 29);
-            this.button1.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.button1, "Buscar");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button3);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.comboProyecto);
@@ -149,29 +140,18 @@ namespace Cartera.Vista
             this.groupBox2.Controls.Add(this.BtPago);
             this.groupBox2.Controls.Add(this.BtHistorialPago);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(261, 8);
+            this.groupBox2.Location = new System.Drawing.Point(241, 8);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(729, 49);
+            this.groupBox2.Size = new System.Drawing.Size(749, 49);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Cartera";
-            // 
-            // button3
-            // 
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(680, 15);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(33, 28);
-            this.button3.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.button3, "Limpiar");
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(14, 23);
+            this.label3.Location = new System.Drawing.Point(9, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 9;
@@ -181,7 +161,7 @@ namespace Cartera.Vista
             // 
             this.comboProyecto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboProyecto.FormattingEnabled = true;
-            this.comboProyecto.Location = new System.Drawing.Point(75, 20);
+            this.comboProyecto.Location = new System.Drawing.Point(70, 20);
             this.comboProyecto.Name = "comboProyecto";
             this.comboProyecto.Size = new System.Drawing.Size(295, 21);
             this.comboProyecto.TabIndex = 28;
@@ -189,21 +169,10 @@ namespace Cartera.Vista
             this.comboProyecto.SelectedIndexChanged += new System.EventHandler(this.comboProyecto_SelectedIndexChanged);
             this.comboProyecto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboProyecto_MouseClick);
             // 
-            // button2
-            // 
-            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Location = new System.Drawing.Point(644, 15);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(33, 28);
-            this.button2.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(378, 23);
+            this.label1.Location = new System.Drawing.Point(375, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 1;
@@ -221,35 +190,13 @@ namespace Cartera.Vista
             "De 61 a 90 días",
             "De 91 a 180 días",
             "Mas de 360 días"});
-            this.comboEstados.Location = new System.Drawing.Point(426, 20);
+            this.comboEstados.Location = new System.Drawing.Point(423, 20);
             this.comboEstados.Name = "comboEstados";
             this.comboEstados.Size = new System.Drawing.Size(138, 21);
             this.comboEstados.TabIndex = 2;
             this.comboEstados.Text = "seleccione una opción";
             this.toolTip1.SetToolTip(this.comboEstados, "Seleccione un estado");
             this.comboEstados.SelectedValueChanged += new System.EventHandler(this.comboEstados_SelectedValueChanged);
-            // 
-            // BtPago
-            // 
-            this.BtPago.Image = ((System.Drawing.Image)(resources.GetObject("BtPago.Image")));
-            this.BtPago.Location = new System.Drawing.Point(607, 15);
-            this.BtPago.Name = "BtPago";
-            this.BtPago.Size = new System.Drawing.Size(33, 28);
-            this.BtPago.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.BtPago, "Registrar Pagos");
-            this.BtPago.UseVisualStyleBackColor = true;
-            this.BtPago.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // BtHistorialPago
-            // 
-            this.BtHistorialPago.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialPago.Image")));
-            this.BtHistorialPago.Location = new System.Drawing.Point(571, 15);
-            this.BtHistorialPago.Name = "BtHistorialPago";
-            this.BtHistorialPago.Size = new System.Drawing.Size(33, 28);
-            this.BtHistorialPago.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.BtHistorialPago, "Historial Pagos");
-            this.BtHistorialPago.UseVisualStyleBackColor = true;
-            this.BtHistorialPago.Click += new System.EventHandler(this.BtHistorialPago_Click);
             // 
             // panel2
             // 
@@ -305,6 +252,72 @@ namespace Cartera.Vista
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // button1
+            // 
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(177, 15);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 28);
+            this.button1.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.button1, "Buscar");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button3
+            // 
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(715, 15);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(33, 28);
+            this.button3.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.button3, "Limpiar");
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
+            this.button2.Location = new System.Drawing.Point(642, 15);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(33, 28);
+            this.button2.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // BtPago
+            // 
+            this.BtPago.Image = ((System.Drawing.Image)(resources.GetObject("BtPago.Image")));
+            this.BtPago.Location = new System.Drawing.Point(605, 15);
+            this.BtPago.Name = "BtPago";
+            this.BtPago.Size = new System.Drawing.Size(33, 28);
+            this.BtPago.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.BtPago, "Registrar Pagos");
+            this.BtPago.UseVisualStyleBackColor = true;
+            this.BtPago.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // BtHistorialPago
+            // 
+            this.BtHistorialPago.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialPago.Image")));
+            this.BtHistorialPago.Location = new System.Drawing.Point(567, 15);
+            this.BtHistorialPago.Name = "BtHistorialPago";
+            this.BtHistorialPago.Size = new System.Drawing.Size(33, 28);
+            this.BtHistorialPago.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.BtHistorialPago, "Historial Pagos");
+            this.BtHistorialPago.UseVisualStyleBackColor = true;
+            this.BtHistorialPago.Click += new System.EventHandler(this.BtHistorialPago_Click);
+            // 
+            // button4
+            // 
+            this.button4.Image = global::Cartera.Properties.Resources.excel;
+            this.button4.Location = new System.Drawing.Point(679, 15);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(33, 28);
+            this.button4.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.button4, "Exportar a excel");
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            // 
             // Carteras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -354,5 +367,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.ComboBox comboProyecto;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button4;
     }
 }

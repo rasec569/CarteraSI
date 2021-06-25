@@ -108,3 +108,4 @@ C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.CopyComplete
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.exe
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.pdb
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.ResolveComReference.cache
+C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.AssemblyReference.cache

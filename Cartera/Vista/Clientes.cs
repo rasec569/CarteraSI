@@ -84,6 +84,7 @@ namespace Cartera.Vista
                     comboProyectos.Enabled = false;
                     label26.Enabled = false;
                     button2.Enabled = false;
+                    button4.Enabled = false;
                 }
                 else
                 {
@@ -360,6 +361,7 @@ namespace Cartera.Vista
             Bloquear_Financiado();
             BtBuscarCliente.Enabled = false;
             button2.Enabled = false;
+            button4.Enabled = false;
             Cartera_id = 0;
             Cliente_id = "";
             Producto_id = "";
@@ -442,6 +444,7 @@ namespace Cartera.Vista
                     comboProyectos.Enabled = false;
                     label26.Enabled = false;
                     button2.Enabled = false;
+                    button4.Enabled = false;
                     Panel_Registrar_user.Visible = true;
                     BtGuardarCliente.Enabled = true;
                     LimpiarUsuario();
@@ -956,6 +959,7 @@ namespace Cartera.Vista
             Bloquear_Financiado();
             BtBuscarCliente.Enabled = true;
             button2.Enabled = true;
+            button4.Enabled = true;
             Cartera_id = 0;
             Cliente_id = "";
             Producto_id = "";
@@ -979,6 +983,37 @@ namespace Cartera.Vista
             {
                 e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
             }
+        }
+        public void exportarDatosExcel(DataGridView datalistado)
+        {
+            Microsoft.Office.Interop.Excel.Application exportarexcel = new Microsoft.Office.Interop.Excel.Application();
+            exportarexcel.Application.Workbooks.Add(true);
+            int indicecolumna = 0;
+            foreach (DataGridViewColumn columna in datalistado.Columns)
+            {
+                indicecolumna++;
+                exportarexcel.Cells[1, indicecolumna] = columna.Name;
+            }
+            int indicefila = 0;
+            foreach (DataGridViewRow fila in datalistado.Rows)
+            {
+                indicefila++;
+                indicecolumna = 0;
+                foreach (DataGridViewColumn columna in datalistado.Columns)
+                {
+                    indicecolumna++;
+                    exportarexcel.Cells[indicefila + 1, indicecolumna] = fila.Cells[columna.Name].Value;
+                    exportarexcel.Columns.AutoFit();
+                    
+                    //exportarexcel.Columns["Fk_Id_Cartera"].Visible = false;
+                }
+            }
+            exportarexcel.Visible = true;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            exportarDatosExcel(dataGridView1);
         }
     }
 }

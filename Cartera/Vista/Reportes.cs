@@ -280,7 +280,11 @@ namespace Cartera.Vista
             else if (tabControl1.SelectedIndex == 3)
             {
                 reportesPDF.Disolucion(DtDisolucion, labelTotal.Text, labelNumero.Text, fechas);
-            }  
+            }
+            else
+            {
+                MessageBox.Show("Error al generar reporte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         public void exportarDatosExcel(DataGridView datalistado)
         {
@@ -301,6 +305,7 @@ namespace Cartera.Vista
                 {
                     indicecolumna++;
                     exportarexcel.Cells[indicefila + 1, indicecolumna] = fila.Cells[columna.Name].Value;
+                    exportarexcel.Columns.AutoFit();
                 }
             }
             exportarexcel.Visible = true;
@@ -343,7 +348,26 @@ namespace Cartera.Vista
 
         private void button2_Click(object sender, EventArgs e)
         {
-            exportarDatosExcel(dataGridView1);
+            if (tabControl1.SelectedIndex == 0)
+            {
+                exportarDatosExcel(dataGridView1);
+            }
+            else if (tabControl1.SelectedIndex == 1)
+            {
+                exportarDatosExcel(dataGridView4);
+            }
+            else if (tabControl1.SelectedIndex == 2)
+            {
+                exportarDatosExcel(dataGridView2);
+            }
+            else if (tabControl1.SelectedIndex == 3)
+            {
+                exportarDatosExcel(dataGridView3);
+            }
+            else
+            {
+                MessageBox.Show("Error al generar reporte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -46,9 +46,7 @@ namespace Cartera.Vista
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BtBuscar = new System.Windows.Forms.Button();
             this.datefin = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.dateInicio = new System.Windows.Forms.DateTimePicker();
@@ -58,6 +56,8 @@ namespace Cartera.Vista
             this.labelTotal = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.BtBuscar = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -234,17 +234,6 @@ namespace Cartera.Vista
             this.dataGridView3.TabIndex = 19;
             this.dataGridView3.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView3_RowPostPaint);
             // 
-            // button1
-            // 
-            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button1.Location = new System.Drawing.Point(893, 36);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(35, 30);
-            this.button1.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.BtBuscar);
@@ -259,17 +248,6 @@ namespace Cartera.Vista
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Reporte entre fechas";
-            // 
-            // BtBuscar
-            // 
-            this.BtBuscar.Image = global::Cartera.Properties.Resources.buscar;
-            this.BtBuscar.Location = new System.Drawing.Point(414, 24);
-            this.BtBuscar.Name = "BtBuscar";
-            this.BtBuscar.Size = new System.Drawing.Size(35, 30);
-            this.BtBuscar.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.BtBuscar, "Buscar Reporte");
-            this.BtBuscar.UseVisualStyleBackColor = true;
-            this.BtBuscar.Click += new System.EventHandler(this.BtBuscar_Click);
             // 
             // datefin
             // 
@@ -347,14 +325,36 @@ namespace Cartera.Vista
             // 
             // button2
             // 
-            this.button2.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button2.Image = global::Cartera.Properties.Resources.excel;
             this.button2.Location = new System.Drawing.Point(935, 36);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(35, 30);
             this.button2.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
+            this.toolTip1.SetToolTip(this.button2, "Exportar a excel");
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button1.Location = new System.Drawing.Point(893, 36);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(35, 30);
+            this.button1.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // BtBuscar
+            // 
+            this.BtBuscar.Image = global::Cartera.Properties.Resources.buscar;
+            this.BtBuscar.Location = new System.Drawing.Point(414, 24);
+            this.BtBuscar.Name = "BtBuscar";
+            this.BtBuscar.Size = new System.Drawing.Size(35, 30);
+            this.BtBuscar.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.BtBuscar, "Buscar Reporte");
+            this.BtBuscar.UseVisualStyleBackColor = true;
+            this.BtBuscar.Click += new System.EventHandler(this.BtBuscar_Click);
             // 
             // Reportes
             // 

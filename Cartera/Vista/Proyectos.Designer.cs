@@ -54,6 +54,7 @@
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -178,7 +179,7 @@
             this.labelValor.AutoSize = true;
             this.labelValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelValor.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.labelValor.Location = new System.Drawing.Point(698, 23);
+            this.labelValor.Location = new System.Drawing.Point(574, 23);
             this.labelValor.Name = "labelValor";
             this.labelValor.Size = new System.Drawing.Size(36, 13);
             this.labelValor.TabIndex = 14;
@@ -190,7 +191,7 @@
             this.labelCantidad.AutoSize = true;
             this.labelCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCantidad.ForeColor = System.Drawing.Color.Olive;
-            this.labelCantidad.Location = new System.Drawing.Point(153, 23);
+            this.labelCantidad.Location = new System.Drawing.Point(29, 23);
             this.labelCantidad.Name = "labelCantidad";
             this.labelCantidad.Size = new System.Drawing.Size(61, 13);
             this.labelCantidad.TabIndex = 13;
@@ -202,7 +203,7 @@
             this.labelPagado.AutoSize = true;
             this.labelPagado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPagado.ForeColor = System.Drawing.Color.Green;
-            this.labelPagado.Location = new System.Drawing.Point(486, 23);
+            this.labelPagado.Location = new System.Drawing.Point(362, 23);
             this.labelPagado.Name = "labelPagado";
             this.labelPagado.Size = new System.Drawing.Size(36, 13);
             this.labelPagado.TabIndex = 15;
@@ -214,7 +215,7 @@
             this.labelNeto.AutoSize = true;
             this.labelNeto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelNeto.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.labelNeto.Location = new System.Drawing.Point(251, 23);
+            this.labelNeto.Location = new System.Drawing.Point(127, 23);
             this.labelNeto.Name = "labelNeto";
             this.labelNeto.Size = new System.Drawing.Size(36, 13);
             this.labelNeto.TabIndex = 16;
@@ -224,7 +225,7 @@
             // button2
             // 
             this.button2.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button2.Location = new System.Drawing.Point(934, 15);
+            this.button2.Location = new System.Drawing.Point(902, 15);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(32, 28);
             this.button2.TabIndex = 22;
@@ -322,6 +323,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.labelCantidad);
             this.groupBox2.Controls.Add(this.labelNeto);
@@ -333,6 +335,17 @@
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Detalle";
+            // 
+            // button4
+            // 
+            this.button4.Image = global::Cartera.Properties.Resources.excel;
+            this.button4.Location = new System.Drawing.Point(936, 15);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(32, 28);
+            this.button4.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.button4, "Exportar a excel");
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Proyectos
             // 
@@ -393,5 +406,6 @@
         private System.Windows.Forms.DataGridView dataGridView4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button4;
     }
 }
