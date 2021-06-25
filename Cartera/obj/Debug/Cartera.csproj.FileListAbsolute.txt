@@ -86,7 +86,6 @@ C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\EntityFramework.xml
 C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\itextsharp.xml
 C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\System.Data.SQLite.xml
-C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.AssemblyReference.cache
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Carteras.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Clientes.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Detalle.resources
@@ -108,3 +107,4 @@ C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.CoreCompileI
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.CopyComplete
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.exe
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.pdb
+C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.ResolveComReference.cache
