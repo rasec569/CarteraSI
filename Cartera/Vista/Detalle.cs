@@ -104,11 +104,12 @@ namespace Cartera.Vista
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
+           
+            int x = dataGridView1.Rows.Count;
+            int n = e.RowIndex;
+            if (n < x-1)
             {
-                int x = dataGridView1.Rows.Count;
-                int n = e.RowIndex;
-                if (n < x)
+                try
                 {
                     productoId = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();
                     productoNom = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
@@ -116,28 +117,28 @@ namespace Cartera.Vista
                     string neto = dataGridView1.Rows[n].Cells["Valor Neto"].Value.ToString();
                     string valor = dataGridView1.Rows[n].Cells["Valor Final"].Value.ToString();
                     if (e.ColumnIndex == 0)
-                    {                        
+                    {
                         RegistrarPago Rp = new RegistrarPago(int.Parse(Txtcedula.Text), txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom);
                         Rp.FormClosed += Pagos_FormClose;
-                        Rp.ShowDialog();                        
+                        Rp.ShowDialog();
                     }
                     else if (e.ColumnIndex == 1)
                     {
-                        HistorialPagos Hp = new HistorialPagos(Txtcedula.Text, txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, proyecto,neto, valor);
+                        HistorialPagos Hp = new HistorialPagos(Txtcedula.Text, txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, proyecto, neto, valor);
                         //this.Hide();
-                        Hp.MdiParent=this.MdiParent;
+                        Hp.MdiParent = this.MdiParent;
                         Hp.ShowDialog();
                     }
                 }
-                else
+                catch
                 {
-                    MessageBox.Show("Campo no valido", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Sin pagos", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
-            catch
+            else
             {
-                MessageBox.Show("Valor no admitido");
-            }
+                MessageBox.Show("Campo no valido", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }                    
         }
         private void Pagos_FormClose(object sender, FormClosedEventArgs e)
         {

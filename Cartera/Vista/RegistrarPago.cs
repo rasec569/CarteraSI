@@ -128,7 +128,7 @@ namespace Cartera.Vista
             string num_cuota = Dtcuota.Rows[0]["Numero_Cuota"].ToString();
             if (num_cuota == "")
             {
-                txtCuota.Text = "1";
+                txtCuota.Text = "0";
             }
             else
             {

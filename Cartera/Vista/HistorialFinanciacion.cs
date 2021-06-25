@@ -95,16 +95,26 @@ namespace Cartera.Vista
                     {
                         DataTable dtCuotas= cuota.ListarCuotas(id_financiacion);
                         DataTable dtrecaudo = pago.Tota_Recaudado_Producto(ProductoId.ToString());
-                        int ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
+                        int ValorPagado = 0;
                         label9.Text = "Valor pagado: $ " + String.Format("{0:N0}", ValorPagado);
                         int num_cuota = 0;
                         int contador = 1;
                         int pagado = 0;
                         string Estado = "";
                         pagado = valor_entrada;
-                        if (pagado <= ValorPagado)
+                        if (dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString() != "")
                         {
-                            Estado = "Pagada";
+                            ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
+
+                            pagado = valor_entrada;
+                            if (pagado <= ValorPagado)
+                            {
+                                Estado = "Pagada";
+                            }
+                            else
+                            {
+                                Estado = "Pendiente";
+                            }
                         }
                         else
                         {

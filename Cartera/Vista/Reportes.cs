@@ -185,20 +185,30 @@ namespace Cartera.Vista
                 {
                     DataTable dtCuotas = cuota.ListarCuotas(id_financiacion);
                     DataTable dtrecaudo = pagos.Tota_Recaudado_Producto(id_producto);
-                    int ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
                     int num_cuota = 0;
                     int contador = 1;
                     int pagado = 0;
+                    int ValorPagado = 0;
                     string Estado = "";
-                    pagado = valor_entrada;
-                    if (pagado <= ValorPagado)
+                    if (dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString() != "")
                     {
-                        Estado = "Pagada";
+                        ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
+                        
+                        pagado = valor_entrada;
+                        if (pagado <= ValorPagado)
+                        {
+                            Estado = "Pagada";
+                        }
+                        else
+                        {
+                            Estado = "Pendiente";
+                        }
                     }
                     else
                     {
                         Estado = "Pendiente";
                     }
+
                     if (dtCuotas.Rows.Count == 0)
                     {
                         cuota.CrearCuota(num_cuota, valor_entrada, "Valor Separación", date.ToString("yyyy-MM-dd"), Estado, id_financiacion);
