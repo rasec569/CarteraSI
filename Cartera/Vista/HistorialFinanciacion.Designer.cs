@@ -45,6 +45,7 @@ namespace Cartera.Vista
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -84,6 +85,7 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.dataGridView2);
             this.groupBox1.Controls.Add(this.label8);
@@ -192,6 +194,17 @@ namespace Cartera.Vista
             this.label4.TabIndex = 5;
             this.label4.Text = "label4";
             // 
+            // button1
+            // 
+            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button1.Location = new System.Drawing.Point(127, 275);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(31, 30);
+            this.button1.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // HistorialFinanciacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,5 +246,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button button1;
     }
 }

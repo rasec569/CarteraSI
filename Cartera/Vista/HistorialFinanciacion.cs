@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cartera.Controlador;
+using Cartera.Reportes;
 
 namespace Cartera.Vista
 {
@@ -17,7 +18,9 @@ namespace Cartera.Vista
         CFinanciacion financiacion = new CFinanciacion();
         CCuota cuota = new CCuota();
         CPago pago = new CPago();
+        DataTable DtAcuerdoPago= new DataTable();
         int ProductoId;
+        ReportesPDF reportesPDF = new ReportesPDF();
         public HistorialFinanciacion()
         {
             InitializeComponent();
@@ -86,10 +89,10 @@ namespace Cartera.Vista
                     label1.Text = "Valor final: $ " + String.Format("{0:N0}", Valor_Producto_Financiacion);
                     label2.Text = "Valor inicial: $ " + String.Format("{0:N0}", valor_sin_interes);
                     label3.Text = "Valor separación: $ " + String.Format("{0:N0}", valor_entrada);
-                    label4.Text = "Numero de cuotas inicial: " +  Cuotas_sin_interes;
-                    label5.Text = "Valor cuotas Inicial: $ " + String.Format("{0:N0}", Valor_cuota_sin_interes);
+                    label4.Text = "N° de cuotas inicial: " +  Cuotas_sin_interes;
+                    label5.Text = "Valor cuotas inicial: $ " + String.Format("{0:N0}", Valor_cuota_sin_interes);
                     label6.Text = "Valor saldo: $ " + String.Format("{0:N0}", Valor_con_interes);
-                    label7.Text = "Numero de cuotas Saldo: " + String.Format("{0:N0}", Cuotas_Con_Interes);
+                    label7.Text = "N° de cuotas saldo: " + String.Format("{0:N0}", Cuotas_Con_Interes);
                     label8.Text = "Valor cuotas saldo: $ " + String.Format("{0:N0}", Valor_Cuota_Con_Interes);
                     if (Valor_Producto_Financiacion >0 /*&& id_financiacion !=  0*/)
                     {
@@ -175,7 +178,8 @@ namespace Cartera.Vista
                             num_cuota++;
                         }
                         dataGridView1.Visible = false;
-                        dataGridView2.DataSource = cuota.ListarCuotas(id_financiacion);                        
+                        DtAcuerdoPago= cuota.ListarCuotas(id_financiacion);
+                        dataGridView2.DataSource = DtAcuerdoPago;                     
                         panel1.Visible = true;
                         dataGridView2.Columns[0].Width = 70;
                         dataGridView2.Columns[1].Width = 80;
@@ -197,6 +201,11 @@ namespace Cartera.Vista
                 DataGridViewCell cell = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 cell.ToolTipText = "Doble clic para ver detalle de financiación";
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            reportesPDF.PagoProgramado(DtAcuerdoPago, label1.Text.ToUpper(), label2.Text.ToUpper(), label3.Text.ToUpper(), label4.Text.ToUpper(), label5.Text.ToUpper(), label6.Text.ToUpper(), label7.Text.ToUpper(), label8.Text.ToUpper(), label9.Text.ToUpper());
         }
     }
 }
