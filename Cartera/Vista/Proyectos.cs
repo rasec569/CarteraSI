@@ -15,6 +15,7 @@ namespace Cartera.Vista
 
     public partial class Proyectos : Form
     {
+        Loading cargando;
         string idproyecto = "";
         int idtipo = 0;
         CProducto producto = new CProducto();
@@ -324,29 +325,46 @@ namespace Cartera.Vista
                 e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
             }
         }
-        public void exportarDatosExcel(DataGridView datalistado)
+        public async Task exportarDatosExcel(DataGridView datalistado)
         {
-            Microsoft.Office.Interop.Excel.Application exportarexcel = new Microsoft.Office.Interop.Excel.Application();
-            exportarexcel.Application.Workbooks.Add(true);
-            int indicecolumna = 0;
-            foreach (DataGridViewColumn columna in datalistado.Columns)
+            Mostrar();
+            var cargar = new Task(() =>
             {
-                indicecolumna++;
-                exportarexcel.Cells[1, indicecolumna] = columna.Name;
-            }
-            int indicefila = 0;
-            foreach (DataGridViewRow fila in datalistado.Rows)
-            {
-                indicefila++;
-                indicecolumna = 0;
+                Microsoft.Office.Interop.Excel.Application exportarexcel = new Microsoft.Office.Interop.Excel.Application();
+                exportarexcel.Application.Workbooks.Add(true);
+                int indicecolumna = 0;
                 foreach (DataGridViewColumn columna in datalistado.Columns)
                 {
                     indicecolumna++;
-                    exportarexcel.Cells[indicefila + 1, indicecolumna] = fila.Cells[columna.Name].Value;
-                    exportarexcel.Columns.AutoFit();
+                    exportarexcel.Cells[1, indicecolumna] = columna.Name;
                 }
-            }
-            exportarexcel.Visible = true;
+                int indicefila = 0;
+                foreach (DataGridViewRow fila in datalistado.Rows)
+                {
+                    indicefila++;
+                    indicecolumna = 0;
+                    foreach (DataGridViewColumn columna in datalistado.Columns)
+                    {
+                        indicecolumna++;
+                        exportarexcel.Cells[indicefila + 1, indicecolumna] = fila.Cells[columna.Name].Value;
+                        exportarexcel.Columns.AutoFit();
+                    }
+                }
+                exportarexcel.Visible = true;
+            });
+            cargar.Start();
+            await cargar;
+            cerrar();
+        }
+        public void Mostrar()
+        {
+            cargando = new Loading();
+            cargando.Show();
+        }
+        public void cerrar()
+        {
+            if (cargando != null)
+                cargando.Close();
         }
 
         private void button4_Click(object sender, EventArgs e)

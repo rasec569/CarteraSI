@@ -148,6 +148,12 @@
     <Compile Include="Vista\HistorialPagos.Designer.cs">
       <DependentUpon>HistorialPagos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\Loading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Loading.Designer.cs">
+      <DependentUpon>Loading.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\HistorialPagos.resx">
       <DependentUpon>HistorialPagos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Loading.resx">
+      <DependentUpon>Loading.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
@@ -300,6 +309,9 @@
     <None Include="img\Guardar1.png" />
     <None Include="img\Eliminar.png" />
     <None Include="img\home2.png" />
+    <Content Include="img\Cargando.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="img\excel.png" />
     <Content Include="img\logo San Isidro.png" />
     <None Include="img\ReporPdf.png" />

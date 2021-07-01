@@ -16,6 +16,7 @@ namespace Cartera.Vista
 {
     public partial class Reportes : Form
     {
+        Loading cargando;
         CPago pagos = new CPago();
         CProducto producto= new CProducto();
         CCuota cuota = new CCuota();
@@ -44,12 +45,12 @@ namespace Cartera.Vista
             {
             }            
         }
-        void limpiarlabel()
+        private void limpiarlabel()
         {
             labelTotal.Text = "";
             labelNumero.Text = "";
         }
-        void CargarRpPagos()
+        private void CargarRpPagos()
         {
             try
             {            
@@ -69,9 +70,17 @@ namespace Cartera.Vista
                 MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        void CargarRpProyeccion()
+        private async Task CargarRpProyeccion()
         {
-            actulziarCuotas();
+            Mostrar();
+            var cargar = new Task(() =>
+            {
+                actulziarCuotas();
+            });
+            cargar.Start();
+            await cargar;
+            cerrar();
+            
             DtProgramado = cuota.reportProyeccion(dateInicio.Text, datefin.Text);
             dataGridView4.DataSource = DtProgramado;
             labelNumero.Text = "CANTIDAD: " + DtProgramado.Rows.Count;
@@ -90,7 +99,17 @@ namespace Cartera.Vista
             }
             labelTotal.Text = "TOTAL INGRESOS: $ " + String.Format("{0:N0}", total);
         }
-        void CargarRpVentas()
+        public void Mostrar()
+        {
+            cargando = new Loading();
+            cargando.Show();
+        }
+        public void cerrar()
+        {
+            if(cargando != null)
+                cargando.Close();
+        }
+        private void CargarRpVentas()
         {
             try
             {
@@ -114,7 +133,7 @@ namespace Cartera.Vista
                 MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        void CargarDisoluciones()
+        private void CargarDisoluciones()
         {
             try
             {
@@ -140,7 +159,13 @@ namespace Cartera.Vista
                 MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        void CargarTap()
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            limpiarlabel();
+
+             CargarTap();
+        }
+        private void CargarTap()
         {
             if (tabControl1.SelectedIndex == 0)
             {
@@ -149,7 +174,7 @@ namespace Cartera.Vista
                 dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
             }
             else if (tabControl1.SelectedIndex == 1)
-            {
+            {                
                 CargarRpProyeccion();
                 groupBox2.Text = "Ingreso Programado";
             }
@@ -164,7 +189,7 @@ namespace Cartera.Vista
                 groupBox2.Text = "Disoluciones";
             }
         }
-        void actulziarCuotas()
+        private void actulziarCuotas()
         {
             DataTable DtProducto = producto.cargarProductos();
             for(int i=0; i<DtProducto.Rows.Count; i++)
@@ -296,36 +321,39 @@ namespace Cartera.Vista
                 MessageBox.Show("Error al generar reporte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public void exportarDatosExcel(DataGridView datalistado)
+        public async Task exportarDatosExcel(DataGridView datalistado)
         {
-            Microsoft.Office.Interop.Excel.Application exportarexcel = new Microsoft.Office.Interop.Excel.Application();
-            exportarexcel.Application.Workbooks.Add(true);
-            int indicecolumna = 0;
-            foreach(DataGridViewColumn columna in datalistado.Columns)
+            Mostrar();
+            var cargar = new Task(() =>
             {
-                indicecolumna++;
-                exportarexcel.Cells[1, indicecolumna] = columna.Name;
-            }
-            int indicefila = 0;
-            foreach (DataGridViewRow fila in datalistado.Rows)
-            {
-                indicefila++;
-                indicecolumna = 0;
-                foreach(DataGridViewColumn columna in datalistado.Columns)
+                Microsoft.Office.Interop.Excel.Application exportarexcel = new Microsoft.Office.Interop.Excel.Application();
+                exportarexcel.Application.Workbooks.Add(true);
+                int indicecolumna = 0;
+                foreach (DataGridViewColumn columna in datalistado.Columns)
                 {
                     indicecolumna++;
-                    exportarexcel.Cells[indicefila + 1, indicecolumna] = fila.Cells[columna.Name].Value;
-                    exportarexcel.Columns.AutoFit();
+                    exportarexcel.Cells[1, indicecolumna] = columna.Name;
                 }
-            }
-            exportarexcel.Visible = true;
+                int indicefila = 0;
+                foreach (DataGridViewRow fila in datalistado.Rows)
+                {
+                    indicefila++;
+                    indicecolumna = 0;
+                    foreach (DataGridViewColumn columna in datalistado.Columns)
+                    {
+                        indicecolumna++;
+                        exportarexcel.Cells[indicefila + 1, indicecolumna] = fila.Cells[columna.Name].Value;
+                        exportarexcel.Columns.AutoFit();
+                    }
+                }
+                exportarexcel.Visible = true;
+            });
+            cargar.Start();
+            await cargar;
+            cerrar();            
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            limpiarlabel();
-            CargarTap();
-        }
+        
           
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
@@ -358,6 +386,7 @@ namespace Cartera.Vista
 
         private void button2_Click(object sender, EventArgs e)
         {
+            
             if (tabControl1.SelectedIndex == 0)
             {
                 exportarDatosExcel(dataGridView1);
