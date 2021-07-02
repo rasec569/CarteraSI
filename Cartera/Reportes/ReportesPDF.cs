@@ -194,7 +194,7 @@ namespace Cartera.Reportes
         }
 
         //public void PagoProgramado(DataTable report, string cedula, string Nombres, string producto, string proyecto, string deuda_fecha, string valor_neto, string valor_total, string Valor_deduda, string valor_pagado, int cuotas, int meses, int pagos, int mora, int mes_mora)
-        public void PagoProgramado(DataTable report, string ValorFin, string ValorIni, string ValorSepare, string CuotasIni, string ValorCuotaIni, string ValorSaldo, string CuotasSal, string ValorCuotaSal, string Pagado)
+        public void PagoProgramado(DataTable report, string cliente, string nomproducto, string ValorFin, string ValorIni, string ValorSepare, string CuotasIni, string ValorCuotaIni, string ValorSaldo, string CuotasSal, string ValorCuotaSal, string Pagado)
         {
             //string nombre = "Historial de pagos";
 
@@ -275,7 +275,7 @@ namespace Cartera.Reportes
                                 texto.RemoveAt(0);
 
                                 texto.Font = FontFactory.GetFont("Verdana", 7);
-                                texto.Add("ACUERDO DE PAGOS - CLIENTE");
+                                texto.Add("ACUERDO DE PAGOS - CLIENTE "+cliente+ "PRODUCTO "+ nomproducto);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
@@ -1844,7 +1844,7 @@ namespace Cartera.Reportes
                         frase.Font = FontFactory.GetFont("Verdana", Letra, Font.BOLD);
                     else
                         frase.Font = FontFactory.GetFont("Verdana", Letra);
-                    frase.Add(Cons.Rows[i][column.ColumnName].ToString());
+                        frase.Add(Cons.Rows[i][column.ColumnName].ToString());
 
 
                     celda = new PdfPCell();

@@ -75,7 +75,7 @@ namespace Cartera.Modelo
         }
         internal static DataTable ReportesPagosCliente(string productoid)
         {
-            return Conexion.consulta("SELECT  Numero_Cuota as 'Cuota', Porcentaje as 'Tipo', Concepto, Entidad, Valor_Pagado as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
+            return Conexion.consulta("SELECT  Numero_Cuota as 'Cuota', Porcentaje as 'Tipo', Concepto, Entidad, printf('%, d', Valor_Pagado) as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
         }
 
         internal static DataTable Tota_Recaudado_Producto(string productoid)

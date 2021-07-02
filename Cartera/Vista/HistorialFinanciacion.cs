@@ -18,6 +18,7 @@ namespace Cartera.Vista
         CFinanciacion financiacion = new CFinanciacion();
         CCuota cuota = new CCuota();
         CPago pago = new CPago();
+        CProducto producto = new CProducto();
         DataTable DtAcuerdoPago= new DataTable();
         int ProductoId;
         ReportesPDF reportesPDF = new ReportesPDF();
@@ -205,7 +206,37 @@ namespace Cartera.Vista
 
         private void button1_Click(object sender, EventArgs e)
         {
-            reportesPDF.PagoProgramado(DtAcuerdoPago, label1.Text.ToUpper(), label2.Text.ToUpper(), label3.Text.ToUpper(), label4.Text.ToUpper(), label5.Text.ToUpper(), label6.Text.ToUpper(), label7.Text.ToUpper(), label8.Text.ToUpper(), label9.Text.ToUpper());
-        }
+            DataTable DtRepor = new DataTable();
+            DtRepor = ((DataTable)dataGridView2.DataSource);
+
+            DataTable Dtdatos = producto.ClienteProducto(ProductoId);
+
+            string cliente = Dtdatos.Rows[0]["Nombre"].ToString() + " " + Dtdatos.Rows[0]["Apellido"].ToString();
+            string nomproducto = Dtdatos.Rows[0]["Producto"].ToString();
+            //String.Format("{0:0.##}", DtRepor.Columns[1]);
+            ////convertDataTableToString(DtRepor);
+            //DataTable dtClone = DtRepor.Clone(); //just copy structure, no data
+            //for (int i = 0; i < dtClone.Columns.Count; i++)
+            //{
+            //    if (dtClone.Columns[i].DataType != typeof(string))
+            //        dtClone.Columns[i].DataType = typeof(string);
+            //}
+
+            //foreach (DataRow dr in DtRepor.Rows)
+            //{
+            //    dtClone.ImportRow(dr);
+            //    String.Format("{0:0.##}", dtClone.Columns[1]);
+            //}
+
+            //DataTable dtCloned = DtRepor.Clone();
+            //dtCloned.Columns[1].DataType = typeof(uint);
+            //foreach (DataRow row in DtRepor.Rows)
+            //{
+            //    dtCloned.ImportRow(row);
+            //}
+            //String.Format("{0:0.##}", (Decimal)DtRepor.Columns[1]);
+            reportesPDF.PagoProgramado(DtRepor, cliente, nomproducto, label1.Text.ToUpper(), label2.Text.ToUpper(), label3.Text.ToUpper(), label4.Text.ToUpper(), label5.Text.ToUpper(), label6.Text.ToUpper(), label7.Text.ToUpper(), label8.Text.ToUpper(), label9.Text.ToUpper());
+        }      
+
     }
 }
