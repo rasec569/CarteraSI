@@ -14,7 +14,7 @@ namespace Cartera.Reportes
 {
     public class ReportesPDF
     {
-        public void HistorialPagos(DataTable report, string cedula, string Nombres, string producto, string proyecto, string deuda_fecha, string valor_neto, string valor_total,string Valor_deduda, string valor_pagado, int cuotas, int meses, int pagos, int mora, int mes_mora)
+        public void HistorialPagos(DataTable report, string cedula, string Nombres, string producto, string proyecto, string deuda_fecha, string valor_neto, string valor_total,string Valor_deduda, string valor_pagado, string cuotas, string meses, string pagos, string mora, string mes_mora, string programado, string relacion)
         {
             //string nombre = "Historial de pagos";
             
@@ -95,7 +95,7 @@ namespace Cartera.Reportes
                                 texto.RemoveAt(0);
 
                                 texto.Font = FontFactory.GetFont("Verdana", 7);
-                                texto.Add("HISTORIAL PAGOS - CLIENTE");
+                                texto.Add("HISTORIAL PAGOS");
                                 document.Add(texto);
                                 texto.RemoveAt(0);
                                 //string fecha;
@@ -114,13 +114,35 @@ namespace Cartera.Reportes
                                 //    DateTimeFormatInfo dtinfo = new CultureInfo("es-ES", false).DateTimeFormat;
                                 //    fecha = dtinfo.GetMonthName(Fechai.Month) + " " + Fechai.Day + " DE " + Fechai.Year + " (A) " + dtinfo.GetMonthName(Fechaf.Month) + " " + Fechaf.Day + " DE " + Fechaf.Year;
                                 //}
-                                texto.Add(cedula + " " + Nombres + " PRODUCTO: " + producto + " " + proyecto);                                
-                                document.Add(texto);
-                                texto.RemoveAt(0);
 
-                                texto.Add(" Fecha Reporte: " + DateTime.Now.ToString());
-                                document.Add(texto);
-                                texto.RemoveAt(0);                                
+                                //Tabla detalle
+                                PdfPTable table = new PdfPTable(2) { WidthPercentage = 100f };
+                                //proporcion relativa - 2/3 y 1/3
+                                float[] widths = new float[] { 2.2f, 0.8f };
+                                table.SetWidths(widths);
+                                table.HorizontalAlignment = 0;
+                                table.SpacingBefore = 3f;
+                                
+                                //agg las filas
+                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + cedula + " " + Nombres + " PRODUCTO: " + producto + " " + proyecto, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                document.Add(table);
+
+                                // Tablas detalle 2
+                                PdfPTable table2 = new PdfPTable(5) { WidthPercentage = 100f };
+                                //proporcion relativa - 2/3 y 1/3
+                                //float[] widths = new float[] { 2.2f, 0.8f };
+                                //table.SetWidths(widths);
+                                table2.HorizontalAlignment = 0;
+                                //table2.SpacingBefore = 3f;
+
+                                //agg las filas
+                                table2.AddCell(new PdfPCell(new Paragraph(cuotas, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table2.AddCell(new PdfPCell(new Paragraph(meses, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table2.AddCell(new PdfPCell(new Paragraph(pagos, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table2.AddCell(new PdfPCell(new Paragraph(mora, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table2.AddCell(new PdfPCell(new Paragraph(mes_mora, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                document.Add(table2);
 
                                 document.Add(new Paragraph(" "));
 
@@ -129,13 +151,14 @@ namespace Cartera.Reportes
                                 pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 120);
                                 pdfContent.Stroke();
                                 //*** Linea detalle
-                                pdfContent.MoveTo(30, document.PageSize.Height - 150);
-                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 150);
+                                pdfContent.MoveTo(30, document.PageSize.Height - 160);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 160);
                                 pdfContent.Stroke();
+                                
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 5f, 10f, 33f, 17f, 10f, 10f, 10f, 10f, 10f }, 100, 7));
+                                document.Add(TablasLetras(report, new float[] { 5f, 12f, 33f, 17f, 9f, 9f, 10f, 10f, 10f }, 100, 6));
                             }
                             else
                             {
@@ -146,22 +169,31 @@ namespace Cartera.Reportes
                         //pdfContent.MoveTo(30, document.PageSize.Height - height);
                         //pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - height);
                         //pdfContent.Stroke();
+                        texto.Alignment = Element.ALIGN_LEFT;
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                        texto.Add("LOS " + programado);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add(relacion);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+
                         texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
                         texto.Add("________________________________________________________________________________________________________________________________________________");
                         document.Add(texto);
                         texto.RemoveAt(0);
-                        texto.Alignment = Element.ALIGN_LEFT;
-                        texto.Add("CUOTAS PACTADAS: " + cuotas + "  MESES TRANSCURRIDOS: " + meses + "  CUOTAS PAGADAS: " + pagos + "  CUOTAS EN MORA: " + mora + "  MESES EN MORA: " + mes_mora);
-                        document.Add(texto);
-                        texto.RemoveAt(0);
+
+                        
 
                         if (!string.IsNullOrEmpty(deuda_fecha))
                         {
+                            texto.Alignment = Element.ALIGN_LEFT;
                             texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
-                            texto.Add("Si desea cancelar a la fecha del reporte el saldo a pagar es de: $"+deuda_fecha);
+                            texto.Add("SI DESEA CANCELAR A LA FECHA DEL REPORTE EL SALDO A PAGAR ES DE: $" + deuda_fecha);
                             document.Add(texto);
                             texto.RemoveAt(0);
                         }
+
                         texto.Alignment = Element.ALIGN_RIGHT;
                         texto.IndentationRight = 30;
                         texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
@@ -174,6 +206,9 @@ namespace Cartera.Reportes
                         texto.Add(Valor_deduda);
                         document.Add(texto);
                         texto.RemoveAt(0);
+                        texto.Add(relacion);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
                         texto.Add(valor_total);
                         document.Add(texto);
                         texto.RemoveAt(0);
@@ -181,20 +216,21 @@ namespace Cartera.Reportes
                     catch(Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                     }
                     finally
                     {
                         //********************** Cerrar documento ********************         
                         document.Close();
-                    }                    
+                    }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
                 }
                 //return file;
             }            
         }
 
         //public void PagoProgramado(DataTable report, string cedula, string Nombres, string producto, string proyecto, string deuda_fecha, string valor_neto, string valor_total, string Valor_deduda, string valor_pagado, int cuotas, int meses, int pagos, int mora, int mes_mora)
-        public void PagoProgramado(DataTable report, string cliente, string nomproducto, string ValorFin, string ValorIni, string ValorSepare, string CuotasIni, string ValorCuotaIni, string ValorSaldo, string CuotasSal, string ValorCuotaSal, string Pagado)
+        public void PagoProgramado(DataTable report, string cliente, string nomproducto, string nomproyecto, string ValorFin, string ValorIni, string ValorSepare, string CuotasIni, string ValorCuotaIni, string ValorSaldo, string CuotasSal, string ValorCuotaSal, string Pagado)
         {
             //string nombre = "Historial de pagos";
 
@@ -274,18 +310,27 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
+
+
+
                                 texto.Font = FontFactory.GetFont("Verdana", 7);
-                                texto.Add("ACUERDO DE PAGOS - CLIENTE "+cliente+ "PRODUCTO "+ nomproducto);
+                                texto.Add("ACUERDO DE PAGOS");
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                //texto.Add(cedula + " " + Nombres + " PRODUCTO: " + producto + " " + proyecto);
-                                //document.Add(texto);
-                                //texto.RemoveAt(0);
+                                //Tabla detalle
+                                PdfPTable table = new PdfPTable(2) { WidthPercentage = 100f };
+                                //proporcion relativa - 2/3 y 1/3
+                                float[] widths = new float[] { 2.2f, 0.8f };
+                                table.SetWidths(widths);
+                                table.HorizontalAlignment = 0;
+                                table.SpacingBefore = 3f;
 
-                                texto.Add(" FECHA REPORTE: " + DateTime.Now.ToString());
-                                document.Add(texto);
-                                texto.RemoveAt(0);
+                                //agg las filas
+                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + cliente + "PRODUCTO " + nomproducto+ " "+ nomproyecto, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                document.Add(table);
+                                
 
                                 //texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
                                 texto.Add(ValorIni + "  " + ValorSepare + "  " + CuotasIni + "  " + ValorCuotaIni);
@@ -534,6 +579,8 @@ namespace Cartera.Reportes
                         //********************** Cerrar documento ********************         
                         document.Close();
                     }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
                 }
                 //return file;
             }
@@ -681,6 +728,8 @@ namespace Cartera.Reportes
                         //********************** Cerrar documento ********************         
                         document.Close();
                     }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
                 }
                 //return file;
             }
@@ -844,6 +893,8 @@ namespace Cartera.Reportes
                         //********************** Cerrar documento ********************         
                         document.Close();
                     }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
                 }
                 //return file;
             }
@@ -1007,6 +1058,8 @@ namespace Cartera.Reportes
                         //********************** Cerrar documento ********************         
                         document.Close();
                     }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
                 }
                 //return file;
             }
@@ -1154,6 +1207,8 @@ namespace Cartera.Reportes
                         //********************** Cerrar documento ********************         
                         document.Close();
                     }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
                 }
                 //return file;
             }
@@ -1315,6 +1370,8 @@ namespace Cartera.Reportes
                         //********************** Cerrar documento ********************         
                         document.Close();
                     }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
                 }
                 //return file;
             }
@@ -1480,6 +1537,8 @@ namespace Cartera.Reportes
                         //********************** Cerrar documento ********************         
                         document.Close();
                     }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
                 }
                 //return file;
             }
@@ -1641,6 +1700,8 @@ namespace Cartera.Reportes
                         //********************** Cerrar documento ********************         
                         document.Close();
                     }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
                 }
                 //return file;
             }
@@ -1802,6 +1863,8 @@ namespace Cartera.Reportes
                         //********************** Cerrar documento ********************         
                         document.Close();
                     }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
                 }
                 //return file;
             }

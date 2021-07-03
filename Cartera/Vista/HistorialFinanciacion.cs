@@ -99,8 +99,7 @@ namespace Cartera.Vista
                     {
                         DataTable dtCuotas= cuota.ListarCuotas(id_financiacion);
                         DataTable dtrecaudo = pago.Tota_Recaudado_Producto(ProductoId.ToString());
-                        int ValorPagado = 0;
-                        label9.Text = "Valor pagado: $ " + String.Format("{0:N0}", ValorPagado);
+                        int ValorPagado = 0;                        
                         int num_cuota = 0;
                         int contador = 1;
                         int pagado = 0;
@@ -130,7 +129,7 @@ namespace Cartera.Vista
                         }
                         else
                         {
-                            cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
+                            cuota.ActulziarCuota(num_cuota, Estado, id_financiacion, "Valor Separación");
                         }
                         num_cuota++;
                         while (num_cuota <= Cuotas_sin_interes)
@@ -150,7 +149,7 @@ namespace Cartera.Vista
                             }
                             else
                             {
-                                cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
+                                cuota.ActulziarCuota(num_cuota, Estado, id_financiacion, "Valor Inicial");
                             }
                             contador++;
                             num_cuota++;
@@ -173,11 +172,12 @@ namespace Cartera.Vista
                             }
                             else
                             {
-                                cuota.ActulziarCuota(num_cuota, Estado, id_financiacion);
+                                cuota.ActulziarCuota(num_cuota, Estado, id_financiacion, "Valor Saldo");
                             }
                             contador++;
                             num_cuota++;
                         }
+                        label9.Text = "Valor pagado: $ " + String.Format("{0:N0}", ValorPagado);
                         dataGridView1.Visible = false;
                         DtAcuerdoPago= cuota.ListarCuotas(id_financiacion);
                         dataGridView2.DataSource = DtAcuerdoPago;                     
@@ -206,36 +206,16 @@ namespace Cartera.Vista
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DataTable DtRepor = new DataTable();
-            DtRepor = ((DataTable)dataGridView2.DataSource);
+            //DataTable DtRepor = new DataTable();
+            //DtRepor = ((DataTable)dataGridView2.DataSource);
 
             DataTable Dtdatos = producto.ClienteProducto(ProductoId);
 
             string cliente = Dtdatos.Rows[0]["Nombre"].ToString() + " " + Dtdatos.Rows[0]["Apellido"].ToString();
             string nomproducto = Dtdatos.Rows[0]["Producto"].ToString();
-            //String.Format("{0:0.##}", DtRepor.Columns[1]);
-            ////convertDataTableToString(DtRepor);
-            //DataTable dtClone = DtRepor.Clone(); //just copy structure, no data
-            //for (int i = 0; i < dtClone.Columns.Count; i++)
-            //{
-            //    if (dtClone.Columns[i].DataType != typeof(string))
-            //        dtClone.Columns[i].DataType = typeof(string);
-            //}
-
-            //foreach (DataRow dr in DtRepor.Rows)
-            //{
-            //    dtClone.ImportRow(dr);
-            //    String.Format("{0:0.##}", dtClone.Columns[1]);
-            //}
-
-            //DataTable dtCloned = DtRepor.Clone();
-            //dtCloned.Columns[1].DataType = typeof(uint);
-            //foreach (DataRow row in DtRepor.Rows)
-            //{
-            //    dtCloned.ImportRow(row);
-            //}
-            //String.Format("{0:0.##}", (Decimal)DtRepor.Columns[1]);
-            reportesPDF.PagoProgramado(DtRepor, cliente, nomproducto, label1.Text.ToUpper(), label2.Text.ToUpper(), label3.Text.ToUpper(), label4.Text.ToUpper(), label5.Text.ToUpper(), label6.Text.ToUpper(), label7.Text.ToUpper(), label8.Text.ToUpper(), label9.Text.ToUpper());
+            string nomproyecto = Dtdatos.Rows[0]["Proyecto"].ToString();
+            
+            reportesPDF.PagoProgramado(DtAcuerdoPago, cliente, nomproducto, nomproyecto, label1.Text.ToUpper(), label2.Text.ToUpper(), label3.Text.ToUpper(), label4.Text.ToUpper(), label5.Text.ToUpper(), label6.Text.ToUpper(), label7.Text.ToUpper(), label8.Text.ToUpper(), label9.Text.ToUpper());
         }      
 
     }

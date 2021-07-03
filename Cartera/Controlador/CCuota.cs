@@ -14,9 +14,9 @@ namespace Cartera.Controlador
         {
             return Modelo.MCuota.crearcuota(cuota, valor, Tipo, fecha, Estado, financiacion);
         }
-        public int ActulziarCuota(int cuota, string Estado, int financiacion)
+        public int ActulziarCuota(int cuota, string Estado, int financiacion, string tipo)
         {
-            return Modelo.MCuota.actualizarcuota(cuota, Estado, financiacion);
+            return Modelo.MCuota.actualizarcuota(cuota, Estado, financiacion,  tipo);
         }
         public DataTable ListarCuotas(int financiacion)
         {
@@ -25,6 +25,10 @@ namespace Cartera.Controlador
         public DataTable reportProyeccion(string FechaInicio, string FechaFin)
         {
             return MCuota.reportProyeccion(FechaInicio, FechaFin);
+        }
+        public DataTable PagosProgramados(int financiacion, string fecha)
+        {
+            return MCuota.PagosProgramados(financiacion, fecha);
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Cartera.Vista
         CCartera cartera = new CCartera();
         CPago pago = new CPago();
         CProducto producto = new CProducto();
+        CCuota cuota = new CCuota();
         bool error = false;        
         string productoId = "";
         string carteraId ="";
@@ -31,6 +32,8 @@ namespace Cartera.Vista
         int ProductoVal,ValorPagado,ValorDeuda,ValorNeto;
         ReportesPDF reportesPDF = new ReportesPDF();
         DataTable dtpagos = new DataTable();
+        int financiacion;
+
         public HistorialPagos()
         {
             InitializeComponent();
@@ -55,8 +58,8 @@ namespace Cartera.Vista
             ValorNeto = int.Parse(neto);
             ProductoVal = int.Parse(valor);
             //this.Height += 200;
-            ListarPagosCliente();
             estadoPagoCliente();
+            ListarPagosCliente();
 
             BtImprimir.Enabled = true;
             dataGridView2.Visible = true;
@@ -68,7 +71,7 @@ namespace Cartera.Vista
             {
                 DataTable dtreporte = new DataTable();
                 dtreporte = pago.ReportesPagosCliente(productoId);
-                reportesPDF.HistorialPagos(dtreporte, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, TxtDeudaFecha.Text, labelNeto.Text, labelTotal.Text, labelDeuda.Text, labelPagado.Text, cuotas, meses, pagos, mora, mes_mora);
+                reportesPDF.HistorialPagos(dtreporte, txtCedula.Text,txtNombre.Text, Nom_Producto, Nom_Proyecto, TxtDeudaFecha.Text, labelNeto.Text, labelTotal.Text, labelDeuda.Text, labelPagado.Text, labelCuotas.Text.ToUpper(), labelmes.Text.ToUpper(), labelPagadas.Text.ToUpper(), labelMora.Text.ToUpper(), labelMeses.Text.ToUpper(), labelProgramado.Text, labelRelacion.Text);
                 //printPreviewDialog1.Show();
             }
             catch(Exception ex)
@@ -205,8 +208,8 @@ namespace Cartera.Vista
                     MessageBox.Show("Campo no valido", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 //this.Height += 200;
-                ListarPagosCliente();
                 estadoPagoCliente();
+                ListarPagosCliente();                
                 BtImprimir.Enabled = true;
                 dataGridView2.Visible = true;
                 dataGridView1.Visible = false;
@@ -220,7 +223,7 @@ namespace Cartera.Vista
         {
             groupBox2.Visible = true;
             DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(productoId));
-            //financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString()); 
+            financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString()); 
             if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[0]["Fecha_Recaudo"].ToString()))
             {
                 string fecha1 = dtfechas.Rows[0]["Fecha_Pago"].ToString();
@@ -228,7 +231,7 @@ namespace Cartera.Vista
                 cuotas = int.Parse(dtfechas.Rows[0]["Cuotas"].ToString());
                 DataTable dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "Inicial%");
                 int pagos = 0;
-                if (!string.IsNullOrEmpty(dtcuotas.Rows[0]["cuotas"].ToString()) && (int.Parse(dtcuotas.Rows[0]["cuotas"].ToString()) > int.Parse(dtfechas.Rows[0]["Cuotas_Sin_interes"].ToString())))
+                if (!string.IsNullOrEmpty(dtcuotas.Rows[0]["cuotas"].ToString()) && (int.Parse(dtcuotas.Rows[0]["cuotas"].ToString()) >= int.Parse(dtfechas.Rows[0]["Cuotas_Sin_interes"].ToString())))
                 {
                     pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
                     dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "Saldo%");
@@ -241,10 +244,11 @@ namespace Cartera.Vista
                 {
                     dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "%");
                     pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
-                }
+                }                
                 DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                
                 TimeSpan Ultimo = actual.Subtract(date_1);
                 TimeSpan trascurrido = actual.Subtract(date_2);
 
@@ -310,8 +314,11 @@ namespace Cartera.Vista
         private void ListarPagosCliente()
         {
             DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
+            DataTable dtprogramado = cuota.PagosProgramados(financiacion, DateTime.Now.ToString("yyyy-MM-dd"));
+            string programado = dtprogramado.Rows[0]["Valor Programado"].ToString();
             ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
             ValorDeuda = ProductoVal - ValorPagado;
+            int relacion = ValorPagado - int.Parse(programado);
             labelDeuda.Visible = true;
             labelPagado.Visible = true;
             labelTotal.Visible = true;
@@ -322,6 +329,15 @@ namespace Cartera.Vista
             labelPagado.Text = "TOTAL ABONADO: $" + String.Format("{0:N0}", ValorPagado);
             labelTotal.Text = "VALOR TOTAL: $" + String.Format("{0:N0}", ProductoVal);
             labelNeto.Text= "VALOR NETO: $" + String.Format("{0:N0}", ValorNeto);
+            labelProgramado.Text = "PAGOS PROGRAMADOS A LA FECHA: $" + String.Format("{0:N0}", int.Parse(programado));
+            if (relacion < 0)
+            {
+                labelRelacion.Text="SALDO VENCIDO O EN MORA: $" + String.Format("{0:N0}", Math.Abs(relacion));
+            }
+            else
+            {
+                labelRelacion.Text = "ABONO ANTICIPADO A LA FECHA: $" + String.Format("{0:N0}", relacion);
+            }
             dtpagos = pago.ListarPagosCliente(productoId);            
             dataGridView2.DataSource = dtpagos;
             dataGridView2.Columns["Id_Pagos"].Visible = false;
@@ -366,6 +382,7 @@ namespace Cartera.Vista
             Form frm = sender as Form;
             if (frm.DialogResult == DialogResult.OK)
             {
+                estadoPagoCliente();
                 ListarPagosCliente();
             }
         }

@@ -22,9 +22,9 @@ namespace Cartera.Modelo
 			cmd1.Parameters.Add(new SQLiteParameter("@Fk_Id_Financiacion", financiacion));
 			return cmd1.ExecuteNonQuery();
 		}
-		internal static int actualizarcuota(int cuota, string Estado, int financiacion)
+		internal static int actualizarcuota(int cuota, string Estado, int financiacion, string tipo)
 		{			
-			string sql1 = "UPDATE Cuotas SET Estado=@Estado WHERE Fk_Id_Financiacion = " + financiacion + " AND Num_Cuota  = " + cuota + ";";
+			string sql1 = "UPDATE Cuotas SET Estado=@Estado WHERE Fk_Id_Financiacion = " + financiacion + " AND Num_Cuota  = " + cuota + " AND Tipo= '"+ tipo + "';";
 			SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());			
 			cmd1.Parameters.Add(new SQLiteParameter("@Estado", Estado));
 			return cmd1.ExecuteNonQuery();
@@ -38,5 +38,10 @@ namespace Cartera.Modelo
 		{
 			return Conexion.consulta("SELECT Num_Cuota as 'Cuota', Valor_Cuota as 'Valor a Pagar', Nombre_Producto as Producto, Nombre as Nombres, Apellido as Apellidos, Fecha as 'Fecha Pago', Estado FROM Cuotas INNER JOIN Financiacion on Id_Financiacion=Fk_Id_Financiacion INNER JOIN Producto on Id_Producto=Fk_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fecha BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' AND Estado_Financiacion= 'Activa' AND Estado_Cliente='Activo' ORDER BY Fecha;");
 		}
+
+		internal static DataTable PagosProgramados(int financiacion, string fecha)
+        {
+			return Conexion.consulta("SELECT sum(Valor_Cuota) as 'Valor Programado' FROM Cuotas where Fk_Id_Financiacion='" + financiacion + "' AND Fecha BETWEEN '2015-01-28' AND '" + fecha + "';");
+        }
 	}
 }

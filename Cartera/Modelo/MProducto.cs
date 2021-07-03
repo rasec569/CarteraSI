@@ -119,7 +119,7 @@ namespace Cartera.Modelo
         }
         public static DataTable ClienteProducto(int IdProducto)
         {
-            return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Telefono, Correo, Nombre_Producto as Producto FROM Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto WHERE Id_Producto='" + IdProducto + "' AND Estado_Cliente= 'Activo';");
+            return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Telefono, Correo, Nombre_Producto as Producto, Proyecto_Nombre as Proyecto FROM Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto WHERE Id_Producto='" + IdProducto + "' AND Estado_Cliente= 'Activo';");
         }
 
     }

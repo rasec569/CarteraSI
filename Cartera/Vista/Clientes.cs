@@ -16,6 +16,7 @@ namespace Cartera.Vista
         Loading cargando;
         CCartera cartera = new CCartera();
         CCliente cliente = new CCliente();
+        CCuota cuota = new CCuota();
         CProducto producto = new CProducto();
         CTipo_Producto tipo_producto = new CTipo_Producto();
         CProyecto proyecto = new CProyecto();
@@ -317,6 +318,29 @@ namespace Cartera.Vista
                 autocompletar();
             }
         }
+        //public void cuotas()
+        //{
+        //    DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        //    int num_cuota = 0;
+        //    int contador = 1;
+        //    string Estado = "";
+        //    cuota.CrearCuota(num_cuota, valor_entrada, "Valor Separación", date.ToString("yyyy-MM-dd"), Estado, Financiacion_id);
+
+        //    num_cuota++;
+        //    while (num_cuota <= Cuotas_sin_interes)
+        //    {
+        //        cuota.CrearCuota(num_cuota, Valor_cuota_sin_interes, "Valor Inicial", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, Financiacion_id);
+        //        contador++;
+        //        num_cuota++;
+        //    }
+        //    num_cuota = 1;
+        //    while (num_cuota <= Cuotas_sin_interes)
+        //    {
+        //        cuota.CrearCuota(num_cuota, Valor_Cuota_Con_Interes, "Valor Saldo", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, Financiacion_id);
+        //        contador++;
+        //        num_cuota++;
+        //    }
+        //}
         private void LimpiarProducto()
         {
             txtNombreProducto.Clear();
