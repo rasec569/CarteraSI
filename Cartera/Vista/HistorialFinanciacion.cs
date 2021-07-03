@@ -216,7 +216,35 @@ namespace Cartera.Vista
             string nomproyecto = Dtdatos.Rows[0]["Proyecto"].ToString();
             
             reportesPDF.PagoProgramado(DtAcuerdoPago, cliente, nomproducto, nomproyecto, label1.Text.ToUpper(), label2.Text.ToUpper(), label3.Text.ToUpper(), label4.Text.ToUpper(), label5.Text.ToUpper(), label6.Text.ToUpper(), label7.Text.ToUpper(), label8.Text.ToUpper(), label9.Text.ToUpper());
-        }      
+        }
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridView dgv = sender as DataGridView;
+            int n = e.RowIndex;
+            try
+            {
+                if (dgv.Columns[e.ColumnIndex].Name == "Estado_Financiacion")  //Si es la columna a evaluar
+                {
 
+                    if (n != -1)
+                    {
+                        if (e.Value.ToString().Contains("Activa"))   //Si el valor de la celda contiene la palabra hora
+                        {                            
+                            e.CellStyle.ForeColor = Color.DarkGreen;
+                            e.CellStyle.BackColor = Color.LightGreen;
+                        }
+                        else if (e.Value.ToString().Contains("Inactiva"))
+                        {
+                            e.CellStyle.ForeColor = Color.Crimson;
+                            e.CellStyle.BackColor = Color.Orange;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
     }
 }
