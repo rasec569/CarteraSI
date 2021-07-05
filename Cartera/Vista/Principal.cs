@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Cartera.Controlador;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ namespace Cartera.Vista
 {
     public partial class Principal : Form
     {
+        
         private Button btnSeleccionado = null;
         public Principal()
         {
@@ -126,6 +129,6 @@ namespace Cartera.Vista
         {
             ActivateButton(sender);
             FormularioHijo<Reportes>();
-        }
+        }      
     }
 }

@@ -176,6 +176,7 @@ namespace Cartera.Vista
         }
         private void CargarProducto()
         {
+            
             try
             {
                 if ((txtNombreP.Text != "") || (txtUbicacion.Text != ""))

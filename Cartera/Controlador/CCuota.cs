@@ -18,6 +18,14 @@ namespace Cartera.Controlador
         {
             return Modelo.MCuota.actualizarcuota(cuota, Estado, financiacion,  tipo);
         }
+        public DataTable CuotasPagadas( int financiacion)
+        {
+            return MCuota.CuotasPagadas(financiacion);
+        }
+        public int EliminarCuotas(int financiacion)
+        {
+            return MCuota.EliminarCuotas(financiacion);
+        }
         public DataTable ListarCuotas(int financiacion)
         {
             return MCuota.ListarCuotas(financiacion);

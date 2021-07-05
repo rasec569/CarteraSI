@@ -87,6 +87,7 @@ namespace Cartera.Vista
                     int Valor_Cuota_Con_Interes = int.Parse(dataGridView1.Rows[n].Cells["Valor_Cuota_Con_Interes"].Value.ToString());
                     string Fecha_Recaudo = dataGridView1.Rows[n].Cells["Fecha_Recaudo"].Value.ToString();
                     DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                    DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
                     label1.Text = "Valor final: $ " + String.Format("{0:N0}", Valor_Producto_Financiacion);
                     label2.Text = "Valor inicial: $ " + String.Format("{0:N0}", valor_sin_interes);
                     label3.Text = "Valor separación: $ " + String.Format("{0:N0}", valor_entrada);
@@ -105,6 +106,12 @@ namespace Cartera.Vista
                         int pagado = 0;
                         string Estado = "";
                         pagado = valor_entrada;
+                        int result = DateTime.Compare(date, actual);
+                        if(dtCuotas.Rows.Count <= (Cuotas_Con_Interes + Cuotas_sin_interes + 1))
+                        {
+                            cuota.EliminarCuotas(id_financiacion);
+                            dtCuotas = cuota.ListarCuotas(id_financiacion);
+                        }
                         if (dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString() != "")
                         {
                             ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
@@ -113,6 +120,10 @@ namespace Cartera.Vista
                             if (pagado <= ValorPagado)
                             {
                                 Estado = "Pagada";
+                            }
+                            else if(result>0)
+                            {
+                                Estado = "Mora";
                             }
                             else
                             {
@@ -134,16 +145,22 @@ namespace Cartera.Vista
                         num_cuota++;
                         while (num_cuota <= Cuotas_sin_interes)
                         {
+                            DateTime fechacuota = date.AddMonths(contador);
+                            result = DateTime.Compare(fechacuota, actual);
                             pagado = pagado + Valor_cuota_sin_interes;
                             if (pagado <= ValorPagado)
                             {
                                 Estado = "Pagada";
                             }
+                            else if (result < 0)
+                            {
+                                Estado = "Mora";
+                            }
                             else
                             {
                                 Estado = "Pendiente";
                             }
-                            if(dtCuotas.Rows.Count == 0)
+                            if(dtCuotas.Rows.Count == 0 || dtCuotas.Rows.Count<= Cuotas_sin_interes)
                             { 
                             cuota.CrearCuota(num_cuota, Valor_cuota_sin_interes, "Valor Inicial", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);                            
                             }
@@ -155,12 +172,18 @@ namespace Cartera.Vista
                             num_cuota++;
                         }
                         num_cuota = 1;
-                        while (num_cuota <= Cuotas_sin_interes )
+                        while (num_cuota <= Cuotas_Con_Interes)
                         {
+                            DateTime fechacuota = date.AddMonths(contador);
+                            result = DateTime.Compare(fechacuota, actual);
                             pagado = pagado + Valor_Cuota_Con_Interes;
                             if (pagado <= ValorPagado)
                             {
                                 Estado = "Pagada";
+                            }
+                            else if (result.ToString() == "-1")
+                            {
+                                Estado = "Mora";
                             }
                             else
                             {
@@ -172,6 +195,7 @@ namespace Cartera.Vista
                             }
                             else
                             {
+                                
                                 cuota.ActulziarCuota(num_cuota, Estado, id_financiacion, "Valor Saldo");
                             }
                             contador++;
@@ -223,12 +247,12 @@ namespace Cartera.Vista
             int n = e.RowIndex;
             try
             {
-                if (dgv.Columns[e.ColumnIndex].Name == "Estado_Financiacion")  //Si es la columna a evaluar
+                if (dgv.Columns[e.ColumnIndex].Name == "Estado_Financiacion")  //columna a evaluar
                 {
 
                     if (n != -1)
                     {
-                        if (e.Value.ToString().Contains("Activa"))   //Si el valor de la celda contiene la palabra hora
+                        if (e.Value.ToString().Contains("Activa"))   //Si el valor de la celda contiene la palabra
                         {                            
                             e.CellStyle.ForeColor = Color.DarkGreen;
                             e.CellStyle.BackColor = Color.LightGreen;

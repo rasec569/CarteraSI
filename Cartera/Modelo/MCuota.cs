@@ -22,6 +22,20 @@ namespace Cartera.Modelo
 			cmd1.Parameters.Add(new SQLiteParameter("@Fk_Id_Financiacion", financiacion));
 			return cmd1.ExecuteNonQuery();
 		}
+
+        internal static DataTable CuotasPagadas(int financiacion)
+        {
+			//SELECT max(Num_Cuota) FROM Cuotas WHERE Fk_Id_Financiacion=" + financiacion + " AND Tipo= '"+tipo+"';
+			//SELECT count(Estado) FROM Cuotas WHERE Fk_Id_Financiacion=" + financiacion + " AND Estado= 'Pagada'
+			return Conexion.consulta("SELECT count(Estado) as cuotas FROM Cuotas WHERE Fk_Id_Financiacion=" + financiacion + " AND Estado= 'Pagada'");
+		}
+		internal static int EliminarCuotas(int financiacion)
+		{
+			string sql = "DELETE FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "'";
+			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+			return cmd.ExecuteNonQuery();
+		}
+
 		internal static int actualizarcuota(int cuota, string Estado, int financiacion, string tipo)
 		{			
 			string sql1 = "UPDATE Cuotas SET Estado=@Estado WHERE Fk_Id_Financiacion = " + financiacion + " AND Num_Cuota  = " + cuota + " AND Tipo= '"+ tipo + "';";

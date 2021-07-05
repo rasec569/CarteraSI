@@ -229,22 +229,24 @@ namespace Cartera.Vista
                 string fecha1 = dtfechas.Rows[0]["Fecha_Pago"].ToString();
                 string fecha2 = dtfechas.Rows[0]["Fecha_Recaudo"].ToString();
                 cuotas = int.Parse(dtfechas.Rows[0]["Cuotas"].ToString());
-                DataTable dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "Inicial%");
-                int pagos = 0;
-                if (!string.IsNullOrEmpty(dtcuotas.Rows[0]["cuotas"].ToString()) && (int.Parse(dtcuotas.Rows[0]["cuotas"].ToString()) >= int.Parse(dtfechas.Rows[0]["Cuotas_Sin_interes"].ToString())))
-                {
-                    pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
-                    dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "Saldo%");
-                    if (!string.IsNullOrEmpty(dtcuotas.Rows[0]["cuotas"].ToString()))
-                    {
-                        pagos = int.Parse(dtfechas.Rows[0]["Cuotas_Sin_interes"].ToString()) + int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
-                    }
-                }
-                else
-                {
-                    dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "%");
-                    pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
-                }                
+                DataTable dtcuotas = cuota.CuotasPagadas(financiacion);
+                pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString())-1;
+                //DataTable dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "Inicial%");
+                //int pagos = 0;
+                //if (!string.IsNullOrEmpty(dtcuotas.Rows[0]["cuotas"].ToString()) && (int.Parse(dtcuotas.Rows[0]["cuotas"].ToString()) >= int.Parse(dtfechas.Rows[0]["Cuotas_Sin_interes"].ToString())))
+                //{
+                //    pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
+                //    dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "Saldo%");
+                //    if (!string.IsNullOrEmpty(dtcuotas.Rows[0]["cuotas"].ToString()))
+                //    {
+                //        pagos = int.Parse(dtfechas.Rows[0]["Cuotas_Sin_interes"].ToString()) + int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
+                //    }
+                //}
+                //else
+                //{
+                //    dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "%");
+                //    pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
+                //}                
                 DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);

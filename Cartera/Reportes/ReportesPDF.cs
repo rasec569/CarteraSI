@@ -116,15 +116,16 @@ namespace Cartera.Reportes
                                 //}
 
                                 //Tabla detalle
-                                PdfPTable table = new PdfPTable(2) { WidthPercentage = 100f };
+                                PdfPTable table = new PdfPTable(3) { WidthPercentage = 100f };
                                 //proporcion relativa - 2/3 y 1/3
-                                float[] widths = new float[] { 2.2f, 0.8f };
+                                float[] widths = new float[] { 1f, 1.2f, 0.8f };
                                 table.SetWidths(widths);
                                 table.HorizontalAlignment = 0;
                                 table.SpacingBefore = 3f;
                                 
                                 //agg las filas
-                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + cedula + " " + Nombres + " PRODUCTO: " + producto + " " + proyecto, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + Nombres , font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table.AddCell(new PdfPCell(new Paragraph("PRODUCTO: " + producto + " " + proyecto, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
                                 table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
                                 document.Add(table);
 
@@ -319,27 +320,48 @@ namespace Cartera.Reportes
                                 texto.RemoveAt(0);
 
                                 //Tabla detalle
-                                PdfPTable table = new PdfPTable(2) { WidthPercentage = 100f };
+                                PdfPTable table = new PdfPTable(3) { WidthPercentage = 100f };
                                 //proporcion relativa - 2/3 y 1/3
-                                float[] widths = new float[] { 2.2f, 0.8f };
+                                float[] widths = new float[] { 1f, 1.2f, 0.8f };
                                 table.SetWidths(widths);
                                 table.HorizontalAlignment = 0;
                                 table.SpacingBefore = 3f;
 
                                 //agg las filas
-                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + cliente + "PRODUCTO " + nomproducto+ " "+ nomproyecto, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + cliente, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table.AddCell(new PdfPCell(new Paragraph("PRODUCTO " + nomproducto + " " + nomproyecto, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
                                 table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
                                 document.Add(table);
-                                
+
+                                // Tablas detalle 2
+                                PdfPTable table2 = new PdfPTable(4) { WidthPercentage = 100f };
+                                table2.HorizontalAlignment = 0;
+                                //table2.SpacingBefore = 5f;
+                                //agg las filas
+                                table2.AddCell(new PdfPCell(new Paragraph(ValorIni, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table2.AddCell(new PdfPCell(new Paragraph(ValorSepare, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table2.AddCell(new PdfPCell(new Paragraph(CuotasIni, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table2.AddCell(new PdfPCell(new Paragraph(ValorCuotaIni, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                document.Add(table2);
+
+                                // Tablas detalle 3
+                                PdfPTable table3 = new PdfPTable(4) { WidthPercentage = 100f };
+                                table2.HorizontalAlignment = 0;
+                                //agg las filas
+                                table3.AddCell(new PdfPCell(new Paragraph(ValorSaldo, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table3.AddCell(new PdfPCell(new Paragraph(" ", font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table3.AddCell(new PdfPCell(new Paragraph(CuotasSal, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table3.AddCell(new PdfPCell(new Paragraph(ValorCuotaSal, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                document.Add(table3);
 
                                 //texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
-                                texto.Add(ValorIni + "  " + ValorSepare + "  " + CuotasIni + "  " + ValorCuotaIni);
-                                document.Add(texto);
-                                texto.RemoveAt(0);
+                                //texto.Add(ValorIni + "  " + ValorSepare + "  " + CuotasIni + "  " + ValorCuotaIni);
+                                //document.Add(texto);
+                                //texto.RemoveAt(0);
 
-                                texto.Add(ValorSaldo + "  " + CuotasSal + "  " + ValorCuotaSal);
-                                document.Add(texto);
-                                texto.RemoveAt(0);
+                                //texto.Add(ValorSaldo + "  " + CuotasSal + "  " + ValorCuotaSal);
+                                //document.Add(texto);
+                                //texto.RemoveAt(0);
 
                                 document.Add(new Paragraph(" "));
 
@@ -348,8 +370,8 @@ namespace Cartera.Reportes
                                 pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 120);
                                 pdfContent.Stroke();
                                 //*** Linea detalle
-                                pdfContent.MoveTo(30, document.PageSize.Height - 150);
-                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 150);
+                                pdfContent.MoveTo(30, document.PageSize.Height - 170);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 170);
                                 pdfContent.Stroke();       
                                 ////*** Linea detalle 2
                                 //pdfContent.MoveTo(40, document.PageSize.Height - 180);
@@ -546,7 +568,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 10f, 19f, 20f, 14f, 7f, 7f, 7f, 7f, 10f, 8f, 9f, 9f}, 100, 7));
+                                document.Add(TablasLetras(report, new float[] { 10f, 19f, 20f, 14f, 7f, 7f, 7f, 7f, 10f, 8f, 9f, 9f}, 100, 6));
                             }
                             else
                             {
