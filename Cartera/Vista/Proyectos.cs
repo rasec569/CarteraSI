@@ -212,9 +212,9 @@ namespace Cartera.Vista
                     Int64 pagado = 0;
                     foreach (DataRow row in DtProductos.Rows)
                     {
-                        total += Convert.ToInt32(row["Valor Final"]);
-                        neto += Convert.ToInt32(row["Valor Neto"]);
-                        pagado += Convert.ToInt32(row["Pagado"]);
+                        total += Convert.ToInt32(row["Valor Final"].ToString().Replace(",", ""));
+                        neto += Convert.ToInt32(row["Valor Neto"].ToString().Replace(",", ""));
+                        pagado += Convert.ToInt32(row["Pagado"].ToString().Replace(",", ""));
                     }
                     labelValor.Text = "VALOR TOTAL FINAL: $ " + String.Format("{0:N0}", total);
                     labelNeto.Text = "VALOR TOTAL NETO $ " + String.Format("{0:N0}", neto);

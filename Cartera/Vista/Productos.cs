@@ -157,7 +157,7 @@ namespace Cartera.Vista
                 Int64 total = 0;
                 foreach (DataRow row in DtProductos.Rows)
                 {
-                    total += Convert.ToInt32(row["Valor Total"]);
+                    total += Convert.ToInt32(row["Valor Total"].ToString().Replace(",", ""));
                 }
                 labelValor.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
                 labelCantidad.Text = "CANTIDAD: " + DtProductos.Rows.Count;

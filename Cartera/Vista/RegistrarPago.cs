@@ -269,13 +269,130 @@ namespace Cartera.Vista
                     pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, valordescuento);
                     modificar = false;
                 }
+
+                ActulizarCuotas();       
                 cartera.ActulizarValorRecaudado( carteraId);
                 cartera.ActulizarSaldo(carteraId);
+                //actulizar estado Cuota
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+        }    
+        private void ActulizarCuotas()
+        {
+            CFinanciacion financiacion = new CFinanciacion();
+            CCuota cuota = new CCuota();
+            DataTable dtfinanciacion = financiacion.FinanciacionProducto(productoid);
+            int idfinanciacion = int.Parse(dtfinanciacion.Rows[0]["Id_Financiacion"].ToString());
+            int Valor_Producto_Financiacion = int.Parse(dtfinanciacion.Rows[0]["Valor_Producto_Financiacion"].ToString());
+            int valor_entrada = int.Parse(dtfinanciacion.Rows[0]["Valor_Entrada"].ToString());
+            int valor_sin_interes = int.Parse(dtfinanciacion.Rows[0]["Valor_Sin_interes"].ToString());
+            int Cuotas_sin_interes = int.Parse(dtfinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString());
+            int Valor_cuota_sin_interes = int.Parse(dtfinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString());
+            int Valor_con_interes = int.Parse(dtfinanciacion.Rows[0]["Valor_Con_Interes"].ToString());
+            int Cuotas_Con_Interes = int.Parse(dtfinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString());
+            int Valor_Cuota_Con_Interes = int.Parse(dtfinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
+            string Fecha_Recaudo = dtfinanciacion.Rows[0]["Fecha_Recaudo"].ToString();
+            DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            label1.Text = "Valor final: $ " + String.Format("{0:N0}", Valor_Producto_Financiacion);
+            label2.Text = "Valor inicial: $ " + String.Format("{0:N0}", valor_sin_interes);
+            label3.Text = "Valor separación: $ " + String.Format("{0:N0}", valor_entrada);
+            label4.Text = "N° de cuotas inicial: " + Cuotas_sin_interes;
+            label5.Text = "Valor cuotas inicial: $ " + String.Format("{0:N0}", Valor_cuota_sin_interes);
+            label6.Text = "Valor saldo: $ " + String.Format("{0:N0}", Valor_con_interes);
+            label7.Text = "N° de cuotas saldo: " + String.Format("{0:N0}", Cuotas_Con_Interes);
+            label8.Text = "Valor cuotas saldo: $ " + String.Format("{0:N0}", Valor_Cuota_Con_Interes);
+            if (Valor_Producto_Financiacion > 0 /*&& id_financiacion !=  0*/)
+            {
+                DataTable dtCuotas = cuota.ListarCuotas(idfinanciacion);
+                DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoid.ToString());
+                int ValorPagado = 0;
+                int num_cuota = 0;
+                int contador = 1;
+                int pagado = 0;
+                string Estado = "";
+                pagado = valor_entrada;
+                int result = DateTime.Compare(date, actual);
+                if (dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString() != "")
+                {
+                    ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
+
+                    pagado = valor_entrada;
+                    if (pagado <= ValorPagado)
+                    {
+                        Estado = "Pagada";
+                    }
+                    else if (result > 0)
+                    {
+                        Estado = "Mora";
+                    }
+                    else
+                    {
+                        Estado = "Pendiente";
+                    }
+                }
+                else
+                {
+                    Estado = "Pendiente";
+                }
+                if (dtCuotas.Rows.Count != 0)
+                {
+                    cuota.ActulziarCuota(num_cuota, Estado, idfinanciacion, "Valor Separación");
+                }
+                num_cuota++;
+                while (num_cuota <= Cuotas_sin_interes)
+                {
+                    DateTime fechacuota = date.AddMonths(contador);
+                    result = DateTime.Compare(fechacuota, actual);
+                    pagado = pagado + Valor_cuota_sin_interes;
+                    if (pagado <= ValorPagado)
+                    {
+                        Estado = "Pagada";
+                    }
+                    else if (result < 0)
+                    {
+                        Estado = "Mora";
+                    }
+                    else
+                    {
+                        Estado = "Pendiente";
+                    }
+                    if (dtCuotas.Rows.Count != 0)
+                    {
+                        cuota.ActulziarCuota(num_cuota, Estado, idfinanciacion, "Valor Inicial");
+                    }
+                    contador++;
+                    num_cuota++;
+                }
+                num_cuota = 1;
+                while (num_cuota <= Cuotas_Con_Interes)
+                {
+                    DateTime fechacuota = date.AddMonths(contador);
+                    result = DateTime.Compare(fechacuota, actual);
+                    pagado = pagado + Valor_Cuota_Con_Interes;
+                    if (pagado <= ValorPagado)
+                    {
+                        Estado = "Pagada";
+                    }
+                    else if (result.ToString() == "-1")
+                    {
+                        Estado = "Mora";
+                    }
+                    else
+                    {
+                        Estado = "Pendiente";
+                    }
+                    if (dtCuotas.Rows.Count != 0)
+                    {
+                        cuota.ActulziarCuota(num_cuota, Estado, idfinanciacion, "Valor Saldo");
+                    }
+                    contador++;
+                    num_cuota++;
+                }
+            }
         }
-        private void BtEliminar_Click(object sender, EventArgs e)
+            private void BtEliminar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Está seguro de eliminar el Pago?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {                

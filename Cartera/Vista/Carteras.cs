@@ -36,7 +36,6 @@ namespace Cartera.Vista
         }
         private void Carteras_Load(object sender, EventArgs e)
         {
-            //cargar();
             CargarCartera();
             autocompletar();
             //actulziarCuotas();
@@ -47,10 +46,10 @@ namespace Cartera.Vista
             {
                 actulziarCuotas();
             });
-            await CargarCartera();
+            //await CargarCartera();
         }
 
-        private async Task CargarCartera()
+        private void CargarCartera()
         {
             if (Txtcedula.Text == "")
             {
@@ -168,7 +167,8 @@ namespace Cartera.Vista
                 if (n < x)
                 {
                     clienteid = dataGridView1.Rows[n].Cells["Id_Cliente"].Value.ToString();
-                    cedula = int.Parse(dataGridView1.Rows[n].Cells["Cedula"].Value.ToString());
+                    //quitar comas
+                    cedula = int.Parse(dataGridView1.Rows[n].Cells["Cedula"].Value.ToString().Replace(",", ""));
                     nombre = dataGridView1.Rows[n].Cells["Nombres"].Value.ToString();
                     apellido = dataGridView1.Rows[n].Cells["Apellidos"].Value.ToString();
                     carteraid = dataGridView1.Rows[n].Cells["Id_Cartera"].Value.ToString();
@@ -193,7 +193,8 @@ namespace Cartera.Vista
                 if (DtCartera.Rows[i]["Pago"].ToString() != "Disuelto")
                 {
                     string Cliente = DtCartera.Rows[i]["Id_Cliente"].ToString();
-                    if (int.Parse(DtCartera.Rows[i]["Recaudado"].ToString()) - int.Parse(DtCartera.Rows[i]["Total"].ToString()) == 0)
+                    //error de comas al parecer
+                    if (int.Parse(DtCartera.Rows[i]["Recaudado"].ToString().Replace(",", "")) - int.Parse(DtCartera.Rows[i]["Total"].ToString().Replace(",", "")) == 0)
                     {
                         cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado", 0, 0, 0, 0);
                         //dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Aquamarine;
@@ -243,7 +244,7 @@ namespace Cartera.Vista
                                         //    if (!string.IsNullOrEmpty(dtcuotas.Rows[h]["cuotas"].ToString()))
                                         //    {
                                         //        pagos = int.Parse(dtfechas.Rows[h]["Cuotas_Sin_interes"].ToString()) + int.Parse(dtcuotas.Rows[h]["cuotas"].ToString());
-                                        //    }                                            
+                                        //    }
                                         //}
                                         //else
                                         //{
@@ -468,10 +469,12 @@ namespace Cartera.Vista
 
                 foreach (DataRow row in DtCartera.Rows)
                 {
-
-                    total += Convert.ToInt32(row["Total"]);
-                    deuda += Convert.ToInt32(row["Saldo"]);
-                    pagado += Convert.ToInt32(row["Recaudado"]);
+                    //string ensayo = row["Total"].ToString().Trim(new Char[] { ',', ',', ',' });
+                    //string resultado = row["Total"].ToString().Replace(",", "");
+                    //elimino las , amtes de hacer la operacion suma del total
+                    total += Convert.ToInt64(row["Total"].ToString().Replace(",", ""));
+                    deuda += Convert.ToInt64(row["Saldo"].ToString().Replace(",", ""));
+                    pagado += Convert.ToInt64(row["Recaudado"].ToString().Replace(",", ""));
 
                 }
                 labelTotal.Text = "TOTAL: $ " + String.Format("{0:N0}", total);

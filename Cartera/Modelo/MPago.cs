@@ -89,7 +89,7 @@ namespace Cartera.Modelo
         }
         internal static DataTable reportPagos(string FechaInicio, string FechaFin)
         {
-            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, Valor_Pagado as Valor, Descuento, Valor_Descuento as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
         }
         internal static DataTable ValorReportPagos(string FechaInicio, string FechaFin)
         {

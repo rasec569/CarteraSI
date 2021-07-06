@@ -72,6 +72,7 @@ namespace Cartera.Vista
         }
         private async Task CargarRpProyeccion()
         {
+            //tarea temporal para mostrar el loading 
             Mostrar();
             var cargar = new Task(() =>
             {
@@ -95,7 +96,8 @@ namespace Cartera.Vista
             Int64 total = 0;
             foreach (DataRow row in DtProgramado.Rows)
             {
-                total += Convert.ToInt32(row["Valor a Pagar"]);
+                //elimino las , amtes de hacer la operacion suma del total
+                total += Convert.ToInt64(row["Valor a Pagar"].ToString().Replace(",", ""));                
             }
             labelTotal.Text = "TOTAL INGRESOS: $ " + String.Format("{0:N0}", total);
         }
@@ -189,6 +191,7 @@ namespace Cartera.Vista
                 groupBox2.Text = "Disoluciones";
             }
         }
+        //metodo temporal para actuizar el estado de las cuotas 
         private void actulziarCuotas()
         {
             DataTable DtProducto = producto.cargarProductos();
