@@ -82,6 +82,7 @@ namespace Cartera.Vista
             // 
             this.comboTipoPago.FormattingEnabled = true;
             this.comboTipoPago.Items.AddRange(new object[] {
+            "Contado",
             "Inicial sin Interes",
             "Inicial con Interes",
             "Saldo sin Interes",

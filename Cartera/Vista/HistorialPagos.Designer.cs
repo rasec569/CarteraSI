@@ -52,13 +52,13 @@ namespace Cartera.Vista
             this.TxtDeudaFecha = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelRelacion = new System.Windows.Forms.Label();
+            this.labelProgramado = new System.Windows.Forms.Label();
             this.labelmes = new System.Windows.Forms.Label();
             this.labelMeses = new System.Windows.Forms.Label();
             this.labelMora = new System.Windows.Forms.Label();
             this.labelPagadas = new System.Windows.Forms.Label();
             this.labelCuotas = new System.Windows.Forms.Label();
-            this.labelProgramado = new System.Windows.Forms.Label();
-            this.labelRelacion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -305,6 +305,24 @@ namespace Cartera.Vista
             this.groupBox2.Text = "Estado";
             this.groupBox2.Visible = false;
             // 
+            // labelRelacion
+            // 
+            this.labelRelacion.AutoSize = true;
+            this.labelRelacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelRelacion.Location = new System.Drawing.Point(738, 40);
+            this.labelRelacion.Name = "labelRelacion";
+            this.labelRelacion.Size = new System.Drawing.Size(0, 12);
+            this.labelRelacion.TabIndex = 6;
+            // 
+            // labelProgramado
+            // 
+            this.labelProgramado.AutoSize = true;
+            this.labelProgramado.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProgramado.Location = new System.Drawing.Point(430, 40);
+            this.labelProgramado.Name = "labelProgramado";
+            this.labelProgramado.Size = new System.Drawing.Size(0, 12);
+            this.labelProgramado.TabIndex = 5;
+            // 
             // labelmes
             // 
             this.labelmes.AutoSize = true;
@@ -354,26 +372,6 @@ namespace Cartera.Vista
             this.labelCuotas.Size = new System.Drawing.Size(46, 13);
             this.labelCuotas.TabIndex = 0;
             this.labelCuotas.Text = "Cuotas";
-            // 
-            // labelProgramado
-            // 
-            this.labelProgramado.AutoSize = true;
-            this.labelProgramado.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelProgramado.Location = new System.Drawing.Point(430, 40);
-            this.labelProgramado.Name = "labelProgramado";
-            this.labelProgramado.Size = new System.Drawing.Size(41, 12);
-            this.labelProgramado.TabIndex = 5;
-            this.labelProgramado.Text = "Cuotas";
-            // 
-            // labelRelacion
-            // 
-            this.labelRelacion.AutoSize = true;
-            this.labelRelacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelRelacion.Location = new System.Drawing.Point(738, 40);
-            this.labelRelacion.Name = "labelRelacion";
-            this.labelRelacion.Size = new System.Drawing.Size(41, 12);
-            this.labelRelacion.TabIndex = 6;
-            this.labelRelacion.Text = "Cuotas";
             // 
             // HistorialPagos
             // 

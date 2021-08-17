@@ -86,6 +86,7 @@ namespace Cartera.Vista
             dataGridView1.Columns [11].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns [12].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns ["Id_Cartera"].Visible = false;
+            dataGridView1.Columns [1].Width = 85;
             dataGridView1.Columns [2].Width = 120;
             dataGridView1.Columns [3].Width = 150;
             dataGridView1.Columns [4].Width = 100;
@@ -204,15 +205,14 @@ namespace Cartera.Vista
                         DataTable dtproducto = producto.cargarProductosCliente(int.Parse(Cliente));
                         for (int j = 0; j < dtproducto.Rows.Count; j++)
                         {
-                            string Producto = dtproducto.Rows[j]["Id_Producto"].ToString();
-                            DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(Producto));
-                            int financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString());
+                            string Producto = dtproducto.Rows[j]["Id_Producto"].ToString();                            
+                            DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(Producto));                            
 
                             if (dtproducto.Rows[j]["Forma Pago"].ToString() == "Contado")
                             {
                                 for (int h = 0; h < dtfechas.Rows.Count; h++)
                                 {
-                                    if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha Pago"].ToString()))
+                                    if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
                                     {
                                         cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado", 0, 0, 0, 0);
                                     }
@@ -229,6 +229,7 @@ namespace Cartera.Vista
                                 {
                                     if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Recaudo"].ToString()))
                                     {
+                                        int financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString());
                                         bool cambio = true;
                                         string fecha1 = dtfechas.Rows[h]["Fecha_Pago"].ToString();
                                         string fecha2 = dtfechas.Rows[h]["Fecha_Recaudo"].ToString();

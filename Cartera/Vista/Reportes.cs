@@ -20,6 +20,7 @@ namespace Cartera.Vista
         CPago pagos = new CPago();
         CProducto producto= new CProducto();
         CCuota cuota = new CCuota();
+        CProyecto proyecto = new CProyecto();
         CCartera cartera = new CCartera();
         DataTable DtPagos = new DataTable();
         DataTable DtProgramado = new DataTable();
@@ -199,12 +200,12 @@ namespace Cartera.Vista
             {
                 string id_producto = DtProducto.Rows[i]["Id_Producto"].ToString();
                 int id_financiacion = int.Parse(DtProducto.Rows[i]["Id_Financiacion"].ToString());
-                int Valor_Producto_Financiacion = int.Parse(DtProducto.Rows[i]["Valor Total"].ToString());
-                int valor_entrada = int.Parse(DtProducto.Rows[i]["Inicial"].ToString());                
+                int Valor_Producto_Financiacion = int.Parse(DtProducto.Rows[i]["Valor Total"].ToString().Replace(",", ""));
+                int valor_entrada = int.Parse(DtProducto.Rows[i]["Inicial"].ToString().Replace(",", ""));                
                 int Cuotas_sin_interes = int.Parse(DtProducto.Rows[i]["Cuotas Inicial"].ToString());
-                int Valor_cuota_sin_interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Inicial"].ToString());
+                int Valor_cuota_sin_interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Inicial"].ToString().Replace(",", ""));
                 int Cuotas_Con_Interes = int.Parse(DtProducto.Rows[i]["Cuotas Saldo"].ToString());
-                int Valor_Cuota_Con_Interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Saldo"].ToString());
+                int Valor_Cuota_Con_Interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Saldo"].ToString().Replace(",", ""));
                 string Fecha_Recaudo = DtProducto.Rows[i]["Fecha Recaudo"].ToString();
                 DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -510,6 +511,21 @@ namespace Cartera.Vista
             {
                 MessageBox.Show("Error al generar reporte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void comboProyecto_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (comboProyecto.Text == "TODOS LOS PROYECTOS")
+            {
+                comboProyecto.DataSource = proyecto.listarProyectos();
+                comboProyecto.DisplayMember = "Proyecto_Nombre";
+                comboProyecto.ValueMember = "Id_Proyecto";
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            comboProyecto.Text = "TODOS LOS PROYECTOS";
         }
     }
 }

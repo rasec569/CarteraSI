@@ -37,6 +37,7 @@ namespace Cartera.Vista
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reportes));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -47,6 +48,7 @@ namespace Cartera.Vista
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtBuscar = new System.Windows.Forms.Button();
             this.datefin = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.dateInicio = new System.Windows.Forms.DateTimePicker();
@@ -57,7 +59,9 @@ namespace Cartera.Vista
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.BtBuscar = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboProyecto = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -78,10 +82,10 @@ namespace Cartera.Vista
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(12, 80);
+            this.tabControl1.Location = new System.Drawing.Point(12, 81);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(968, 538);
+            this.tabControl1.Size = new System.Drawing.Size(968, 537);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -92,7 +96,7 @@ namespace Cartera.Vista
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabPage1.Size = new System.Drawing.Size(960, 512);
+            this.tabPage1.Size = new System.Drawing.Size(960, 511);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Ingreso Observado";
             this.toolTip1.SetToolTip(this.tabPage1, "Reporte Ingreso Observado");
@@ -249,6 +253,17 @@ namespace Cartera.Vista
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Reporte entre fechas";
             // 
+            // BtBuscar
+            // 
+            this.BtBuscar.Image = global::Cartera.Properties.Resources.buscar;
+            this.BtBuscar.Location = new System.Drawing.Point(414, 24);
+            this.BtBuscar.Name = "BtBuscar";
+            this.BtBuscar.Size = new System.Drawing.Size(35, 30);
+            this.BtBuscar.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.BtBuscar, "Buscar Reporte");
+            this.BtBuscar.UseVisualStyleBackColor = true;
+            this.BtBuscar.Click += new System.EventHandler(this.BtBuscar_Click);
+            // 
             // datefin
             // 
             this.datefin.CustomFormat = "yyyy-MM-dd";
@@ -345,22 +360,46 @@ namespace Cartera.Vista
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // BtBuscar
+            // label3
             // 
-            this.BtBuscar.Image = global::Cartera.Properties.Resources.buscar;
-            this.BtBuscar.Location = new System.Drawing.Point(414, 24);
-            this.BtBuscar.Name = "BtBuscar";
-            this.BtBuscar.Size = new System.Drawing.Size(35, 30);
-            this.BtBuscar.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.BtBuscar, "Buscar Reporte");
-            this.BtBuscar.UseVisualStyleBackColor = true;
-            this.BtBuscar.Click += new System.EventHandler(this.BtBuscar_Click);
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(508, 81);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "Proyecto";
+            // 
+            // comboProyecto
+            // 
+            this.comboProyecto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboProyecto.FormattingEnabled = true;
+            this.comboProyecto.Location = new System.Drawing.Point(568, 78);
+            this.comboProyecto.Name = "comboProyecto";
+            this.comboProyecto.Size = new System.Drawing.Size(295, 21);
+            this.comboProyecto.TabIndex = 30;
+            this.comboProyecto.Text = "TODOS LOS PROYECTOS";
+            this.comboProyecto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboProyecto_MouseClick);
+            // 
+            // button3
+            // 
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(865, 77);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(24, 23);
+            this.button3.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.button3, "Limpiar");
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Reportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1002, 620);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboProyecto);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button1);
@@ -384,6 +423,7 @@ namespace Cartera.Vista
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -410,5 +450,8 @@ namespace Cartera.Vista
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.DataGridView dataGridView4;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboProyecto;
+        private System.Windows.Forms.Button button3;
     }
 }

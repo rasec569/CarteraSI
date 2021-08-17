@@ -118,7 +118,7 @@ namespace Cartera.Reportes
                                 //Tabla detalle
                                 PdfPTable table = new PdfPTable(3) { WidthPercentage = 100f };
                                 //proporcion relativa - 2/3 y 1/3
-                                float[] widths = new float[] { 1f, 1.2f, 0.8f };
+                                float[] widths = new float[] { 0.8f, 1.4f, 0.8f };
                                 table.SetWidths(widths);
                                 table.HorizontalAlignment = 0;
                                 table.SpacingBefore = 3f;
@@ -152,8 +152,8 @@ namespace Cartera.Reportes
                                 pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 120);
                                 pdfContent.Stroke();
                                 //*** Linea detalle
-                                pdfContent.MoveTo(30, document.PageSize.Height - 160);
-                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 160);
+                                pdfContent.MoveTo(30, document.PageSize.Height - 163);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 163);
                                 pdfContent.Stroke();
                                 
                             }
@@ -170,14 +170,18 @@ namespace Cartera.Reportes
                         //pdfContent.MoveTo(30, document.PageSize.Height - height);
                         //pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - height);
                         //pdfContent.Stroke();
-                        texto.Alignment = Element.ALIGN_LEFT;
-                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
-                        texto.Add("LOS " + programado);
-                        document.Add(texto);
-                        texto.RemoveAt(0);
-                        texto.Add(relacion);
-                        document.Add(texto);
-                        texto.RemoveAt(0);
+                        if (!string.IsNullOrEmpty(programado))
+                        {
+                            texto.Alignment = Element.ALIGN_LEFT;
+                            texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                            texto.Add("LOS " + programado);
+                            document.Add(texto);
+                            texto.RemoveAt(0);
+                            texto.Add(relacion);
+                            document.Add(texto);
+                            texto.RemoveAt(0);
+                        }
+                            
 
                         texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
                         texto.Add("________________________________________________________________________________________________________________________________________________");
@@ -204,12 +208,15 @@ namespace Cartera.Reportes
                         texto.Add(valor_pagado);
                         document.Add(texto);
                         texto.RemoveAt(0);
-                        texto.Add(Valor_deduda);
-                        document.Add(texto);
-                        texto.RemoveAt(0);
-                        texto.Add(relacion);
-                        document.Add(texto);
-                        texto.RemoveAt(0);
+                        if (!string.IsNullOrEmpty(programado))
+                        {
+                            texto.Add(Valor_deduda);
+                            document.Add(texto);
+                            texto.RemoveAt(0);
+                            texto.Add(relacion);
+                            document.Add(texto);
+                            texto.RemoveAt(0);
+                        }                            
                         texto.Add(valor_total);
                         document.Add(texto);
                         texto.RemoveAt(0);

@@ -32,7 +32,7 @@ namespace Cartera.Vista
         public static string Producto_id = "";
         public static string Financiacion_id = "";
         public static int valor = 0;
-
+        string actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString();
 
 
         public Clientes()
@@ -48,6 +48,7 @@ namespace Cartera.Vista
             Producto_id = "";
             Financiacion_id = "";
             valor = 0;
+            
         }
         private void Clientes_Load(object sender, EventArgs e)
         {
@@ -155,23 +156,28 @@ namespace Cartera.Vista
             if (txtCedula.Text == "")
             {
                 ok = false;
-                errorProvider1.SetError(txtCedula, "Digite cedula");
+                errorProvider1.SetError(txtCedula, "Digite una cedula");
+            }
+            if (txtCedula.TextLength > 10)
+            {
+                ok = false;
+                errorProvider1.SetError(txtCedula, "Numero de cedula incorrecta");
             }
             if (txtNombres.Text == "")
             {
                 ok = false;
-                errorProvider1.SetError(txtNombres, "Digite nombre");
+                errorProvider1.SetError(txtNombres, "Digite un nombre");
             }
             if (txtApellidos.Text == "")
             {
                 ok = false;
-                errorProvider1.SetError(txtApellidos, "Digite apellido");
+                errorProvider1.SetError(txtApellidos, "Digite un apellido");
             }
             if (txtTelefono.Text == "")
             {
                 ok = false;
-                errorProvider1.SetError(txtTelefono, "Digite telefono");
-            }
+                errorProvider1.SetError(txtTelefono, "Digite un telefono");
+            }            
             if (Cliente_id == "")
             {
                 if (txtNombreProducto.Text == "")
@@ -184,15 +190,33 @@ namespace Cartera.Vista
                     ok = false;
                     errorProvider1.SetError(txtContrato, "Digite referencia contrato");
                 }
-                if (ComboFormaPago.Text == "")
+                if (ComboFormaPago.Text == "seleccione una opción")
                 {
                     ok = false;
-                    errorProvider1.SetError(ComboFormaPago, "Seleccione forma de pago");
+                    errorProvider1.SetError(this.ComboFormaPago, "Seleccione forma de pago");
                 }
                 if (txtValor.Text == "")
                 {
                     ok = false;
                     errorProvider1.SetError(txtValor, "Digite el valor del producto");
+                }
+                if (comboProyecto.Text == "seleccione una opción")
+                {
+                    ok = false;
+                    errorProvider1.SetError(this.comboProyecto, "Seleccione un proyecto");
+                }
+                if (comboTipoProducto.Text == "seleccione una opción")
+                {
+                    ok = false;
+                    errorProvider1.SetError(this.comboTipoProducto, "Seleccione un tipo producto");
+                }
+                if (ComboFormaPago.Text == "Financiado")
+                {
+                    if (txtValorSin.Text == "")
+                    {
+                        ok = false;
+                        errorProvider1.SetError(this.txtValorSin, "Debe ingresar un valor");
+                    }
                 }
             }
 

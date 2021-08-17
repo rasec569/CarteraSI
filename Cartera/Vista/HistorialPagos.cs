@@ -60,6 +60,8 @@ namespace Cartera.Vista
             //this.Height += 200;
             estadoPagoCliente();
             ListarPagosCliente();
+            //estadoPagoCliente();
+            
 
             BtImprimir.Enabled = true;
             dataGridView2.Visible = true;
@@ -164,6 +166,7 @@ namespace Cartera.Vista
             labelSaldoFecha.Visible = false;
             TxtDeudaFecha.Visible = false;
             BtImprimir.Enabled = false;
+            button1.Enabled = false;
             txtNombre.Clear();
             clienteid = "";
             if (clearall == true)
@@ -211,6 +214,7 @@ namespace Cartera.Vista
                 estadoPagoCliente();
                 ListarPagosCliente();                
                 BtImprimir.Enabled = true;
+                button1.Enabled = true;
                 dataGridView2.Visible = true;
                 dataGridView1.Visible = false;
             }
@@ -223,80 +227,111 @@ namespace Cartera.Vista
         {
             groupBox2.Visible = true;
             DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(productoId));
-            financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString()); 
-            if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[0]["Fecha_Recaudo"].ToString()))
+            DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
+            dtpagos = pago.ListarPagosCliente(productoId);
+            ValorPagado = int.Parse(dtrecaudo.Rows[0]["Sum(Valor_Pagado)"].ToString());
+            if (!string.IsNullOrEmpty(dtfechas.Rows[0]["Id_Financiacion"].ToString()))
             {
-                string fecha1 = dtfechas.Rows[0]["Fecha_Pago"].ToString();
-                string fecha2 = dtfechas.Rows[0]["Fecha_Recaudo"].ToString();
-                cuotas = int.Parse(dtfechas.Rows[0]["Cuotas"].ToString());
-                DataTable dtcuotas = cuota.CuotasPagadas(financiacion);
-                pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString())-1;
-                //DataTable dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "Inicial%");
-                //int pagos = 0;
-                //if (!string.IsNullOrEmpty(dtcuotas.Rows[0]["cuotas"].ToString()) && (int.Parse(dtcuotas.Rows[0]["cuotas"].ToString()) >= int.Parse(dtfechas.Rows[0]["Cuotas_Sin_interes"].ToString())))
-                //{
-                //    pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
-                //    dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "Saldo%");
-                //    if (!string.IsNullOrEmpty(dtcuotas.Rows[0]["cuotas"].ToString()))
-                //    {
-                //        pagos = int.Parse(dtfechas.Rows[0]["Cuotas_Sin_interes"].ToString()) + int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
-                //    }
-                //}
-                //else
-                //{
-                //    dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "%");
-                //    pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
-                //}                
-                DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                
-                TimeSpan Ultimo = actual.Subtract(date_1);
-                TimeSpan trascurrido = actual.Subtract(date_2);
-
-                int dia = int.Parse(trascurrido.Days.ToString());
-                meses = dia / 30;
-                mes_mora = 0;
-                mora = 0;
-                if (cuotas < meses)
+                financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString());
+                if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[0]["Fecha_Recaudo"].ToString()))
                 {
-                    mes_mora = meses - pagos;
-                    if (cuotas < pagos)
+                    button1.Enabled = true;
+                    string fecha1 = dtfechas.Rows[0]["Fecha_Pago"].ToString();
+                    string fecha2 = dtfechas.Rows[0]["Fecha_Recaudo"].ToString();
+                    cuotas = int.Parse(dtfechas.Rows[0]["Cuotas"].ToString());
+                    DataTable dtcuotas = cuota.CuotasPagadas(financiacion);
+                    pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString()) - 1;
+                    //DataTable dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "Inicial%");
+                    //int pagos = 0;
+                    //if (!string.IsNullOrEmpty(dtcuotas.Rows[0]["cuotas"].ToString()) && (int.Parse(dtcuotas.Rows[0]["cuotas"].ToString()) >= int.Parse(dtfechas.Rows[0]["Cuotas_Sin_interes"].ToString())))
+                    //{
+                    //    pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
+                    //    dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "Saldo%");
+                    //    if (!string.IsNullOrEmpty(dtcuotas.Rows[0]["cuotas"].ToString()))
+                    //    {
+                    //        pagos = int.Parse(dtfechas.Rows[0]["Cuotas_Sin_interes"].ToString()) + int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    dtcuotas = pago.ConsultarCuotas(int.Parse(productoId), "%");
+                    //    pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString());
+                    //}                
+                    DateTime date_1 = DateTime.ParseExact(fecha1, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                    DateTime date_2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                    DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+                    TimeSpan Ultimo = actual.Subtract(date_1);
+                    TimeSpan trascurrido = actual.Subtract(date_2);
+
+                    int dia = int.Parse(trascurrido.Days.ToString());
+                    meses = dia / 30;
+                    mes_mora = 0;
+                    mora = 0;
+                    if (cuotas < meses)
                     {
-                        mora = cuotas;
+                        mes_mora = meses - pagos;
+                        if (cuotas < pagos)
+                        {
+                            mora = cuotas;
+                        }
+                        else
+                        {
+                            mora = cuotas - pagos;
+                        }
+                    }
+                    else if (meses - pagos <= 0)
+                    {
+                        mora = 0;
+                        mes_mora = 0;
                     }
                     else
                     {
-                        mora = cuotas - pagos;
+                        mora = meses - pagos;
+                        mes_mora = meses - pagos;
                     }
+                    if (ProductoVal - ValorPagado != 0)
+                    {
+                        labelmes.Text = "Meses Transcurridos:  " + meses;
+                        labelMora.Text = "Cuotas en Mora:  " + mora;
+                        labelMeses.Text = "Meses en Mora:  " + mes_mora;
+                        labelPagadas.Text = "Cuotas Pagadas:  " + pagos;
+                    }
+                    else
+                    {
+                        labelmes.Text = "";
+                        labelPagadas.Text = "Pagos:  " + dtpagos.Rows.Count;
+                        labelMora.Text = "";
+                        labelMeses.Text = "Pagado";
+                        labelPagadas.Text = "";
+                    }
+                    labelCuotas.Text = "Cuotas Pactadas:  " + cuotas;
+
                 }
-                else if (meses - pagos <= 0)
-                {
-                    mora = 0;
-                    mes_mora = 0;
-                }
-                else
-                {
-                    mora = meses - pagos;
-                    mes_mora = meses - pagos;
-                }
-                if(ProductoVal-ValorPagado != 0)
-                {
-                    labelmes.Text = "Meses Transcurridos:  " + meses;
-                    labelMora.Text = "Cuotas en Mora:  " + mora;
-                    labelMeses.Text = "Meses en Mora:  " + mes_mora;
-                    labelPagadas.Text = "Cuotas Pagadas:  " + pagos;
-                }
-                else
-                {
-                    labelmes.Text = "Cuotas Pagadas:  " + pagos;
-                    labelMora.Text = "";
-                    labelMeses.Text = "PAGADO";
-                    labelPagadas.Text = "";
-                }
-                labelCuotas.Text = "Cuotas Pactadas:  " + cuotas;                    
-                
             }
+            else
+            {
+                button1.Enabled = false;
+                if (ProductoVal - ValorPagado != 0)
+                {
+                    labelmes.Text = "" ;
+                    labelPagadas.Text = "Pagos:  " + dtpagos.Rows.Count;
+                    labelMora.Text = "Saldo: "+ (ProductoVal - ValorPagado);
+                    labelMeses.Text = "";
+                    labelMeses.Text = "Estado: En mora";
+                    labelCuotas.Text = "Tipo de pago: Contado";
+                }
+                else
+                {
+                    labelmes.Text = "";
+                    labelPagadas.Text = "Pagos:  " + dtpagos.Rows.Count;
+                    labelMora.Text = "";
+                    labelMeses.Text = "";
+                    labelMeses.Text = "Estado: Pagado";
+                    labelCuotas.Text = "Tipo de pago: Contado";
+                }                              
+            }                      
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -314,33 +349,41 @@ namespace Cartera.Vista
         }
 
         private void ListarPagosCliente()
-        {
-            DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
-            DataTable dtprogramado = cuota.PagosProgramados(financiacion, DateTime.Now.ToString("yyyy-MM-dd"));
-            string programado = dtprogramado.Rows[0]["Valor Programado"].ToString();
-            ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
-            ValorDeuda = ProductoVal - ValorPagado;
-            int relacion = ValorPagado - int.Parse(programado);
-            labelDeuda.Visible = true;
-            labelPagado.Visible = true;
-            labelTotal.Visible = true;
-            labelNeto.Visible = true;
-            labelSaldoFecha.Visible = true;
-            TxtDeudaFecha.Visible = true;
-            labelDeuda.Text = "SALDO AL FINAL: $" + String.Format("{0:N0}", ValorDeuda);
-            labelPagado.Text = "TOTAL ABONADO: $" + String.Format("{0:N0}", ValorPagado);
-            labelTotal.Text = "VALOR TOTAL: $" + String.Format("{0:N0}", ProductoVal);
-            labelNeto.Text= "VALOR NETO: $" + String.Format("{0:N0}", ValorNeto);
-            labelProgramado.Text = "PAGOS PROGRAMADOS A LA FECHA: $" + String.Format("{0:N0}", int.Parse(programado));
-            if (relacion < 0)
-            {
-                labelRelacion.Text="SALDO VENCIDO O EN MORA: $" + String.Format("{0:N0}", Math.Abs(relacion));
+        {// separar contado de financiacion           
+            
+            
+            if (financiacion.ToString()!="0"){
+                
+                DataTable dtprogramado = cuota.PagosProgramados(financiacion, DateTime.Now.ToString("yyyy-MM-dd"));
+                string programado = dtprogramado.Rows[0]["Valor Programado"].ToString();
+                
+                ValorDeuda = ProductoVal - ValorPagado;
+                int relacion = ValorPagado - int.Parse(programado);
+                labelDeuda.Visible = true;
+                labelPagado.Visible = true;
+                labelTotal.Visible = true;
+                labelNeto.Visible = true;
+                labelSaldoFecha.Visible = true;
+                TxtDeudaFecha.Visible = true;
+                labelDeuda.Text = "SALDO AL FINAL: $" + String.Format("{0:N0}", ValorDeuda);
+                labelPagado.Text = "TOTAL ABONADO: $" + String.Format("{0:N0}", ValorPagado);                
+                labelProgramado.Text = "PAGOS PROGRAMADOS A LA FECHA: $" + String.Format("{0:N0}", int.Parse(programado));
+                if (relacion < 0)
+                {
+                    labelRelacion.Text = "SALDO VENCIDO O EN MORA: $" + String.Format("{0:N0}", Math.Abs(relacion));
+                }
+                else
+                {
+                    labelRelacion.Text = "ABONO ANTICIPADO A LA FECHA: $" + String.Format("{0:N0}", relacion);
+                }
+
             }
             else
             {
-                labelRelacion.Text = "ABONO ANTICIPADO A LA FECHA: $" + String.Format("{0:N0}", relacion);
+                labelPagado.Text = "VALOR PAGADO: $" + String.Format("{0:N0}", ValorPagado);
             }
-            dtpagos = pago.ListarPagosCliente(productoId);            
+            labelNeto.Text = "VALOR NETO: $" + String.Format("{0:N0}", ValorNeto);
+            labelTotal.Text = "VALOR TOTAL: $" + String.Format("{0:N0}", ProductoVal);
             dataGridView2.DataSource = dtpagos;
             dataGridView2.Columns["Id_Pagos"].Visible = false;
             dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -350,6 +393,7 @@ namespace Cartera.Vista
             dataGridView2.Columns[3].Width = 280;
             dataGridView2.Columns[4].Width = 150;
             dataGridView2.Columns[5].DefaultCellStyle.Format = "N0";
+
         }
 
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -374,9 +418,9 @@ namespace Cartera.Vista
                     Rp.ShowDialog();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Error"+ ex);
             }
         }
         private void Pagos_FormClose(object sender, FormClosedEventArgs e)
