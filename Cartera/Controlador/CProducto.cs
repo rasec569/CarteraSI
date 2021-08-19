@@ -55,9 +55,17 @@ namespace Cartera.Controlador
         {
             return MProducto.ReportVentas(FechaInicio, FechaFin);
         }
+        public DataTable ReportVentasProyecto(string FechaInicio, string FechaFin, string proyecto)
+        {
+            return MProducto.ReportVentasProyecto(FechaInicio, FechaFin, proyecto);
+        }
         public DataTable ValorReportVentas(string FechaInicio, string FechaFin)
         {
             return MProducto.ValorReportVentas(FechaInicio, FechaFin);
+        }
+        public DataTable ValorReportVentasProyecto(string FechaInicio, string FechaFin, string proyecto)
+        {
+            return MProducto.ValorReportVentasProyecto(FechaInicio, FechaFin, proyecto);
         }
         public DataTable ValorReportProducto()
         {

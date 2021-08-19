@@ -17,8 +17,7 @@ namespace Cartera.Modelo
 
         public static DataTable ValidaUser(string Nom_Usuario, string Contraseña)
         {
-            return Conexion.consulta("Select Nom_Usuario, Contraseña from Usuario where Nom_Usuario='" + Nom_Usuario + "' AND Contraseña= '" + Contraseña + "'");
+            return Conexion.consulta("Select * from Usuario where Nom_Usuario='" + Nom_Usuario + "' AND Contraseña= '" + Contraseña + "'");
         }        
-        
     }
 }

@@ -32,6 +32,7 @@ namespace Cartera.Vista
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.PanelMenu = new System.Windows.Forms.Panel();
+            this.BtProductos = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -45,10 +46,11 @@ namespace Cartera.Vista
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.BtReportes = new System.Windows.Forms.Button();
             this.BtProyectos = new System.Windows.Forms.Button();
-            this.BtProductos = new System.Windows.Forms.Button();
             this.BtClientes = new System.Windows.Forms.Button();
             this.PanelContenedor = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.LbUser = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.PanelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -57,6 +59,8 @@ namespace Cartera.Vista
             // 
             this.PanelMenu.AutoSize = true;
             this.PanelMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.PanelMenu.Controls.Add(this.label1);
+            this.PanelMenu.Controls.Add(this.LbUser);
             this.PanelMenu.Controls.Add(this.BtProductos);
             this.PanelMenu.Controls.Add(this.panel7);
             this.PanelMenu.Controls.Add(this.panel5);
@@ -77,6 +81,24 @@ namespace Cartera.Vista
             this.PanelMenu.Name = "PanelMenu";
             this.PanelMenu.Size = new System.Drawing.Size(206, 613);
             this.PanelMenu.TabIndex = 0;
+            // 
+            // BtProductos
+            // 
+            this.BtProductos.Cursor = System.Windows.Forms.Cursors.Default;
+            this.BtProductos.FlatAppearance.BorderSize = 0;
+            this.BtProductos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOliveGreen;
+            this.BtProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtProductos.Font = new System.Drawing.Font("Bernard MT Condensed", 15.75F);
+            this.BtProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
+            this.BtProductos.Image = ((System.Drawing.Image)(resources.GetObject("BtProductos.Image")));
+            this.BtProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtProductos.Location = new System.Drawing.Point(12, 298);
+            this.BtProductos.Name = "BtProductos";
+            this.BtProductos.Size = new System.Drawing.Size(188, 41);
+            this.BtProductos.TabIndex = 4;
+            this.BtProductos.Text = "Productos";
+            this.BtProductos.UseVisualStyleBackColor = true;
+            this.BtProductos.Click += new System.EventHandler(this.BtProductos_Click);
             // 
             // panel7
             // 
@@ -236,24 +258,6 @@ namespace Cartera.Vista
             this.BtProyectos.UseVisualStyleBackColor = true;
             this.BtProyectos.Click += new System.EventHandler(this.BtProyectos_Click);
             // 
-            // BtProductos
-            // 
-            this.BtProductos.Cursor = System.Windows.Forms.Cursors.Default;
-            this.BtProductos.FlatAppearance.BorderSize = 0;
-            this.BtProductos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOliveGreen;
-            this.BtProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtProductos.Font = new System.Drawing.Font("Bernard MT Condensed", 15.75F);
-            this.BtProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
-            this.BtProductos.Image = ((System.Drawing.Image)(resources.GetObject("BtProductos.Image")));
-            this.BtProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtProductos.Location = new System.Drawing.Point(12, 298);
-            this.BtProductos.Name = "BtProductos";
-            this.BtProductos.Size = new System.Drawing.Size(188, 41);
-            this.BtProductos.TabIndex = 4;
-            this.BtProductos.Text = "Productos";
-            this.BtProductos.UseVisualStyleBackColor = true;
-            this.BtProductos.Click += new System.EventHandler(this.BtProductos_Click);
-            // 
             // BtClientes
             // 
             this.BtClientes.Cursor = System.Windows.Forms.Cursors.Default;
@@ -289,6 +293,28 @@ namespace Cartera.Vista
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // LbUser
+            // 
+            this.LbUser.AutoSize = true;
+            this.LbUser.Font = new System.Drawing.Font("Bernard MT Condensed", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
+            this.LbUser.Location = new System.Drawing.Point(22, 573);
+            this.LbUser.Name = "LbUser";
+            this.LbUser.Size = new System.Drawing.Size(59, 25);
+            this.LbUser.TabIndex = 23;
+            this.LbUser.Text = "label1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Bernard MT Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
+            this.label1.Location = new System.Drawing.Point(2, 554);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 19);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Bienvenido";
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -308,6 +334,7 @@ namespace Cartera.Vista
             this.Text = "Cartera";
             this.Load += new System.EventHandler(this.Principal_Load);
             this.PanelMenu.ResumeLayout(false);
+            this.PanelMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -334,6 +361,8 @@ namespace Cartera.Vista
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LbUser;
     }
 }
 

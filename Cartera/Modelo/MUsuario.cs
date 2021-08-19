@@ -27,10 +27,23 @@ namespace Cartera.Modelo
             cmd.Parameters.Add(new SQLiteParameter("@Contraseña", contraseña));
             return cmd.ExecuteNonQuery();
         }
+        internal static int ActulizarContraseña(string id_usuario,  string contraseña)
+        {
+            string sql = "UPDATE Usuario set Contraseña='"+ contraseña + "' WHERE Id_usuario='" + id_usuario + "';";
+                SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+            return cmd.ExecuteNonQuery();
+        }
 
         internal static DataTable listarUsuario()
         {
             return Conexion.consulta("Select Id_usuario, Nom_Usuario as Usuario, Contraseña as Pass from Usuario");
         }
+
+        internal static int EliminarUsuario(int usuario)
+        {
+            string sql = "DELETE FROM Usuario WHERE Id_usuario = '" + usuario + "'";
+            SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+            return cmd.ExecuteNonQuery();
+        }        
     }
 }

@@ -22,6 +22,17 @@ namespace Cartera.Controlador
         {
             return MUsuario.ActulizarUsuario(Id_usuario, nombre, contraseña);
         }
+        public int ActulizarContraseña(string id_usuario, string contraseña)
+        {
+            return MUsuario.ActulizarContraseña(id_usuario, contraseña);
+        }
+        public int EliminarUsuario(int usuario)
+        {
+            return MUsuario.EliminarUsuario(usuario);
+        }
+
+
+
     }
 
 }

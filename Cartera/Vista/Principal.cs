@@ -14,16 +14,23 @@ namespace Cartera.Vista
 {
     public partial class Principal : Form
     {
-        
+        DataTable dtsession = new DataTable();
         private Button btnSeleccionado = null;
         public Principal()
         {
             InitializeComponent();
         }
-        private void Principal_Load(object sender, EventArgs e)
+        public Principal(DataTable User)
         {
+            InitializeComponent();
+            dtsession = User;
+            LbUser.Text = User.Rows[0]["Nom_Usuario"].ToString();
+        }
+
+        private void Principal_Load(object sender, EventArgs e)
+        {           
             //BtCarteras_Click(this, new EventArgs());
-            FormularioHijo<Carteras>();
+            FormularioHijo<Carteras>(dtsession);
             BtCarteras.BackColor = Color.DarkSeaGreen;
             BtCarteras.ForeColor = Color.White;
             BtCarteras.Font = new System.Drawing.Font("Bernard MT Condensed", 16.75F);
@@ -54,7 +61,19 @@ namespace Cartera.Vista
                 }
             }
         }
-        public void FormularioHijo<MiForm>() where MiForm: Form, new()
+        private void AbrirFormularioEnPanel(object FormHijo)
+        {
+            if (this.PanelContenedor.Controls.Count > 0)
+                this.PanelContenedor.Controls.RemoveAt(0);
+            Form fh = FormHijo as Form;
+            fh.TopLevel = false;
+            fh.Dock = DockStyle.Fill;
+            this.PanelContenedor.Controls.Add(fh);
+            this.PanelContenedor.Tag = fh;
+            fh.Show();
+
+        }
+        public void FormularioHijo<MiForm>(DataTable user) where MiForm: Form, new()
         {
             if (this.PanelContenedor.Controls.Count > 0)
                 this.PanelContenedor.Controls.RemoveAt(0);
@@ -78,12 +97,12 @@ namespace Cartera.Vista
         private void BtClientes_Click(object sender, EventArgs e)
         {
             ActivateButton(sender);
-            FormularioHijo<Clientes>();
+            FormularioHijo<Clientes>(dtsession);
         }
         private void BtProyectos_Click(object sender, EventArgs e)
         {
             ActivateButton(sender);
-            FormularioHijo<Proyectos>();        
+            FormularioHijo<Proyectos>(dtsession);        
         }
         private void BtSalir_Click(object sender, EventArgs e)
         {
@@ -97,12 +116,12 @@ namespace Cartera.Vista
         private void BtProductos_Click(object sender, EventArgs e)
         {
             ActivateButton(sender);
-            FormularioHijo<Productos>();
+            FormularioHijo<Productos>(dtsession);
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             DisableButton();
-            FormularioHijo<Carteras>(); 
+            FormularioHijo<Carteras>(dtsession); 
             BtCarteras.BackColor = Color.DarkSeaGreen;
             BtCarteras.ForeColor = Color.White;
             BtCarteras.Font = new System.Drawing.Font("Bernard MT Condensed", 16.75F);
@@ -116,19 +135,23 @@ namespace Cartera.Vista
         private void BtCarteras_Click(object sender, EventArgs e)
         {
             ActivateButton(sender);
-            FormularioHijo<Carteras>();
+            FormularioHijo<Carteras>(dtsession);
         }
 
         private void BtSoporte_Click(object sender, EventArgs e)
         {
             ActivateButton(sender);
-            FormularioHijo<Soporte>();
+            //FormularioHijo<Soporte>(dtsession);
+            AbrirFormularioEnPanel(new Soporte(dtsession));
         }
 
         private void BtReportes_Click(object sender, EventArgs e)
         {
             ActivateButton(sender);
-            FormularioHijo<Reportes>();
-        }      
+            AbrirFormularioEnPanel(new Reportes(dtsession));
+            //FormularioHijo<Reportes>(dtsession);
+        }
+
+        
     }
 }

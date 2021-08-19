@@ -30,13 +30,29 @@ namespace Cartera.Controlador
         {
             return MCuota.ListarCuotas(financiacion);
         }
+        public DataTable ListarCuotasActulizar(int financiacion, string fecha)
+        {
+            return MCuota.ListarCuotasActulizar(financiacion, fecha);
+        }
         public DataTable reportProyeccion(string FechaInicio, string FechaFin)
         {
             return MCuota.reportProyeccion(FechaInicio, FechaFin);
         }
+        public DataTable reportProyeccionProyecto(string FechaInicio, string FechaFin, string proyecto)
+        {
+            return MCuota.reportProyeccionProyecto(FechaInicio, FechaFin, proyecto);
+        }
         public DataTable PagosProgramados(int financiacion, string fecha)
         {
             return MCuota.PagosProgramados(financiacion, fecha);
+        }
+        public int UltimaActuliacionEstadosCuota(string user, string fecha)
+        {
+            return MCuota.UltimaActuliacionEstadosCuota(user, fecha);
+        }
+        public DataTable ValidarActulizacion(string user)
+        {
+            return MCuota.ValidarActulizacion(user);
         }
     }
 }

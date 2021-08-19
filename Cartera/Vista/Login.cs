@@ -41,11 +41,13 @@ namespace Cartera.Vista
                 {
                     CLogin L = new CLogin();
                     DataTable dt = L.ValidaUser(textUser.Text, textPass.Text);
+                    
                     if ((textUser.Text == dt.Rows[0]["Nom_Usuario"].ToString()) && (textPass.Text == dt.Rows[0]["Contraseña"].ToString()))
                     //if ((textUser.Text == "admin") && (textPass.Text == "123"))
                     {
+                        
                         this.Hide();
-                        Principal P = new Principal();
+                        Principal P = new Principal(dt);
                         P.Show();
                     }                    
                 }
