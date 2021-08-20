@@ -45,6 +45,7 @@
             this.labelPagado = new System.Windows.Forms.Label();
             this.labelNeto = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -54,7 +55,6 @@
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -73,7 +73,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(17, 33);
+            this.label2.Location = new System.Drawing.Point(17, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 13;
@@ -81,7 +81,7 @@
             // 
             // txtNombreP
             // 
-            this.txtNombreP.Location = new System.Drawing.Point(89, 28);
+            this.txtNombreP.Location = new System.Drawing.Point(74, 20);
             this.txtNombreP.Multiline = true;
             this.txtNombreP.Name = "txtNombreP";
             this.txtNombreP.Size = new System.Drawing.Size(349, 35);
@@ -91,7 +91,7 @@
             // txtUbicacion
             // 
             this.txtUbicacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUbicacion.Location = new System.Drawing.Point(504, 21);
+            this.txtUbicacion.Location = new System.Drawing.Point(501, 20);
             this.txtUbicacion.Multiline = true;
             this.txtUbicacion.Name = "txtUbicacion";
             this.txtUbicacion.Size = new System.Drawing.Size(352, 35);
@@ -101,7 +101,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(432, 33);
+            this.label3.Location = new System.Drawing.Point(430, 31);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 13);
             this.label3.TabIndex = 15;
@@ -128,6 +128,7 @@
             // 
             this.groupBox1.Controls.Add(this.BtBorrar);
             this.groupBox1.Controls.Add(this.BtLimpiar);
+            this.groupBox1.Controls.Add(this.txtNombreP);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.BtGuardarProyecto);
             this.groupBox1.Controls.Add(this.txtUbicacion);
@@ -144,7 +145,7 @@
             // 
             this.BtBorrar.Enabled = false;
             this.BtBorrar.Image = global::Cartera.Properties.Resources.Eliminar;
-            this.BtBorrar.Location = new System.Drawing.Point(938, 26);
+            this.BtBorrar.Location = new System.Drawing.Point(938, 23);
             this.BtBorrar.Name = "BtBorrar";
             this.BtBorrar.Size = new System.Drawing.Size(34, 28);
             this.BtBorrar.TabIndex = 21;
@@ -155,7 +156,7 @@
             // BtLimpiar
             // 
             this.BtLimpiar.Image = global::Cartera.Properties.Resources.limpiar;
-            this.BtLimpiar.Location = new System.Drawing.Point(900, 26);
+            this.BtLimpiar.Location = new System.Drawing.Point(899, 23);
             this.BtLimpiar.Name = "BtLimpiar";
             this.BtLimpiar.Size = new System.Drawing.Size(32, 28);
             this.BtLimpiar.TabIndex = 19;
@@ -166,7 +167,7 @@
             // BtGuardarProyecto
             // 
             this.BtGuardarProyecto.Image = global::Cartera.Properties.Resources.Guardar1;
-            this.BtGuardarProyecto.Location = new System.Drawing.Point(862, 26);
+            this.BtGuardarProyecto.Location = new System.Drawing.Point(860, 23);
             this.BtGuardarProyecto.Name = "BtGuardarProyecto";
             this.BtGuardarProyecto.Size = new System.Drawing.Size(32, 28);
             this.BtGuardarProyecto.TabIndex = 17;
@@ -232,6 +233,17 @@
             this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button4
+            // 
+            this.button4.Image = global::Cartera.Properties.Resources.excel;
+            this.button4.Location = new System.Drawing.Point(936, 15);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(32, 28);
+            this.button4.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.button4, "Exportar a excel");
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // tabControl1
             // 
@@ -336,17 +348,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Detalle";
             // 
-            // button4
-            // 
-            this.button4.Image = global::Cartera.Properties.Resources.excel;
-            this.button4.Location = new System.Drawing.Point(936, 15);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(32, 28);
-            this.button4.TabIndex = 31;
-            this.toolTip1.SetToolTip(this.button4, "Exportar a excel");
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // Proyectos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -354,7 +355,6 @@
             this.ClientSize = new System.Drawing.Size(1002, 620);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.txtNombreP);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Proyectos";
@@ -375,7 +375,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

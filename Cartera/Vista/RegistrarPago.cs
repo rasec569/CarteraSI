@@ -410,7 +410,7 @@ namespace Cartera.Vista
         }
             private void BtEliminar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Está seguro de eliminar el Pago?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("¿Está seguro de eliminar el Pago?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {                
                 pago.EliminarPago(pagoId);
                 if (valdescuento != 0)

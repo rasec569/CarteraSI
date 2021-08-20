@@ -54,5 +54,13 @@ namespace Cartera.Controlador
         {
             return MCuota.ValidarActulizacion(user);
         }
+        public DataTable ProyeccionMes(string FechaInicio, string FechaFin)
+        {
+            return MCuota.ProyeccionMes(FechaInicio, FechaFin);
+        }
+        public DataTable ProyeccionMesProyecto(string FechaInicio, string FechaFin, string proyecto)
+        {
+            return MCuota.ProyeccionMesProyecto(FechaInicio, FechaFin, proyecto);
+        }
     }
 }

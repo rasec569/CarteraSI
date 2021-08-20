@@ -17,7 +17,7 @@ namespace Cartera.Vista
         DataTable dtUsuarios = new DataTable();
         DataTable User = new DataTable();
         string idusuario = "";
-
+        string NomUser = "";
 
         public Soporte()
         {
@@ -29,7 +29,8 @@ namespace Cartera.Vista
             InitializeComponent();
             User = data;
             CargarUsuarios();
-            LbUser.Text = User.Rows[0]["Nom_Usuario"].ToString();
+            NomUser = User.Rows[0]["Nom_Usuario"].ToString();
+            LbUser.Text = NomUser;
         }
 
         private void Soporte_Load(object sender, EventArgs e)
@@ -45,7 +46,7 @@ namespace Cartera.Vista
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (User.Rows[0]["Nom_Usuario"].ToString() != "admin")
+            if (NomUser != "admin" && NomUser != "Gerencia")
             {
                 if (e.ColumnIndex == 2 && e.Value != null)
                 {
@@ -146,7 +147,7 @@ namespace Cartera.Vista
                 }
 
             }
-            else if (User.Rows[0]["Nom_Usuario"].ToString() == "admin") {
+            else if (NomUser != "admin" && NomUser != "Gerencia") {
                 if (txtNueva.Text != "")
                 {
                     usuario.ActulizarContraseña(idusuario, txtNueva.Text);
@@ -180,7 +181,7 @@ namespace Cartera.Vista
 
         private void BtBorrar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Está seguro eliminar el usuario?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("¿Está seguro eliminar el usuario?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 usuario.EliminarUsuario(int.Parse(idusuario));
                 CargarUsuarios();

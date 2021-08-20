@@ -20,16 +20,26 @@ namespace Cartera.Vista
         DataTable DtReport = new DataTable();
         CProyecto proyecto = new CProyecto();
         private ReportesPDF reportesPDF;
+        DataTable Dtproyectos = new DataTable();
         public Productos()
         {
             InitializeComponent();
             reportesPDF = new ReportesPDF();
+            
         }
 
         private void Productos_Load(object sender, EventArgs e)
         {
-            CargarProducto();
+            //CargarProducto();
             autocompletar();
+            Dtproyectos = proyecto.listarProyectos();
+            DataRow nueva = Dtproyectos.NewRow();
+            nueva["Id_Proyecto"] = 4;
+            nueva["Proyecto_Nombre"] = "TODOS LOS PROYECTOS";
+            Dtproyectos.Rows.InsertAt(nueva, 0);
+            comboProyectos.DataSource = Dtproyectos;
+            comboProyectos.DisplayMember = "Proyecto_Nombre";
+            comboProyectos.ValueMember = "Id_Proyecto";
         }
         private void CargarProducto()
         {
@@ -128,50 +138,43 @@ namespace Cartera.Vista
             reportesPDF.Productos(DtReport);
         }
 
-        private void comboProyectos_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (comboProyectos.Text == "TODOS LOS PROYECTOS")
-            {
-                comboProyectos.DataSource = proyecto.listarProyectos();
-                comboProyectos.DisplayMember = "Proyecto_Nombre";
-                comboProyectos.ValueMember = "Id_Proyecto";
-            }
-
-        }
+       
 
         private void comboProyectos_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
 
             {
-                dataGridView1.DataSource = "";
-                DtProductos = producto.cargarProductosProyecto(int.Parse(comboProyectos.SelectedIndex.ToString()));
-                DtReport = DtProductos.Copy();
-                DtReport.Columns.Remove("Id_Producto");
-                DtReport.Columns.Remove("Fk_Id_Proyecto");
-                DtReport.Columns.Remove("Fk_Id_Tipo_Producto");
-                DtReport.Columns.Remove("Id_Financiacion");
-                DtReport.Columns.Remove("Observaciones");
-                dataGridView1.DataSource = DtProductos;
-                FormtearGridView();
-                Int64 total = 0;
-                foreach (DataRow row in DtProductos.Rows)
+                if (comboProyectos.SelectedIndex == 0)
                 {
-                    total += Convert.ToInt32(row["Valor Total"].ToString().Replace(",", ""));
+                    CargarProducto();
                 }
-                labelValor.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
-                labelCantidad.Text = "CANTIDAD: " + DtProductos.Rows.Count;
+                else
+                {
+                    dataGridView1.DataSource = "";
+                    DtProductos = producto.cargarProductosProyecto(int.Parse(comboProyectos.SelectedIndex.ToString()) - 1);
+                    DtReport = DtProductos.Copy();
+                    DtReport.Columns.Remove("Id_Producto");
+                    DtReport.Columns.Remove("Fk_Id_Proyecto");
+                    DtReport.Columns.Remove("Fk_Id_Tipo_Producto");
+                    DtReport.Columns.Remove("Id_Financiacion");
+                    DtReport.Columns.Remove("Observaciones");
+                    dataGridView1.DataSource = DtProductos;
+                    FormtearGridView();
+                    Int64 total = 0;
+                    foreach (DataRow row in DtProductos.Rows)
+                    {
+                        total += Convert.ToInt32(row["Valor Total"].ToString().Replace(",", ""));
+                    }
+                    labelValor.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
+                    labelCantidad.Text = "CANTIDAD: " + DtProductos.Rows.Count;
+                }                
             }
-            catch
+            catch/*(Exception ex)*/
             {
+                //MessageBox.Show("Error"+ex);
 
             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            comboProyectos.Text = "TODOS LOS PROYECTOS";
-            CargarProducto();
         }
 
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)

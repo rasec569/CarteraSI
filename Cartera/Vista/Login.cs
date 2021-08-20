@@ -54,7 +54,7 @@ namespace Cartera.Vista
             }
             catch
             {
-                MessageBox.Show("Los datos son incorrectos");
+                MessageBox.Show("Los datos son incorrectos", "Observación", MessageBoxButtons.OK,MessageBoxIcon.Error);
             }         
         }
     }

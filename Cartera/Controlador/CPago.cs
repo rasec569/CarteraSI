@@ -63,5 +63,14 @@ namespace Cartera.Controlador
         {
             return MPago.ValorReportPagosProyecto(FechaInicio, FechaFin, proyecto);
         }
+
+        public DataTable PagosMes(string FechaInicio, string FechaFin)
+        {
+            return MPago.PagosMes(FechaInicio, FechaFin);
+        }
+        public DataTable PagosMesProyecto(string FechaInicio, string FechaFin, string proyecto)
+        {
+            return MPago.PagosMesProyecto(FechaInicio, FechaFin, proyecto);
+        }
     }
 }

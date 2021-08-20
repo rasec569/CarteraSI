@@ -76,5 +76,13 @@ namespace Cartera.Modelo
 		{
 			return Conexion.consulta("SELECT ActualizacionEstados FROM Usuario where Id_usuario='" + Usuario + "';");
 		}
+		internal static DataTable ProyeccionMes(string FechaInicio, string FechaFin)
+		{
+			return Conexion.consulta("SELECT SUM(Valor_Cuota) as Valor, strftime('%m-%Y', Fecha) as 'Mes-Año'  FROM Cuotas INNER JOIN Financiacion on Id_Financiacion=Fk_Id_Financiacion INNER JOIN Producto on Id_Producto=Fk_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fecha BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'AND Estado_Financiacion= 'Activa' AND Estado_Cliente='Activo' group by strftime('%m-%Y', Fecha);");
+		}
+		internal static DataTable ProyeccionMesProyecto(string FechaInicio, string FechaFin, string proyecto)
+		{
+			return Conexion.consulta("SELECT SUM(Valor_Cuota) as Valor, strftime('%m-%Y', Fecha) as 'Mes-Año'  FROM Cuotas INNER JOIN Financiacion on Id_Financiacion=Fk_Id_Financiacion INNER JOIN Producto on Id_Producto=Fk_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fecha BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'AND Estado_Financiacion= 'Activa' AND Estado_Cliente='Activo' group by strftime('%m-%Y', Fecha);");
+		}
 	}
 }

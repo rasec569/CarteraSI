@@ -31,62 +31,56 @@ namespace Cartera.Vista
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Carteras));
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.Txtcedula = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.comboProyecto = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.comboEstados = new System.Windows.Forms.ComboBox();
+            this.BtPago = new System.Windows.Forms.Button();
+            this.BtHistorialPago = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabEstadisticas = new System.Windows.Forms.TabPage();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabDetalles = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.labelTotal = new System.Windows.Forms.Label();
             this.labelRecaudo = new System.Windows.Forms.Label();
             this.labelDeuda = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.BtPago = new System.Windows.Forms.Button();
-            this.BtHistorialPago = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabEstadisticas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabDetalles.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.SuspendLayout();
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.dataGridView1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 65);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(978, 508);
-            this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(975, 505);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
-            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
-            this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter_1);
-            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -96,27 +90,28 @@ namespace Cartera.Vista
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.Txtcedula);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(4, 8);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(231, 49);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Cliente";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(27, 31);
+            this.label2.Location = new System.Drawing.Point(8, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Cedula";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.Txtcedula);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(15, 8);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(220, 49);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Cliente";
             // 
             // Txtcedula
             // 
@@ -127,6 +122,17 @@ namespace Cartera.Vista
             this.Txtcedula.Size = new System.Drawing.Size(110, 20);
             this.Txtcedula.TabIndex = 5;
             this.toolTip1.SetToolTip(this.Txtcedula, "Digite cdulda del cliente");
+            // 
+            // button1
+            // 
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(177, 15);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 28);
+            this.button1.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.button1, "Buscar");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // groupBox2
             // 
@@ -146,6 +152,28 @@ namespace Cartera.Vista
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Cartera";
+            // 
+            // button4
+            // 
+            this.button4.Image = global::Cartera.Properties.Resources.excel;
+            this.button4.Location = new System.Drawing.Point(679, 15);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(33, 28);
+            this.button4.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.button4, "Exportar a excel");
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            // 
+            // button3
+            // 
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(715, 15);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(33, 28);
+            this.button3.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.button3, "Limpiar");
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label3
             // 
@@ -167,7 +195,17 @@ namespace Cartera.Vista
             this.comboProyecto.TabIndex = 28;
             this.comboProyecto.Text = "TODOS LOS PROYECTOS";
             this.comboProyecto.SelectedIndexChanged += new System.EventHandler(this.comboProyecto_SelectedIndexChanged);
-            this.comboProyecto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboProyecto_MouseClick);
+            // 
+            // button2
+            // 
+            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
+            this.button2.Location = new System.Drawing.Point(642, 15);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(33, 28);
+            this.button2.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
             // 
@@ -198,17 +236,115 @@ namespace Cartera.Vista
             this.toolTip1.SetToolTip(this.comboEstados, "Seleccione un estado");
             this.comboEstados.SelectedValueChanged += new System.EventHandler(this.comboEstados_SelectedValueChanged);
             // 
+            // BtPago
+            // 
+            this.BtPago.Image = ((System.Drawing.Image)(resources.GetObject("BtPago.Image")));
+            this.BtPago.Location = new System.Drawing.Point(605, 15);
+            this.BtPago.Name = "BtPago";
+            this.BtPago.Size = new System.Drawing.Size(33, 28);
+            this.BtPago.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.BtPago, "Registrar Pagos");
+            this.BtPago.UseVisualStyleBackColor = true;
+            this.BtPago.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // BtHistorialPago
+            // 
+            this.BtHistorialPago.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialPago.Image")));
+            this.BtHistorialPago.Location = new System.Drawing.Point(567, 15);
+            this.BtHistorialPago.Name = "BtHistorialPago";
+            this.BtHistorialPago.Size = new System.Drawing.Size(33, 28);
+            this.BtHistorialPago.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.BtHistorialPago, "Historial Pagos");
+            this.BtHistorialPago.UseVisualStyleBackColor = true;
+            this.BtHistorialPago.Click += new System.EventHandler(this.BtHistorialPago_Click);
+            // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.tabControl1);
             this.panel2.Controls.Add(this.labelTotal);
             this.panel2.Controls.Add(this.labelRecaudo);
             this.panel2.Controls.Add(this.labelDeuda);
-            this.panel2.Controls.Add(this.flowLayoutPanel1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1002, 620);
             this.panel2.TabIndex = 1;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabEstadisticas);
+            this.tabControl1.Controls.Add(this.tabDetalles);
+            this.tabControl1.Location = new System.Drawing.Point(0, 64);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1002, 523);
+            this.tabControl1.TabIndex = 28;
+            // 
+            // tabEstadisticas
+            // 
+            this.tabEstadisticas.Controls.Add(this.chart2);
+            this.tabEstadisticas.Controls.Add(this.chart1);
+            this.tabEstadisticas.Location = new System.Drawing.Point(4, 22);
+            this.tabEstadisticas.Name = "tabEstadisticas";
+            this.tabEstadisticas.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEstadisticas.Size = new System.Drawing.Size(994, 497);
+            this.tabEstadisticas.TabIndex = 1;
+            this.tabEstadisticas.Text = "Estadisticas";
+            this.tabEstadisticas.UseVisualStyleBackColor = true;
+            // 
+            // chart1
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(11, 34);
+            this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series3.IsValueShownAsLabel = true;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            series3.YValuesPerPoint = 4;
+            this.chart1.Series.Add(series3);
+            this.chart1.Size = new System.Drawing.Size(430, 284);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            this.toolTip1.SetToolTip(this.chart1, "Estados Cartera");
+            // 
+            // tabDetalles
+            // 
+            this.tabDetalles.Controls.Add(this.flowLayoutPanel1);
+            this.tabDetalles.Location = new System.Drawing.Point(4, 22);
+            this.tabDetalles.Name = "tabDetalles";
+            this.tabDetalles.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDetalles.Size = new System.Drawing.Size(994, 497);
+            this.tabDetalles.TabIndex = 0;
+            this.tabDetalles.Text = "Detalles";
+            this.tabDetalles.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.dataGridView1);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(8, -6);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(978, 508);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(975, 505);
+            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter_1);
             // 
             // labelTotal
             // 
@@ -252,71 +388,27 @@ namespace Cartera.Vista
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // button1
+            // chart2
             // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(177, 15);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(33, 28);
-            this.button1.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.button1, "Buscar");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button3
-            // 
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(715, 15);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(33, 28);
-            this.button3.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.button3, "Limpiar");
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Location = new System.Drawing.Point(642, 15);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(33, 28);
-            this.button2.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // BtPago
-            // 
-            this.BtPago.Image = ((System.Drawing.Image)(resources.GetObject("BtPago.Image")));
-            this.BtPago.Location = new System.Drawing.Point(605, 15);
-            this.BtPago.Name = "BtPago";
-            this.BtPago.Size = new System.Drawing.Size(33, 28);
-            this.BtPago.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.BtPago, "Registrar Pagos");
-            this.BtPago.UseVisualStyleBackColor = true;
-            this.BtPago.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // BtHistorialPago
-            // 
-            this.BtHistorialPago.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialPago.Image")));
-            this.BtHistorialPago.Location = new System.Drawing.Point(567, 15);
-            this.BtHistorialPago.Name = "BtHistorialPago";
-            this.BtHistorialPago.Size = new System.Drawing.Size(33, 28);
-            this.BtHistorialPago.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.BtHistorialPago, "Historial Pagos");
-            this.BtHistorialPago.UseVisualStyleBackColor = true;
-            this.BtHistorialPago.Click += new System.EventHandler(this.BtHistorialPago_Click);
-            // 
-            // button4
-            // 
-            this.button4.Image = global::Cartera.Properties.Resources.excel;
-            this.button4.Location = new System.Drawing.Point(679, 15);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(33, 28);
-            this.button4.TabIndex = 29;
-            this.toolTip1.SetToolTip(this.button4, "Exportar a excel");
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            chartArea1.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart2.Legends.Add(legend1);
+            this.chart2.Location = new System.Drawing.Point(420, 31);
+            this.chart2.Name = "chart2";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series1.Legend = "Legend1";
+            series1.Name = "Ingreso Observado";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series2.Legend = "Legend1";
+            series2.Name = "Ingreso Programado";
+            this.chart2.Series.Add(series1);
+            this.chart2.Series.Add(series2);
+            this.chart2.Size = new System.Drawing.Size(568, 300);
+            this.chart2.TabIndex = 1;
+            this.chart2.Text = "chart2";
             // 
             // Carteras
             // 
@@ -329,24 +421,25 @@ namespace Cartera.Vista
             this.Name = "Carteras";
             this.Text = "Carteras";
             this.Load += new System.EventHandler(this.Carteras_Load);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabEstadisticas.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tabDetalles.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button BtPago;
@@ -368,5 +461,12 @@ namespace Cartera.Vista
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabDetalles;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TabPage tabEstadisticas;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
     }
 }

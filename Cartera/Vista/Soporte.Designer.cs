@@ -68,7 +68,7 @@ namespace Cartera.Vista
             // 
             // txtNombreP
             // 
-            this.txtNombreP.Location = new System.Drawing.Point(81, 35);
+            this.txtNombreP.Location = new System.Drawing.Point(78, 35);
             this.txtNombreP.Name = "txtNombreP";
             this.txtNombreP.Size = new System.Drawing.Size(172, 20);
             this.txtNombreP.TabIndex = 23;
@@ -112,7 +112,7 @@ namespace Cartera.Vista
             // BtLimpiar
             // 
             this.BtLimpiar.Image = global::Cartera.Properties.Resources.limpiar;
-            this.BtLimpiar.Location = new System.Drawing.Point(554, 19);
+            this.BtLimpiar.Location = new System.Drawing.Point(557, 19);
             this.BtLimpiar.Name = "BtLimpiar";
             this.BtLimpiar.Size = new System.Drawing.Size(39, 33);
             this.BtLimpiar.TabIndex = 19;
@@ -122,7 +122,7 @@ namespace Cartera.Vista
             // BtGuardar
             // 
             this.BtGuardar.Image = global::Cartera.Properties.Resources.Guardar1;
-            this.BtGuardar.Location = new System.Drawing.Point(500, 19);
+            this.BtGuardar.Location = new System.Drawing.Point(505, 19);
             this.BtGuardar.Name = "BtGuardar";
             this.BtGuardar.Size = new System.Drawing.Size(39, 33);
             this.BtGuardar.TabIndex = 17;
@@ -131,7 +131,7 @@ namespace Cartera.Vista
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(296, 26);
+            this.txtPass.Location = new System.Drawing.Point(310, 26);
             this.txtPass.Name = "txtPass";
             this.txtPass.PasswordChar = '*';
             this.txtPass.Size = new System.Drawing.Size(182, 20);
@@ -140,7 +140,7 @@ namespace Cartera.Vista
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(254, 29);
+            this.label3.Location = new System.Drawing.Point(263, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 15;

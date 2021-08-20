@@ -27,6 +27,7 @@ namespace Cartera.Vista
         bool error = false;
         DataTable DtCliente = new DataTable();
         DataTable DtReportes = new DataTable();
+        DataTable Dtproyectos = new DataTable();
         public static int Cartera_id = 0;
         public static string Cliente_id = "";
         public static string Producto_id = "";
@@ -49,11 +50,12 @@ namespace Cartera.Vista
             Financiacion_id = "";
             valor = 0;
             
+
         }
         private void Clientes_Load(object sender, EventArgs e)
         {
             autocompletar();
-            CargarClientes();
+            //CargarClientes();
             Bloquear_Financiado();
             comboProyecto.DataSource = proyecto.listarProyectos();
             comboProyecto.DisplayMember = "Proyecto_Nombre";
@@ -62,6 +64,15 @@ namespace Cartera.Vista
             comboTipoProducto.DataSource = tipo_producto.listarTipoProducto();
             comboTipoProducto.DisplayMember = "Nom_Tipo_Producto";
             comboTipoProducto.ValueMember = "Id_Tipo_Producto";
+
+            Dtproyectos = proyecto.listarProyectos();
+            DataRow nueva = Dtproyectos.NewRow();
+            nueva["Id_Proyecto"] = 4;
+            nueva["Proyecto_Nombre"] = "TODOS LOS PROYECTOS";
+            Dtproyectos.Rows.InsertAt(nueva, 0);
+            comboProyectos.DataSource = Dtproyectos;
+            comboProyectos.DisplayMember = "Proyecto_Nombre";
+            comboProyectos.ValueMember = "Id_Proyecto";
         }
         private void BtBuscarCliente_Click(object sender, EventArgs e)
         {
@@ -103,20 +114,26 @@ namespace Cartera.Vista
         private void CargarClientes()
         {
             DtCliente = cliente.cargarClientes();
-            DtReportes = DtCliente.Copy();
+            DtReportes = DtCliente.Copy();                        
+            DtReportes.Columns.Remove("Id_Cliente");
+            DtReportes.Columns.Remove("Fk_Id_Cartera");
             dataGridView1.DataSource = DtCliente;
+            formatogrid();
             dataGridView1.Columns["Id_Cliente"].Visible = false;
             dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
+            
+
+        }
+        private void formatogrid()
+        {
             dataGridView1.Columns[1].Width = 70;
             dataGridView1.Columns[2].Width = 140;
             dataGridView1.Columns[3].Width = 140;
             dataGridView1.Columns[4].Width = 70;
             dataGridView1.Columns[5].Width = 160;
             dataGridView1.Columns[6].Width = 170;
-            DtReportes.Columns.Remove("Id_Cliente");
-            DtReportes.Columns.Remove("Fk_Id_Cartera");
-            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
         }
         private void CargarProducto()
         {
@@ -975,36 +992,35 @@ namespace Cartera.Vista
                     {
                         valor = int.Parse(txtValorCon.Text);
                         txtValorCon.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
-                    }
-                               
+                    }                               
             }
             catch
             {
 
             }
-        }
-        private void comboProyectos_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (comboProyectos.Text == "TODOS LOS PROYECTOS")
-            {
-                comboProyectos.DataSource = proyecto.listarProyectos();
-                comboProyectos.DisplayMember = "Proyecto_Nombre";
-                comboProyectos.ValueMember = "Id_Proyecto";
-            }
-        }
+        }     
 
         private void comboProyectos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DtCliente = cliente.cargarClientesProyecto(int.Parse(comboProyectos.SelectedIndex.ToString()));
-            DtReportes = DtCliente.Copy();
-            dataGridView1.DataSource = DtCliente;
-            dataGridView1.Columns["Id_Cliente"].Visible = false;
-            dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
-            DtReportes.Columns.Remove("Id_Cliente");
-            DtReportes.Columns.Remove("Fk_Id_Cartera");
+            if (int.Parse(comboProyectos.SelectedIndex.ToString()) == 0)
+            {
+                CargarClientes();
+                //
+            }
+            else
+            {
+                DtCliente = cliente.cargarClientesProyecto(int.Parse(comboProyectos.SelectedIndex.ToString())-1);
+                DtReportes = DtCliente.Copy();
+                dataGridView1.DataSource = DtCliente;
+                dataGridView1.Columns["Id_Cliente"].Visible = false;
+                dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
+                DtReportes.Columns.Remove("Id_Cliente");
+                DtReportes.Columns.Remove("Fk_Id_Cartera");
+            }
+
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void BtLimpiar_Click(object sender, EventArgs e)
         {
             Panel_Registrar_user.Visible = false;
             BtGuardarCliente.Enabled = false;
@@ -1033,6 +1049,7 @@ namespace Cartera.Vista
             {
                 e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
             }
+            
         }
 
         private void dataGridView2_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
