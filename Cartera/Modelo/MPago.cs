@@ -107,11 +107,11 @@ namespace Cartera.Modelo
         }
         internal static DataTable PagosMes(string FechaInicio, string FechaFin)
         {
-            return Conexion.consulta("SELECT printf('%, d', SUM(Valor_Pagado)) as Valor, strftime('%m-%Y', Fecha_Pago) as 'Mes-Año' FROM Pagos WHERE Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'group by strftime('%m-%Y', Fecha_Pago);");
+            return Conexion.consulta("SELECT printf('%, d', SUM(Valor_Pagado)) as Valor, strftime('%m-%Y', Fecha_Pago) as 'Mes-Año' FROM Pagos WHERE Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'group by strftime('%m-%Y', Fecha_Pago) ORDER BY Fecha_Pago;");
         }
         internal static DataTable PagosMesProyecto(string FechaInicio, string FechaFin, string proyecto)
         {
-            return Conexion.consulta("SELECT printf('%, d', SUM(Valor_Pagado)) as Valor, strftime('%m-%Y', Fecha_Pago) as 'Mes-Año' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' group by strftime('%m-%Y', Fecha_Pago);");
+            return Conexion.consulta("SELECT printf('%, d', SUM(Valor_Pagado)) as Valor, strftime('%m-%Y', Fecha_Pago) as 'Mes-Año' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' group by strftime('%m-%Y', Fecha_Pago) ORDER BY Fecha_Pago;");
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Cartera.Vista
         string estadoanterior = "";
         bool Validarestados = true;
         private ReportesPDF reportesPDF;
+        DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
         public Carteras()
         {
             InitializeComponent();
@@ -48,6 +49,7 @@ namespace Cartera.Vista
             comboProyecto.DataSource = Dtproyectos;
             comboProyecto.DisplayMember = "Proyecto_Nombre";
             comboProyecto.ValueMember = "Id_Proyecto";
+            
             //actulziarCuotas();
         }
         private async Task cargar()
@@ -620,41 +622,137 @@ namespace Cartera.Vista
             cantidad.Add(mas360);
             cantidad.Add(pagados);
             chart1.Series[0].Points.DataBindXY(estado, cantidad);
+            compararacion(6);
+            GraficoVentas(12);
+            GraficaTitoProducto();
+            GraficaTitoVentaProducto();
 
-            int tiempo = 6;
-            DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DataTable DtPagos = new DataTable();
-            DataTable DtProyec = new DataTable();
+        }
+        private void compararacion(int tiempo)
+        {
+            try
+            {                
+                DataTable DtPagos = new DataTable();
+                DataTable DtProyec = new DataTable();
+                DataTable DtVentas = new DataTable();
+                //int proy = int.Parse(comboProyecto.SelectedValue.ToString());
+                //dataGridView1.DataSource = "";
+                if (comboProyecto.Text == "TODOS LOS PROYECTOS")
+                {
+                    DtPagos = pago.PagosMes(actual.AddMonths(-tiempo).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"));
+                    DtProyec = cuota.ProyeccionMes(actual.AddMonths(-tiempo).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"));
+                }
+                else
+                {
+                    DtPagos = pago.PagosMesProyecto(actual.AddMonths(-6).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"), comboProyecto.SelectedValue.ToString());
+                    DtProyec = cuota.ProyeccionMesProyecto(actual.AddMonths(-tiempo).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"), comboProyecto.SelectedValue.ToString());                    
+                }
+                ArrayList mespagos = new ArrayList();
+                ArrayList valorpagos = new ArrayList();
+                ArrayList mesproyeccion = new ArrayList();
+                ArrayList valorproyeccion = new ArrayList();
 
-            dataGridView1.DataSource = "";
+                for (int i = 0; i < DtPagos.Rows.Count; i++)
+                {
+                    mespagos.Add(DtPagos.Rows[i]["Mes-Año"].ToString());
+                    valorpagos.Add(DtPagos.Rows[i]["Valor"].ToString());
+                }
+                for (int i = 0; i < DtProyec.Rows.Count; i++)
+                {
+                    mesproyeccion.Add(DtProyec.Rows[i]["Mes-Año"].ToString());
+                    valorproyeccion.Add(DtProyec.Rows[i]["Valor"].ToString());
+                }
+
+                chart2.Series[0].Points.DataBindXY(mespagos, valorpagos);
+                chart2.Series[1].Points.DataBindXY(mesproyeccion, valorproyeccion);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error: " + e);
+            }
+        }
+        private void GraficoVentas(int meses)
+        {
+            try
+            {
+                DataTable DtVentas = new DataTable();
+                if (comboProyecto.Text == "TODOS LOS PROYECTOS")
+                {
+                    DtVentas = producto.ReportVentas(actual.AddMonths(-meses).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"));
+                }
+                else
+                {
+                    DtVentas = producto.ReportVentasProyecto(actual.AddMonths(-meses).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"), comboProyecto.SelectedValue.ToString());
+                }
+                
+                ArrayList fechaventa = new ArrayList();
+                ArrayList valorventa = new ArrayList();
+
+                for (int i = 0; i < DtVentas.Rows.Count; i++)
+                {
+                    fechaventa.Add(DtVentas.Rows[i]["Fecha"].ToString());
+                    valorventa.Add(DtVentas.Rows[i]["Valor"].ToString());
+                }
+                if (fechaventa.Count > 0 && valorventa.Count > 0)
+                {
+                    chart3.Series[0].Points.DataBindXY(fechaventa, valorventa);
+                }
+                else
+                {
+                    fechaventa.Clear();
+                    valorventa.Clear();
+                    chart3.Series[0].Points.DataBindXY(fechaventa, valorventa);
+                    MessageBox.Show("Sin ventass para mostrar");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e);
+            }
+        }
+        private void GraficaTitoProducto()
+        {
+            DataTable DtProducto = new DataTable();
             if (comboProyecto.Text == "TODOS LOS PROYECTOS")
             {
-                DtPagos = pago.PagosMes(actual.AddMonths(-tiempo).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"));
-                DtProyec = cuota.ProyeccionMes(actual.AddMonths(-tiempo).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"));
+                DtProducto = producto.CantTipoProductos();
             }
             else
             {
-                DtPagos = pago.PagosMesProyecto(actual.AddMonths(-6).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"), comboProyecto.SelectedValue.ToString());
-                DtProyec = cuota.ProyeccionMesProyecto(actual.AddMonths(-tiempo).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"), comboProyecto.SelectedValue.ToString());
+                DtProducto = producto.CantTipoProductosProyecto(comboProyecto.SelectedValue.ToString());
             }
-            ArrayList mes = new ArrayList();
-            ArrayList pag = new ArrayList();
-            ArrayList pro = new ArrayList();
-            for (int i = 0; i < DtPagos.Rows.Count; i++)
-            {
-                mes.Add(DtPagos.Rows[i]["Mes-Año"].ToString());
-                pag.Add(DtPagos.Rows[i]["Valor"].ToString());
-            }
-            for (int i = 0; i < DtProyec.Rows.Count; i++)
-            {
-                pro.Add(DtProyec.Rows[i]["Valor"].ToString());
-            }
+                ArrayList tipo = new ArrayList();
+            ArrayList numero = new ArrayList();
 
-            chart2.Series[0].Points.DataBindXY(mes, pag);
-            chart2.Series[1].Points.DataBindXY(mes, pro);
-
+            for (int i = 0; i < DtProducto.Rows.Count; i++)
+            {
+                tipo.Add(DtProducto.Rows[i]["Tipo"].ToString());
+                numero.Add(DtProducto.Rows[i]["Numero"].ToString());
+            }
+            chart4.Series[0].Points.DataBindXY(tipo, numero);
         }
-        
+        private void GraficaTitoVentaProducto()
+        {
+            DataTable DtProducto = new DataTable();
+            if (comboProyecto.Text == "TODOS LOS PROYECTOS")
+            {
+                DtProducto = producto.CantTipoVentaProductos();
+            }
+            else
+            {
+                DtProducto = producto.CantTipoVentaProductosProyecto(comboProyecto.SelectedValue.ToString());
+            }
+            ArrayList tipo = new ArrayList();
+            ArrayList numero = new ArrayList();
+
+            for (int i = 0; i < DtProducto.Rows.Count; i++)
+            {
+                tipo.Add(DtProducto.Rows[i]["Tipo"].ToString());
+                numero.Add(DtProducto.Rows[i]["Numero"].ToString());
+            }
+            chart5.Series[0].Points.DataBindXY(tipo, numero);
+        }
+
         private void actulziarCuotas()
         {
             DataTable DtProducto = producto.cargarProductos();
@@ -775,6 +873,22 @@ namespace Cartera.Vista
                 }
             }
             MessageBox.Show("termino de actulziar");
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            compararacion(int.Parse(trackBar1.Value.ToString()));
+            
+        }
+
+        private void trackBar2_ValueChanged(object sender, EventArgs e)
+        {
+            GraficoVentas(int.Parse(trackBar2.Value.ToString()));
+        }
+
+        private void chart4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
