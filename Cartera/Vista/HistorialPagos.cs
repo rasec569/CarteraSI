@@ -366,17 +366,19 @@ namespace Cartera.Vista
                 labelSaldoFecha.Visible = true;
                 TxtDeudaFecha.Visible = true;
                 labelDeuda.Text = "SALDO AL FINAL: $" + String.Format("{0:N0}", ValorDeuda);
-                labelPagado.Text = "TOTAL ABONADO: $" + String.Format("{0:N0}", ValorPagado);                
-                labelProgramado.Text = "PAGOS PROGRAMADOS A LA FECHA: $" + String.Format("{0:N0}", int.Parse(programado));
-                if (relacion < 0)
+                labelPagado.Text = "TOTAL ABONADO: $" + String.Format("{0:N0}", ValorPagado);       
+                if (relacion != 0)
                 {
-                    labelRelacion.Text = "SALDO VENCIDO O EN MORA: $" + String.Format("{0:N0}", Math.Abs(relacion));
+                    labelProgramado.Text = "PAGOS PROGRAMADOS A LA FECHA: $" + String.Format("{0:N0}", int.Parse(programado));
+                    if (relacion < 0)
+                    {
+                        labelRelacion.Text = "SALDO VENCIDO O EN MORA: $" + String.Format("{0:N0}", Math.Abs(relacion));
+                    }
+                    else
+                    {
+                        labelRelacion.Text = "ABONO ANTICIPADO A LA FECHA: $" + String.Format("{0:N0}", relacion);
+                    }
                 }
-                else
-                {
-                    labelRelacion.Text = "ABONO ANTICIPADO A LA FECHA: $" + String.Format("{0:N0}", relacion);
-                }
-
             }
             else
             {

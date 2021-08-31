@@ -269,12 +269,12 @@ namespace Cartera.Vista
                                 {
                                     int rt4 = producto.actualizarProducto(int.Parse(Producto_id), txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
                                     cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
-                                    if ((rt4 != 0) && (ComboFormaPago.Text == "Financiado"))
-                                    {
-                                        //ya convertido
-                                        financiacion.crearFinanciacion(int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
-                                        CrearCuotas();
-                                    }
+                                    //if ((rt4 != 0) && (ComboFormaPago.Text == "Financiado"))
+                                    //{
+                                    //    //ya convertido
+                                    //    financiacion.crearFinanciacion(int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
+                                    //    CrearCuotas();
+                                    //}
                                 }
                             }
                         }
@@ -336,6 +336,7 @@ namespace Cartera.Vista
                             {
                                 financiacion.crearFinanciacion(int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
                                 CrearCuotas();
+                                
                             }
                         }
                     }
@@ -353,8 +354,12 @@ namespace Cartera.Vista
                             financiacion.InactivarFinanciacion(int.Parse(Financiacion_id));
                             financiacion.CambiarFinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, int.Parse(Producto_id));
                             CrearCuotas();
+
                             checkBox1.Checked = false;
                         }
+                        cartera.ActulizarValorTotal(int.Parse(Cliente_id.ToString()), Cartera_id);
+                        cartera.ActulizarValorRecaudado(int.Parse(Cliente_id));
+                        cartera.ActulizarSaldo(Cartera_id);
                     }
                 }
                 BtBuscarCliente.Enabled = true;
@@ -795,6 +800,9 @@ namespace Cartera.Vista
             if (comboEstadoCliente.Text == "Ceder")
             {
                 cliente_producto.EstadoTrasferir(Cliente_id, Producto_id, dateFechaEstado.Text);
+                cartera.ActulizarValorTotal(int.Parse(Cliente_id.ToString()), Cartera_id);
+                cartera.ActulizarValorRecaudado(int.Parse(Cliente_id));
+                cartera.ActulizarSaldo(Cartera_id);
                 Cliente_id = "";
                 LimpiarUsuario();
             }
@@ -1105,6 +1113,21 @@ namespace Cartera.Vista
         private void button4_Click(object sender, EventArgs e)
         {
             exportarDatosExcel(dataGridView1);
+        }
+
+        private void ComboFormaPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Producto_id)){
+                if (ComboFormaPago.Text == "Financiado")
+                {
+                    //ya convertido
+                    financiacion.crearFinanciacion(int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
+                    CrearCuotas();
+                }else if(ComboFormaPago.Text == "Contado")
+                {
+                    financiacion.InactivarFinanciacion(int.Parse(Financiacion_id));
+                }
+            }
         }
     }
 }

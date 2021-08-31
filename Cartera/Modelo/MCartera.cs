@@ -32,7 +32,7 @@ namespace Cartera.Modelo
         internal static DataTable ActulizarValorTotal(int clienteid, int carteraid)
         {
 
-			return Conexion.consulta("UPDATE Cartera SET Total_Cartera=(SELECT sum(Valor_Producto) FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Pfk_ID_Cliente = '"+clienteid+ "' GROUP by Id_Producto=Id_Producto) WHERE Id_Cartera='" + carteraid + "';");
+			return Conexion.consulta("UPDATE Cartera SET Total_Cartera=(SELECT sum(Valor_Producto) FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Pfk_ID_Cliente = '"+clienteid+ "' AND Estado_Cliente='Activo' GROUP by Id_Producto=Id_Producto) WHERE Id_Cartera='" + carteraid + "';");
         }
 
         internal static int ActulizarEstados(string carteraid,string estado, int cuotas, int meses, int pagas, int mora)
@@ -100,11 +100,11 @@ namespace Cartera.Modelo
 		}
 		internal static DataTable Disoluciones(string FechaInicio, string FechaFin)
 		{
-			return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Nombre_Producto as Producto, Fecha_Cambio as Fecha, Valor_Recaudado as Aportado, Saldo, Total_Cartera as 'Valor Producto',Cuotas as 'Cuotas Pact.', Pagas as 'Cuotas Pag.', Mora as 'Cuotas Mora', Meses  as 'Meses Mora' FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente=Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto WHERE Estado_cartera='Disuelto' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+			return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Nombre_Producto as Producto, Fecha_Cambio as Fecha, SUM(Valor_Pagado) as Aportado,Valor_Producto- SUM(Valor_Pagado) as Saldo, Valor_Producto as 'Valor Producto',Cuotas as 'Cuotas Pact.', Pagas as 'Cuotas Pag.', Mora as 'Cuotas Mora', Meses  as 'Meses Mora' FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente=Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto WHERE Estado_cartera='Disuelto' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' GROUP BY Id_Producto;");
         }
 		internal static DataTable TotalDisoluciones(string FechaInicio, string FechaFin)
 		{
-			return Conexion.consulta("SELECT sum(Valor_Recaudado) as 'Total Devuelto', count(Id_Cartera) as Cantiad  FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente=Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto WHERE Estado_cartera='Disuelto' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+			return Conexion.consulta("SELECT sum(Valor_Pagado) as 'Total Devuelto' FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto=Id_Producto INNER JOIN Pagos on Fk_Id_Producto=Pfk_ID_Producto WHERE Estado_Cliente='Disuelto' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
 		}
 
 	}

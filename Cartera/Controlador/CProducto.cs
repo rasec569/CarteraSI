@@ -18,6 +18,10 @@ namespace Cartera.Controlador
         {
             return MProducto.CantTipoProductos();
         }
+        public DataTable CantProductosProyecto()
+        {
+            return MProducto.CantProductosProyecto();
+        }
         public DataTable CantTipoProductosProyecto(string proyecto)
         {
             return MProducto.CantTipoProductosProyecto(proyecto);

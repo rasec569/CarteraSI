@@ -215,7 +215,7 @@ namespace Cartera.Vista
                 DataTable DtValorDisolucion = cartera.TotalDisoluciones(dateInicio.Text, datefin.Text);
                 Int64 total = Int64.Parse(DtValorDisolucion.Rows[0]["Total Devuelto"].ToString());
                 labelTotal.Text = "VALOR DEVUELTO: $" + String.Format("{0:N0}", total);
-                labelNumero.Text = "CANTIDAD: " + DtValorDisolucion.Rows[0]["Cantiad"].ToString();
+                labelNumero.Text = "CANTIDAD: " + DtDisolucion.Rows.Count.ToString();
                 dataGridView3.DataSource = DtDisolucion;
                 dataGridView3.Columns[1].Width = 130;
                 dataGridView3.Columns[2].Width = 130;

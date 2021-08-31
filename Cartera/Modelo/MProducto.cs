@@ -32,6 +32,10 @@ namespace Cartera.Modelo
         {
             return Conexion.consulta("SELECT Nom_Tipo_Producto as 'Tipo', count( Nom_Tipo_Producto) as 'Numero' FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' GROUP BY Nom_Tipo_Producto;");
         }
+        internal static DataTable CantProductosProyecto()
+        {
+            return Conexion.consulta("SELECT Proyecto_Nombre as 'Proyecto', count( Proyecto_Nombre) as 'Cantidad' FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' GROUP BY Proyecto_Nombre;");
+        }
         internal static DataTable CantTipoProductosProyecto(string proyecto)
         {
             return Conexion.consulta("SELECT Nom_Tipo_Producto as 'Tipo', count( Nom_Tipo_Producto) as 'Numero' FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Id_Proyecto='" + proyecto + "' AND Estado_Cliente='Activo' GROUP BY Nom_Tipo_Producto;");

@@ -131,6 +131,12 @@
     <Compile Include="Vista\Detalle.Designer.cs">
       <DependentUpon>Detalle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\GraficoVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\GraficoVentas.Designer.cs">
+      <DependentUpon>GraficoVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\HistorialClientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Detalle.resx">
       <DependentUpon>Detalle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\GraficoVentas.resx">
+      <DependentUpon>GraficoVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\HistorialClientes.resx">
       <DependentUpon>HistorialClientes.cs</DependentUpon>

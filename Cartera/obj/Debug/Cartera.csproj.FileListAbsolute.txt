@@ -111,3 +111,4 @@ C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.ResolveComRe
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.AssemblyReference.cache
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Loading.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\img\Cargando.gif
+C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.GraficoVentas.resources

@@ -207,17 +207,19 @@ namespace Cartera.Vista
         {
             for (int i = 0; i < DtCartera.Rows.Count; i++)
             {
+                string Cliente = DtCartera.Rows[i]["Id_Cliente"].ToString();
+                string Cartera = DtCartera.Rows[i]["Id_Cartera"].ToString();
                 if (DtCartera.Rows[i]["Pago"].ToString() != "Disuelto")
-                {
-                    string Cliente = DtCartera.Rows[i]["Id_Cliente"].ToString();
+                {                    
                     //error de comas al parecer
-                    if (int.Parse(DtCartera.Rows[i]["Recaudado"].ToString().Replace(",", "")) - int.Parse(DtCartera.Rows[i]["Total"].ToString().Replace(",", "")) == 0)
+                    if (int.Parse(DtCartera.Rows[i]["Recaudado"].ToString().Replace(",", "")) - int.Parse(DtCartera.Rows[i]["Total"].ToString().Replace(",", "")) >= 0)
                     {
-                        cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado", 0, 0, 0, 0);
+                        cartera.ActulizarValorRecaudado(int.Parse(Cliente));
+                        cartera.ActulizarEstados(Cartera, "Pagado", 0, 0, 0, 0);
                         //dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Aquamarine;
                     }
                     else
-                    {
+                    {                        
                         DataTable dtproducto = producto.cargarProductosCliente(int.Parse(Cliente));
                         for (int j = 0; j < dtproducto.Rows.Count; j++)
                         {
@@ -230,11 +232,11 @@ namespace Cartera.Vista
                                 {
                                     if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
                                     {
-                                        cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Pagado", 0, 0, 0, 0);
+                                        cartera.ActulizarEstados(Cartera, "Pagado", 0, 0, 0, 0);
                                     }
                                     else
                                     {
-                                        cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos Contado", 0, 0, 0, 0);
+                                        cartera.ActulizarEstados(Cartera, "Sin pagos Contado", 0, 0, 0, 0);
                                     }
                                 }
                             }
@@ -350,18 +352,24 @@ namespace Cartera.Vista
                                                 }
                                             }
                                         }
-                                        cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), estado, cuotas, mes_mora, pagos, mora);
+                                        cartera.ActulizarEstados(Cartera, estado, cuotas, mes_mora, pagos, mora);
                                     }
                                     else if (string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
                                     {
-                                        cartera.ActulizarEstados(DtCartera.Rows[i]["Id_Cartera"].ToString(), "Sin pagos credito", 0, 0, 0, 0);
+                                        cartera.ActulizarEstados(Cartera, "Sin pagos credito", 0, 0, 0, 0);
 
                                     }
                                 }
                             }
                         }
                     }
-                }                           
+                }
+                else
+                {
+                    cartera.ActulizarValorTotal(int.Parse(Cliente), int.Parse(Cartera));
+                    cartera.ActulizarValorRecaudado(int.Parse(Cliente));
+                    cartera.ActulizarSaldo(int.Parse(Cartera));
+                }
             }
             Validarestados = false;
             CargarCartera();
@@ -452,6 +460,18 @@ namespace Cartera.Vista
                         //}
                     }
                 }
+                if (dgv.Columns[e.ColumnIndex].Name == "Saldo")  //Si es la columna a evaluar
+                {
+
+                    if (n != -1)
+                    {
+                        if (e.Value.ToString().Contains("-"))   //Si el valor de la celda contiene la palabra hora
+                        {
+                            e.CellStyle.ForeColor = Color.DarkRed;
+                            e.CellStyle.BackColor = Color.BurlyWood;
+                        }
+                    }
+                }
             }
             catch
             {
@@ -466,7 +486,10 @@ namespace Cartera.Vista
                 if (comboProyecto.SelectedIndex == 0)
                 {
                     CargarCartera();
-                    estadisca();
+                    if (tabControl1.SelectedIndex != 0)
+                    {
+                        estadisca();
+                    }
                 }
                 else
                 {
@@ -495,7 +518,10 @@ namespace Cartera.Vista
                     labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N0}", pagado);
                     this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
                     formatoGrid1();
-                    estadisca();
+                    if (tabControl1.SelectedIndex != 0)
+                    {
+                        estadisca();
+                    }
                 }
                 
             }
@@ -621,11 +647,12 @@ namespace Cartera.Vista
             cantidad.Add(mas180);
             cantidad.Add(mas360);
             cantidad.Add(pagados);
-            chart1.Series[0].Points.DataBindXY(estado, cantidad);
+            chart1.Series[0].Points.DataBindXY(estado, cantidad);            
             compararacion(6);
             GraficoVentas(12);
             GraficaTitoProducto();
             GraficaTitoVentaProducto();
+            GraficaProductoProyecto();
 
         }
         private void compararacion(int tiempo)
@@ -644,7 +671,7 @@ namespace Cartera.Vista
                 }
                 else
                 {
-                    DtPagos = pago.PagosMesProyecto(actual.AddMonths(-6).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"), comboProyecto.SelectedValue.ToString());
+                    DtPagos = pago.PagosMesProyecto(actual.AddMonths(-tiempo).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"), comboProyecto.SelectedValue.ToString());
                     DtProyec = cuota.ProyeccionMesProyecto(actual.AddMonths(-tiempo).ToString("yyyy-MM-dd"), actual.ToString("yyyy-MM-dd"), comboProyecto.SelectedValue.ToString());                    
                 }
                 ArrayList mespagos = new ArrayList();
@@ -665,6 +692,7 @@ namespace Cartera.Vista
 
                 chart2.Series[0].Points.DataBindXY(mespagos, valorpagos);
                 chart2.Series[1].Points.DataBindXY(mesproyeccion, valorproyeccion);
+                //chart2.ChartAreas[0].AxisX.LabelStyle.Angle = 45;
             }
             catch(Exception e)
             {
@@ -752,7 +780,22 @@ namespace Cartera.Vista
             }
             chart5.Series[0].Points.DataBindXY(tipo, numero);
         }
+        private void GraficaProductoProyecto()
+        {
+            DataTable DtProducto = new DataTable();
+            
+                DtProducto = producto.CantProductosProyecto();
+            
+            ArrayList proyecto = new ArrayList();
+            ArrayList cantidad = new ArrayList();
 
+            for (int i = 0; i < DtProducto.Rows.Count; i++)
+            {
+                proyecto.Add(DtProducto.Rows[i]["Proyecto"].ToString());
+                cantidad.Add(DtProducto.Rows[i]["Cantidad"].ToString());
+            }
+            chart6.Series[0].Points.DataBindXY(proyecto, cantidad);
+        }
         private void actulziarCuotas()
         {
             DataTable DtProducto = producto.cargarProductos();
@@ -886,9 +929,18 @@ namespace Cartera.Vista
             GraficoVentas(int.Parse(trackBar2.Value.ToString()));
         }
 
-        private void chart4_Click(object sender, EventArgs e)
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (tabControl1.SelectedIndex != 0)
+            {
+                estadisca();
+            }
+        }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            GraficoVentas Gv = new GraficoVentas();
+            Gv.ShowDialog();
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Cartera.Vista
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Clientes));
             this.label8 = new System.Windows.Forms.Label();
             this.PanelSuperior = new System.Windows.Forms.Panel();
+            this.BtLimpiar = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.BtNuevoCliente = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -102,7 +103,6 @@ namespace Cartera.Vista
             this.numValorInteres = new System.Windows.Forms.NumericUpDown();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.BtLimpiar = new System.Windows.Forms.Button();
             this.PanelSuperior.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -139,6 +139,17 @@ namespace Cartera.Vista
             this.PanelSuperior.Name = "PanelSuperior";
             this.PanelSuperior.Size = new System.Drawing.Size(1002, 64);
             this.PanelSuperior.TabIndex = 0;
+            // 
+            // BtLimpiar
+            // 
+            this.BtLimpiar.Image = global::Cartera.Properties.Resources.limpiar;
+            this.BtLimpiar.Location = new System.Drawing.Point(787, 20);
+            this.BtLimpiar.Name = "BtLimpiar";
+            this.BtLimpiar.Size = new System.Drawing.Size(33, 29);
+            this.BtLimpiar.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.BtLimpiar, "Agregar Nuevo Cliente");
+            this.BtLimpiar.UseVisualStyleBackColor = true;
+            this.BtLimpiar.Click += new System.EventHandler(this.BtLimpiar_Click);
             // 
             // button4
             // 
@@ -422,6 +433,7 @@ namespace Cartera.Vista
             this.ComboFormaPago.Size = new System.Drawing.Size(177, 21);
             this.ComboFormaPago.TabIndex = 10;
             this.ComboFormaPago.Text = "seleccione una opción";
+            this.ComboFormaPago.SelectedIndexChanged += new System.EventHandler(this.ComboFormaPago_SelectedIndexChanged);
             this.ComboFormaPago.SelectedValueChanged += new System.EventHandler(this.ComboFormaPago_SelectedValueChanged);
             // 
             // txtValor
@@ -866,17 +878,6 @@ namespace Cartera.Vista
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             this.dataGridView2.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellMouseEnter);
             this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
-            // 
-            // BtLimpiar
-            // 
-            this.BtLimpiar.Image = global::Cartera.Properties.Resources.limpiar;
-            this.BtLimpiar.Location = new System.Drawing.Point(787, 20);
-            this.BtLimpiar.Name = "BtLimpiar";
-            this.BtLimpiar.Size = new System.Drawing.Size(33, 29);
-            this.BtLimpiar.TabIndex = 31;
-            this.toolTip1.SetToolTip(this.BtLimpiar, "Agregar Nuevo Cliente");
-            this.BtLimpiar.UseVisualStyleBackColor = true;
-            this.BtLimpiar.Click += new System.EventHandler(this.BtLimpiar_Click);
             // 
             // Clientes
             // 
