@@ -34,6 +34,7 @@ namespace Cartera.Vista
         public static string Financiacion_id = "";
         public static int valor = 0;
         string actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString();
+        double val_total;
 
 
         public Clientes()
@@ -398,14 +399,14 @@ namespace Cartera.Vista
         }
         private void LimpiarProducto()
         {
-            txtNombreProducto.Clear();
-            txtContrato.Clear();
-            txtValor.Clear();
-            txtObeservaciones.Clear();
+            txtNombreProducto.ResetText();
+            txtContrato.ResetText();
+            txtValor.ResetText();
+            txtObeservaciones.ResetText();
             ComboFormaPago.Text = "seleccione una opción";
             comboProyecto.Text = "seleccione una opción";
             comboTipoProducto.Text = "seleccione una opción";
-            txtValorTotal.Clear();
+            txtValorTotal.ResetText();
             LimpiarFinanciacion();
 
             //DateVenta.Clear();
@@ -413,23 +414,23 @@ namespace Cartera.Vista
         }
         private void LimpiarFinanciacion()
         {
-            txtValorSin.Clear();
-            txtValorEntrada.Clear();
-            txtValorCon.Clear();
-            txtValorCuotaSin.Clear();
-            txtValorCuotaInteres.Clear();
-            numValorInteres.Text = "";
-            numCuotasInteres.Text = "";
-            numCuotaSinInteres.Text = "";
+            txtValorSin.ResetText();
+            txtValorEntrada.ResetText();
+            txtValorCon.ResetText();
+            txtValorCuotaSin.ResetText();
+            txtValorCuotaInteres.ResetText();
+            numValorInteres.ResetText();
+            numCuotasInteres.ResetText();
+            numCuotaSinInteres.ResetText(); 
         }
             private void LimpiarUsuario()
         {
-            txtCedula.Clear();
-            txtNombres.Clear();
-            txtApellidos.Clear();
-            txtTelefono.Clear();
-            txtCorreo.Clear();
-            txtDireccion.Clear();
+            txtCedula.ResetText();
+            txtNombres.ResetText();
+            txtApellidos.ResetText();
+            txtTelefono.ResetText();
+            txtCorreo.ResetText();
+            txtDireccion.ResetText();
         }
         private void BtNuevoCliente_Click(object sender, EventArgs e)
         {
@@ -646,139 +647,10 @@ namespace Cartera.Vista
             {
                 Habilitar_Financiado();
             }
-        }
-        private void txtValor_TextChanged(object sender, EventArgs e)
-        {
-
-            foreach (char caracter in txtValor.Text)
-            {
-                if (char.IsLetter(caracter))
-                {
-                    error = true;
-                    errorProvider1.SetError(txtValor, "No se admiten letras");
-                }
-                else
-                {
-                    error = false;
-                    errorProvider1.Clear();
-                }
-            }
-        }
-        private void txtValorEntrada_TextChanged(object sender, EventArgs e)
-        {
-            foreach (char caracter in txtValorEntrada.Text)
-            {
-                if (char.IsLetter(caracter))
-                {
-                    error = true;
-                    errorProvider1.SetError(txtValorEntrada, "No se admiten letras");
-                }
-                else
-                {
-                    error = false;
-                    errorProvider1.Clear();
-                }
-            }
-            //if para validar campos
-            if (!string.IsNullOrEmpty(txtValorSin.Text)  && !string.IsNullOrEmpty(txtValorEntrada.Text))
-            {
-                double valor30 = (Convert.ToDouble(txtValorSin.Text) - Convert.ToDouble(txtValorEntrada.Text));
-                if (valor30 == 0)
-                {
-                    numCuotaSinInteres.Text = "0";
-                    txtValorCuotaSin.Text = "0";
-                    txtValorCuotaSin.Enabled = false;
-                    numCuotaSinInteres.Enabled = false;
-                }
-                else
-                {
-                    txtValorCuotaSin.Enabled = true;
-                    numCuotaSinInteres.Enabled = true;
-                }
-            }                
-        }  
-        private void txtValorCon_TextChanged(object sender, EventArgs e)
-        {
-            foreach (char caracter in txtValorCon.Text)
-            {
-                if (char.IsLetter(caracter))
-                {
-                    error = true;
-                    errorProvider1.SetError(txtValorCon, "No se admiten letras");
-                }
-                else
-                {
-                    error = false;
-                    errorProvider1.Clear();
-                }
-            }
-            if (txtValorCon.Text=="0")
-            {
-                numCuotasInteres.Text = "0";                
-                txtValorCuotaInteres.Text = "0";
-                numValorInteres.Text = "0";
-                numCuotasInteres.Enabled = false;
-                numValorInteres.Enabled = false;
-                txtValorCuotaInteres.Enabled = false;
-                string valTotal = int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()).ToString();
-                txtValorTotal.Text = String.Format("{0:N0}", Convert.ToDouble(valTotal));
-            }
-            else
-            {
-                numCuotasInteres.Enabled = true;
-                numValorInteres.Enabled = true;
-                txtValorCuotaInteres.Enabled = true;
-            }
-        }
-        private void txtValor_Leave(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    if (ComboFormaPago.Text == "Financiado")
-            //    {
-            //        txtValorSin.Clear();
-            //        txtValorCon.Clear();
-            //        val_total = Convert.ToInt32(txtValor.Text);
-            //        double Exectos = 0.3 * val_total;
-            //        double Con_interes = 0.7 * val_total;
-            //        txtValorSin.Text = String.Format("{0:N0}", Exectos);
-            //        txtValorCon.Text = String.Format("{0:N0}", Con_interes);
-            //    }
-            //    else
-            //    {
-            //        valor = int.Parse(txtValor.Text);
-            //        txtValorTotal.Text = valor.ToString("N", CultureInfo.CurrentCulture);
-            //    }
-
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Valor no admitido");
-            //    errorProvider1.SetError(txtValorEntrada, "No se admiten letras");
-            //}
-            try
-            {
-                if (ComboFormaPago.Text == "Contado")
-                {
-                    valor = int.Parse(txtValor.Text);
-                    txtValorTotal.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
-                }
-                if (!string.IsNullOrEmpty(txtValor.Text))
-                {
-                    valor = int.Parse(txtValor.Text);
-                    txtValor.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Valor no admitido");
-                errorProvider1.SetError(txtValorEntrada, "Error");
-            }
-        }
-        private void txtValor_Enter(object sender, EventArgs e)
-        {
-            txtValor.Text = "";
-        }
+        }       
+               
+        
+        
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             if (Producto_id != "" && Cliente_id != "")
@@ -871,26 +743,344 @@ namespace Cartera.Vista
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             LimpiarFinanciacion();
-        }
-        private void txtValorSin_Leave(object sender, EventArgs e)
+        }       
+        private void txtValor_Leave(object sender, EventArgs e)
         {
+            //try
+            //{
+            //    
+            //    else
+            //    {
+            //        valor = int.Parse(txtValor.Text);
+            //        txtValorTotal.Text = valor.ToString("N", CultureInfo.CurrentCulture);
+            //    }
+
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Valor no admitido");
+            //    errorProvider1.SetError(txtValorEntrada, "No se admiten letras");
+            //}
             try
             {
-                //if (txtValorSin.Text != "")
-                //{
-                //    txtValorCon.Text = String.Format("{0:N0}", (val_total - int.Parse(txtValorSin.Text)));
-                //}
-                if (!string.IsNullOrEmpty(txtValorSin.Text))
+                
+                if (!string.IsNullOrEmpty(txtValor.Text))
                 {
-                    valor = int.Parse(txtValorSin.Text);
-                    txtValorSin.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
+                    valor = int.Parse(txtValor.Text);
+                    txtValor.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
                 }
             }
             catch
             {
-
-            }                                
+                MessageBox.Show("Valor no admitido");
+                errorProvider1.SetError(txtValorEntrada, "Error");
+            }
         }
+        
+        //Sin uso actual
+        private void txtValorSin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //if (char.IsLetter(e.KeyChar))
+            //{
+            //    error = true;
+            //    errorProvider1.SetError(txtValorSin, "No se admiten letras");
+            //}
+            //else if (char.IsDigit(e.KeyChar))
+            //{
+            //    error = false;
+            //    errorProvider1.Clear();
+            //    if (!string.IsNullOrEmpty(txtValorSin.Text))
+            //    {
+            //        double numero = Convert.ToDouble(txtValorSin.Text);
+            //        txtValorSin.Text = numero.ToString("N0");
+            //        if (e.KeyChar != (char)Keys.Back)
+            //        {
+            //            txtValorSin.Select(txtValorSin.Text.Length, 0);
+            //        }
+
+            //    }
+            //}
+
+        }
+        //Sin uso actual
+        private void txtValorSin_TextChanged(object sender, EventArgs e)
+        {
+            //decimal value;
+
+            //if (decimal.TryParse(txtValorSin.Text, NumberStyles.Currency, null, out value))
+            //{
+            //    error = false;
+            //    errorProvider1.Clear();
+            //    double numero = Convert.ToDouble(txtValorSin.Text);
+            //    txtValorSin.Text = numero.ToString("N0");                
+            //}
+            //else
+            //{
+            //    // Notify the user somehow
+            //    error = true;
+            //    errorProvider1.SetError(txtValorSin, "No se admiten letras");
+            //}
+            //if (e.KeyChar == (char)Keys.Delete)
+            //{
+
+            //}
+                //txtValorSin.Select(txtValorSin.Text.Length, 0);
+
+            //foreach (char caracter in numero.ToString())
+            //{
+            //    if (char.IsLetter(caracter))
+            //    {
+            //        error = true;
+            //        errorProvider1.SetError(txtValorSin, "No se admiten letras");
+            //    }
+            //    else
+            //    {
+            //        error = false;
+            //        errorProvider1.Clear();
+            //    }       
+            //}        
+        }
+        //Da formato de miles y realiza acciones luego de cambiar de componente
+        private void txtValor_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            decimal value;
+
+            if (decimal.TryParse(txtValor.Text, NumberStyles.Currency, null, out value))
+            {
+                double numero = Convert.ToDouble(txtValor.Text);
+                txtValor.Text = numero.ToString("N0");
+            }
+            if (!string.IsNullOrEmpty(txtValor.Text))
+            {
+                if (ComboFormaPago.Text == "Contado")
+                {
+                    valor = int.Parse(Convert.ToDouble(txtValor.Text).ToString());
+                    txtValorTotal.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
+                }
+                else
+                {
+                    txtValorSin.Clear();
+                    txtValorCon.Clear();
+                    val_total = Convert.ToDouble(txtValor.Text);
+                    double Exectos = 0.3 * val_total;
+                    double Con_interes = 0.7 * val_total;
+                    txtValorSin.Text = String.Format("{0:N0}", Exectos);
+                    txtValorCon.Text = String.Format("{0:N0}", Con_interes);
+                    //LimpiarFinanciacion();
+                }
+                
+            }
+            else
+            {
+                // Notify the user somehow
+                error = true;
+                errorProvider1.SetError(txtValor, "Debe ingresar un valor");
+            }
+            
+        }
+        private void txtValorSin_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            decimal value;
+
+            if (decimal.TryParse(txtValorSin.Text, NumberStyles.Currency, null, out value))
+            {                
+                double numero = Convert.ToDouble(txtValorSin.Text);
+                txtValorSin.Text = numero.ToString("N0");
+            }
+            if (!string.IsNullOrEmpty(txtValorSin.Text))
+            {                
+                if (Convert.ToDouble(txtValor.Text) - Convert.ToDouble(txtValorSin.Text) == 0)
+                {
+                    numCuotasInteres.Text = "0";
+                    txtValorCuotaInteres.Text = "0";
+                    numValorInteres.Text = "0";
+                    txtValorCon.Text = "0";
+                    txtValorCon.Enabled = false;
+                    numCuotasInteres.Enabled = false;
+                    numValorInteres.Enabled = false;
+                    txtValorCuotaInteres.Enabled = false;
+                    string valTotal = int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()).ToString();
+                    txtValorTotal.Text = String.Format("{0:N0}", Convert.ToDouble(valTotal));
+                }
+                else
+                {
+                    txtValorCon.Enabled = true;
+                    numCuotasInteres.Enabled = true;
+                    numValorInteres.Enabled = true;
+                    txtValorCuotaInteres.Enabled = true;
+                    txtValorCon.Text = (String.Format("{0:N0}", Convert.ToDouble(txtValor.Text) - Convert.ToDouble(txtValorSin.Text)));
+                    txtValorEntrada.ResetText();
+                    numCuotaSinInteres.ResetText();
+                    txtValorCuotaSin.ResetText();
+                    numCuotasInteres.ResetText();
+                    txtValorCuotaInteres.ResetText();
+                }
+            }
+            else
+            {
+                // Notify the user somehow
+                error = true;
+                errorProvider1.SetError(txtValorSin, "Debe ingresar un valor");
+            }
+        }
+        private void txtValorCon_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            decimal value;
+
+            if (decimal.TryParse(txtValorCon.Text, NumberStyles.Currency, null, out value))
+            {
+                double numero = Convert.ToDouble(txtValorCon.Text);
+                txtValorCon.Text = numero.ToString("N0");
+            }
+            if (txtValorCon.Text == "0")
+            {
+                numCuotasInteres.Text = "0";
+                txtValorCuotaInteres.Text = "0";
+                numValorInteres.Text = "0";
+                numCuotasInteres.Enabled = false;
+                numValorInteres.Enabled = false;
+                txtValorCuotaInteres.Enabled = false;
+                string valTotal = int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()).ToString();
+                txtValorTotal.Text = String.Format("{0:N0}", Convert.ToDouble(valTotal));
+            }
+            else
+            {
+                numCuotasInteres.Enabled = true;
+                numValorInteres.Enabled = true;
+                txtValorCuotaInteres.Enabled = true;
+            }
+        }
+        private void txtValorEntrada_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            decimal value;
+
+            if (decimal.TryParse(txtValorEntrada.Text, NumberStyles.Currency, null, out value))
+            {
+                double numero = Convert.ToDouble(txtValorEntrada.Text);
+                txtValorEntrada.Text = numero.ToString("N0");
+            }
+            if (!string.IsNullOrEmpty(txtValorSin.Text) && !string.IsNullOrEmpty(txtValorEntrada.Text))
+            {
+                double valor30 = (Convert.ToDouble(txtValorSin.Text) - Convert.ToDouble(txtValorEntrada.Text));
+                if (valor30 == 0)
+                {
+                    numCuotaSinInteres.Text = "0";
+                    txtValorCuotaSin.Text = "0";
+                    txtValorCuotaSin.Enabled = false;
+                    numCuotaSinInteres.Enabled = false;
+                }
+                else
+                {
+                    txtValorCuotaSin.Enabled = true;
+                    numCuotaSinInteres.Enabled = true;
+                }
+            }
+        }
+        //Valida que los valores sean numericos
+        private void txtValor_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (char.IsLetter(System.Convert.ToChar(e.KeyValue)))
+            {
+                if (!string.IsNullOrEmpty(txtValor.Text))
+                {
+                    // Notify the user somehow
+                    error = true;
+                    errorProvider1.SetError(txtValor, "No se admiten letras");
+                }
+            }
+            else
+            {
+                error = false;
+                errorProvider1.Clear();
+            }
+        }
+        private void txtValorSin_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {           
+            if (char.IsLetter(System.Convert.ToChar(e.KeyValue)))
+            {
+                if (!string.IsNullOrEmpty(txtValorSin.Text))
+                {
+                    // Notify the user somehow
+                    error = true;
+                    errorProvider1.SetError(txtValorSin, "No se admiten letras");
+                }               
+            }
+            else
+            {
+                error = false;
+                errorProvider1.Clear();
+            }
+                
+        }
+        private void txtValorCon_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (char.IsLetter(System.Convert.ToChar(e.KeyValue)))
+            {
+                if (!string.IsNullOrEmpty(txtValorCon.Text))
+                {
+                    // Notify the user somehow
+                    error = true;
+                    errorProvider1.SetError(txtValorCon, "No se admiten letras");
+                }
+            }
+            else
+            {
+                error = false;
+                errorProvider1.Clear();
+            }
+        }
+        private void txtValorEntrada_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (char.IsLetter(System.Convert.ToChar(e.KeyValue)))
+            {
+                if (!string.IsNullOrEmpty(txtValorEntrada.Text))
+                {
+                    // Notify the user somehow
+                    error = true;
+                    errorProvider1.SetError(txtValorEntrada, "No se admiten letras");
+                }
+            }
+            else
+            {
+                error = false;
+                errorProvider1.Clear();
+            }
+        }
+
+        private void txtValorEntrada_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(txtValorEntrada.Text))
+                {
+                    int valor;
+                    valor = int.Parse(txtValorEntrada.Text);
+                    txtValorEntrada.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
+                }
+            }
+            catch
+            {
+            }
+        }
+        private void txtValorEntrada_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char caracter in txtValorEntrada.Text)
+            {
+                if (char.IsLetter(caracter))
+                {
+                    error = true;
+                    errorProvider1.SetError(txtValorEntrada, "No se admiten letras");
+                }
+                else
+                {
+                    error = false;
+                    errorProvider1.Clear();
+                }
+            }
+            //if para validar campos
+            
+        }        
+        
         private void numCuotaSinInteres_ValueChanged(object sender, EventArgs e)
         {
             try
@@ -954,60 +1144,12 @@ namespace Cartera.Vista
             {
                 MessageBox.Show("Digite el valor 70");
             }                       
-        }
-        private void txtValorEntrada_Leave(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(txtValorEntrada.Text))
-                {
-                    int valor;
-                    valor = int.Parse(txtValorEntrada.Text);
-                    txtValorEntrada.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
-                }                
-            }
-            catch
-            {
-            }            
-        }
+        }        
 
         private void button2_Click(object sender, EventArgs e)
         {
             reportesPDF.Clientes(DtReportes);
-        }
-
-        private void txtValorSin_TextChanged(object sender, EventArgs e)
-        {
-            foreach (char caracter in txtValorSin.Text)
-            {
-                if (char.IsLetter(caracter))
-                {
-                    error = true;
-                    errorProvider1.SetError(txtValorSin, "No se admiten letras");
-                }
-                else
-                {
-                    error = false;
-                    errorProvider1.Clear();
-                }
-            }
-        }
-
-        private void txtValorCon_Leave(object sender, EventArgs e)
-        {
-            try
-            {   if (!string.IsNullOrEmpty(txtValorCon.Text))
-                    {
-                        valor = int.Parse(txtValorCon.Text);
-                        txtValorCon.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
-                    }                               
-            }
-            catch
-            {
-
-            }
-        }     
-
+        }            
         private void comboProyectos_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (int.Parse(comboProyectos.SelectedIndex.ToString()) == 0)
@@ -1128,6 +1270,12 @@ namespace Cartera.Vista
                     financiacion.InactivarFinanciacion(int.Parse(Financiacion_id));
                 }
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Amortizacion Am = new Amortizacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()));
+            Am.ShowDialog();
         }
     }
 }

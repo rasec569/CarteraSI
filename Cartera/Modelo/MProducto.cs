@@ -131,17 +131,33 @@ namespace Cartera.Modelo
         {
             return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_Pago as 'Forma Pago', printf('%, d', Valor_Producto) as Valor, Fecha_Venta as Fecha, Cedula,Nombre, Apellido FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fecha_Venta BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' AND Estado_Cliente='Activo' ORDER by Fecha_Venta;");
         }
+        public static DataTable ReportVentasTipo(string FechaInicio, string FechaFin, string Tipo)
+        {
+            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_Pago as 'Forma Pago', printf('%, d', Valor_Producto) as Valor, Fecha_Venta as Fecha, Cedula,Nombre, Apellido FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fk_Id_Tipo_Producto='" + Tipo + "' AND Fecha_Venta BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' AND Estado_Cliente='Activo' ORDER by Fecha_Venta;");
+        }
         public static DataTable ReportVentasProyecto(string FechaInicio, string FechaFin, string proyecto)
         {
             return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_Pago as 'Forma Pago', printf('%, d', Valor_Producto) as Valor, Fecha_Venta as Fecha, Cedula,Nombre, Apellido FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fecha_Venta BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' AND Estado_Cliente='Activo' ORDER by Fecha_Venta;");
+        }
+        public static DataTable ReportVentasProyectoTipo(string FechaInicio, string FechaFin, string proyecto, string Tipo)
+        {
+            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_Pago as 'Forma Pago', printf('%, d', Valor_Producto) as Valor, Fecha_Venta as Fecha, Cedula,Nombre, Apellido FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fk_Id_Tipo_Producto='" + Tipo + "' AND Fecha_Venta BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' AND Estado_Cliente='Activo' ORDER by Fecha_Venta;");
         }
         public static DataTable ValorReportVentas(string FechaInicio, string FechaFin)
         {
             return Conexion.consulta("SELECT count(Id_Producto)as productos, sum(Valor_Producto) as valor FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto  WHERE Fecha_Venta BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'AND Estado_Cliente='Activo';");
         }
+        public static DataTable ValorReportVentasTipo(string FechaInicio, string FechaFin, string Tipo)
+        {
+            return Conexion.consulta("SELECT count(Id_Producto)as productos, sum(Valor_Producto) as valor FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto  WHERE Fk_Id_Tipo_Producto='" + Tipo + "' AND Fecha_Venta BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'AND Estado_Cliente='Activo';");
+        }
         internal static DataTable ValorReportVentasProyecto(string fechaInicio, string fechaFin, string proyecto)
         {
             return Conexion.consulta("SELECT count(Id_Producto)as productos, sum(Valor_Producto) as valor FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto  WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fecha_Venta BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "'AND Estado_Cliente='Activo';");
+        }
+        internal static DataTable ValorReportVentasProyectoTipo(string fechaInicio, string fechaFin, string proyecto, string Tipo)
+        {
+            return Conexion.consulta("SELECT count(Id_Producto)as productos, sum(Valor_Producto) as valor FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto  WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fk_Id_Tipo_Producto='" + Tipo + "' AND Fecha_Venta BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "'AND Estado_Cliente='Activo';");
         }
         public static DataTable ValorReportProducto()
         {

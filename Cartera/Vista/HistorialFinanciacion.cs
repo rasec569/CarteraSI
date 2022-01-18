@@ -22,6 +22,7 @@ namespace Cartera.Vista
         DataTable DtAcuerdoPago= new DataTable();
         int ProductoId;
         ReportesPDF reportesPDF = new ReportesPDF();
+        int Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres;
         public HistorialFinanciacion()
         {
             InitializeComponent();
@@ -77,14 +78,21 @@ namespace Cartera.Vista
                 if (n != -1)
                 {
                     int id_financiacion = int.Parse(dataGridView1.Rows[n].Cells["Id_Financiacion"].Value.ToString());
+                    Financiacion = id_financiacion;
+                    int Valor_Producto_Neto = int.Parse(dataGridView1.Rows[n].Cells["Valor_Neto"].Value.ToString());
+                    Valor_Neto = Valor_Producto_Neto;
                     int Valor_Producto_Financiacion = int.Parse(dataGridView1.Rows[n].Cells["Valor_Producto_Financiacion"].Value.ToString());
                     int valor_entrada = int.Parse(dataGridView1.Rows[n].Cells["Valor_Entrada"].Value.ToString());
                     int valor_sin_interes = int.Parse(dataGridView1.Rows[n].Cells["Valor_Sin_interes"].Value.ToString());
+                    valorSin = valor_sin_interes;
                     int Cuotas_sin_interes = int.Parse(dataGridView1.Rows[n].Cells["Cuotas_Sin_interes"].Value.ToString());
                     int Valor_cuota_sin_interes = int.Parse(dataGridView1.Rows[n].Cells["Valor_Cuota_Sin_interes"].Value.ToString());
                     int Valor_con_interes = int.Parse(dataGridView1.Rows[n].Cells["Valor_Con_Interes"].Value.ToString());
                     int Cuotas_Con_Interes = int.Parse(dataGridView1.Rows[n].Cells["Cuotas_Con_Interes"].Value.ToString());
                     int Valor_Cuota_Con_Interes = int.Parse(dataGridView1.Rows[n].Cells["Valor_Cuota_Con_Interes"].Value.ToString());
+                    ValorCuotaInteres = Valor_Cuota_Con_Interes;
+                    int Valor_Interes = int.Parse(dataGridView1.Rows[n].Cells["Valor_Interes"].Value.ToString());
+                    ValorInteres= Valor_Interes;
                     string Fecha_Recaudo = dataGridView1.Rows[n].Cells["Fecha_Recaudo"].Value.ToString();
                     DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                     DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -96,6 +104,7 @@ namespace Cartera.Vista
                     label6.Text = "Valor saldo: $ " + String.Format("{0:N0}", Valor_con_interes);
                     label7.Text = "N° de cuotas saldo: " + String.Format("{0:N0}", Cuotas_Con_Interes);
                     label8.Text = "Valor cuotas saldo: $ " + String.Format("{0:N0}", Valor_Cuota_Con_Interes);
+                    label10.Text = "Valor interes: $ " + Valor_Interes;
                     if (Valor_Producto_Financiacion >0 /*&& id_financiacion !=  0*/)
                     {
                         DataTable dtCuotas= cuota.ListarCuotas(id_financiacion);
@@ -269,6 +278,12 @@ namespace Cartera.Vista
             {
 
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Amortizacion Am =new Amortizacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres);
+            Am.ShowDialog();
         }
     }
 }

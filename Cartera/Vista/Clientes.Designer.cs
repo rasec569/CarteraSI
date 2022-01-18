@@ -103,6 +103,7 @@ namespace Cartera.Vista
             this.numValorInteres = new System.Windows.Forms.NumericUpDown();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.PanelSuperior.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -443,9 +444,8 @@ namespace Cartera.Vista
             this.txtValor.Name = "txtValor";
             this.txtValor.Size = new System.Drawing.Size(177, 20);
             this.txtValor.TabIndex = 11;
-            this.txtValor.TextChanged += new System.EventHandler(this.txtValor_TextChanged);
-            this.txtValor.Enter += new System.EventHandler(this.txtValor_Enter);
-            this.txtValor.Leave += new System.EventHandler(this.txtValor_Leave);
+            this.txtValor.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtValor_PreviewKeyDown);
+            this.txtValor.Validating += new System.ComponentModel.CancelEventHandler(this.txtValor_Validating);
             // 
             // label16
             // 
@@ -492,8 +492,8 @@ namespace Cartera.Vista
             this.txtValorEntrada.Name = "txtValorEntrada";
             this.txtValorEntrada.Size = new System.Drawing.Size(149, 20);
             this.txtValorEntrada.TabIndex = 17;
-            this.txtValorEntrada.TextChanged += new System.EventHandler(this.txtValorEntrada_TextChanged);
-            this.txtValorEntrada.Leave += new System.EventHandler(this.txtValorEntrada_Leave);
+            this.txtValorEntrada.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtValorEntrada_PreviewKeyDown);
+            this.txtValorEntrada.Validating += new System.ComponentModel.CancelEventHandler(this.txtValorEntrada_Validating);
             // 
             // txtValorSin
             // 
@@ -503,7 +503,9 @@ namespace Cartera.Vista
             this.txtValorSin.Size = new System.Drawing.Size(148, 20);
             this.txtValorSin.TabIndex = 16;
             this.txtValorSin.TextChanged += new System.EventHandler(this.txtValorSin_TextChanged);
-            this.txtValorSin.Leave += new System.EventHandler(this.txtValorSin_Leave);
+            this.txtValorSin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorSin_KeyPress);
+            this.txtValorSin.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtValorSin_PreviewKeyDown);
+            this.txtValorSin.Validating += new System.ComponentModel.CancelEventHandler(this.txtValorSin_Validating);
             // 
             // txtValorCon
             // 
@@ -512,8 +514,8 @@ namespace Cartera.Vista
             this.txtValorCon.Name = "txtValorCon";
             this.txtValorCon.Size = new System.Drawing.Size(148, 20);
             this.txtValorCon.TabIndex = 20;
-            this.txtValorCon.TextChanged += new System.EventHandler(this.txtValorCon_TextChanged);
-            this.txtValorCon.Leave += new System.EventHandler(this.txtValorCon_Leave);
+            this.txtValorCon.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtValorCon_PreviewKeyDown);
+            this.txtValorCon.Validating += new System.ComponentModel.CancelEventHandler(this.txtValorCon_Validating);
             // 
             // label18
             // 
@@ -728,6 +730,7 @@ namespace Cartera.Vista
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.BtHistorialFinan);
             this.groupBox2.Controls.Add(this.txtValorCuotaInteres);
             this.groupBox2.Controls.Add(this.checkBox1);
@@ -879,6 +882,17 @@ namespace Cartera.Vista
             this.dataGridView2.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellMouseEnter);
             this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
             // 
+            // button1
+            // 
+            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button1.Location = new System.Drawing.Point(440, 9);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(31, 30);
+            this.button1.TabIndex = 67;
+            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -984,5 +998,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.ComboBox comboProyectos;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button BtLimpiar;
+        private System.Windows.Forms.Button button1;
     }
 }

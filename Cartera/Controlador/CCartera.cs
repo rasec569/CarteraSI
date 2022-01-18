@@ -65,5 +65,29 @@ namespace Cartera.Controlador
         {
             return MCartera.TotalDisoluciones(FechaInicio, FechaFin);
         }
+        public DataTable DisolucionesTipo(string FechaInicio, string FechaFin, string tipo)
+        {
+            return MCartera.DisolucionesTipo(FechaInicio, FechaFin, tipo);
+        }
+        public DataTable TotalDisolucionesTipo(string FechaInicio, string FechaFin, string tipo)
+        {
+            return MCartera.TotalDisolucionesTipo(FechaInicio, FechaFin, tipo);
+        }
+        public DataTable DisolucionesProyecto(string FechaInicio, string FechaFin, string proyecto)
+        {
+            return MCartera.DisolucionesProyecto(FechaInicio, FechaFin, proyecto);
+        }
+        public DataTable TotalDisolucionesProyecto(string FechaInicio, string FechaFin, string proyecto)
+        {
+            return MCartera.TotalDisolucionesProyecto(FechaInicio, FechaFin, proyecto);
+        }
+        public DataTable DisolucionesProyectoTipo(string FechaInicio, string FechaFin, string proyecto, string tipo)
+        {
+            return MCartera.DisolucionesProyectoTipo(FechaInicio, FechaFin, proyecto, tipo);
+        }
+        public DataTable TotalDisolucionesProyectoTipo(string FechaInicio, string FechaFin, string proyecto, string tipo)
+        {
+            return MCartera.TotalDisolucionesProyectoTipo(FechaInicio, FechaFin, proyecto, tipo);
+        }
     }
 }

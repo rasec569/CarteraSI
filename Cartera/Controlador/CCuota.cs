@@ -30,6 +30,10 @@ namespace Cartera.Controlador
         {
             return MCuota.ListarCuotas(financiacion);
         }
+        public DataTable ListarCuotasInteres(int financiacion)
+        {
+            return MCuota.ListarCuotasInteres(financiacion);
+        }
         public DataTable ListarCuotasActulizar(int financiacion, string fecha)
         {
             return MCuota.ListarCuotasActulizar(financiacion, fecha);
@@ -38,9 +42,17 @@ namespace Cartera.Controlador
         {
             return MCuota.reportProyeccion(FechaInicio, FechaFin);
         }
+        public DataTable reportProyeccionTipo(string FechaInicio, string FechaFin, string tipo)
+        {
+            return MCuota.reportProyeccionTipo(FechaInicio, FechaFin, tipo);
+        }
         public DataTable reportProyeccionProyecto(string FechaInicio, string FechaFin, string proyecto)
         {
             return MCuota.reportProyeccionProyecto(FechaInicio, FechaFin, proyecto);
+        }
+        public DataTable reportProyeccionProyectoTipo(string FechaInicio, string FechaFin, string proyecto, string tipo)
+        {
+            return MCuota.reportProyeccionProyectoTipo(FechaInicio, FechaFin, proyecto, tipo);
         }
         public DataTable PagosProgramados(int financiacion, string fecha)
         {

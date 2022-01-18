@@ -369,15 +369,20 @@ namespace Cartera.Vista
                 labelPagado.Text = "TOTAL ABONADO: $" + String.Format("{0:N0}", ValorPagado);       
                 if (relacion != 0)
                 {
-                    labelProgramado.Text = "PAGOS PROGRAMADOS A LA FECHA: $" + String.Format("{0:N0}", int.Parse(programado));
-                    if (relacion < 0)
+                    //cambio 10-01-21
+                    if(Math.Abs(relacion) > 10)
                     {
-                        labelRelacion.Text = "SALDO VENCIDO O EN MORA: $" + String.Format("{0:N0}", Math.Abs(relacion));
+                        labelProgramado.Text = "PAGOS PROGRAMADOS A LA FECHA: $" + String.Format("{0:N0}", int.Parse(programado));
+                        if (relacion < 0)
+                        {
+                            labelRelacion.Text = "SALDO VENCIDO O EN MORA: $" + String.Format("{0:N0}", Math.Abs(relacion));
+                        }
+                        else
+                        {
+                            labelRelacion.Text = "ABONO ANTICIPADO A LA FECHA: $" + String.Format("{0:N0}", relacion);
+                        }
                     }
-                    else
-                    {
-                        labelRelacion.Text = "ABONO ANTICIPADO A LA FECHA: $" + String.Format("{0:N0}", relacion);
-                    }
+                   
                 }
             }
             else

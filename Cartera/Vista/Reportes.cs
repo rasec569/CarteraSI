@@ -91,20 +91,38 @@ namespace Cartera.Vista
                 dataGridView1.DataSource = "";
                 if (comboProyecto.Text == "TODOS LOS PROYECTOS")
                 {
-                    DtPagos = pagos.reportPagos(dateInicio.Text, datefin.Text);
-                    DtValorPagos = pagos.ValorReportPagos(dateInicio.Text, datefin.Text);
-                    RpPagos();
+                    if (comboTipo.Text == "TODOS LOS PRODUCTOS")
+                    {
+                        DtPagos = pagos.reportPagos(dateInicio.Text, datefin.Text);
+                        DtValorPagos = pagos.ValorReportPagos(dateInicio.Text, datefin.Text);
+                        RpPagos();
+                    }
+                    else
+                    {
+                        DtPagos = pagos.reportPagosTipo(dateInicio.Text, datefin.Text, (comboTipo.SelectedIndex - 1).ToString());
+                        DtValorPagos = pagos.ValorReportPagosTipo(dateInicio.Text, datefin.Text, (comboTipo.SelectedIndex-1).ToString());
+                        RpPagos();
+                    }                        
                 }
                 else
                 {
-                    DtPagos = pagos.reportPagosProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
-                    DtValorPagos = pagos.ValorReportPagosProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
-                    RpPagos();
+                    if (comboTipo.Text == "TODOS LOS PRODUCTOS")
+                    {
+                        DtPagos = pagos.reportPagosProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                        DtValorPagos = pagos.ValorReportPagosProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                        RpPagos();
+                    }
+                    else
+                    {
+                        DtPagos = pagos.reportPagosProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
+                        DtValorPagos = pagos.ValorReportPagosProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
+                        RpPagos();
+                    }
                 }     
             }
             catch
             {
-                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo atributo o rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 labelTotal.Text = "TOTAL INGRESOS: $" +"0";
                 labelNumero.Text = "CANTIDAD: " + "0";
             }
@@ -132,32 +150,57 @@ namespace Cartera.Vista
             cargar.Start();
             await cargar;
             cerrar();
-            dataGridView4.DataSource = "";
+            
+                dataGridView4.DataSource = "";
             if (comboProyecto.Text == "TODOS LOS PROYECTOS")
             {
-                DtProgramado = cuota.reportProyeccion(dateInicio.Text, datefin.Text);
+                if (comboTipo.Text == "TODOS LOS PRODUCTOS")
+                {
+                    DtProgramado = cuota.reportProyeccion(dateInicio.Text, datefin.Text);
+                }else
+                {
+                    DtProgramado = cuota.reportProyeccionTipo(dateInicio.Text, datefin.Text, (comboTipo.SelectedIndex - 1).ToString());
+                }
             }
             else
             {
-                DtProgramado = cuota.reportProyeccionProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                if (comboTipo.Text == "TODOS LOS PRODUCTOS")
+                {
+                    DtProgramado = cuota.reportProyeccionProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                }
+                else
+                {
+                    DtProgramado = cuota.reportProyeccionProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
+                }
             }
-            dataGridView4.DataSource = DtProgramado;
-            labelNumero.Text = "CANTIDAD: " + DtProgramado.Rows.Count;
-            dataGridView4.Columns[0].Width = 55;
-            dataGridView4.Columns[1].DefaultCellStyle.Format = "n0";
-            dataGridView4.Columns[1].Width = 80;
-            dataGridView4.Columns[2].Width = 80;
-            dataGridView4.Columns[3].Width = 250;
-            dataGridView4.Columns[4].Width = 250;
-            dataGridView4.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            Int64 total = 0;
-            foreach (DataRow row in DtProgramado.Rows)
+            
+            if (DtProgramado.Rows.Count == 0)
             {
-                //elimino las , amtes de hacer la operacion suma del total
-                total += Convert.ToInt64(row["Valor a Pagar"].ToString().Replace(",", ""));                
+                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo atributo o rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                labelTotal.Text = "TOTAL INGRESOS: $" + "0";
+                labelNumero.Text = "CANTIDAD: " + "0";
             }
-            labelTotal.Text = "TOTAL INGRESOS: $ " + String.Format("{0:N0}", total);
+            else
+            {
+                dataGridView4.DataSource = DtProgramado;
+                labelNumero.Text = "CANTIDAD: " + DtProgramado.Rows.Count;
+                dataGridView4.Columns[0].Width = 55;
+                dataGridView4.Columns[1].DefaultCellStyle.Format = "n0";
+                dataGridView4.Columns[1].Width = 80;
+                dataGridView4.Columns[2].Width = 80;
+                dataGridView4.Columns[3].Width = 250;
+                dataGridView4.Columns[4].Width = 250;
+                dataGridView4.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                Int64 total = 0;
+                foreach (DataRow row in DtProgramado.Rows)
+                {
+                    //elimino las , amtes de hacer la operacion suma del total
+                    total += Convert.ToInt64(row["Valor a Pagar"].ToString().Replace(",", ""));
+                }
+                labelTotal.Text = "TOTAL INGRESOS: $ " + String.Format("{0:N0}", total);
+            }
+            
         }
         public void Mostrar()
         {
@@ -179,13 +222,29 @@ namespace Cartera.Vista
                 DataTable DtValorVentas = new DataTable();
                 if (comboProyecto.Text == "TODOS LOS PROYECTOS")
                 {
-                    DtVentas = producto.ReportVentas(dateInicio.Text, datefin.Text);
-                    DtValorVentas = producto.ValorReportVentas(dateInicio.Text, datefin.Text);
+                    if (comboTipo.Text == "TODOS LOS PRODUCTOS")
+                    {
+                        DtVentas = producto.ReportVentas(dateInicio.Text, datefin.Text);
+                        DtValorVentas = producto.ValorReportVentas(dateInicio.Text, datefin.Text);
+                    }
+                    else
+                    {
+                        DtVentas = producto.ReportVentasTipo(dateInicio.Text, datefin.Text, (comboTipo.SelectedIndex - 1).ToString());
+                        DtValorVentas = producto.ValorReportVentasTipo(dateInicio.Text, datefin.Text, (comboTipo.SelectedIndex - 1).ToString());
+                    }
                 }
                 else
                 {
-                    DtVentas = producto.ReportVentasProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
-                    DtValorVentas = producto.ValorReportVentasProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                    if (comboTipo.Text == "TODOS LOS PRODUCTOS")
+                    {
+                        DtVentas = producto.ReportVentasProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                        DtValorVentas = producto.ValorReportVentasProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                    }
+                    else
+                    {
+                        DtVentas = producto.ReportVentasProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
+                        DtValorVentas = producto.ValorReportVentasProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
+                    }
                 }
 
                 
@@ -204,15 +263,44 @@ namespace Cartera.Vista
             }
             catch
             {
-                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo atributo o rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         private void CargarDisoluciones()
-        {
+        {            
             try
             {
-                DtDisolucion = cartera.Disoluciones(dateInicio.Text, datefin.Text);
-                DataTable DtValorDisolucion = cartera.TotalDisoluciones(dateInicio.Text, datefin.Text);
+                dataGridView3.DataSource = "";
+                labelTotal.Text = "";
+                labelNumero.Text = "";
+                DataTable DtValorDisolucion = new DataTable();
+                if (comboProyecto.Text == "TODOS LOS PROYECTOS")
+                {
+                    if (comboTipo.Text == "TODOS LOS PRODUCTOS")
+                    {
+                        DtDisolucion = cartera.Disoluciones(dateInicio.Text, datefin.Text);
+                        DtValorDisolucion = cartera.TotalDisoluciones(dateInicio.Text, datefin.Text);
+                    }
+                    else
+                    {
+                        DtDisolucion = cartera.DisolucionesTipo(dateInicio.Text, datefin.Text, (comboTipo.SelectedIndex - 1).ToString());
+                        DtValorDisolucion = cartera.TotalDisolucionesTipo(dateInicio.Text, datefin.Text, (comboTipo.SelectedIndex - 1).ToString());
+                    }
+                }
+                else
+                {
+                    if (comboTipo.Text == "TODOS LOS PRODUCTOS")
+                    {
+                        DtDisolucion = cartera.DisolucionesProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                        DtValorDisolucion = cartera.TotalDisolucionesProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                    }
+                    else
+                    {
+                        DtDisolucion = cartera.DisolucionesProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
+                        DtValorDisolucion = cartera.TotalDisolucionesProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
+                    }
+                }
+
                 Int64 total = Int64.Parse(DtValorDisolucion.Rows[0]["Total Devuelto"].ToString());
                 labelTotal.Text = "VALOR DEVUELTO: $" + String.Format("{0:N0}", total);
                 labelNumero.Text = "CANTIDAD: " + DtDisolucion.Rows.Count.ToString();
@@ -230,7 +318,7 @@ namespace Cartera.Vista
             }
             catch
             {
-                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo atributo o rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -518,7 +606,6 @@ namespace Cartera.Vista
             comboProyecto.Text = "TODOS LOS PROYECTOS";
             CargarTap();
         }
-
         private void comboProyecto_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (arranque != true)                
@@ -526,7 +613,12 @@ namespace Cartera.Vista
                     CargarTap();                
             }            
         }
-
-
+        private void comboTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (arranque != true)
+            {
+                CargarTap();
+            }
+        }
     }
 }

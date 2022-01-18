@@ -51,19 +51,34 @@ namespace Cartera.Controlador
         {
             return MPago.reportPagos(FechaInicio, FechaFin);
         }
+        public DataTable reportPagosTipo(string FechaInicio, string FechaFin, string tipo)
+        {
+            return MPago.reportPagosTipo(FechaInicio, FechaFin, tipo);
+        }
         public DataTable reportPagosProyecto(string FechaInicio, string FechaFin, string proyecto)
         {
             return MPago.reportPagosProyecto(FechaInicio, FechaFin, proyecto);
+        }
+        public DataTable reportPagosProyectoTipo(string FechaInicio, string FechaFin, string proyecto, string tipo)
+        {
+            return MPago.reportPagosProyectoTipo(FechaInicio, FechaFin, proyecto, tipo);
         }
         public DataTable ValorReportPagos(string FechaInicio, string FechaFin)
         {
             return MPago.ValorReportPagos(FechaInicio, FechaFin);
         }
+        public DataTable ValorReportPagosTipo(string FechaInicio, string FechaFin, string tipo)
+        {
+            return MPago.ValorReportPagosTipo(FechaInicio, FechaFin, tipo);
+        }        
         public DataTable ValorReportPagosProyecto(string FechaInicio, string FechaFin, string proyecto)
         {
             return MPago.ValorReportPagosProyecto(FechaInicio, FechaFin, proyecto);
+        }        
+        public DataTable ValorReportPagosProyectoTipo(string FechaInicio, string FechaFin, string proyecto, string tipo)
+        {
+            return MPago.ValorReportPagosProyectoTipo(FechaInicio, FechaFin, proyecto, tipo);
         }
-
         public DataTable PagosMes(string FechaInicio, string FechaFin)
         {
             return MPago.PagosMes(FechaInicio, FechaFin);

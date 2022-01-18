@@ -115,8 +115,7 @@ namespace Cartera.Vista
                 actulizarestado();
             
             }
-        }
-
+        }        
         private void button1_Click(object sender, EventArgs e)
         {
             RegistrarPago Rp = new RegistrarPago();
@@ -172,7 +171,7 @@ namespace Cartera.Vista
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int cedula = 0;
+            Int64 cedula = 0;
             string nombre = "";
             string apellido = "";
             string clienteid = "";
@@ -185,7 +184,7 @@ namespace Cartera.Vista
                 {
                     clienteid = dataGridView1.Rows[n].Cells["Id_Cliente"].Value.ToString();
                     //quitar comas
-                    cedula = int.Parse(dataGridView1.Rows[n].Cells["Cedula"].Value.ToString().Replace(",", ""));
+                    cedula = Int64.Parse(dataGridView1.Rows[n].Cells["Cedula"].Value.ToString().Replace(",", ""));
                     nombre = dataGridView1.Rows[n].Cells["Nombres"].Value.ToString();
                     apellido = dataGridView1.Rows[n].Cells["Apellidos"].Value.ToString();
                     carteraid = dataGridView1.Rows[n].Cells["Id_Cartera"].Value.ToString();

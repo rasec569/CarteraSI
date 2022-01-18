@@ -88,7 +88,6 @@ C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\itextsharp.xml
 C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\System.Data.SQLite.xml
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Carteras.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Clientes.resources
-C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Detalle.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.HistorialClientes.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.HistorialFinanciacion.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.HistorialPagos.resources
@@ -112,3 +111,6 @@ C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.AssemblyRefe
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Loading.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\img\Cargando.gif
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.GraficoVentas.resources
+C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.SuggestedBindingRedirects.cache
+C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Detalle.resources
+C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Amortizacion.resources

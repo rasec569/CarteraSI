@@ -125,6 +125,12 @@
     <Compile Include="Vista\Clientes.Designer.cs">
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\Amortizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Amortizacion.Designer.cs">
+      <DependentUpon>Amortizacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\Detalle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Amortizacion.resx">
+      <DependentUpon>Amortizacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Detalle.resx">
       <DependentUpon>Detalle.cs</DependentUpon>

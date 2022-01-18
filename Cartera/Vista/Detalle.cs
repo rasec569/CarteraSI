@@ -23,7 +23,7 @@ namespace Cartera.Vista
         {
             InitializeComponent();
         }
-        public Detalle(int cedula, string nombre, string clienteid, string carteraid)
+        public Detalle(Int64 cedula, string nombre, string clienteid, string carteraid)
         {
             InitializeComponent();
             clienteId = int.Parse(clienteid);
@@ -118,7 +118,7 @@ namespace Cartera.Vista
                     string valor = dataGridView1.Rows[n].Cells["Valor Final"].Value.ToString();
                     if (e.ColumnIndex == 0)
                     {
-                        RegistrarPago Rp = new RegistrarPago(int.Parse(Txtcedula.Text), txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom);
+                        RegistrarPago Rp = new RegistrarPago(int.Parse(Txtcedula.Text), txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, int.Parse(valor));
                         Rp.FormClosed += Pagos_FormClose;
                         Rp.ShowDialog();
                     }

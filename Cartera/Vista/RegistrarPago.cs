@@ -28,6 +28,7 @@ namespace Cartera.Vista
         int clienteId = 0;
         DataTable DtNombres = new DataTable();
         bool modificar = false;
+        string actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString();
         public RegistrarPago()
         {
             InitializeComponent();
@@ -49,12 +50,13 @@ namespace Cartera.Vista
             Txtcedula.AutoCompleteCustomSource = lista;
         }
 
-        public RegistrarPago(int cedula, string nombre, string clienteid, string carteraid, string producto, string nomProducto)
+        public RegistrarPago(int cedula, string nombre, string clienteid, string carteraid, string producto, string nomProducto, int valproducto)
         {
             InitializeComponent();
             clienteId = int.Parse(clienteid);
             carteraId = int.Parse(carteraid);
             productoid = int.Parse(producto);
+            valortotal = valproducto;
             txtNombre.Text = nombre;
             Txtcedula.Text = cedula.ToString();
             txtProducto.Text = nomProducto;
@@ -263,9 +265,9 @@ namespace Cartera.Vista
                     }
                     else
                     {
+                        int NuevoValor = valortotal - int.Parse(Convert.ToDouble(txtValorDescuento.Text).ToString());
                         pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), comboDescuento.Text, Convert.ToDouble(txtValorDescuento.Text).ToString(), productoid.ToString());
-                        int nuevo = valortotal - int.Parse(Convert.ToDouble(txtValorDescuento.Text).ToString());
-                        producto.actualizarValorProducto(productoid, nuevo);
+                        producto.actualizarValorProducto(productoid, NuevoValor);
                         cartera.ActulizarValorTotal(int.Parse(clienteId.ToString()), carteraId);
                     }
                 }

@@ -106,6 +106,30 @@ namespace Cartera.Modelo
 		{
 			return Conexion.consulta("SELECT sum(Valor_Pagado) as 'Total Devuelto' FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto=Id_Producto INNER JOIN Pagos on Fk_Id_Producto=Pfk_ID_Producto WHERE Estado_Cliente='Disuelto' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
 		}
+		internal static DataTable DisolucionesTipo(string FechaInicio, string FechaFin, string Tipo)
+		{
+			return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Nombre_Producto as Producto, Fecha_Cambio as Fecha, SUM(Valor_Pagado) as Aportado,Valor_Producto- SUM(Valor_Pagado) as Saldo, Valor_Producto as 'Valor Producto',Cuotas as 'Cuotas Pact.', Pagas as 'Cuotas Pag.', Mora as 'Cuotas Mora', Meses  as 'Meses Mora' FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente=Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto WHERE Estado_cartera='Disuelto' AND Fk_Id_Tipo_Producto='" + Tipo + "' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' GROUP BY Id_Producto;");
+		}
+		internal static DataTable TotalDisolucionesTipo(string FechaInicio, string FechaFin, string Tipo)
+		{
+			return Conexion.consulta("SELECT sum(Valor_Pagado) as 'Total Devuelto' FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto=Id_Producto INNER JOIN Pagos on Fk_Id_Producto=Pfk_ID_Producto WHERE Estado_Cliente='Disuelto' AND Fk_Id_Tipo_Producto='" + Tipo + "' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+		}
+		internal static DataTable DisolucionesProyecto(string FechaInicio, string FechaFin, string proyecto)
+		{
+			return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Nombre_Producto as Producto, Fecha_Cambio as Fecha, SUM(Valor_Pagado) as Aportado,Valor_Producto- SUM(Valor_Pagado) as Saldo, Valor_Producto as 'Valor Producto',Cuotas as 'Cuotas Pact.', Pagas as 'Cuotas Pag.', Mora as 'Cuotas Mora', Meses  as 'Meses Mora' FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente=Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto WHERE Estado_cartera='Disuelto' AND Fk_Id_Proyecto= '" + proyecto + "' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' GROUP BY Id_Producto;");
+		}
+		internal static DataTable TotalDisolucionesProyecto(string FechaInicio, string FechaFin, string proyecto)
+		{
+			return Conexion.consulta("SELECT sum(Valor_Pagado) as 'Total Devuelto' FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto=Id_Producto INNER JOIN Pagos on Fk_Id_Producto=Pfk_ID_Producto WHERE Estado_Cliente='Disuelto' AND Fk_Id_Proyecto= '" + proyecto + "' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+		}
+		internal static DataTable DisolucionesProyectoTipo(string FechaInicio, string FechaFin, string proyecto, string Tipo)
+		{
+			return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Nombre_Producto as Producto, Fecha_Cambio as Fecha, SUM(Valor_Pagado) as Aportado,Valor_Producto- SUM(Valor_Pagado) as Saldo, Valor_Producto as 'Valor Producto',Cuotas as 'Cuotas Pact.', Pagas as 'Cuotas Pag.', Mora as 'Cuotas Mora', Meses  as 'Meses Mora' FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente=Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto WHERE Estado_cartera='Disuelto' AND Fk_Id_Proyecto= '" + proyecto + "' AND Fk_Id_Tipo_Producto='" + Tipo + "' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "' GROUP BY Id_Producto;");
+		}
+		internal static DataTable TotalDisolucionesProyectoTipo(string FechaInicio, string FechaFin, string proyecto, string Tipo)
+		{
+			return Conexion.consulta("SELECT sum(Valor_Pagado) as 'Total Devuelto' FROM Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto=Id_Producto INNER JOIN Pagos on Fk_Id_Producto=Pfk_ID_Producto WHERE Estado_Cliente='Disuelto' AND Fk_Id_Proyecto= '" + proyecto + "' AND  Fk_Id_Tipo_Producto='" + Tipo + "' AND Fecha_Cambio BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+		}
 
 	}
 }
