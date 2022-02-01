@@ -34,6 +34,10 @@ namespace Cartera.Controlador
         {
             return MCuota.ListarCuotasInteres(financiacion);
         }
+        public DataTable ListarCuotasInteres2(int financiacion)
+        {
+            return MCuota.ListarCuotasInteres2(financiacion);
+        }
         public DataTable ListarCuotasActulizar(int financiacion, string fecha)
         {
             return MCuota.ListarCuotasActulizar(financiacion, fecha);

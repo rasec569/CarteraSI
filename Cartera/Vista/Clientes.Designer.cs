@@ -91,6 +91,7 @@ namespace Cartera.Vista
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.Panel_Registrar_user = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.BtAmortizacionFinan = new System.Windows.Forms.Button();
             this.BtHistorialFinan = new System.Windows.Forms.Button();
             this.txtValorCuotaInteres = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -103,7 +104,6 @@ namespace Cartera.Vista
             this.numValorInteres = new System.Windows.Forms.NumericUpDown();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.PanelSuperior.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -730,7 +730,7 @@ namespace Cartera.Vista
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.BtAmortizacionFinan);
             this.groupBox2.Controls.Add(this.BtHistorialFinan);
             this.groupBox2.Controls.Add(this.txtValorCuotaInteres);
             this.groupBox2.Controls.Add(this.checkBox1);
@@ -774,6 +774,19 @@ namespace Cartera.Vista
             this.groupBox2.TabIndex = 60;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Producto";
+            // 
+            // BtAmortizacionFinan
+            // 
+            this.BtAmortizacionFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtAmortizacionFinan.Image")));
+            this.BtAmortizacionFinan.Location = new System.Drawing.Point(440, 9);
+            this.BtAmortizacionFinan.Name = "BtAmortizacionFinan";
+            this.BtAmortizacionFinan.Size = new System.Drawing.Size(31, 30);
+            this.BtAmortizacionFinan.TabIndex = 67;
+            this.toolTip1.SetToolTip(this.BtAmortizacionFinan, "Tabla de amortización");
+            this.BtAmortizacionFinan.UseVisualStyleBackColor = true;
+            this.BtAmortizacionFinan.Visible = false;
+            this.BtAmortizacionFinan.VisibleChanged += new System.EventHandler(this.ComboFormaPago_SelectedValueChanged);
+            this.BtAmortizacionFinan.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // BtHistorialFinan
             // 
@@ -869,6 +882,7 @@ namespace Cartera.Vista
             this.numValorInteres.Name = "numValorInteres";
             this.numValorInteres.Size = new System.Drawing.Size(44, 20);
             this.numValorInteres.TabIndex = 23;
+            this.numValorInteres.ValueChanged += new System.EventHandler(this.numValorInteres_ValueChanged);
             // 
             // dataGridView2
             // 
@@ -881,17 +895,6 @@ namespace Cartera.Vista
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             this.dataGridView2.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellMouseEnter);
             this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
-            // 
-            // button1
-            // 
-            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button1.Location = new System.Drawing.Point(440, 9);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(31, 30);
-            this.button1.TabIndex = 67;
-            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Clientes
             // 
@@ -998,6 +1001,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.ComboBox comboProyectos;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button BtLimpiar;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtAmortizacionFinan;
     }
 }

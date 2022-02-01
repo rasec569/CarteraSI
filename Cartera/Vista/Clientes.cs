@@ -597,7 +597,7 @@ namespace Cartera.Vista
                         int valorcuotaint = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
                         txtValorCuotaInteres.Text = valorcuotaint.ToString("N0", CultureInfo.CurrentCulture);
                     }
-                    int total = int.Parse(dataGridView2.Rows[n].Cells["Valor Final"].Value.ToString());
+                    double total = double.Parse(dataGridView2.Rows[n].Cells["Valor Final"].Value.ToString());
                     txtValorTotal.Text = total.ToString("N0", CultureInfo.CurrentCulture);                   
                     label24.Visible = true;
                     comboEstadoCliente.Visible = true;
@@ -646,6 +646,7 @@ namespace Cartera.Vista
             else if (ComboFormaPago.Items[ComboFormaPago.SelectedIndex].ToString() == "Financiado")
             {
                 Habilitar_Financiado();
+                
             }
         }       
                
@@ -1109,41 +1110,39 @@ namespace Cartera.Vista
 
         private void numCuotasInteres_ValueChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if (ComboFormaPago.Text == "Financiado")
+                try
                 {
-                    double valor70 = Convert.ToDouble(txtValorCon.Text);
-                    double cuotas70 = Convert.ToDouble(numCuotasInteres.Value);
-                    if (numCuotasInteres.Value <= 18)
+
+                    if (ComboFormaPago.Text == "Financiado")
                     {
-                        numValorInteres.Text = "0";
+                        double ValConInteres;
+                        double ValorCuota = ValorCuotaInteres(int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), int.Parse(numCuotasInteres.Value.ToString()));
+                        if (numCuotasInteres.Value <= 18)
+                        {
+                            ValConInteres = Convert.ToDouble(txtValor.Text.ToString()) - Convert.ToDouble(txtValorSin.Text.ToString());
+                        }
+                        else
+                        {
+                            ValConInteres = ValorCuota * int.Parse(numCuotasInteres.Value.ToString());
+                        }
+
+                        txtValorCuotaInteres.ResetText();
+                        txtValorCuotaInteres.Text = String.Format("{0:N0}", ValorCuota);
+                        txtValorCon.ResetText();
+                        txtValorCon.Text = ValConInteres.ToString("N0", CultureInfo.CurrentCulture);
+                        int valTotal = int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()) + int.Parse(Convert.ToDouble(txtValorCon.Text).ToString());
+                        txtValorTotal.Text = valTotal.ToString();
+                        txtValorTotal.Text = String.Format("{0:N0}", Convert.ToDouble(txtValorTotal.Text));
+
+
                     }
-                    else
-                    {
-                        numValorInteres.Text = "1";
-                        //double valorinteres = (Convert.ToDouble(txtValorCon.Text) * (Convert.ToDouble(numValorInteres.Value) / 100));
-                        //double valorcuota = (valor70 + valorinteres) / cuotas70;
-                        //txtValorCuotaInteres.Clear();
-                        //txtValorCuotaInteres.Text = String.Format("{0:N0}", valorcuota);
-                        //double valorneto = int.Parse(Convert.ToDouble(txtValor.Text).ToString());
-                        //txtValorTotal.Text = String.Format("{0:N0}", (valorneto + valorinteres));
-                    }
-
-                    double valorcuota = valor70 / cuotas70;
-                    txtValorCuotaInteres.Clear();
-                    txtValorCuotaInteres.Text = String.Format("{0:N0}", valorcuota);
-                    int valTotal = int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()) + int.Parse(Convert.ToDouble(txtValorCon.Text).ToString());
-                    txtValorTotal.Text = valTotal.ToString();
-                    txtValorTotal.Text = String.Format("{0:N0}", Convert.ToDouble(txtValorTotal.Text));
-
-
-                }                
-            }
-            catch
-            {
-                MessageBox.Show("Digite el valor 70");
-            }                       
+                }
+                catch
+                {
+                    MessageBox.Show("Digite el valor 70");
+                }
+            
+                                  
         }        
 
         private void button2_Click(object sender, EventArgs e)
@@ -1259,7 +1258,8 @@ namespace Cartera.Vista
 
         private void ComboFormaPago_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Producto_id)){
+            if (!string.IsNullOrEmpty(Producto_id) && !string.IsNullOrEmpty(Financiacion_id))
+            {
                 if (ComboFormaPago.Text == "Financiado")
                 {
                     //ya convertido
@@ -1274,8 +1274,63 @@ namespace Cartera.Vista
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Amortizacion Am = new Amortizacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()));
-            Am.ShowDialog();
+            if (Financiacion_id!="")
+            {
+                Amortizacion Am = new Amortizacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()));
+                Am.ShowDialog();
+            }
+            else
+            {
+                Amortizacion Am = new Amortizacion(int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), 0);
+                Am.ShowDialog();
+            }            
+        }
+
+        private void numValorInteres_ValueChanged(object sender, EventArgs e)
+        {
+            if (numValorInteres.Value > 0)
+            {
+                BtAmortizacionFinan.Visible = true;
+                //ya hallo el valor de la cuota 
+                //double ValInteres = ValorCuotaInteres(int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), int.Parse(numCuotasInteres.Value.ToString()));
+                //double ValConInteres = ValInteres * int.Parse(numCuotasInteres.Value.ToString());
+                //txtValorCon.ResetText();
+                //txtValorCon.Text = ValConInteres.ToString("N0", CultureInfo.CurrentCulture);
+                //txtValorCuotaInteres.ResetText();
+                //txtValorCuotaInteres.Text = ValInteres.ToString("N0", CultureInfo.CurrentCulture);
+            }
+            else
+            {
+                BtAmortizacionFinan.Visible = false;
+                //txtValorCon.ResetText();
+                //txtValorCon.Text = (int.Parse(Convert.ToDouble(txtValor.Text).ToString()) - int.Parse(Convert.ToDouble(txtValorSin.Text).ToString())).ToString();
+            }
+        }
+        private double ValorCuotaInteres(int ValorNeto, int ValorSin, int ValorInteres, int NumCuotas)
+        {
+            int saldo= ValorNeto - ValorSin;
+            double ValInteres= ValorInteres;
+            double ValorCuotaInteres;
+            double Interes=0;
+
+            if (numCuotasInteres.Value <= 18)
+            {
+                ValInteres = 0;
+                Interes= ValInteres;
+                ValorCuotaInteres =saldo / NumCuotas;
+            }
+            else
+            {
+                if (numValorInteres.Value == 0)
+                {
+                    ValInteres = 1;                    
+                }
+                Interes = ValInteres;
+                ValInteres = Interes / 100;
+                ValorCuotaInteres = (ValInteres * saldo) / (1 - Math.Pow(1 + ValInteres, -NumCuotas));
+            }
+            numValorInteres.Text = Interes.ToString();
+            return ValorCuotaInteres;
         }
     }
 }

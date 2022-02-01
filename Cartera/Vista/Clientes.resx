@@ -127,6 +127,17 @@
     <value>25</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="BtAmortizacionFinan.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAUZJREFUOE9j
+        oCswsfe4YWLnedfBoYEFKkQeMLH3KgUatMLT05MdKkQcMLHzOPr//39GMBtkiKOXv6mDlwRYsuE/E0P0
+        CT44hqrDAECbbxr7+nKZ2Hs+BuIykCFQKQgI3WEGxP/hOHKPOFQGAUCGWIaGcoLYDQ0NTKaOHs5gCWRA
+        yCBkQ2Dg/3lX1f+nPdTBGMgGC+IzCBgr+9ENAYH/J10+/j/h/B+MgWywIDFeQwckG/T/xDLx/wfm/4Pj
+        QwvNwOJkGbR/3n84HkYG7Zkt/mX79P8w/G3HdLBBXw44fvyy3+E/GAPZYMWhm80YAjf8h+PIjRCDHj68
+        qvX42hGvp9vn/oXhR6e3JT1+fNX86f74T0/3xf0FYyAbJNaw8GCSYe76vzC8ctcJL5AZDA8eXP5PDQx0
+        0ZVTDx9evksZvnIK7D3KAQMDANDk1EuIIqjCAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="BtHistorialFinan.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAA35JREFUSEut

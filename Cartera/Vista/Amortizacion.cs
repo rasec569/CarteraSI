@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,27 +16,40 @@ namespace Cartera.Vista
     {
         CCuota cuota = new CCuota();
         bool cargarbotones= true;
+        int FilaTotal;        
         public Amortizacion()
         {
             InitializeComponent();
         }
-        public Amortizacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes,  int Valor_Cuota_Con_Interes)
+        public Amortizacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes,  int Valor_Cuota_Con_Interes, int Valor_Total)
         {
             //Financiacion,Valor_Neto,valorSin,ValorInteres,ValorCuotaInteres
             InitializeComponent();
-            TxtValorNeto.Text = Valor_Neto.ToString();
-            TxtValorInicial.Text = Valor_Sin.ToString();
-            TxtValorSaldo.Text = (Valor_Neto - Valor_Sin).ToString();
-            TxtValorCuotaInteres.Text = Valor_Cuota_Con_Interes.ToString();
-            TxtValorNeto.Text = Valor_Neto.ToString();
-            TxtValorNeto.Text = Valor_Neto.ToString();
+            TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorInicial.Text = Valor_Sin.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorSaldo.Text = (Valor_Neto - Valor_Sin).ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorCuotaInteres.Text = Valor_Cuota_Con_Interes.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
+            numValorInteres.Text = Valor_Interes.ToString();
+            TxtTotal.Text = Valor_Total.ToString("N0", CultureInfo.CurrentCulture);
 
-            listarCuotasFinaciadas(Financiacion, Valor_Neto, Valor_Sin, Valor_Interes, Valor_Cuota_Con_Interes);
+            listarCuotasFinaciadas(Financiacion, Valor_Neto, Valor_Sin, Valor_Interes, Valor_Cuota_Con_Interes, Valor_Total);
         }
-        public Amortizacion(Int64 cedula, string nombre, string clienteid, string carteraid)
+        public Amortizacion(int Valor_Neto, int Valor_Sin, int Valor_Interes,int NumCuotas, int Valor_Cuota_Con_Interes, int Valor_Total,int Ensayo)
         {
             InitializeComponent();
-          
+            TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorInicial.Text = Valor_Sin.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorSaldo.Text = (Valor_Neto - Valor_Sin).ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorCuotaInteres.Text = Valor_Cuota_Con_Interes.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
+            numValorInteres.Text = Valor_Interes.ToString();
+            numCuotasFinan.Text = NumCuotas.ToString();
+            TxtTotal.Text = Valor_Total.ToString("N0", CultureInfo.CurrentCulture);
+
+            CalcularCuotasFinaciadas(Valor_Neto, Valor_Sin, Valor_Interes, Valor_Cuota_Con_Interes, NumCuotas);
         }
         private void CargarCuotasInteres()
         {
@@ -51,41 +65,129 @@ namespace Cartera.Vista
         {
 
         }
-        private void listarCuotasFinaciadas(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, int Valor_Cuota_Con_Interes)
+        private void listarCuotasFinaciadas(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, int Valor_Cuota_Con_Interes, int Total)
         {
+            DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
             DataTable DtCuotasInteres = new DataTable();
-            DtCuotasInteres = cuota.ListarCuotasInteres(Financiacion);
-            DtCuotasInteres.Columns.Add("Capital", typeof(double));
-            DtCuotasInteres.Columns.Add("Interes", typeof(double));
-            DtCuotasInteres.Columns.Add("Saldo", typeof(double));
-            double saldo = Valor_Neto - Valor_Sin;
-            double interes = Math.Round(saldo * (Convert.ToDouble(Valor_Interes) / 100), 0);
-            double capital = Math.Round(Valor_Cuota_Con_Interes - interes, 0);
+            DtCuotasInteres = cuota.ListarCuotasInteres2(Financiacion);            
+            numCuotasFinan.Text= DtCuotasInteres.Rows.Count.ToString();
+            DtCuotasInteres.Columns.Add("Capital", typeof(decimal));
+            DtCuotasInteres.Columns.Add("Interes", typeof(decimal));
+            DtCuotasInteres.Columns.Add("Saldo", typeof(decimal));
+
+            decimal saldo = Valor_Neto - Valor_Sin;
+            decimal interes = saldo * (Convert.ToDecimal(Valor_Interes) / 100);
+            decimal capital = Valor_Cuota_Con_Interes - interes;
+            decimal pagadofecha = 0;
+            decimal deudafecha = 0;
+            decimal interesfecha = 0;
+            decimal capitalfecha = 0;
+            decimal TotalCuotas = 0;
+            decimal TotalInteres = 0;
+            decimal TotalCapital = 0;
+            //double interes = Math.Round(saldo * (Convert.ToDouble(Valor_Interes) / 100), 1);
             for (int i = 0; i < DtCuotasInteres.Rows.Count; i++)
-            {                
-                saldo = Math.Round(saldo - capital, 0);
+            {
+                DateTime date = DateTime.ParseExact(DtCuotasInteres.Rows[i]["Fecha Pactada"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 if (i != 0)
                 {
-                    interes = Math.Round(saldo * (Convert.ToDouble(Valor_Interes) / 100), 0);
-                    capital = Math.Round(Valor_Cuota_Con_Interes - interes, 0);
+                    
+                    interes = saldo * (Convert.ToDecimal(Valor_Interes) / 100);
+                    capital = Valor_Cuota_Con_Interes - interes;
                 }
+                if(date <= actual)
+                {
+                    
+                    if (DtCuotasInteres.Rows[i]["Estado"].ToString() == "Pagada")
+                    {
+                        pagadofecha += Valor_Cuota_Con_Interes;
+                        interesfecha += interes;
+                        capitalfecha += capital;
+                    }
+                    else
+                    {
+                        deudafecha += Valor_Cuota_Con_Interes;
+                    }
+                //aqui actuliza el estado de la cuota
+                }
+                saldo = saldo - capital;
                 DtCuotasInteres.Rows[i]["Saldo"] = saldo;
                 DtCuotasInteres.Rows[i]["Interes"] = interes;
                 DtCuotasInteres.Rows[i]["Capital"] = capital;
+                TotalCuotas += Valor_Cuota_Con_Interes;
+                TotalInteres += interes;
+                TotalCapital += capital;
             }
+            DataRow row = DtCuotasInteres.NewRow();
+            row["Estado"] = "Total";
+            row["Capital"] = TotalCapital;
+            row["Interes"] = TotalInteres;
+            row["Valor"] = TotalCuotas.ToString("n0");
+            DtCuotasInteres.Rows.Add(row);
+            FilaTotal = DtCuotasInteres.Rows.Count;
+
             dataGridView1.DataSource = DtCuotasInteres;
-            dataGridView1.Columns["Tipo"].Visible = false;
+            dataGridView1.Columns["Id_Cuota"].Visible = false;
             dataGridView1.Columns["Capital"].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns["Interes"].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns["Saldo"].DefaultCellStyle.Format = "n0";
+            labelPagado.Text = "Abono Capital: " + capitalfecha.ToString("n0");
+            labelInteres.Text = "Abono Interes: " + interesfecha.ToString("n0");
+            labelSaldo.Text = "Pagado a la fecha: " + pagadofecha.ToString("n0");
+            labelDeuda.Text= "Deuda a la fecha: " + deudafecha.ToString("n0");
+            formatoGrid1();
+
+
+        }
+        private void CalcularCuotasFinaciadas(int Valor_Neto, int Valor_Sin, int Valor_Interes, int Valor_Cuota_Con_Interes, int Numero_CuotasCon_Interes)
+        {
+            DataTable DtCuotasInteres = new DataTable();
+            DtCuotasInteres.Columns.Add("Cuota", typeof(int));
+            DtCuotasInteres.Columns.Add("Valor", typeof(decimal));
+            DtCuotasInteres.Columns.Add("Capital", typeof(decimal));
+            DtCuotasInteres.Columns.Add("Interes", typeof(decimal));
+            DtCuotasInteres.Columns.Add("Saldo", typeof(decimal));
+
+            decimal saldo = Valor_Neto - Valor_Sin;
+            decimal interes = saldo * (Convert.ToDecimal(Valor_Interes) / 100);
+            decimal capital = Valor_Cuota_Con_Interes - interes;
+            //double interes = Math.Round(saldo * (Convert.ToDouble(Valor_Interes) / 100), 1);
+            for (int i = 0; i < Numero_CuotasCon_Interes; i++)
+            {
+                if (i != 0)
+                {
+                    interes = saldo * (Convert.ToDecimal(Valor_Interes) / 100);
+                    capital = Valor_Cuota_Con_Interes - interes;
+                }
+                saldo = saldo - capital;
+                DataRow fila = DtCuotasInteres.NewRow();
+                fila["Cuota"] = i+1;
+                fila["Valor"] = Valor_Cuota_Con_Interes;
+                fila["Saldo"] = saldo;
+                fila["Interes"] = interes;
+                fila["Capital"] = capital;
+                DtCuotasInteres.Rows.Add(fila);
+            }
+            //DataRow row = DtCuotasInteres.NewRow();
+            //row["Cuota"] = 0;
+            //row["Valor"] = 0;
+            //row["Capital"] = 0;
+            //row["Interes"] = 0;
+            //row["Saldo"] = 0;
+            dataGridView1.DataSource = DtCuotasInteres;
+            dataGridView1.Columns["Capital"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Interes"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Saldo"].DefaultCellStyle.Format = "n0";
+            
             //
+
         }
         private void formatoGrid1()
         {
-            //dataGridView1.Columns[4].DefaultCellStyle.Format = "n0";
+            //dataGridView1.Columns[1].DefaultCellStyle.Format = "n0";
             //dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
-            //dataGridView1.Columns[6].DefaultCellStyle.Format = "n0";
-            //dataGridView1.Columns[1].Width = 65;
+            //dataGridView1.Columns[6].DefaultCellStyle.Format = "n0";            
+            
             //dataGridView1.Columns[2].Width = 65;
             //dataGridView1.Columns[3].Width = 70;
             //dataGridView1.Columns[4].Width = 65;
@@ -112,6 +214,7 @@ namespace Cartera.Vista
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
+            
             //if (e.RowIndex < 0)
             //    return;
             //if (e.ColumnIndex >= 0 && this.dataGridView1.Columns[e.ColumnIndex].Name == "Pagar" && e.RowIndex >= 0)
@@ -145,6 +248,7 @@ namespace Cartera.Vista
             //{
             //    e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
             //}
+            
         }
 
         private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
@@ -156,6 +260,49 @@ namespace Cartera.Vista
             //    DataGridViewCell cell2 = this.dataGridView1.Rows[e.RowIndex].Cells["Historial"];
             //    cell2.ToolTipText = "Clic para ver historial de pagos";
             //}
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            dataGridView1.Columns[1].Width = 70;
+            DataGridView dgv = sender as DataGridView;
+            int n = e.RowIndex;
+            try
+            {
+                if (dgv.Columns[e.ColumnIndex].Name == "Estado")  //Si es la columna a evaluar
+                {
+                    if (n <= dataGridView1.Rows.Count)
+                    {
+                        if (e.Value.ToString().Contains("Pagada"))   //Si el valor de la celda contiene la palabra hora Pagada Mora
+                        {
+                            dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.LightGreen;
+                        }
+                        else if (e.Value.ToString().Contains("Mora"))
+                        {
+                            dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.DarkOrange;
+                            //e.CellStyle.ForeColor = Color.Crimson;
+                            //e.CellStyle.BackColor = Color.Orange;
+                            //e.CellStyle.BackColor = Color.PaleVioletRed;
+                        }
+                    }
+                }
+                //if (dataGridView.Rows[e.RowIndex].Selected)
+                //{
+                //    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                //    // edit: to change the background color: 
+                //    e.CellStyle.SelectionBackColor = Color.Aqua;
+                //}
+            }
+            catch
+            {
+
+            }
+        }
+
+
+            private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dataGridView1.Rows[FilaTotal - 1].DefaultCellStyle.Font = new Font(dataGridView1.Font, FontStyle.Bold);
         }
     }
 }

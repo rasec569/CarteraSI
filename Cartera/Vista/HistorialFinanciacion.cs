@@ -22,7 +22,7 @@ namespace Cartera.Vista
         DataTable DtAcuerdoPago= new DataTable();
         int ProductoId;
         ReportesPDF reportesPDF = new ReportesPDF();
-        int Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres;
+        int Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal;
         public HistorialFinanciacion()
         {
             InitializeComponent();
@@ -41,32 +41,35 @@ namespace Cartera.Vista
         {
             dataGridView1.DataSource = financiacion.HistorialFinanciacion(ProductoId);
             dataGridView1.Columns[0].Visible = false;
-            dataGridView1.Columns[1].HeaderText = "Valor Financiación";
+            dataGridView1.Columns[1].HeaderText = "Valor Neto";
             dataGridView1.Columns[1].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns[1].Width = 80;
-            dataGridView1.Columns[2].HeaderText = "Valor Separación";
+            dataGridView1.Columns[2].HeaderText = "Valor Final";
             dataGridView1.Columns[2].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns[2].Width = 80;
             dataGridView1.Columns[3].HeaderText = "Valor Inicial";
             dataGridView1.Columns[3].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns[3].Width = 80;
-            dataGridView1.Columns[4].HeaderText = "cuotas Inicial";
-            dataGridView1.Columns[4].Width = 50;
-            dataGridView1.Columns[5].HeaderText = "Valor cuotas Inicial";
-            dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
-            dataGridView1.Columns[5].Width = 80;
-            dataGridView1.Columns[6].HeaderText = "Valor Saldo";
+            dataGridView1.Columns[4].HeaderText = "Valor Entrada";
+            dataGridView1.Columns[4].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns[4].Width = 80;
+            dataGridView1.Columns[5].HeaderText = "cuotas Inicial";
+            dataGridView1.Columns[5].Width = 50;
+            dataGridView1.Columns[6].HeaderText = "Valor cuotas Inicial";
             dataGridView1.Columns[6].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns[6].Width = 80;
-            dataGridView1.Columns[7].HeaderText = "Cuotas Saldo";
-            dataGridView1.Columns[7].Width = 50;
-            dataGridView1.Columns[8].HeaderText = "Valor cuotas saldo";
-            dataGridView1.Columns[8].DefaultCellStyle.Format = "n0";
-            dataGridView1.Columns[8].Width = 80;
-            dataGridView1.Columns[9].HeaderText = "Interes";
-            dataGridView1.Columns[9].Width = 50;
-            dataGridView1.Columns[10].HeaderText = "Fecha recaudo";
-            dataGridView1.Columns[11].HeaderText = "Estado";
+            dataGridView1.Columns[7].HeaderText = "Valor Saldo";
+            dataGridView1.Columns[7].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns[7].Width = 80;
+            dataGridView1.Columns[8].HeaderText = "Cuotas Saldo";
+            dataGridView1.Columns[8].Width = 50;
+            dataGridView1.Columns[9].HeaderText = "Valor cuotas saldo";
+            dataGridView1.Columns[9].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns[9].Width = 80;
+            dataGridView1.Columns[10].HeaderText = "Interes";
+            dataGridView1.Columns[10].Width = 40;
+            dataGridView1.Columns[11].HeaderText = "Fecha recaudo";
+            dataGridView1.Columns[12].HeaderText = "Estado";
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
@@ -82,6 +85,7 @@ namespace Cartera.Vista
                     int Valor_Producto_Neto = int.Parse(dataGridView1.Rows[n].Cells["Valor_Neto"].Value.ToString());
                     Valor_Neto = Valor_Producto_Neto;
                     int Valor_Producto_Financiacion = int.Parse(dataGridView1.Rows[n].Cells["Valor_Producto_Financiacion"].Value.ToString());
+                    ValorTotal = Valor_Producto_Financiacion;
                     int valor_entrada = int.Parse(dataGridView1.Rows[n].Cells["Valor_Entrada"].Value.ToString());
                     int valor_sin_interes = int.Parse(dataGridView1.Rows[n].Cells["Valor_Sin_interes"].Value.ToString());
                     valorSin = valor_sin_interes;
@@ -282,7 +286,7 @@ namespace Cartera.Vista
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Amortizacion Am =new Amortizacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres);
+            Amortizacion Am =new Amortizacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal);
             Am.ShowDialog();
         }
     }

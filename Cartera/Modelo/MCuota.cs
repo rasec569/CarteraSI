@@ -53,6 +53,11 @@ namespace Cartera.Modelo
 
 			return Conexion.consulta("SELECT Num_Cuota as '# Cuota', printf('% , d', Valor_Cuota)as Valor, Tipo, Fecha as 'Fecha Pactada', Estado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo='Valor Saldo' ;");
 		}
+		internal static DataTable ListarCuotasInteres2(int financiacion)
+		{
+
+			return Conexion.consulta("SELECT Id_Cuota, Num_Cuota as '# Cuota', Fecha as 'Fecha Pactada', Estado, printf('% , d', Valor_Cuota)as Valor FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo='Valor Saldo' ;");
+		}
 		internal static DataTable ListarCuotasActulizar(int financiacion, string fecha)
 		{
 
