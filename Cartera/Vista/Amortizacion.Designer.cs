@@ -153,9 +153,12 @@ namespace Cartera.Vista
             this.numCuotasFinan.Name = "numCuotasFinan";
             this.numCuotasFinan.Size = new System.Drawing.Size(50, 20);
             this.numCuotasFinan.TabIndex = 33;
+            this.numCuotasFinan.ValueChanged += new System.EventHandler(this.numCuotasFinan_ValueChanged);
+            this.numCuotasFinan.Click += new System.EventHandler(this.numCuotasFinan_Click);
             // 
             // numValorInteres
             // 
+            this.numValorInteres.Enabled = false;
             this.numValorInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numValorInteres.Location = new System.Drawing.Point(443, 37);
             this.numValorInteres.Maximum = new decimal(new int[] {

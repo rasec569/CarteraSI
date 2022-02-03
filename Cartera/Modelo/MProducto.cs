@@ -28,6 +28,28 @@ namespace Cartera.Modelo
         {
             return Conexion.consulta("SELECT Id_Producto, Nombre_Producto as Producto, Numero_contrato as Contrato, Forma_pago as 'Forma Pago', printf('%, d', Valor_Neto) as 'Valor Neto', printf('%, d', Valor_Producto) as 'Valor Total', Fecha_Venta as 'Fecha Venta', printf('%, d', Valor_Entrada) as 'Inicial', Proyecto_Nombre as Proyecto, Nom_Tipo_Producto as 'Tipo',printf('%, d', Valor_Sin_interes) as 'Valor Inicial', Cuotas_Sin_interes as 'Cuotas Inicial',printf('%, d', Valor_Cuota_Sin_interes)  as 'Valor Cuota Inicial', printf('%, d', Valor_Con_Interes) as 'Valor Saldo', Cuotas_Con_Interes as 'Cuotas Saldo',printf('%, d', Valor_Cuota_Con_Interes) as 'Valor Cuota Saldo', Valor_Interes as 'Interes', Fecha_Recaudo as 'Fecha Recaudo', Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto , Id_Financiacion FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' GROUP BY Id_Producto ORDER by Nombre_Producto;");            
         }
+        public static DataTable cargarProductosPagados(string TipoProductoId)
+        {
+            if (TipoProductoId == "")
+            {
+                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', Valor_Total_Pagos as 'Valor Pagado', Valor_Producto as 'Valor Producto', Valor_Producto-Valor_Total_Pagos as 'Diferencia', Proyecto_Nombre from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto;");
+            }
+            else
+            {
+                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', Valor_Total_Pagos as 'Valor Pagado', Valor_Producto as 'Valor Producto', Valor_Producto-Valor_Total_Pagos as 'Diferencia', Proyecto_Nombre from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto and Fk_Id_Tipo_Producto='" + TipoProductoId + "';");
+            }
+        }
+        public static DataTable cargarProductosPagadosProyecto(string proyecto, string TipoProductoId)
+        {
+            if(TipoProductoId=="")
+            {
+                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', Valor_Total_Pagos as 'Valor Pagado', Valor_Producto as 'Valor Producto', Valor_Producto-Valor_Total_Pagos as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto and Fk_Id_Proyecto='" + proyecto + "';");
+            }
+            else
+            {
+                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', Valor_Total_Pagos as 'Valor Pagado', Valor_Producto as 'Valor Producto', Valor_Producto-Valor_Total_Pagos as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto and Fk_Id_Proyecto='" + proyecto + "' and Fk_Id_Tipo_Producto='" + TipoProductoId + "' ;");
+            }            
+        }
         internal static DataTable CantTipoProductos()
         {
             return Conexion.consulta("SELECT Nom_Tipo_Producto as 'Tipo', count( Nom_Tipo_Producto) as 'Numero' FROM Producto LEFT JOIN Financiacion on Fk_Producto = Id_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER JOIN Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto WHERE Estado_Cliente='Activo' GROUP BY Nom_Tipo_Producto;");

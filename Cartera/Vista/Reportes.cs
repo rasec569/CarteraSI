@@ -27,6 +27,7 @@ namespace Cartera.Vista
         DataTable DtProgramado = new DataTable();
         DataTable DtVentas = new DataTable();
         DataTable DtDisolucion = new DataTable();
+        DataTable DtPagados = new DataTable();
         DataTable User = new DataTable();
         private ReportesPDF reportesPDF;
         DataTable Dtproyectos = new DataTable();
@@ -321,6 +322,64 @@ namespace Cartera.Vista
                 MessageBox.Show("Sin datos para el reporte, seleccione un nuevo atributo o rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        private void CargarPagados()
+        {
+            try
+            {
+                dataGridView5.DataSource = "";
+                labelTotal.Text = "";
+                labelNumero.Text = "";
+                DataTable DtValorDisolucion = new DataTable();
+                if (comboProyecto.Text == "TODOS LOS PROYECTOS")
+                {
+                    if (comboTipo.Text == "TODOS LOS PRODUCTOS")
+                    {
+                        DtPagados = producto.cargarProductosPagados("");
+                        //DtValorDisolucion = cartera.TotalDisoluciones(dateInicio.Text, datefin.Text);
+                    }
+                    else
+                    {
+                        DtPagados = producto.cargarProductosPagados((comboTipo.SelectedIndex - 1).ToString());
+                        //DtPagados = producto.cargarProductosPagadosProyecto((comboTipo.SelectedIndex - 1).ToString());
+                        //DtValorDisolucion = cartera.TotalDisolucionesTipo(dateInicio.Text, datefin.Text, (comboTipo.SelectedIndex - 1).ToString());
+                    }
+                }
+                else
+                {
+                    if (comboTipo.Text == "TODOS LOS PRODUCTOS")
+                    {
+                        DtPagados = producto.cargarProductosPagadosProyecto(comboProyecto.SelectedValue.ToString(),"");
+                        //DtDisolucion = cartera.DisolucionesProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                        //DtValorDisolucion = cartera.TotalDisolucionesProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
+                    }
+                    else
+                    {
+                        DtPagados = producto.cargarProductosPagadosProyecto(comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
+                        //DtDisolucion = cartera.DisolucionesProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
+                        //DtValorDisolucion = cartera.TotalDisolucionesProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
+                    }
+                }
+
+                //Int64 total = Int64.Parse(DtValorDisolucion.Rows[0]["Total Devuelto"].ToString());
+                //labelTotal.Text = "VALOR DEVUELTO: $" + String.Format("{0:N0}", total);
+                //labelNumero.Text = "CANTIDAD: " + DtDisolucion.Rows.Count.ToString();
+                dataGridView5.DataSource = DtPagados;
+                dataGridView5.Columns[0].Width = 200;
+                dataGridView5.Columns[1].Width = 200;
+                dataGridView5.Columns[3].DefaultCellStyle.Format = "n1";
+                dataGridView5.Columns[4].DefaultCellStyle.Format = "n1";
+                dataGridView5.Columns[5].DefaultCellStyle.Format = "n1";
+                //dataGridView3.Columns[8].Width = 50;
+                //dataGridView3.Columns[9].Width = 50;
+                //dataGridView3.Columns[10].Width = 50;
+                //dataGridView3.Columns[11].Width = 50;
+                //dataGridView3.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+            catch
+            {
+                MessageBox.Show("Sin datos para el reporte, seleccione un nuevo atributo o rango de fechas", "No hay resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             limpiarlabel();
@@ -333,10 +392,10 @@ namespace Cartera.Vista
             {
                 CargarRpPagos();
                 groupBox2.Text = "Ingreso Observado";
-                
+
             }
             else if (tabControl1.SelectedIndex == 1)
-            {                
+            {
                 CargarRpProyeccion();
                 groupBox2.Text = "Ingreso Programado";
             }
@@ -349,6 +408,10 @@ namespace Cartera.Vista
             {
                 CargarDisoluciones();
                 groupBox2.Text = "Disoluciones";
+            }
+            else if (tabControl1.SelectedIndex == 4)
+            {
+                CargarPagados();
             }
         }
         //metodo temporal para actuizar el estado de las cuotas 
@@ -507,6 +570,10 @@ namespace Cartera.Vista
             {
                 reportesPDF.Disolucion(DtDisolucion, labelTotal.Text, labelNumero.Text, fechas);
             }
+            else if (tabControl1.SelectedIndex == 4)
+            {
+                //reportesPDF.Disolucion(DtDisolucion, labelTotal.Text, labelNumero.Text, fechas);
+            }
             else
             {
                 MessageBox.Show("Error al generar reporte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -575,6 +642,13 @@ namespace Cartera.Vista
                 e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
             }
         }
+        private void dataGridView5_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView3.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -620,5 +694,7 @@ namespace Cartera.Vista
                 CargarTap();
             }
         }
+
+        
     }
 }
