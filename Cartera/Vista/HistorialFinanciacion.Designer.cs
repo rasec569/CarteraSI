@@ -35,6 +35,7 @@ namespace Cartera.Vista
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -47,7 +48,6 @@ namespace Cartera.Vista
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -108,6 +108,17 @@ namespace Cartera.Vista
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Acuerdo de pago";
+            // 
+            // button2
+            // 
+            this.button2.Image = global::Cartera.Properties.Resources.Amortizacion;
+            this.button2.Location = new System.Drawing.Point(174, 283);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(31, 30);
+            this.button2.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label10
             // 
@@ -219,17 +230,6 @@ namespace Cartera.Vista
             this.label4.Size = new System.Drawing.Size(41, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "label4";
-            // 
-            // button2
-            // 
-            this.button2.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button2.Location = new System.Drawing.Point(174, 283);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(31, 30);
-            this.button2.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // HistorialFinanciacion
             // 

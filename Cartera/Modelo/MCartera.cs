@@ -94,6 +94,7 @@ namespace Cartera.Modelo
 		}
 		internal static DataTable TotalesCartera()
 		{
+			//sin uso calculo con los valores de datatable cartera
 			//return Conexion.consulta("SELECT Id_Cliente, Cedula, Nombre, Apellido, Estado_cartera, Valor_Recaudado, Id_Producto, Nombre_Producto, Valor_Mora, Total_Cartera, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' ORDER by Nombre");
 			//return Conexion.consulta("SELECT sum(Valor_Recaudado) as recaudo, sum(Saldo) as saldo, sum(Total_Cartera) as total from Cartera INNER JOIN Cliente on Fk_Id_Cartera=Id_Cartera where Id_Cliente=(select Id_Cliente from Cliente_Producto WHERE Estado_Cliente='Activo');");
 			return Conexion.consulta("SELECT sum(Valor_Recaudado) as recaudo, sum(Saldo) as saldo, sum(Total_Cartera) as total from Cartera INNER JOIN Cliente on Fk_Id_Cartera=Id_Cartera where Id_Cliente=(select Id_Cliente from Cliente_Producto WHERE Estado_Cliente='Activo') AND Estado_cartera<>'Disuelto';");

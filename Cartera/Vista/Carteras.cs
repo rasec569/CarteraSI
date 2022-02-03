@@ -78,13 +78,31 @@ namespace Cartera.Vista
                 DtCartera = cartera.CarteraCliente(Txtcedula.Text);
                 dataGridView1.DataSource = DtCartera;
             }
-            DataTable DtValoreCartera = cartera.TotalesCartera();
-            Int64 total = Int64.Parse(DtValoreCartera.Rows[0]["total"].ToString());
-            Int64 deuda = Int64.Parse(DtValoreCartera.Rows[0]["saldo"].ToString());
-            Int64 pagado = Int64.Parse(DtValoreCartera.Rows[0]["recaudo"].ToString());
+
+            Int64 total = 0;
+            Int64 deuda = 0;
+            Int64 pagado = 0;
+
+            foreach (DataRow row in DtCartera.Rows)
+            {
+                //string ensayo = row["Total"].ToString().Trim(new Char[] { ',', ',', ',' });
+                //string resultado = row["Total"].ToString().Replace(",", "");
+                //elimino las , amtes de hacer la operacion suma del total
+                total += Convert.ToInt64(row["Total"].ToString().Replace(",", ""));
+                deuda += Convert.ToInt64(row["Saldo"].ToString().Replace(",", ""));
+                pagado += Convert.ToInt64(row["Recaudado"].ToString().Replace(",", ""));
+
+            }
             labelTotal.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
             labelDeuda.Text = "VALOR DEUDA: $ " + String.Format("{0:N0}", deuda);
             labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N0}", pagado);
+            //DataTable DtValoreCartera = cartera.TotalesCartera();
+            //Int64 total = Int64.Parse(DtValoreCartera.Rows[0]["total"].ToString());
+            //Int64 deuda = Int64.Parse(DtValoreCartera.Rows[0]["saldo"].ToString());
+            //Int64 pagado = Int64.Parse(DtValoreCartera.Rows[0]["recaudo"].ToString());
+            //labelTotal.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
+            //labelDeuda.Text = "VALOR DEUDA: $ " + String.Format("{0:N0}", deuda);
+            //labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N0}", pagado);
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
 
             formatoGrid1();
@@ -812,6 +830,10 @@ namespace Cartera.Vista
                 int Valor_Cuota_Con_Interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Saldo"].ToString());
                 string Fecha_Recaudo = DtProducto.Rows[i]["Fecha Recaudo"].ToString();
                 DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                string año = date.ToString("yyyy");
+                string mes = date.ToString("MM");
+                string dia = date.ToString("dd");
+                DateTime FechaCuota = new DateTime(Convert.ToInt32(año), Convert.ToInt32(mes), Convert.ToInt32(dia));
                 DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 if (Valor_Producto_Financiacion > 0 /*&& id_financiacion !=  0*/)
                 {
@@ -856,7 +878,7 @@ namespace Cartera.Vista
                     num_cuota++;
                     while (num_cuota <= Cuotas_sin_interes)
                     {
-                        DateTime fechacuota = date.AddMonths(contador);
+                        DateTime fechacuota = FechaCuota.AddMonths(contador - 1);
                         result = DateTime.Compare(fechacuota, actual);
                         pagado = pagado + Valor_cuota_sin_interes;
                         if (pagado <= ValorPagado)
@@ -885,7 +907,7 @@ namespace Cartera.Vista
                     num_cuota = 1;
                     while (num_cuota <= Cuotas_Con_Interes)
                     {
-                        DateTime fechacuota = date.AddMonths(contador);
+                        DateTime fechacuota = FechaCuota.AddMonths(contador - 1);
                         result = DateTime.Compare(fechacuota, actual);
                         pagado = pagado + Valor_Cuota_Con_Interes;
                         if (pagado <= ValorPagado)

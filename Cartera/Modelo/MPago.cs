@@ -91,35 +91,35 @@ namespace Cartera.Modelo
         }
         internal static DataTable reportPagos(string FechaInicio, string FechaFin)
         {
-            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto INNER join Cliente_Producto on Pfk_ID_Producto=Id_Producto WHERE Estado_Cliente='Activo' and Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
         }
         internal static DataTable reportPagosTipo(string FechaInicio, string FechaFin, string Tipo)
         {
-            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fk_Id_Tipo_Producto = '" + Tipo + "' AND Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto INNER join Cliente_Producto on Pfk_ID_Producto=Id_Producto  WHERE Estado_Cliente='Activo' and Fk_Id_Tipo_Producto = '" + Tipo + "' AND Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
         }         
         internal static DataTable reportPagosProyecto(string FechaInicio, string FechaFin, string proyecto)
         {
-            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fk_Id_Proyecto= '"+proyecto+"' AND Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto INNER join Cliente_Producto on Pfk_ID_Producto=Id_Producto WHERE Estado_Cliente='Activo' and Fk_Id_Proyecto= '" + proyecto+"' AND Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
         }
         internal static DataTable reportPagosProyectoTipo(string FechaInicio, string FechaFin, string proyecto, string Tipo)
         {
-            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto  WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fk_Id_Tipo_Producto = '" + Tipo + "' AND Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto INNER join Cliente_Producto on Pfk_ID_Producto=Id_Producto WHERE Estado_Cliente='Activo' and Fk_Id_Proyecto= '" + proyecto + "' AND Fk_Id_Tipo_Producto = '" + Tipo + "' AND Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
         }
         internal static DataTable ValorReportPagos(string FechaInicio, string FechaFin)
         {
-            return Conexion.consulta("SELECT sum(Valor_Pagado) as valor, count(*) as pagos FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto WHERE Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+            return Conexion.consulta("SELECT sum(Valor_Pagado) as valor, count(*) as pagos FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto INNER join Cliente_Producto on Pfk_ID_Producto=Id_Producto WHERE Estado_Cliente='Activo' and Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
         }
         internal static DataTable ValorReportPagosTipo(string FechaInicio, string FechaFin, string tipo)
         {
-            return Conexion.consulta("SELECT sum(Valor_Pagado) as valor, count(*) as pagos FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto WHERE Fk_Id_Tipo_Producto='" + tipo + "' AND Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+            return Conexion.consulta("SELECT sum(Valor_Pagado) as valor, count(*) as pagos FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto INNER join Cliente_Producto on Pfk_ID_Producto=Id_Producto WHERE Estado_Cliente='Activo' and Fk_Id_Tipo_Producto='" + tipo + "' AND Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
         }
         internal static DataTable ValorReportPagosProyecto(string fechaInicio, string fechaFin, string proyecto)
         {
-            return Conexion.consulta("SELECT sum(Valor_Pagado) as valor, count(*) as pagos FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fecha_Pago BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "';");
+            return Conexion.consulta("SELECT sum(Valor_Pagado) as valor, count(*) as pagos FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto INNER join Cliente_Producto on Pfk_ID_Producto=Id_Producto WHERE Estado_Cliente='Activo' and Fk_Id_Proyecto= '" + proyecto + "' AND Fecha_Pago BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "';");
         }
         internal static DataTable ValorReportPagosProyectoTipo(string fechaInicio, string fechaFin, string proyecto, string tipo)
         {
-            return Conexion.consulta("SELECT sum(Valor_Pagado) as valor, count(*) as pagos FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fk_Id_Tipo_Producto='" + tipo + "' AND Fecha_Pago BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "';");
+            return Conexion.consulta("SELECT sum(Valor_Pagado) as valor, count(*) as pagos FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto INNER join Cliente_Producto on Pfk_ID_Producto=Id_Producto WHERE Estado_Cliente='Activo' and Fk_Id_Proyecto= '" + proyecto + "' AND Fk_Id_Tipo_Producto='" + tipo + "' AND Fecha_Pago BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "';");
         }
         internal static DataTable PagosMes(string FechaInicio, string FechaFin)
         {

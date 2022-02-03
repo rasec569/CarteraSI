@@ -435,12 +435,16 @@ namespace Cartera.Vista
                         int Valor_Cuota_Con_Interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Saldo"].ToString().Replace(",", ""));
                         string Fecha_Recaudo = DtProducto.Rows[i]["Fecha Recaudo"].ToString();
                         DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        string año = date.ToString("yyyy");
+                        string mes = date.ToString("MM");
+                        string dia = date.ToString("dd");
+                        DateTime FechaCuota = new DateTime(Convert.ToInt32(año), Convert.ToInt32(mes), Convert.ToInt32(dia));
                         DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
                         if (Valor_Producto_Financiacion > 0 /*&& id_financiacion !=  0*/)
                         {
                             DataTable dtCuotas = cuota.ListarCuotasActulizar(id_financiacion, actual.ToString("yyyy-MM-dd"));
                             DataTable dtrecaudo = pagos.Tota_Recaudado_Producto(id_producto);
-                            if (dtCuotas.Rows.Count <= (Cuotas_Con_Interes + Cuotas_sin_interes + 1))
+                            if (dtCuotas.Rows.Count != (Cuotas_Con_Interes + Cuotas_sin_interes + 1))
                             {
                                 cuota.EliminarCuotas(id_financiacion);
                                 dtCuotas = cuota.ListarCuotas(id_financiacion);
@@ -484,7 +488,7 @@ namespace Cartera.Vista
                             num_cuota++;
                             while (num_cuota <= Cuotas_sin_interes)
                             {
-                                DateTime fechacuota = date.AddMonths(contador);
+                                DateTime fechacuota = FechaCuota.AddMonths(contador - 1);
                                 result = DateTime.Compare(fechacuota, actual);
                                 pagado = pagado + Valor_cuota_sin_interes;
                                 if (pagado <= ValorPagado)
@@ -513,7 +517,7 @@ namespace Cartera.Vista
                             num_cuota = 1;
                             while (num_cuota <= Cuotas_Con_Interes)
                             {
-                                DateTime fechacuota = date.AddMonths(contador);
+                                DateTime fechacuota = FechaCuota.AddMonths(contador - 1);
                                 result = DateTime.Compare(fechacuota, actual);
                                 pagado = pagado + Valor_Cuota_Con_Interes;
                                 if (pagado <= ValorPagado)

@@ -328,6 +328,7 @@
     <None Include="img\Guardar1.png" />
     <None Include="img\Eliminar.png" />
     <None Include="img\home2.png" />
+    <None Include="bin\Debug\img\Amortizacion.png" />
     <Content Include="img\Cargando.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
