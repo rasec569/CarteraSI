@@ -52,6 +52,7 @@ namespace Cartera.Vista
             this.labelPagado = new System.Windows.Forms.Label();
             this.labelInteres = new System.Windows.Forms.Label();
             this.labelDeuda = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasFinan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).BeginInit();
@@ -63,13 +64,14 @@ namespace Cartera.Vista
             this.TxtValorNeto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtValorNeto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TxtValorNeto.Enabled = false;
-            this.TxtValorNeto.Location = new System.Drawing.Point(15, 37);
+            this.TxtValorNeto.Location = new System.Drawing.Point(10, 36);
             this.TxtValorNeto.Name = "TxtValorNeto";
             this.TxtValorNeto.Size = new System.Drawing.Size(102, 20);
             this.TxtValorNeto.TabIndex = 1;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.TxtTotal);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.TxtValorCuotaInteres);
@@ -97,7 +99,7 @@ namespace Cartera.Vista
             this.TxtTotal.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtTotal.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TxtTotal.Enabled = false;
-            this.TxtTotal.Location = new System.Drawing.Point(627, 37);
+            this.TxtTotal.Location = new System.Drawing.Point(599, 36);
             this.TxtTotal.Name = "TxtTotal";
             this.TxtTotal.Size = new System.Drawing.Size(102, 20);
             this.TxtTotal.TabIndex = 38;
@@ -105,7 +107,7 @@ namespace Cartera.Vista
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(642, 18);
+            this.label7.Location = new System.Drawing.Point(616, 18);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(69, 13);
             this.label7.TabIndex = 37;
@@ -116,7 +118,7 @@ namespace Cartera.Vista
             this.TxtValorCuotaInteres.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtValorCuotaInteres.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TxtValorCuotaInteres.Enabled = false;
-            this.TxtValorCuotaInteres.Location = new System.Drawing.Point(508, 37);
+            this.TxtValorCuotaInteres.Location = new System.Drawing.Point(482, 36);
             this.TxtValorCuotaInteres.Name = "TxtValorCuotaInteres";
             this.TxtValorCuotaInteres.Size = new System.Drawing.Size(102, 20);
             this.TxtValorCuotaInteres.TabIndex = 36;
@@ -126,7 +128,7 @@ namespace Cartera.Vista
             this.TxtValorSaldo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtValorSaldo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TxtValorSaldo.Enabled = false;
-            this.TxtValorSaldo.Location = new System.Drawing.Point(251, 37);
+            this.TxtValorSaldo.Location = new System.Drawing.Point(243, 36);
             this.TxtValorSaldo.Name = "TxtValorSaldo";
             this.TxtValorSaldo.Size = new System.Drawing.Size(102, 20);
             this.TxtValorSaldo.TabIndex = 35;
@@ -136,7 +138,7 @@ namespace Cartera.Vista
             this.TxtValorInicial.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtValorInicial.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TxtValorInicial.Enabled = false;
-            this.TxtValorInicial.Location = new System.Drawing.Point(132, 37);
+            this.TxtValorInicial.Location = new System.Drawing.Point(124, 36);
             this.TxtValorInicial.Name = "TxtValorInicial";
             this.TxtValorInicial.Size = new System.Drawing.Size(102, 20);
             this.TxtValorInicial.TabIndex = 34;
@@ -144,7 +146,7 @@ namespace Cartera.Vista
             // numCuotasFinan
             // 
             this.numCuotasFinan.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numCuotasFinan.Location = new System.Drawing.Point(371, 37);
+            this.numCuotasFinan.Location = new System.Drawing.Point(358, 36);
             this.numCuotasFinan.Maximum = new decimal(new int[] {
             36,
             0,
@@ -160,7 +162,7 @@ namespace Cartera.Vista
             // 
             this.numValorInteres.Enabled = false;
             this.numValorInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numValorInteres.Location = new System.Drawing.Point(443, 37);
+            this.numValorInteres.Location = new System.Drawing.Point(425, 36);
             this.numValorInteres.Maximum = new decimal(new int[] {
             36,
             0,
@@ -173,7 +175,7 @@ namespace Cartera.Vista
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(523, 18);
+            this.label5.Location = new System.Drawing.Point(497, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 13);
             this.label5.TabIndex = 31;
@@ -182,7 +184,7 @@ namespace Cartera.Vista
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(436, 18);
+            this.label6.Location = new System.Drawing.Point(418, 18);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
             this.label6.TabIndex = 29;
@@ -191,7 +193,7 @@ namespace Cartera.Vista
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(373, 18);
+            this.label4.Location = new System.Drawing.Point(360, 18);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 27;
@@ -200,7 +202,7 @@ namespace Cartera.Vista
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(266, 18);
+            this.label1.Location = new System.Drawing.Point(258, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 25;
@@ -209,7 +211,7 @@ namespace Cartera.Vista
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(146, 18);
+            this.label3.Location = new System.Drawing.Point(138, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 13);
             this.label3.TabIndex = 23;
@@ -218,7 +220,7 @@ namespace Cartera.Vista
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 18);
+            this.label2.Location = new System.Drawing.Point(28, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 21;
@@ -287,6 +289,17 @@ namespace Cartera.Vista
             this.labelDeuda.Text = "Deuda a la fecha";
             this.toolTip1.SetToolTip(this.labelDeuda, "Total Aportes a la cartera");
             // 
+            // button1
+            // 
+            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button1.Location = new System.Drawing.Point(711, 18);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(31, 32);
+            this.button1.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Amortizacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -339,5 +352,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label labelPagado;
         private System.Windows.Forms.Label labelInteres;
         private System.Windows.Forms.Label labelDeuda;
+        private System.Windows.Forms.Button button1;
     }
 }

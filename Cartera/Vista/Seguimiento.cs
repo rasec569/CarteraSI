@@ -9,35 +9,56 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cartera.Controlador;
+using Cartera.Reportes;
 
 namespace Cartera.Vista
 {
     public partial class Seguimiento : Form
     {
+        private ReportesPDF reportesPDF;
         string seguimientoId = "";
+        DataTable DtRpSeguimiento = new DataTable();
         CSeguimiento seguimiento = new CSeguimiento();
         CProducto producto = new CProducto();
         string productoid = "";
+        string Tipo;
         DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy/MM/dd"), "yyyy/MM/dd", CultureInfo.InvariantCulture);
+        
         public Seguimiento()
         {
             InitializeComponent();
+            reportesPDF = new ReportesPDF();
         }
-        public Seguimiento(string idproducto, string nombreproducto)
-        {
+        public Seguimiento(string idproducto, string nombreproducto, string tipoproducto)
+        {            
             InitializeComponent();
+            reportesPDF = new ReportesPDF();
             string nombre = nombreproducto;
+            Tipo = tipoproducto;
             LbNomProducto.Text = nombre;
             productoid = idproducto;
             DataTable DtCliente= producto.ClienteProducto(int.Parse(productoid));            
-            LbPropietario.Text = "Propietario: "+ DtCliente.Rows[0]["Nombre"].ToString()+" "+ DtCliente.Rows[0]["Apellido"].ToString();
-            LbConctato.Text = "Telefono: " + DtCliente.Rows[0]["Telefono"].ToString() + " Email: " + DtCliente.Rows[0]["Correo"].ToString();
+            LbPropietario.Text = "PROPIETARIO: " + DtCliente.Rows[0]["Nombre"].ToString()+" "+ DtCliente.Rows[0]["Apellido"].ToString();
+            if (DtCliente.Rows[0]["Correo"].ToString() != "")
+            {
+                LbConctato.Text = "TELEFONO: " + DtCliente.Rows[0]["Telefono"].ToString() + " EMAIL: " + DtCliente.Rows[0]["Correo"].ToString();
+            }
+            else
+            {
+                LbConctato.Text = "TELEFONO: " + DtCliente.Rows[0]["Telefono"].ToString();
+            }
+            
             CargarSeguimiento();
         }
 
         public void CargarSeguimiento()
         {
-            dataGridView1.DataSource = seguimiento.CargarSeguimiento(productoid);
+            DataTable DtSeguimiento = seguimiento.CargarSeguimiento(productoid);
+            dataGridView1.DataSource = DtSeguimiento;
+            DtRpSeguimiento= DtSeguimiento.Copy();
+            DtRpSeguimiento.Columns.Remove("Id_Seguimiento"); 
+            DtRpSeguimiento.Columns.Remove("Fk_Id_Producto");
+            DtRpSeguimiento.Columns[0].ColumnName = "Fecha";
             dataGridView1.Columns["Id_Seguimiento"].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Fecha";
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
@@ -124,6 +145,12 @@ namespace Cartera.Vista
             {
                 MessageBox.Show("No hay campos que borrar");
             }
-        }       
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            reportesPDF.Seguimento(DtRpSeguimiento, Tipo, LbNomProducto.Text, LbPropietario.Text, LbConctato.Text);
+
+        }
     }
 }

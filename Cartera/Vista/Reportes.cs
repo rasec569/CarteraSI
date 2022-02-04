@@ -335,13 +335,10 @@ namespace Cartera.Vista
                     if (comboTipo.Text == "TODOS LOS PRODUCTOS")
                     {
                         DtPagados = producto.cargarProductosPagados("");
-                        //DtValorDisolucion = cartera.TotalDisoluciones(dateInicio.Text, datefin.Text);
                     }
                     else
                     {
                         DtPagados = producto.cargarProductosPagados((comboTipo.SelectedIndex - 1).ToString());
-                        //DtPagados = producto.cargarProductosPagadosProyecto((comboTipo.SelectedIndex - 1).ToString());
-                        //DtValorDisolucion = cartera.TotalDisolucionesTipo(dateInicio.Text, datefin.Text, (comboTipo.SelectedIndex - 1).ToString());
                     }
                 }
                 else
@@ -349,30 +346,27 @@ namespace Cartera.Vista
                     if (comboTipo.Text == "TODOS LOS PRODUCTOS")
                     {
                         DtPagados = producto.cargarProductosPagadosProyecto(comboProyecto.SelectedValue.ToString(),"");
-                        //DtDisolucion = cartera.DisolucionesProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
-                        //DtValorDisolucion = cartera.TotalDisolucionesProyecto(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString());
                     }
                     else
                     {
                         DtPagados = producto.cargarProductosPagadosProyecto(comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
-                        //DtDisolucion = cartera.DisolucionesProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
-                        //DtValorDisolucion = cartera.TotalDisolucionesProyectoTipo(dateInicio.Text, datefin.Text, comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
                     }
                 }
+                Int64 total = 0;
 
-                //Int64 total = Int64.Parse(DtValorDisolucion.Rows[0]["Total Devuelto"].ToString());
-                //labelTotal.Text = "VALOR DEVUELTO: $" + String.Format("{0:N0}", total);
-                //labelNumero.Text = "CANTIDAD: " + DtDisolucion.Rows.Count.ToString();
+                foreach (DataRow row in DtPagados.Rows)
+                {
+                    total += Convert.ToInt64(row["Valor Pagado"].ToString().Replace(",", ""));
+
+                }
+                labelTotal.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
+                labelNumero.Text = "CANTIDAD: " + DtPagados.Rows.Count.ToString();
                 dataGridView5.DataSource = DtPagados;
                 dataGridView5.Columns[0].Width = 200;
                 dataGridView5.Columns[1].Width = 200;
                 dataGridView5.Columns[3].DefaultCellStyle.Format = "n1";
                 dataGridView5.Columns[4].DefaultCellStyle.Format = "n1";
                 dataGridView5.Columns[5].DefaultCellStyle.Format = "n1";
-                //dataGridView3.Columns[8].Width = 50;
-                //dataGridView3.Columns[9].Width = 50;
-                //dataGridView3.Columns[10].Width = 50;
-                //dataGridView3.Columns[11].Width = 50;
                 //dataGridView3.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
             catch
@@ -412,6 +406,7 @@ namespace Cartera.Vista
             else if (tabControl1.SelectedIndex == 4)
             {
                 CargarPagados();
+                groupBox2.Text = "Productos Paz y salvo";
             }
         }
         //metodo temporal para actuizar el estado de las cuotas 
@@ -556,27 +551,28 @@ namespace Cartera.Vista
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            string fechas = dateInicio.Text + " A " + datefin.Text;
+            string fechas = dateInicio.Value.ToString("dd/MM/yyyy") + " A " + datefin.Value.ToString("dd/MM/yyyy");
+            string concepto= comboTipo.Text.ToString() + " -" + comboProyecto.Text.ToString();
 
             if (tabControl1.SelectedIndex == 0)
             {
-                reportesPDF.Ingresos(DtPagos, labelTotal.Text, labelNumero.Text, fechas);
+                reportesPDF.Ingresos(DtPagos, labelTotal.Text, labelNumero.Text, fechas, concepto);
             }
             else if (tabControl1.SelectedIndex == 1)
             {
-                reportesPDF.Programado(DtProgramado, labelTotal.Text, labelNumero.Text, fechas);
+                reportesPDF.Programado(DtProgramado, labelTotal.Text, labelNumero.Text, fechas, concepto);
             }
             else if (tabControl1.SelectedIndex == 2)
             {
-                reportesPDF.Ventas(DtVentas, labelTotal.Text, labelNumero.Text, fechas);
+                reportesPDF.Ventas(DtVentas, labelTotal.Text, labelNumero.Text, fechas, concepto);
             }
             else if (tabControl1.SelectedIndex == 3)
             {
-                reportesPDF.Disolucion(DtDisolucion, labelTotal.Text, labelNumero.Text, fechas);
+                reportesPDF.Disolucion(DtDisolucion, labelTotal.Text, labelNumero.Text, fechas, concepto);
             }
             else if (tabControl1.SelectedIndex == 4)
             {
-                //reportesPDF.Disolucion(DtDisolucion, labelTotal.Text, labelNumero.Text, fechas);
+                reportesPDF.Pagados(DtPagados, labelTotal.Text, labelNumero.Text, concepto);
             }
             else
             {
@@ -672,6 +668,10 @@ namespace Cartera.Vista
             else if (tabControl1.SelectedIndex == 3)
             {
                 exportarDatosExcel(dataGridView3);
+            }
+            else if (tabControl1.SelectedIndex == 4)
+            {
+                exportarDatosExcel(dataGridView5);
             }
             else
             {

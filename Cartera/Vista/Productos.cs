@@ -111,16 +111,20 @@ namespace Cartera.Vista
         {
             string idproducto = "";
             string nombreproducto = "";
+            string tipoproducto = "";
 
             int n = e.RowIndex;
             if (n != -1)
             {
                 idproducto = dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString();
                 nombreproducto = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
+                tipoproducto = dataGridView1.Rows[n].Cells["Tipo"].Value.ToString();
                 
+
+
             }
 //BtBorrar.Enabled = true;
-            Seguimiento se = new Seguimiento(idproducto, nombreproducto);
+            Seguimiento se = new Seguimiento(idproducto, nombreproducto, tipoproducto);
             se.Show();
         }
 

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cartera.Controlador;
+using Cartera.Reportes;
 
 namespace Cartera.Vista
 {
@@ -16,15 +17,19 @@ namespace Cartera.Vista
     {
         CCuota cuota = new CCuota();
         bool cargarbotones= true;
-        int FilaTotal;        
+        int FilaTotal;
+        string NomCliente, NomProducto, NomProyeco;
+        private ReportesPDF reportesPDF;
+        DataTable DtRpAmortizacion = new DataTable();
         public Amortizacion()
         {
             InitializeComponent();
         }
         public Amortizacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes,  int Valor_Cuota_Con_Interes, int Valor_Total)
-        {
+        {            
             //Financiacion,Valor_Neto,valorSin,ValorInteres,ValorCuotaInteres
             InitializeComponent();
+            reportesPDF = new ReportesPDF();
             TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
             TxtValorInicial.Text = Valor_Sin.ToString("N0", CultureInfo.CurrentCulture);
             TxtValorSaldo.Text = (Valor_Neto - Valor_Sin).ToString("N0", CultureInfo.CurrentCulture);
@@ -36,15 +41,28 @@ namespace Cartera.Vista
 
             listarCuotasFinaciadas(Financiacion, Valor_Neto, Valor_Sin, Valor_Interes, Valor_Cuota_Con_Interes, Valor_Total);
         }
-        public Amortizacion(int Valor_Neto, int Valor_Sin, int Valor_Interes,int NumCuotas, int Valor_Cuota_Con_Interes, int Valor_Total,int Ensayo)
-        {
+        public Amortizacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, int Valor_Cuota_Con_Interes, int Valor_Total, string Cliente, string Producto, string Proyeco)
+        {            
+            //Financiacion,Valor_Neto,valorSin,ValorInteres,ValorCuotaInteres
             InitializeComponent();
+            reportesPDF = new ReportesPDF();
             TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
             TxtValorInicial.Text = Valor_Sin.ToString("N0", CultureInfo.CurrentCulture);
             TxtValorSaldo.Text = (Valor_Neto - Valor_Sin).ToString("N0", CultureInfo.CurrentCulture);
             TxtValorCuotaInteres.Text = Valor_Cuota_Con_Interes.ToString("N0", CultureInfo.CurrentCulture);
+            numValorInteres.Text = Valor_Interes.ToString();
+            TxtTotal.Text = Valor_Total.ToString("N0", CultureInfo.CurrentCulture);
+            NomCliente = Cliente; NomProducto = Producto; NomProyeco = Proyeco;
+            listarCuotasFinaciadas(Financiacion, Valor_Neto, Valor_Sin, Valor_Interes, Valor_Cuota_Con_Interes, Valor_Total);
+        }
+        public Amortizacion(int Valor_Neto, int Valor_Sin, int Valor_Interes,int NumCuotas, int Valor_Cuota_Con_Interes, int Valor_Total,int Ensayo)
+        {
+            InitializeComponent();
+            reportesPDF = new ReportesPDF();
             TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
-            TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorInicial.Text = Valor_Sin.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorSaldo.Text = (Valor_Neto - Valor_Sin).ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorCuotaInteres.Text = Valor_Cuota_Con_Interes.ToString("N0", CultureInfo.CurrentCulture);
             numValorInteres.Text = Valor_Interes.ToString();
             numCuotasFinan.Text = NumCuotas.ToString();
             TxtTotal.Text = Valor_Total.ToString("N0", CultureInfo.CurrentCulture);
@@ -126,7 +144,7 @@ namespace Cartera.Vista
             row["Valor"] = TotalCuotas.ToString("n0");
             DtCuotasInteres.Rows.Add(row);
             FilaTotal = DtCuotasInteres.Rows.Count;
-
+            
             dataGridView1.DataSource = DtCuotasInteres;
             dataGridView1.Columns["Id_Cuota"].Visible = false;
             dataGridView1.Columns["Capital"].DefaultCellStyle.Format = "n0";
@@ -139,6 +157,8 @@ namespace Cartera.Vista
             labelDeuda.Text= "Deuda a la fecha: " + deudafecha.ToString("n0");
             formatoGrid1();
 
+            DtRpAmortizacion = DtCuotasInteres.Copy();
+            DtRpAmortizacion.Columns.Remove("Id_Cuota");
 
         }
         private void CalcularCuotasFinaciadas(int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, int Numero_CuotasCon_Interes)
@@ -339,6 +359,12 @@ namespace Cartera.Vista
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dataGridView1.Rows[FilaTotal - 1].DefaultCellStyle.Font = new Font(dataGridView1.Font, FontStyle.Bold);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            reportesPDF.Amortizacion(DtRpAmortizacion, NomCliente , NomProducto ,NomProyeco, TxtValorNeto.Text, TxtValorInicial.Text, TxtValorSaldo.Text, TxtValorCuotaInteres.Text, numCuotasFinan.Text, numValorInteres.Text, TxtTotal.Text, labelPagado.Text, labelInteres.Text, labelSaldo.Text, labelDeuda.Text);
+
         }
 
         private void numCuotasFinan_ValueChanged(object sender, EventArgs e)

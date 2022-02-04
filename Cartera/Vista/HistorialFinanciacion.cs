@@ -294,7 +294,12 @@ namespace Cartera.Vista
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Amortizacion Am =new Amortizacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal);
+            DataTable Dtdatos = producto.ClienteProducto(ProductoId);
+
+            string cliente = Dtdatos.Rows[0]["Nombre"].ToString() + " " + Dtdatos.Rows[0]["Apellido"].ToString();
+            string nomproducto = Dtdatos.Rows[0]["Producto"].ToString();
+            string nomproyecto = Dtdatos.Rows[0]["Proyecto"].ToString();
+            Amortizacion Am =new Amortizacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal, cliente, nomproducto, nomproyecto);
             Am.ShowDialog();
         }
     }
