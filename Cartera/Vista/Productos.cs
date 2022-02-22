@@ -51,7 +51,7 @@ namespace Cartera.Vista
             DtReport.Columns.Remove("Id_Financiacion");
             DtReport.Columns.Remove("Observaciones");
             dataGridView1.DataSource = DtProductos;
-            FormtearGridView();
+            FormtearTodosGridView();
             DataTable DtValorProductos = producto.ValorReportProducto();
             Int64 total = Int64.Parse(DtValorProductos.Rows[0]["valor"].ToString());
             labelValor.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
@@ -64,6 +64,34 @@ namespace Cartera.Vista
             dataGridView1.DataSource = "";
             dataGridView1.DataSource = producto.BuscarProductos(txtBuscarProducto.Text);
             FormtearGridView();
+        }
+        void FormtearTodosGridView()
+        {   
+            dataGridView1.Columns["Id_Producto"].Visible = false;
+            dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
+            dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
+            dataGridView1.Columns["Id_Financiacion"].Visible = false;
+            dataGridView1.Columns["Contrato"].Visible = false;
+            dataGridView1.Columns["Valor Neto"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Valor Neto"].Width = 80;
+            dataGridView1.Columns["Valor Total"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Valor Total"].Width = 80;
+            dataGridView1.Columns["Fecha Venta"].Width = 70;
+            dataGridView1.Columns["Proyecto"].Width = 160;
+            dataGridView1.Columns["Tipo"].Width = 50;
+            dataGridView1.Columns["Cuotas Inicial"].Width = 50;
+            dataGridView1.Columns["Valor Cuota Inicial"].Width = 80;
+            dataGridView1.Columns["Valor Cuota Inicial"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Cuotas Saldo"].Width = 50;
+            dataGridView1.Columns["Valor Cuota Saldo"].Width = 80;
+            dataGridView1.Columns["Valor Cuota Saldo"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Fecha Recaudo"].Width = 70;
+            dataGridView1.Columns["Inicial"].Visible = false;
+            dataGridView1.Columns["Valor Inicial"].Visible = false;
+            dataGridView1.Columns["Valor Saldo"].Visible = false;
+            dataGridView1.Columns["Interes"].Visible = false;
+            dataGridView1.Columns["Observaciones"].Visible = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
         void FormtearGridView()
         {

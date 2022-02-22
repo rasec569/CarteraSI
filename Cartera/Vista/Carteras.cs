@@ -450,18 +450,19 @@ namespace Cartera.Vista
                     {
                         if (e.Value.ToString().Contains("Pagado"))   //Si el valor de la celda contiene la palabra hora
                         {
-                            e.CellStyle.ForeColor = Color.DarkGreen;
-                            e.CellStyle.BackColor = Color.LightGreen;
+                            e.CellStyle.ForeColor = Color.DodgerBlue;
+                            e.CellStyle.BackColor = Color.Honeydew;
                         }
                         else if (e.Value.ToString().Contains("Mas de 360 días"))
                         {
                             e.CellStyle.ForeColor = Color.Crimson;
-                            e.CellStyle.BackColor = Color.Orange;
+                            e.CellStyle.BackColor = Color.AntiqueWhite;
                             //e.CellStyle.BackColor = Color.PaleVioletRed;
                         }
                         //else if (e.Value.ToString().Contains("De 91 a 180 días"))
                         //{
-                        //    e.CellStyle.ForeColor = Color.OrangeRed;
+                        //    e.CellStyle.ForeColor = Color.BlueViolet;
+                        //    e.CellStyle.BackColor = Color.Thistle;
                         //}
                         //else if(e.Value.ToString().Contains("De 61 a 90 días"))
                         //{
@@ -470,10 +471,14 @@ namespace Cartera.Vista
                         //else if (e.Value.ToString().Contains("De 31 a 60 días"))
                         //{
                         //    e.CellStyle.ForeColor = Color.BlueViolet;
+                        //e.CellStyle.BackColor = Color.Cornsilk;AntiqueWhite
                         //}
                         //else if (e.Value.ToString().Contains("Menos de 30 días"))
                         //{
                         //    e.CellStyle.ForeColor = Color.DodgerBlue;
+                        //    e.CellStyle.BackColor = Color.Honeydew;
+                        //    e.CellStyle.ForeColor = Color.ForestGreen;
+                        //    e.CellStyle.BackColor = Color.Azure;
                         //}
                     }
                 }

@@ -35,22 +35,22 @@ namespace Cartera.Modelo
         {
             if (TipoProductoId == "")
             {
-                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', printf('%, d', Valor_Total_Pagos) as 'Valor Pagado', printf('%, d', Valor_Producto) as 'Valor Producto', printf('%, d',Valor_Producto-Valor_Total_Pagos) as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto order by Nombre;");
+                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', printf('%, d', Valor_Total_Pagos) as 'Valor Pagado', printf('%, d', Valor_Producto) as 'Valor Producto', printf('%, d',Valor_Producto-Valor_Total_Pagos) as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto AND Estado_Cliente='Activo' order by Nombre;");
             }
             else
             {
-                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', printf('%, d', Valor_Total_Pagos) as 'Valor Pagado', printf('%, d', Valor_Producto) as 'Valor Producto', printf('%, d',Valor_Producto-Valor_Total_Pagos) as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto and Fk_Id_Tipo_Producto='" + TipoProductoId + "' order by Nombre;");
+                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', printf('%, d', Valor_Total_Pagos) as 'Valor Pagado', printf('%, d', Valor_Producto) as 'Valor Producto', printf('%, d',Valor_Producto-Valor_Total_Pagos) as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto AND Estado_Cliente='Activo' and Fk_Id_Tipo_Producto='" + TipoProductoId + "' order by Nombre;");
             }
         }
         public static DataTable cargarProductosPagadosProyecto(string proyecto, string TipoProductoId)
         {
             if (TipoProductoId == "")
             {
-                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', printf('%, d', Valor_Total_Pagos) as 'Valor Pagado', printf('%, d', Valor_Producto) as 'Valor Producto', printf('%, d',Valor_Producto-Valor_Total_Pagos) as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto and Fk_Id_Proyecto='" + proyecto + "' order by Nombre;");
+                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', printf('%, d', Valor_Total_Pagos) as 'Valor Pagado', printf('%, d', Valor_Producto) as 'Valor Producto', printf('%, d',Valor_Producto-Valor_Total_Pagos) as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto AND Estado_Cliente='Activo' and Fk_Id_Proyecto='" + proyecto + "' order by Nombre;");
             }
             else
             {
-                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', printf('%, d', Valor_Total_Pagos) as 'Valor Pagado', printf('%, d', Valor_Producto) as 'Valor Producto', printf('%, d',Valor_Producto-Valor_Total_Pagos) as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto and Fk_Id_Proyecto='" + proyecto + "' and Fk_Id_Tipo_Producto='" + TipoProductoId + "' order by Nombre;");
+                return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', printf('%, d', Valor_Total_Pagos) as 'Valor Pagado', printf('%, d', Valor_Producto) as 'Valor Producto', printf('%, d',Valor_Producto-Valor_Total_Pagos) as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto AND Estado_Cliente='Activo' and Fk_Id_Proyecto='" + proyecto + "' and Fk_Id_Tipo_Producto='" + TipoProductoId + "' order by Nombre;");
             }
         }
         //

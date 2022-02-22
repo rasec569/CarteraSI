@@ -32,6 +32,8 @@ namespace Cartera.Vista
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.PanelMenu = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.LbUser = new System.Windows.Forms.Label();
             this.BtProductos = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -49,8 +51,6 @@ namespace Cartera.Vista
             this.BtClientes = new System.Windows.Forms.Button();
             this.PanelContenedor = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.LbUser = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.PanelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -81,6 +81,28 @@ namespace Cartera.Vista
             this.PanelMenu.Name = "PanelMenu";
             this.PanelMenu.Size = new System.Drawing.Size(206, 613);
             this.PanelMenu.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Bernard MT Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
+            this.label1.Location = new System.Drawing.Point(2, 554);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 19);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Usuario:";
+            // 
+            // LbUser
+            // 
+            this.LbUser.AutoSize = true;
+            this.LbUser.Font = new System.Drawing.Font("Bernard MT Condensed", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
+            this.LbUser.Location = new System.Drawing.Point(22, 573);
+            this.LbUser.Name = "LbUser";
+            this.LbUser.Size = new System.Drawing.Size(59, 25);
+            this.LbUser.TabIndex = 23;
+            this.LbUser.Text = "label1";
             // 
             // BtProductos
             // 
@@ -292,28 +314,6 @@ namespace Cartera.Vista
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // LbUser
-            // 
-            this.LbUser.AutoSize = true;
-            this.LbUser.Font = new System.Drawing.Font("Bernard MT Condensed", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
-            this.LbUser.Location = new System.Drawing.Point(22, 573);
-            this.LbUser.Name = "LbUser";
-            this.LbUser.Size = new System.Drawing.Size(59, 25);
-            this.LbUser.TabIndex = 23;
-            this.LbUser.Text = "label1";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Bernard MT Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
-            this.label1.Location = new System.Drawing.Point(2, 554);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 19);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "Bienvenido";
             // 
             // Principal
             // 

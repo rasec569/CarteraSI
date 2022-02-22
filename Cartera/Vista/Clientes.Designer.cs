@@ -91,6 +91,7 @@ namespace Cartera.Vista
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.Panel_Registrar_user = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.BtAmortizacionFinan = new System.Windows.Forms.Button();
             this.BtHistorialFinan = new System.Windows.Forms.Button();
             this.txtValorCuotaInteres = new System.Windows.Forms.TextBox();
@@ -730,6 +731,7 @@ namespace Cartera.Vista
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.BtAmortizacionFinan);
             this.groupBox2.Controls.Add(this.BtHistorialFinan);
             this.groupBox2.Controls.Add(this.txtValorCuotaInteres);
@@ -775,10 +777,23 @@ namespace Cartera.Vista
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Producto";
             // 
+            // button1
+            // 
+            this.button1.AutoSize = true;
+            this.button1.Image = global::Cartera.Properties.Resources.Refi;
+            this.button1.Location = new System.Drawing.Point(440, 10);
+            this.button1.Margin = new System.Windows.Forms.Padding(1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(31, 30);
+            this.button1.TabIndex = 68;
+            this.toolTip1.SetToolTip(this.button1, "Refinanciación");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            // 
             // BtAmortizacionFinan
             // 
             this.BtAmortizacionFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtAmortizacionFinan.Image")));
-            this.BtAmortizacionFinan.Location = new System.Drawing.Point(440, 9);
+            this.BtAmortizacionFinan.Location = new System.Drawing.Point(477, 10);
             this.BtAmortizacionFinan.Name = "BtAmortizacionFinan";
             this.BtAmortizacionFinan.Size = new System.Drawing.Size(31, 30);
             this.BtAmortizacionFinan.TabIndex = 67;
@@ -795,6 +810,7 @@ namespace Cartera.Vista
             this.BtHistorialFinan.Name = "BtHistorialFinan";
             this.BtHistorialFinan.Size = new System.Drawing.Size(33, 31);
             this.BtHistorialFinan.TabIndex = 66;
+            this.toolTip1.SetToolTip(this.BtHistorialFinan, "Historial de Financiación");
             this.BtHistorialFinan.UseVisualStyleBackColor = true;
             this.BtHistorialFinan.Click += new System.EventHandler(this.button1_Click);
             this.BtHistorialFinan.MouseHover += new System.EventHandler(this.BtHistorialFinan_MouseHover);
@@ -812,11 +828,12 @@ namespace Cartera.Vista
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(471, 209);
+            this.checkBox1.Location = new System.Drawing.Point(477, 208);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(91, 17);
+            this.checkBox1.Size = new System.Drawing.Size(63, 17);
             this.checkBox1.TabIndex = 24;
-            this.checkBox1.Text = "Refinanciar";
+            this.checkBox1.Text = "Nueva";
+            this.toolTip1.SetToolTip(this.checkBox1, "Nueva Financiacion");
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -1002,5 +1019,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button BtLimpiar;
         private System.Windows.Forms.Button BtAmortizacionFinan;
+        private System.Windows.Forms.Button button1;
     }
 }

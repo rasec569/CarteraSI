@@ -419,7 +419,7 @@ namespace Cartera.Vista
             this.chart4.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series2.CustomProperties = "LabelsHorizontalLineSize=3, LabelsRadialLineSize=3";
+            series2.CustomProperties = "LabelsRadialLineSize=3, LabelsHorizontalLineSize=3";
             series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series2.IsValueShownAsLabel = true;
             series2.LabelBorderWidth = 10;
@@ -471,7 +471,7 @@ namespace Cartera.Vista
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
             this.label4.Location = new System.Drawing.Point(394, 103);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 16);
+            this.label4.Size = new System.Drawing.Size(85, 16);
             this.label4.TabIndex = 8;
             this.label4.Text = "Rango de meses";
             // 
@@ -531,7 +531,7 @@ namespace Cartera.Vista
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
             this.label6.Location = new System.Drawing.Point(869, 103);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(86, 16);
+            this.label6.Size = new System.Drawing.Size(85, 16);
             this.label6.TabIndex = 5;
             this.label6.Text = "Rango de meses";
             // 

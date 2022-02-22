@@ -1332,5 +1332,16 @@ namespace Cartera.Vista
             numValorInteres.Text = Interes.ToString();
             return ValorCuotaInteres;
         }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            if(Financiacion_id != "")
+            {
+                Refinanciacion Re = new Refinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()));
+                //Refinanciacion Re = new Refinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()));
+                Re.ShowDialog();
+            }
+            
+        }
     }
 }

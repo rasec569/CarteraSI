@@ -108,17 +108,7 @@ namespace Cartera.Properties {
                 object obj = ResourceManager.GetObject("Guardar1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap home2 {
-            get {
-                object obj = ResourceManager.GetObject("home2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
+        }        
         
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
@@ -173,9 +163,9 @@ namespace Cartera.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ReporPdf {
+        internal static System.Drawing.Bitmap Refi {
             get {
-                object obj = ResourceManager.GetObject("ReporPdf", resourceCulture);
+                object obj = ResourceManager.GetObject("Refi", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,12 +173,12 @@ namespace Cartera.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TipoProduc {
+        internal static System.Drawing.Bitmap ReporPdf {
             get {
-                object obj = ResourceManager.GetObject("TipoProduc", resourceCulture);
+                object obj = ResourceManager.GetObject("ReporPdf", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
-        }
+        }        
         
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.

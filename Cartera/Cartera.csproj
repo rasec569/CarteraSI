@@ -95,6 +95,7 @@
     <Compile Include="Controlador\CSeguimiento.cs" />
     <Compile Include="Controlador\CTipo_Producto.cs" />
     <Compile Include="Controlador\CUsuario.cs" />
+    <Compile Include="DtosUsuario.cs" />
     <Compile Include="Modelo\MCartera.cs" />
     <Compile Include="Modelo\MCliente.cs" />
     <Compile Include="Modelo\MCliente_Producto.cs" />
@@ -113,6 +114,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Reportes\ReportesPDF.cs" />
+    <Compile Include="Vista\Refinanciacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Refinanciacion.Designer.cs">
+      <DependentUpon>Refinanciacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\Carteras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +230,9 @@
     <Compile Include="Vista\TipoProducto.Designer.cs">
       <DependentUpon>TipoProducto.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Vista\Refinanciacion.resx">
+      <DependentUpon>Refinanciacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vista\Carteras.resx">
       <DependentUpon>Carteras.cs</DependentUpon>
     </EmbeddedResource>
@@ -322,6 +332,11 @@
     <Folder Include="Documento\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Refi.png" />
+    <None Include="Resources\Refinanciacion13.png" />
+    <None Include="Resources\Refinanciacionb3_vectorized.png" />
+    <None Include="Resources\Refinanciacion.png" />
+    <None Include="Resources\Refinanciacio.png" />
     <None Include="img\TipoProducto.png" />
     <None Include="img\TipoProduc.png" />
     <None Include="img\Nuevo Cliente.png" />

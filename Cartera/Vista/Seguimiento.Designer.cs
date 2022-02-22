@@ -38,6 +38,7 @@ namespace Cartera.Vista
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.BtLimpiar = new System.Windows.Forms.Button();
             this.BtBorrar = new System.Windows.Forms.Button();
             this.LbConctato = new System.Windows.Forms.Label();
@@ -45,7 +46,6 @@ namespace Cartera.Vista
             this.LbNomProducto = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -55,7 +55,7 @@ namespace Cartera.Vista
             // 
             this.GuardarSegui.ForeColor = System.Drawing.SystemColors.ControlText;
             this.GuardarSegui.Image = global::Cartera.Properties.Resources.Guardar1;
-            this.GuardarSegui.Location = new System.Drawing.Point(694, 79);
+            this.GuardarSegui.Location = new System.Drawing.Point(669, 31);
             this.GuardarSegui.Name = "GuardarSegui";
             this.GuardarSegui.Size = new System.Drawing.Size(30, 30);
             this.GuardarSegui.TabIndex = 0;
@@ -66,10 +66,10 @@ namespace Cartera.Vista
             // txtcomentario
             // 
             this.txtcomentario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtcomentario.Location = new System.Drawing.Point(20, 70);
+            this.txtcomentario.Location = new System.Drawing.Point(6, 74);
             this.txtcomentario.Multiline = true;
             this.txtcomentario.Name = "txtcomentario";
-            this.txtcomentario.Size = new System.Drawing.Size(631, 49);
+            this.txtcomentario.Size = new System.Drawing.Size(766, 49);
             this.txtcomentario.TabIndex = 1;
             this.toolTip1.SetToolTip(this.txtcomentario, "Observaciones  o Comentarios da la comunicación con el Cliente");
             // 
@@ -107,7 +107,7 @@ namespace Cartera.Vista
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 49);
+            this.label1.Location = new System.Drawing.Point(6, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 4;
@@ -126,18 +126,29 @@ namespace Cartera.Vista
             this.groupBox1.Controls.Add(this.dateTimePicker1);
             this.groupBox1.Controls.Add(this.txtcomentario);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(21, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(769, 125);
+            this.groupBox1.Size = new System.Drawing.Size(778, 132);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Producto";
+            // 
+            // button1
+            // 
+            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button1.Location = new System.Drawing.Point(741, 31);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 30);
+            this.button1.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // BtLimpiar
             // 
             this.BtLimpiar.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtLimpiar.Image = global::Cartera.Properties.Resources.limpiar;
-            this.BtLimpiar.Location = new System.Drawing.Point(657, 79);
+            this.BtLimpiar.Location = new System.Drawing.Point(632, 31);
             this.BtLimpiar.Name = "BtLimpiar";
             this.BtLimpiar.Size = new System.Drawing.Size(31, 30);
             this.BtLimpiar.TabIndex = 10;
@@ -150,7 +161,7 @@ namespace Cartera.Vista
             this.BtBorrar.Enabled = false;
             this.BtBorrar.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtBorrar.Image = global::Cartera.Properties.Resources.Eliminar;
-            this.BtBorrar.Location = new System.Drawing.Point(730, 79);
+            this.BtBorrar.Location = new System.Drawing.Point(705, 31);
             this.BtBorrar.Name = "BtBorrar";
             this.BtBorrar.Size = new System.Drawing.Size(30, 30);
             this.BtBorrar.TabIndex = 9;
@@ -162,7 +173,7 @@ namespace Cartera.Vista
             // 
             this.LbConctato.AutoSize = true;
             this.LbConctato.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbConctato.Location = new System.Drawing.Point(365, 22);
+            this.LbConctato.Location = new System.Drawing.Point(6, 35);
             this.LbConctato.Name = "LbConctato";
             this.LbConctato.Size = new System.Drawing.Size(58, 13);
             this.LbConctato.TabIndex = 8;
@@ -173,7 +184,7 @@ namespace Cartera.Vista
             // 
             this.LbPropietario.AutoSize = true;
             this.LbPropietario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbPropietario.Location = new System.Drawing.Point(75, 22);
+            this.LbPropietario.Location = new System.Drawing.Point(75, 17);
             this.LbPropietario.Name = "LbPropietario";
             this.LbPropietario.Size = new System.Drawing.Size(68, 13);
             this.LbPropietario.TabIndex = 7;
@@ -184,7 +195,7 @@ namespace Cartera.Vista
             // 
             this.LbNomProducto.AutoSize = true;
             this.LbNomProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbNomProducto.Location = new System.Drawing.Point(17, 22);
+            this.LbNomProducto.Location = new System.Drawing.Point(6, 17);
             this.LbNomProducto.Name = "LbNomProducto";
             this.LbNomProducto.Size = new System.Drawing.Size(58, 13);
             this.LbNomProducto.TabIndex = 6;
@@ -193,17 +204,6 @@ namespace Cartera.Vista
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // button1
-            // 
-            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button1.Location = new System.Drawing.Point(686, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(40, 33);
-            this.button1.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Seguimiento
             // 

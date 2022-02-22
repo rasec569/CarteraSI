@@ -114,3 +114,4 @@ C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.GraficoVentas
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.SuggestedBindingRedirects.cache
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Detalle.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Amortizacion.resources
+C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Refinanciacion.resources

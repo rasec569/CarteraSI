@@ -25,6 +25,7 @@ namespace Cartera.Vista
         CCartera cartera = new CCartera();
         CPago pago = new CPago();
         CCliente cliente = new CCliente();
+        CCuota cuota=new CCuota();
         int clienteId = 0;
         DataTable DtNombres = new DataTable();
         bool modificar = false;
@@ -283,8 +284,31 @@ namespace Cartera.Vista
                     pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, valordescuento);
                     modificar = false;
                 }
-                
-                ActulizarCuotas();       
+                string TipoPago="";
+                switch (comboTipoPago.Text)
+                {
+                    case "Contado":
+                        TipoPago = "Inicial";
+                        break;
+                    case "Entrada":
+                        TipoPago = "Separación";
+                        break;
+                    case "Inicial sin Interes":
+                        TipoPago = "Inicial";
+                        break;
+                    case "Inicial con Interes":
+                        TipoPago = "Inicial";
+                        break;
+                    case "Saldo sin Interes":
+                        TipoPago = "Saldo";
+                        break;
+                    case "Saldo con Interes":
+                        TipoPago = "Saldo";
+                        break;
+                }
+                // 
+                //ActulizarCuotas();       
+                cuota.EstadoCuotas(int.Parse(txtCuota.Text), productoid, TipoPago);
                 cartera.ActulizarValorRecaudado( carteraId);
                 cartera.ActulizarSaldo(carteraId);
                 //actulizar estado Cuota

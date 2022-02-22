@@ -94,7 +94,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("HISTORIAL PAGOS");
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -124,9 +124,9 @@ namespace Cartera.Reportes
                                 table.SpacingBefore = 3f;
                                 
                                 //agg las filas
-                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + Nombres , font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table.AddCell(new PdfPCell(new Paragraph("PRODUCTO: " + producto + " " + proyecto, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + Nombres , font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table.AddCell(new PdfPCell(new Paragraph("PRODUCTO: " + producto + " " + proyecto, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
                                 document.Add(table);
 
                                 // Tablas detalle 2
@@ -138,11 +138,11 @@ namespace Cartera.Reportes
                                 //table2.SpacingBefore = 3f;
 
                                 //agg las filas
-                                table2.AddCell(new PdfPCell(new Paragraph(cuotas, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph(meses, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph(pagos, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph(mora, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph(mes_mora, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table2.AddCell(new PdfPCell(new Paragraph(cuotas, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph(meses, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph(pagos, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph(mora, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph(mes_mora, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
                                 document.Add(table2);
 
                                 document.Add(new Paragraph(" "));
@@ -318,10 +318,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-
-
-
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("ACUERDO DE PAGOS");
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -335,9 +332,9 @@ namespace Cartera.Reportes
                                 table.SpacingBefore = 3f;
 
                                 //agg las filas
-                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + cliente, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table.AddCell(new PdfPCell(new Paragraph("PRODUCTO " + nomproducto + " " + nomproyecto, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + cliente, font: FontFactory.GetFont("Verdana", 7))) {  HorizontalAlignment = Element.ALIGN_LEFT });
+                                table.AddCell(new PdfPCell(new Paragraph("PRODUCTO " + nomproducto + " " + nomproyecto, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
                                 document.Add(table);
 
                                 // Tablas detalle 2
@@ -345,20 +342,20 @@ namespace Cartera.Reportes
                                 table2.HorizontalAlignment = 0;
                                 //table2.SpacingBefore = 5f;
                                 //agg las filas
-                                table2.AddCell(new PdfPCell(new Paragraph(ValorIni, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph(ValorSepare, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph(CuotasIni, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph(ValorCuotaIni, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table2.AddCell(new PdfPCell(new Paragraph(ValorIni, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph(ValorSepare, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph(CuotasIni, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph(ValorCuotaIni, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
                                 document.Add(table2);
 
                                 // Tablas detalle 3
                                 PdfPTable table3 = new PdfPTable(4) { WidthPercentage = 100f };
                                 table2.HorizontalAlignment = 0;
                                 //agg las filas
-                                table3.AddCell(new PdfPCell(new Paragraph(ValorSaldo, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table3.AddCell(new PdfPCell(new Paragraph(" ", font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table3.AddCell(new PdfPCell(new Paragraph(CuotasSal, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table3.AddCell(new PdfPCell(new Paragraph(ValorCuotaSal, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table3.AddCell(new PdfPCell(new Paragraph(ValorSaldo, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table3.AddCell(new PdfPCell(new Paragraph(" ", font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table3.AddCell(new PdfPCell(new Paragraph(CuotasSal, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table3.AddCell(new PdfPCell(new Paragraph(ValorCuotaSal, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
                                 document.Add(table3);
 
                                 //texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
@@ -377,8 +374,8 @@ namespace Cartera.Reportes
                                 pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 120);
                                 pdfContent.Stroke();
                                 //*** Linea detalle
-                                pdfContent.MoveTo(30, document.PageSize.Height - 170);
-                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 170);
+                                pdfContent.MoveTo(30, document.PageSize.Height - 180);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 180);
                                 pdfContent.Stroke();       
                                 ////*** Linea detalle 2
                                 //pdfContent.MoveTo(40, document.PageSize.Height - 180);
@@ -387,7 +384,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 10f, 20f, 25f, 20f, 20f }, 100, 8));
+                                document.Add(TablasLetras(report, new float[] { 10f, 15f, 25f, 15f, 15f, 15f }, 100, 8));
                             }
                             else
                             {
@@ -529,7 +526,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("REPORTE - CARTERA "+ proyecto);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -694,7 +691,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("REPORTE - PRODUCTOS ");
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -843,7 +840,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("REPORTE - "+Tipo+" "+ Proyecto);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -1008,7 +1005,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("REPORTE - PRODUCTOS " + Proyecto);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -1173,7 +1170,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("REPORTE - CLIENTES ");
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -1322,7 +1319,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("INGRESO OBSERVADO "+ fecha);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -1489,7 +1486,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("INGRESO PROGRAMADO " + fecha);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -1652,7 +1649,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("VENTAS DE "+fecha);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -1815,7 +1812,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("DISOLUCIONES DE " + fecha);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -1978,7 +1975,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("PRODUTOS PAZ Y SALVO");
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -2074,8 +2071,9 @@ namespace Cartera.Reportes
                 celda = new PdfPCell();
                 celda.Rowspan = 1;
                 celda.Colspan = 1;
+                celda.HorizontalAlignment = Element.ALIGN_CENTER;
                 celda.VerticalAlignment = Element.ALIGN_MIDDLE;
-                celda.BorderColor = BaseColor.WHITE;
+                celda.BorderColor = BaseColor.BLACK;
 
                 frase = new Phrase();
                 frase.Font = FontFactory.GetFont("Verdana", Letra, iTextSharp.text.Font.BOLD);
@@ -2096,14 +2094,16 @@ namespace Cartera.Reportes
 
                     frase = new Phrase();
                     if (TextoNegrita)
-                        frase.Font = FontFactory.GetFont("Verdana", Letra, Font.BOLD);
+                        frase.Font = FontFactory.GetFont("Verdana", Letra, Font.BOLD,new BaseColor(255,15,15));
+                    //
                     else
                         frase.Font = FontFactory.GetFont("Verdana", Letra);
                         frase.Add(Cons.Rows[i][column.ColumnName].ToString());
 
-
+                    
                     celda = new PdfPCell();
-                    celda.BorderColor = BaseColor.WHITE;
+                    celda.BorderColor = BaseColor.BLACK;
+                    celda.HorizontalAlignment = Element.ALIGN_CENTER;
                     celda.Phrase = frase;
                     objetivo.AddCell(celda);
                 }
@@ -2191,7 +2191,7 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("SEGUIMIENTO PRODUCTO: "+ Tipo+" " + Producto);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
@@ -2344,9 +2344,10 @@ namespace Cartera.Reportes
 
 
 
-                                texto.Font = FontFactory.GetFont("Verdana", 7);
-                                texto.Add("TABLA AMORTIZACÍON -"+ " FECHA: " + DateTime.Now.ToString());
-                                document.Add(texto);
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                                texto.Add("TABLA AMORTIZACÍON");
+                                texto.Alignment = 1;
+                                document.Add(texto);                                
                                 texto.RemoveAt(0);
 
                                 //Tabla detalle
@@ -2358,9 +2359,9 @@ namespace Cartera.Reportes
                                 table.SpacingBefore = 3f;
 
                                 //agg las filas
-                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + cliente, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table.AddCell(new PdfPCell(new Paragraph("PRODUCTO " + nomproducto + " " + nomproyecto, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + cliente, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT});
+                                table.AddCell(new PdfPCell(new Paragraph("PRODUCTO " + nomproducto + " " + nomproyecto, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
                                 document.Add(table);
 
                                 // Tablas detalle 2
@@ -2368,11 +2369,11 @@ namespace Cartera.Reportes
                                 table2.HorizontalAlignment = 0;
                                 //table2.SpacingBefore = 5f;
                                 //agg las filas
-                                table2.AddCell(new PdfPCell(new Paragraph("VALOR NETO: "+ValorNeto, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph("VALOR INICIAL: " + ValorIni, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph("VALOR SALDO: " + ValorSaldo, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph("NUM. CUOTAS: " + CuotasSal, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table2.AddCell(new PdfPCell(new Paragraph("VALOR INTERES: " + ValorInteres, font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table2.AddCell(new PdfPCell(new Paragraph("VALOR NETO: "+ValorNeto, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph("VALOR INICIAL: " + ValorIni, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph("VALOR SALDO: " + ValorSaldo, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph("NUM. CUOTAS: " + CuotasSal, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph("VALOR INTERES: " + ValorInteres, font: FontFactory.GetFont("Verdana", 7))) {  HorizontalAlignment = Element.ALIGN_LEFT });
                                 
                                 document.Add(table2);
 
@@ -2380,10 +2381,10 @@ namespace Cartera.Reportes
                                 PdfPTable table3 = new PdfPTable(4) { WidthPercentage = 100f };
                                 table2.HorizontalAlignment = 0;
                                 //agg las filas
-                                table3.AddCell(new PdfPCell(new Paragraph(PagadoFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table3.AddCell(new PdfPCell(new Paragraph(InteresFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table3.AddCell(new PdfPCell(new Paragraph(SaldoFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
-                                table3.AddCell(new PdfPCell(new Paragraph(DeudaFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { Border = 0, HorizontalAlignment = 0 });
+                                table3.AddCell(new PdfPCell(new Paragraph(PagadoFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table3.AddCell(new PdfPCell(new Paragraph(InteresFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table3.AddCell(new PdfPCell(new Paragraph(SaldoFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table3.AddCell(new PdfPCell(new Paragraph(DeudaFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
                                 document.Add(table3);
 
                                 //texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
@@ -2402,8 +2403,8 @@ namespace Cartera.Reportes
                                 pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 120);
                                 pdfContent.Stroke();
                                 //*** Linea detalle
-                                pdfContent.MoveTo(30, document.PageSize.Height - 170);
-                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 170);
+                                pdfContent.MoveTo(30, document.PageSize.Height - 180);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 180);
                                 pdfContent.Stroke();
                                 ////*** Linea detalle 2
                                 //pdfContent.MoveTo(40, document.PageSize.Height - 180);
@@ -2412,7 +2413,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 10f, 15f, 15f, 15f, 15f, 15f, 15f }, 100, 7));
+                                document.Add(TablasLetras(report, new float[] { 8f, 12f, 12f, 13f, 13f, 13f, 13f, 13f }, 100, 7));
                             }
                             else
                             {

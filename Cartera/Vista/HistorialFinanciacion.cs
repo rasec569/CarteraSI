@@ -74,6 +74,44 @@ namespace Cartera.Vista
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
+        private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+                dataGridView2.Columns[1].Width = 70;
+                DataGridView dgv = sender as DataGridView;
+                int n = e.RowIndex;
+                try
+                {
+                    if (dgv.Columns[e.ColumnIndex].Name == "Estado")  //Si es la columna a evaluar
+                    {
+                        if (n <= dataGridView2.Rows.Count)
+                        {
+                            if (e.Value.ToString().Contains("Pagada"))   //Si el valor de la celda contiene la palabra hora Pagada Mora
+                            {
+                                dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.Honeydew;
+                            }
+                            else if (e.Value.ToString().Contains("Mora"))
+                            {
+                                dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.AntiqueWhite;
+                                //e.CellStyle.ForeColor = Color.Crimson;
+                                //e.CellStyle.BackColor = Color.Orange;
+                                //e.CellStyle.BackColor = Color.PaleVioletRed;
+                                //Thistle-AntiqueWhite
+                            }
+                        }
+                    }
+                    //if (dataGridView.Rows[e.RowIndex].Selected)
+                    //{
+                    //    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    //    // edit: to change the background color: 
+                    //    e.CellStyle.SelectionBackColor = Color.Aqua;
+                    //}
+                }
+                catch
+                {
+
+                }                       
+        }
+
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -227,8 +265,9 @@ namespace Cartera.Vista
                         DtAcuerdoPago= cuota.ListarCuotas(id_financiacion);
                         dataGridView2.DataSource = DtAcuerdoPago;                     
                         panel1.Visible = true;
-                        dataGridView2.Columns[0].Width = 70;
+                        dataGridView2.Columns[0].Width = 50;
                         dataGridView2.Columns[1].Width = 80;
+                        dataGridView2.Columns[2].Width = 110;
                         dataGridView2.Columns[1].DefaultCellStyle.Format = "n0";
                         dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     }

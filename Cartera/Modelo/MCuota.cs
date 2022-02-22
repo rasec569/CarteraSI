@@ -46,7 +46,18 @@ namespace Cartera.Modelo
 		internal static DataTable ListarCuotas(int financiacion)
 		{
 
-			return Conexion.consulta("SELECT Num_Cuota as '# Cuota', printf('% , d', Valor_Cuota)as Valor, Tipo, Fecha as 'Fecha Pactada', Estado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' ;");
+			return Conexion.consulta("SELECT Num_Cuota as 'Cuota', printf('% , d', Valor_Cuota)as Valor, Tipo, Fecha as 'Fecha',printf('% , d', Aporte_Pagos) as 'Aportado',Estado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' ;");
+		}
+		internal static DataTable EstadoCuotas(int cuota, int id_Producto, string tipo)
+		{
+
+			return Conexion.consulta("SELECT(SELECT	Sum(Pagos.Valor_Pagado) + sum(Pagos.Valor_Descuento) FROM Pagos	INNER JOIN Producto	ON Pagos.Fk_Id_Producto = Producto.Id_Producto INNER JOIN Financiacion ON Producto.Id_Producto = Financiacion.Fk_Producto WHERE Pagos.Numero_Cuota = " + cuota + " AND Pagos.Fk_Id_Producto = "+ id_Producto + " AND Financiacion.Estado_Financiacion = 'Activa' and Pagos.Porcentaje LIKE '%"+ tipo + "%') as valor,IIF((SELECT Sum(Pagos.Valor_Pagado) + sum(Pagos.Valor_Descuento) FROM Pagos INNER JOIN Producto ON Pagos.Fk_Id_Producto = Producto.Id_Producto INNER JOIN Financiacion ON Producto.Id_Producto = Financiacion.Fk_Producto WHERE Pagos.Numero_Cuota = " + cuota + " AND Pagos.Fk_Id_Producto = " + id_Producto + " AND	Financiacion.Estado_Financiacion = 'Activa' and	Pagos.Porcentaje LIKE '%" + tipo + "%') >= (SELECT Cuotas.Valor_Cuota FROM Cuotas INNER JOIN Financiacion ON Cuotas.Fk_Id_Financiacion = Financiacion.Id_Financiacion WHERE	Cuotas.Num_Cuota = " + cuota + " AND Financiacion.Fk_Producto = " + id_Producto + " AND Financiacion.Estado_Financiacion = 'Activa' AND Cuotas.Tipo LIKE '%" + tipo + "%' ), 'Pagada', 'Abono' ) result ;");
+		}
+		internal static int ValidarEstadoCuotas(string Fecha)
+        {
+			string sql1 = "UPDATE Cuotas as C set Estado=(SELECT IIF(Fecha>'" + Fecha + "', 'Pendiente', 'Mora') from Cuotas as C2 WHERE Estado<>'Pagada' and C.Id_Cuota=C2.Id_Cuota) WHERE Estado<>'Pagada'";
+			SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
+			return cmd1.ExecuteNonQuery();
 		}
 		internal static DataTable ListarCuotasInteres(int financiacion)
 		{
@@ -56,7 +67,7 @@ namespace Cartera.Modelo
 		internal static DataTable ListarCuotasInteres2(int financiacion)
 		{
 
-			return Conexion.consulta("SELECT Id_Cuota, Num_Cuota as '# Cuota', Fecha as 'Fecha Pactada', Estado, printf('% , d', Valor_Cuota)as Valor FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo='Valor Saldo' ;");
+			return Conexion.consulta("SELECT Id_Cuota, Num_Cuota as '# Cuota', Fecha as 'Fecha Pago', Estado, printf('% , d', Valor_Cuota)as Valor, printf('% , d', Aporte_Pagos) as Aportado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo='Valor Saldo' OR Tipo='Refinanciación';");
 		}
 		internal static DataTable ListarCuotasActulizar(int financiacion, string fecha)
 		{

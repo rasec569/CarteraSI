@@ -25,6 +25,7 @@ namespace Cartera.Vista
             InitializeComponent();
             dtsession = User;
             LbUser.Text = User.Rows[0]["Nom_Usuario"].ToString();
+            DtosUsuario.NombreUser = User.Rows[0]["Nom_Usuario"].ToString();
         }
 
         private void Principal_Load(object sender, EventArgs e)

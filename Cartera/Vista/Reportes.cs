@@ -437,7 +437,8 @@ namespace Cartera.Vista
                         DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
                         if (Valor_Producto_Financiacion > 0 /*&& id_financiacion !=  0*/)
                         {
-                            DataTable dtCuotas = cuota.ListarCuotasActulizar(id_financiacion, actual.ToString("yyyy-MM-dd"));
+                            //DataTable dtCuotas = cuota.ListarCuotasActulizar(id_financiacion, actual.ToString("yyyy-MM-dd"));
+                            DataTable dtCuotas = cuota.ListarCuotas(id_financiacion);
                             DataTable dtrecaudo = pagos.Tota_Recaudado_Producto(id_producto);
                             if (dtCuotas.Rows.Count != (Cuotas_Con_Interes + Cuotas_sin_interes + 1))
                             {
