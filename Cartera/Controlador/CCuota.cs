@@ -31,9 +31,9 @@ namespace Cartera.Controlador
             return MCuota.ListarCuotas(financiacion);
         }
         //valor pagado cuota y estado
-        public DataTable EstadoCuotas(int cuota, int id_Producto, string tipo)
+        public DataTable ActulizarEstadoCuotas(int cuota, int id_Producto, string tipo)
         {
-            return MCuota.EstadoCuotas(cuota, id_Producto, tipo);
+            return MCuota.ActulizarEstadoCuotas(cuota, id_Producto, tipo);
         }
         //valida cuotas en mora
         public int ValidarEstadoCuotas(string Fecha)

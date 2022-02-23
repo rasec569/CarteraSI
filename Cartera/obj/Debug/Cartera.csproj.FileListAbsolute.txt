@@ -115,3 +115,7 @@ C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.csproj.SuggestedBin
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Detalle.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Amortizacion.resources
 C:\Users\RASEC\Documents\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Refinanciacion.resources
+C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\Accordion.dll
+C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\WinFormAnimation.dll
+C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\Accordion.pdb
+C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\Accordion.xml

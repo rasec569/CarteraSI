@@ -86,7 +86,8 @@ namespace Cartera.Vista
             "Inicial sin Interes",
             "Inicial con Interes",
             "Saldo sin Interes",
-            "Saldo con Interes"});
+            "Saldo con Interes",
+            "Refinanciación"});
             this.comboTipoPago.Location = new System.Drawing.Point(127, 99);
             this.comboTipoPago.Name = "comboTipoPago";
             this.comboTipoPago.Size = new System.Drawing.Size(182, 21);

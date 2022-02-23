@@ -258,33 +258,7 @@ namespace Cartera.Vista
             ValidarCampos();
             if ((error != true) && (ValidarCampos() == true))
             {
-                if (modificar == false)
-                {
-                    if (comboDescuento.Text == "Seleccionar")
-                    {
-                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), "", "", productoid.ToString());
-                    }
-                    else
-                    {
-                        int NuevoValor = valortotal - int.Parse(Convert.ToDouble(txtValorDescuento.Text).ToString());
-                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), comboDescuento.Text, Convert.ToDouble(txtValorDescuento.Text).ToString(), productoid.ToString());
-                        producto.actualizarValorProducto(productoid, NuevoValor);
-                        cartera.ActulizarValorTotal(int.Parse(clienteId.ToString()), carteraId);
-                    }
-                }
-                else
-                {
-                    string descuento = "";
-                    string valordescuento="";
-                    if (comboDescuento.Text != "Seleccionar")
-                    {
-                        descuento = comboDescuento.Text;
-                        valordescuento = Convert.ToDouble(txtValorDescuento.Text).ToString();
-                    }
-                    pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, valordescuento);
-                    modificar = false;
-                }
-                string TipoPago="";
+                string TipoPago = "";
                 switch (comboTipoPago.Text)
                 {
                     case "Contado":
@@ -305,10 +279,46 @@ namespace Cartera.Vista
                     case "Saldo con Interes":
                         TipoPago = "Saldo";
                         break;
+                    case "Refinanciación":
+                        TipoPago = "Refinanciación";
+                        break;
                 }
+                if (modificar == false)
+                {
+                    if (comboDescuento.Text == "Seleccionar")
+                    {
+                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), "", "", productoid.ToString());
+                    }
+                    else 
+                    {
+                        int NuevoValor = valortotal - int.Parse(Convert.ToDouble(txtValorDescuento.Text).ToString());
+                        if (comboDescuento.Text == "Pago anticipado")
+                        {
+                            //pendiente cambiar valor cuota(-el descuento)
+                        }
+                        
+                        pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), comboDescuento.Text, Convert.ToDouble(txtValorDescuento.Text).ToString(), productoid.ToString());
+                        producto.actualizarValorProducto(productoid, NuevoValor);                        
+                        cartera.ActulizarValorTotal(int.Parse(clienteId.ToString()), carteraId);
+                        //pendiente actulizar valor cuota
+                    }
+                }
+                else
+                {
+                    string descuento = "";
+                    string valordescuento="";
+                    if (comboDescuento.Text != "Seleccionar")
+                    {
+                        descuento = comboDescuento.Text;
+                        valordescuento = Convert.ToDouble(txtValorDescuento.Text).ToString();
+                    }
+                    pago.ActulizarPago(pagoId, comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), descuento, valordescuento);
+                    modificar = false;
+                }
+                
                 // 
                 //ActulizarCuotas();       
-                cuota.EstadoCuotas(int.Parse(txtCuota.Text), productoid, TipoPago);
+                cuota.ActulizarEstadoCuotas(int.Parse(txtCuota.Text), productoid, TipoPago);
                 cartera.ActulizarValorRecaudado( carteraId);
                 cartera.ActulizarSaldo(carteraId);
                 //actulizar estado Cuota

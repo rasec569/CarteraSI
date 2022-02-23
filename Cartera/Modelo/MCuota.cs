@@ -46,9 +46,9 @@ namespace Cartera.Modelo
 		internal static DataTable ListarCuotas(int financiacion)
 		{
 
-			return Conexion.consulta("SELECT Num_Cuota as 'Cuota', printf('% , d', Valor_Cuota)as Valor, Tipo, Fecha as 'Fecha',printf('% , d', Aporte_Pagos) as 'Aportado',Estado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' ;");
+			return Conexion.consulta("SELECT Num_Cuota as 'Cuota', printf('% , d', Valor_Cuota)as Valor, Tipo, Fecha as 'Fecha',printf('% , d', Aporte_Pagos) as 'Aportado',Estado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo<>'Refinanciación' ;");
 		}
-		internal static DataTable EstadoCuotas(int cuota, int id_Producto, string tipo)
+		internal static DataTable ActulizarEstadoCuotas(int cuota, int id_Producto, string tipo)
 		{
 
 			return Conexion.consulta("SELECT(SELECT	Sum(Pagos.Valor_Pagado) + sum(Pagos.Valor_Descuento) FROM Pagos	INNER JOIN Producto	ON Pagos.Fk_Id_Producto = Producto.Id_Producto INNER JOIN Financiacion ON Producto.Id_Producto = Financiacion.Fk_Producto WHERE Pagos.Numero_Cuota = " + cuota + " AND Pagos.Fk_Id_Producto = "+ id_Producto + " AND Financiacion.Estado_Financiacion = 'Activa' and Pagos.Porcentaje LIKE '%"+ tipo + "%') as valor,IIF((SELECT Sum(Pagos.Valor_Pagado) + sum(Pagos.Valor_Descuento) FROM Pagos INNER JOIN Producto ON Pagos.Fk_Id_Producto = Producto.Id_Producto INNER JOIN Financiacion ON Producto.Id_Producto = Financiacion.Fk_Producto WHERE Pagos.Numero_Cuota = " + cuota + " AND Pagos.Fk_Id_Producto = " + id_Producto + " AND	Financiacion.Estado_Financiacion = 'Activa' and	Pagos.Porcentaje LIKE '%" + tipo + "%') >= (SELECT Cuotas.Valor_Cuota FROM Cuotas INNER JOIN Financiacion ON Cuotas.Fk_Id_Financiacion = Financiacion.Id_Financiacion WHERE	Cuotas.Num_Cuota = " + cuota + " AND Financiacion.Fk_Producto = " + id_Producto + " AND Financiacion.Estado_Financiacion = 'Activa' AND Cuotas.Tipo LIKE '%" + tipo + "%' ), 'Pagada', 'Abono' ) result ;");

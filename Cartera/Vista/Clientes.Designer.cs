@@ -91,7 +91,7 @@ namespace Cartera.Vista
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.Panel_Registrar_user = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtRefinanciar = new System.Windows.Forms.Button();
             this.BtAmortizacionFinan = new System.Windows.Forms.Button();
             this.BtHistorialFinan = new System.Windows.Forms.Button();
             this.txtValorCuotaInteres = new System.Windows.Forms.TextBox();
@@ -194,9 +194,9 @@ namespace Cartera.Vista
             this.groupBox3.Controls.Add(this.txtBuscarCliente);
             this.groupBox3.Controls.Add(this.BtBuscarCliente);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(37, 6);
+            this.groupBox3.Location = new System.Drawing.Point(12, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(744, 51);
+            this.groupBox3.Size = new System.Drawing.Size(769, 51);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Buscar";
@@ -383,7 +383,7 @@ namespace Cartera.Vista
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(307, 101);
+            this.label13.Location = new System.Drawing.Point(321, 100);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(104, 13);
             this.label13.TabIndex = 31;
@@ -392,7 +392,7 @@ namespace Cartera.Vista
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(307, 156);
+            this.label14.Location = new System.Drawing.Point(321, 155);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(72, 13);
             this.label14.TabIndex = 32;
@@ -401,7 +401,7 @@ namespace Cartera.Vista
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(306, 76);
+            this.label15.Location = new System.Drawing.Point(320, 75);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(74, 13);
             this.label15.TabIndex = 33;
@@ -451,7 +451,7 @@ namespace Cartera.Vista
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(306, 49);
+            this.label16.Location = new System.Drawing.Point(320, 48);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(97, 13);
             this.label16.TabIndex = 38;
@@ -462,7 +462,7 @@ namespace Cartera.Vista
             this.DateRecaudo.CustomFormat = "yyyy-MM-dd";
             this.DateRecaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateRecaudo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DateRecaudo.Location = new System.Drawing.Point(414, 46);
+            this.DateRecaudo.Location = new System.Drawing.Point(428, 45);
             this.DateRecaudo.Name = "DateRecaudo";
             this.DateRecaudo.Size = new System.Drawing.Size(149, 20);
             this.DateRecaudo.TabIndex = 15;
@@ -489,7 +489,7 @@ namespace Cartera.Vista
             // txtValorEntrada
             // 
             this.txtValorEntrada.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorEntrada.Location = new System.Drawing.Point(415, 98);
+            this.txtValorEntrada.Location = new System.Drawing.Point(429, 97);
             this.txtValorEntrada.Name = "txtValorEntrada";
             this.txtValorEntrada.Size = new System.Drawing.Size(149, 20);
             this.txtValorEntrada.TabIndex = 17;
@@ -499,9 +499,9 @@ namespace Cartera.Vista
             // txtValorSin
             // 
             this.txtValorSin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorSin.Location = new System.Drawing.Point(413, 73);
+            this.txtValorSin.Location = new System.Drawing.Point(427, 72);
             this.txtValorSin.Name = "txtValorSin";
-            this.txtValorSin.Size = new System.Drawing.Size(148, 20);
+            this.txtValorSin.Size = new System.Drawing.Size(150, 20);
             this.txtValorSin.TabIndex = 16;
             this.txtValorSin.TextChanged += new System.EventHandler(this.txtValorSin_TextChanged);
             this.txtValorSin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorSin_KeyPress);
@@ -511,7 +511,7 @@ namespace Cartera.Vista
             // txtValorCon
             // 
             this.txtValorCon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorCon.Location = new System.Drawing.Point(414, 152);
+            this.txtValorCon.Location = new System.Drawing.Point(428, 151);
             this.txtValorCon.Name = "txtValorCon";
             this.txtValorCon.Size = new System.Drawing.Size(148, 20);
             this.txtValorCon.TabIndex = 20;
@@ -521,7 +521,7 @@ namespace Cartera.Vista
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(306, 126);
+            this.label18.Location = new System.Drawing.Point(320, 125);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(101, 13);
             this.label18.TabIndex = 45;
@@ -530,7 +530,7 @@ namespace Cartera.Vista
             // numCuotaSinInteres
             // 
             this.numCuotaSinInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numCuotaSinInteres.Location = new System.Drawing.Point(414, 123);
+            this.numCuotaSinInteres.Location = new System.Drawing.Point(428, 122);
             this.numCuotaSinInteres.Maximum = new decimal(new int[] {
             36,
             0,
@@ -544,7 +544,7 @@ namespace Cartera.Vista
             // numCuotasInteres
             // 
             this.numCuotasInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numCuotasInteres.Location = new System.Drawing.Point(414, 180);
+            this.numCuotasInteres.Location = new System.Drawing.Point(428, 179);
             this.numCuotasInteres.Maximum = new decimal(new int[] {
             36,
             0,
@@ -558,7 +558,7 @@ namespace Cartera.Vista
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(307, 185);
+            this.label21.Location = new System.Drawing.Point(321, 184);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(101, 13);
             this.label21.TabIndex = 50;
@@ -568,7 +568,7 @@ namespace Cartera.Vista
             // 
             this.txtValorCuotaSin.Enabled = false;
             this.txtValorCuotaSin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorCuotaSin.Location = new System.Drawing.Point(464, 124);
+            this.txtValorCuotaSin.Location = new System.Drawing.Point(478, 123);
             this.txtValorCuotaSin.Name = "txtValorCuotaSin";
             this.txtValorCuotaSin.Size = new System.Drawing.Size(98, 20);
             this.txtValorCuotaSin.TabIndex = 19;
@@ -588,13 +588,13 @@ namespace Cartera.Vista
             this.txtObeservaciones.Location = new System.Drawing.Point(118, 237);
             this.txtObeservaciones.Multiline = true;
             this.txtObeservaciones.Name = "txtObeservaciones";
-            this.txtObeservaciones.Size = new System.Drawing.Size(446, 54);
+            this.txtObeservaciones.Size = new System.Drawing.Size(460, 54);
             this.txtObeservaciones.TabIndex = 26;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(306, 211);
+            this.label20.Location = new System.Drawing.Point(320, 210);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(86, 13);
             this.label20.TabIndex = 55;
@@ -602,10 +602,10 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.dateFechaEstado);
             this.groupBox1.Controls.Add(this.comboEstadoCliente);
             this.groupBox1.Controls.Add(this.label24);
-            this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.txtCedula);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label2);
@@ -619,9 +619,9 @@ namespace Cartera.Vista
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtDireccion);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(37, 63);
+            this.groupBox1.Location = new System.Drawing.Point(12, 63);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(357, 297);
+            this.groupBox1.Size = new System.Drawing.Size(371, 297);
             this.groupBox1.TabIndex = 59;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
@@ -665,9 +665,9 @@ namespace Cartera.Vista
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(163, 32);
+            this.pictureBox1.Location = new System.Drawing.Point(148, 23);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 43);
+            this.pictureBox1.Size = new System.Drawing.Size(82, 65);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 26;
             this.pictureBox1.TabStop = false;
@@ -731,12 +731,12 @@ namespace Cartera.Vista
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.BtAmortizacionFinan);
-            this.groupBox2.Controls.Add(this.BtHistorialFinan);
+            this.groupBox2.Controls.Add(this.BtRefinanciar);
             this.groupBox2.Controls.Add(this.txtValorCuotaInteres);
+            this.groupBox2.Controls.Add(this.BtAmortizacionFinan);
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Controls.Add(this.BtHistorialFinan);
             this.groupBox2.Controls.Add(this.txtValorSin);
             this.groupBox2.Controls.Add(this.label25);
             this.groupBox2.Controls.Add(this.txtValorTotal);
@@ -770,32 +770,33 @@ namespace Cartera.Vista
             this.groupBox2.Controls.Add(this.DateVenta);
             this.groupBox2.Controls.Add(this.txtValorEntrada);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(400, 63);
+            this.groupBox2.Location = new System.Drawing.Point(389, 63);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(574, 297);
+            this.groupBox2.Size = new System.Drawing.Size(601, 297);
             this.groupBox2.TabIndex = 60;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Producto";
             // 
-            // button1
+            // BtRefinanciar
             // 
-            this.button1.AutoSize = true;
-            this.button1.Image = global::Cartera.Properties.Resources.Refi;
-            this.button1.Location = new System.Drawing.Point(440, 10);
-            this.button1.Margin = new System.Windows.Forms.Padding(1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(31, 30);
-            this.button1.TabIndex = 68;
-            this.toolTip1.SetToolTip(this.button1, "Refinanciación");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            this.BtRefinanciar.AutoSize = true;
+            this.BtRefinanciar.Image = global::Cartera.Properties.Resources.Refi;
+            this.BtRefinanciar.Location = new System.Drawing.Point(464, 13);
+            this.BtRefinanciar.Margin = new System.Windows.Forms.Padding(1);
+            this.BtRefinanciar.Name = "BtRefinanciar";
+            this.BtRefinanciar.Size = new System.Drawing.Size(26, 27);
+            this.BtRefinanciar.TabIndex = 68;
+            this.toolTip1.SetToolTip(this.BtRefinanciar, "Refinanciación");
+            this.BtRefinanciar.UseVisualStyleBackColor = true;
+            this.BtRefinanciar.Visible = false;
+            this.BtRefinanciar.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // BtAmortizacionFinan
             // 
             this.BtAmortizacionFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtAmortizacionFinan.Image")));
-            this.BtAmortizacionFinan.Location = new System.Drawing.Point(477, 10);
+            this.BtAmortizacionFinan.Location = new System.Drawing.Point(500, 13);
             this.BtAmortizacionFinan.Name = "BtAmortizacionFinan";
-            this.BtAmortizacionFinan.Size = new System.Drawing.Size(31, 30);
+            this.BtAmortizacionFinan.Size = new System.Drawing.Size(26, 27);
             this.BtAmortizacionFinan.TabIndex = 67;
             this.toolTip1.SetToolTip(this.BtAmortizacionFinan, "Tabla de amortización");
             this.BtAmortizacionFinan.UseVisualStyleBackColor = true;
@@ -806,9 +807,9 @@ namespace Cartera.Vista
             // BtHistorialFinan
             // 
             this.BtHistorialFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialFinan.Image")));
-            this.BtHistorialFinan.Location = new System.Drawing.Point(401, 9);
+            this.BtHistorialFinan.Location = new System.Drawing.Point(428, 13);
             this.BtHistorialFinan.Name = "BtHistorialFinan";
-            this.BtHistorialFinan.Size = new System.Drawing.Size(33, 31);
+            this.BtHistorialFinan.Size = new System.Drawing.Size(26, 27);
             this.BtHistorialFinan.TabIndex = 66;
             this.toolTip1.SetToolTip(this.BtHistorialFinan, "Historial de Financiación");
             this.BtHistorialFinan.UseVisualStyleBackColor = true;
@@ -819,7 +820,7 @@ namespace Cartera.Vista
             // 
             this.txtValorCuotaInteres.Enabled = false;
             this.txtValorCuotaInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorCuotaInteres.Location = new System.Drawing.Point(464, 180);
+            this.txtValorCuotaInteres.Location = new System.Drawing.Point(478, 179);
             this.txtValorCuotaInteres.Name = "txtValorCuotaInteres";
             this.txtValorCuotaInteres.Size = new System.Drawing.Size(98, 20);
             this.txtValorCuotaInteres.TabIndex = 22;
@@ -828,7 +829,7 @@ namespace Cartera.Vista
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(477, 208);
+            this.checkBox1.Location = new System.Drawing.Point(491, 207);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(63, 17);
             this.checkBox1.TabIndex = 24;
@@ -895,7 +896,7 @@ namespace Cartera.Vista
             // numValorInteres
             // 
             this.numValorInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numValorInteres.Location = new System.Drawing.Point(414, 207);
+            this.numValorInteres.Location = new System.Drawing.Point(428, 206);
             this.numValorInteres.Name = "numValorInteres";
             this.numValorInteres.Size = new System.Drawing.Size(44, 20);
             this.numValorInteres.TabIndex = 23;
@@ -905,10 +906,11 @@ namespace Cartera.Vista
             // 
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(37, 366);
+            this.dataGridView2.Location = new System.Drawing.Point(10, 366);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(937, 214);
+            this.dataGridView2.Size = new System.Drawing.Size(980, 214);
             this.dataGridView2.TabIndex = 61;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             this.dataGridView2.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellMouseEnter);
             this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
@@ -1019,6 +1021,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button BtLimpiar;
         private System.Windows.Forms.Button BtAmortizacionFinan;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtRefinanciar;
     }
 }

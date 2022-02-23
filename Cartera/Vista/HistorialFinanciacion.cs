@@ -23,6 +23,7 @@ namespace Cartera.Vista
         int ProductoId;
         ReportesPDF reportesPDF = new ReportesPDF();
         int Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal;
+        string Refi;
         public HistorialFinanciacion()
         {
             InitializeComponent();
@@ -71,6 +72,7 @@ namespace Cartera.Vista
             dataGridView1.Columns[11].HeaderText = "Fecha recaudo";
             dataGridView1.Columns[12].HeaderText = "Estado";
             dataGridView1.Columns[13].Visible = false;
+            dataGridView1.Columns["Id_Refinanciacion"].Visible = false;
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
@@ -112,6 +114,8 @@ namespace Cartera.Vista
                 }                       
         }
 
+        
+
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -138,6 +142,7 @@ namespace Cartera.Vista
                     ValorInteres= Valor_Interes;
                     string Fecha_Recaudo = dataGridView1.Rows[n].Cells["Fecha_Recaudo"].Value.ToString();
                     string Fecha_Venta = dataGridView1.Rows[n].Cells["Fecha_Venta"].Value.ToString();
+                    Refi = dataGridView1.Rows[n].Cells["Id_Refinanciacion"].Value.ToString();
                     DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                     DateTime dateI =  DateTime.ParseExact(Fecha_Venta, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                     string año = date.ToString("yyyy");
@@ -146,6 +151,17 @@ namespace Cartera.Vista
                     DateTime FechaCuota = new DateTime( Convert.ToInt32(año), Convert.ToInt32(mes), Convert.ToInt32(dia));
                     DateTime FechaActual = DateTime.Now;
                     DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                    if (Refi == "")
+                    {
+                        label11.Text = "Refinanciación: No";
+                        BtRefinanciar.Visible= false;
+                    }
+                    else
+                    {
+                        label11.Text = "Refinanciación: Si";
+                        BtRefinanciar.Visible = true;
+                    }
+                  
                     label1.Text = "Valor final: $ " + String.Format("{0:N0}", Valor_Producto_Financiacion);
                     label2.Text = "Valor inicial: $ " + String.Format("{0:N0}", valor_sin_interes);
                     label3.Text = "Valor separación: $ " + String.Format("{0:N0}", valor_entrada);
@@ -301,6 +317,7 @@ namespace Cartera.Vista
             
             reportesPDF.PagoProgramado(DtAcuerdoPago, cliente, nomproducto, nomproyecto, label1.Text.ToUpper(), label2.Text.ToUpper(), label3.Text.ToUpper(), label4.Text.ToUpper(), label5.Text.ToUpper(), label6.Text.ToUpper(), label7.Text.ToUpper(), label8.Text.ToUpper(), label9.Text.ToUpper());
         }
+        
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             DataGridView dgv = sender as DataGridView;
@@ -340,6 +357,11 @@ namespace Cartera.Vista
             string nomproyecto = Dtdatos.Rows[0]["Proyecto"].ToString();
             Amortizacion Am =new Amortizacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal, cliente, nomproducto, nomproyecto);
             Am.ShowDialog();
+        }
+        private void BtRefinanciar_Click(object sender, EventArgs e)
+        {
+            Refinanciacion Re = new Refinanciacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal, int.Parse(Refi));
+            Re.ShowDialog();
         }
     }
 }

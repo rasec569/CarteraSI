@@ -36,7 +36,7 @@ namespace Cartera.Vista
             this.button1 = new System.Windows.Forms.Button();
             this.TxtTotal = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.TxtValorCuotaInteres = new System.Windows.Forms.TextBox();
+            this.TxtValorCuota = new System.Windows.Forms.TextBox();
             this.TxtValorDeuda = new System.Windows.Forms.TextBox();
             this.TxtValorMora = new System.Windows.Forms.TextBox();
             this.numCuotasFinan = new System.Windows.Forms.NumericUpDown();
@@ -55,6 +55,7 @@ namespace Cartera.Vista
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasFinan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).BeginInit();
@@ -79,10 +80,11 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.TxtTotal);
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.TxtValorCuotaInteres);
+            this.groupBox1.Controls.Add(this.TxtValorCuota);
             this.groupBox1.Controls.Add(this.TxtValorDeuda);
             this.groupBox1.Controls.Add(this.TxtValorMora);
             this.groupBox1.Controls.Add(this.numCuotasFinan);
@@ -100,16 +102,16 @@ namespace Cartera.Vista
             this.groupBox1.Size = new System.Drawing.Size(748, 64);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Financiación";
+            this.groupBox1.Text = "Refinanciación";
             // 
             // button1
             // 
-            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button1.Location = new System.Drawing.Point(711, 18);
+            this.button1.Image = global::Cartera.Properties.Resources.Guardar1;
+            this.button1.Location = new System.Drawing.Point(711, 24);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(31, 32);
             this.button1.TabIndex = 33;
-            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
+            this.toolTip1.SetToolTip(this.button1, "Guardar Refinanciación");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -132,15 +134,15 @@ namespace Cartera.Vista
             this.label7.TabIndex = 37;
             this.label7.Text = "Valor Total";
             // 
-            // TxtValorCuotaInteres
+            // TxtValorCuota
             // 
-            this.TxtValorCuotaInteres.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.TxtValorCuotaInteres.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TxtValorCuotaInteres.Enabled = false;
-            this.TxtValorCuotaInteres.Location = new System.Drawing.Point(482, 36);
-            this.TxtValorCuotaInteres.Name = "TxtValorCuotaInteres";
-            this.TxtValorCuotaInteres.Size = new System.Drawing.Size(102, 20);
-            this.TxtValorCuotaInteres.TabIndex = 36;
+            this.TxtValorCuota.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.TxtValorCuota.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TxtValorCuota.Enabled = false;
+            this.TxtValorCuota.Location = new System.Drawing.Point(482, 36);
+            this.TxtValorCuota.Name = "TxtValorCuota";
+            this.TxtValorCuota.Size = new System.Drawing.Size(102, 20);
+            this.TxtValorCuota.TabIndex = 36;
             // 
             // TxtValorDeuda
             // 
@@ -174,7 +176,6 @@ namespace Cartera.Vista
             this.numCuotasFinan.Name = "numCuotasFinan";
             this.numCuotasFinan.Size = new System.Drawing.Size(50, 20);
             this.numCuotasFinan.TabIndex = 33;
-            this.numCuotasFinan.ValueChanged += new System.EventHandler(this.numCuotasFinan_ValueChanged);
             this.numCuotasFinan.Click += new System.EventHandler(this.numCuotasFinan_Click);
             // 
             // numValorInteres
@@ -189,6 +190,7 @@ namespace Cartera.Vista
             this.numValorInteres.Name = "numValorInteres";
             this.numValorInteres.Size = new System.Drawing.Size(44, 20);
             this.numValorInteres.TabIndex = 32;
+            this.numValorInteres.Click += new System.EventHandler(this.numValorInteres_Click);
             // 
             // label5
             // 
@@ -254,10 +256,6 @@ namespace Cartera.Vista
             this.dataGridView1.Size = new System.Drawing.Size(738, 275);
             this.dataGridView1.TabIndex = 20;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
-            this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
-            this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
-            this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
-            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             // 
             // tabControl1
             // 
@@ -322,6 +320,19 @@ namespace Cartera.Vista
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.Size = new System.Drawing.Size(739, 278);
             this.dataGridView3.TabIndex = 22;
+            this.dataGridView3.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView3_DataBindingComplete);
+            // 
+            // button2
+            // 
+            this.button2.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button2.Location = new System.Drawing.Point(711, 24);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(31, 32);
+            this.button2.TabIndex = 39;
+            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Refinanciacion
             // 
@@ -336,7 +347,7 @@ namespace Cartera.Vista
             this.MinimizeBox = false;
             this.Name = "Refinanciacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Refinanciacion";
+            this.Text = "Detalle Refinanciación";
             this.Load += new System.EventHandler(this.Detalle_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -367,7 +378,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numCuotasFinan;
         private System.Windows.Forms.NumericUpDown numValorInteres;
-        private System.Windows.Forms.TextBox TxtValorCuotaInteres;
+        private System.Windows.Forms.TextBox TxtValorCuota;
         private System.Windows.Forms.TextBox TxtValorDeuda;
         private System.Windows.Forms.TextBox TxtValorMora;
         private System.Windows.Forms.TextBox TxtTotal;
@@ -379,5 +390,6 @@ namespace Cartera.Vista
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.Button button2;
     }
 }

@@ -35,7 +35,7 @@ namespace Cartera.Vista
         public static int valor = 0;
         string actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString();
         double val_total;
-
+        int Refi;
 
         public Clientes()
         {
@@ -596,12 +596,22 @@ namespace Cartera.Vista
                         numValorInteres.Text = DtFinanciacion.Rows[0]["Valor_Interes"].ToString();
                         int valorcuotaint = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
                         txtValorCuotaInteres.Text = valorcuotaint.ToString("N0", CultureInfo.CurrentCulture);
+                        if (DtFinanciacion.Rows[0]["Id_Refinanciacion"].ToString() == "")
+                        {
+                            Refi = 0;
+                        }
+                        else
+                        {
+                            Refi = int.Parse(DtFinanciacion.Rows[0]["Id_Refinanciacion"].ToString());
+                        }
+                        
                     }
                     double total = double.Parse(dataGridView2.Rows[n].Cells["Valor Final"].Value.ToString());
                     txtValorTotal.Text = total.ToString("N0", CultureInfo.CurrentCulture);                   
                     label24.Visible = true;
                     comboEstadoCliente.Visible = true;
                     dateFechaEstado.Visible = true;
+                    BtRefinanciar.Visible = true;
                     //txtValorTotal.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
                 }
             }
@@ -622,6 +632,7 @@ namespace Cartera.Vista
             numCuotaSinInteres.Enabled = false;
             numCuotasInteres.Enabled = false;
             checkBox1.Enabled = false;
+            BtRefinanciar.Visible = false;
         }
         private void Habilitar_Financiado()
         {
@@ -1337,11 +1348,16 @@ namespace Cartera.Vista
         {
             if(Financiacion_id != "")
             {
-                Refinanciacion Re = new Refinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()));
+                Refinanciacion Re = new Refinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), Refi);
                 //Refinanciacion Re = new Refinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()));
                 Re.ShowDialog();
             }
             
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
