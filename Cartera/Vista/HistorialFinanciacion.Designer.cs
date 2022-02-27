@@ -35,7 +35,9 @@ namespace Cartera.Vista
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.BtRefinanciar = new System.Windows.Forms.Button();
+            this.BtAmortizacion = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -48,8 +50,6 @@ namespace Cartera.Vista
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.BtRefinanciar = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -93,7 +93,7 @@ namespace Cartera.Vista
             // 
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.BtRefinanciar);
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.BtAmortizacion);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label9);
@@ -114,16 +114,39 @@ namespace Cartera.Vista
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Acuerdo de pago";
             // 
-            // button2
+            // label11
             // 
-            this.button2.Image = global::Cartera.Properties.Resources.Amortizacion;
-            this.button2.Location = new System.Drawing.Point(174, 283);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(31, 30);
-            this.button2.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(17, 259);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(48, 13);
+            this.label11.TabIndex = 70;
+            this.label11.Text = "label11";
+            // 
+            // BtRefinanciar
+            // 
+            this.BtRefinanciar.AutoSize = true;
+            this.BtRefinanciar.Image = global::Cartera.Properties.Resources.Refi;
+            this.BtRefinanciar.Location = new System.Drawing.Point(171, 283);
+            this.BtRefinanciar.Margin = new System.Windows.Forms.Padding(1);
+            this.BtRefinanciar.Name = "BtRefinanciar";
+            this.BtRefinanciar.Size = new System.Drawing.Size(31, 30);
+            this.BtRefinanciar.TabIndex = 69;
+            this.toolTip1.SetToolTip(this.BtRefinanciar, "Refinanciación");
+            this.BtRefinanciar.UseVisualStyleBackColor = true;
+            this.BtRefinanciar.Click += new System.EventHandler(this.BtRefinanciar_Click);
+            // 
+            // BtAmortizacion
+            // 
+            this.BtAmortizacion.Image = global::Cartera.Properties.Resources.Amortizacion;
+            this.BtAmortizacion.Location = new System.Drawing.Point(219, 283);
+            this.BtAmortizacion.Name = "BtAmortizacion";
+            this.BtAmortizacion.Size = new System.Drawing.Size(31, 30);
+            this.BtAmortizacion.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.BtAmortizacion, "Tabla de Amortización");
+            this.BtAmortizacion.UseVisualStyleBackColor = true;
+            this.BtAmortizacion.Click += new System.EventHandler(this.button2_Click);
             // 
             // label10
             // 
@@ -236,29 +259,6 @@ namespace Cartera.Vista
             this.label4.TabIndex = 5;
             this.label4.Text = "label4";
             // 
-            // BtRefinanciar
-            // 
-            this.BtRefinanciar.AutoSize = true;
-            this.BtRefinanciar.Image = global::Cartera.Properties.Resources.Refi;
-            this.BtRefinanciar.Location = new System.Drawing.Point(225, 283);
-            this.BtRefinanciar.Margin = new System.Windows.Forms.Padding(1);
-            this.BtRefinanciar.Name = "BtRefinanciar";
-            this.BtRefinanciar.Size = new System.Drawing.Size(31, 30);
-            this.BtRefinanciar.TabIndex = 69;
-            this.toolTip1.SetToolTip(this.BtRefinanciar, "Refinanciación");
-            this.BtRefinanciar.UseVisualStyleBackColor = true;
-            this.BtRefinanciar.Click += new System.EventHandler(this.BtRefinanciar_Click);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(17, 259);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(48, 13);
-            this.label11.TabIndex = 70;
-            this.label11.Text = "label11";
-            // 
             // HistorialFinanciacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -302,7 +302,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button BtAmortizacion;
         private System.Windows.Forms.Button BtRefinanciar;
         private System.Windows.Forms.Label label11;
     }

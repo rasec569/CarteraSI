@@ -14,16 +14,25 @@ namespace Cartera.Modelo
         {
             string sql = "INSERT INTO Refinanciacion (Valor_Neto_Refi, Interes_Mora, Valor_Deuda, Cuotas_Refi, Valor_Cuota_Refi, Valor_Interes_Refi, Valor_Total_Refi, Fecha_Refi, User_log_Refi, Fk_Financiacion) VALUES(@Valor_Neto_Refi, @Interes_Mora, @Valor_Deuda, @Cuotas_Refi, @Valor_Cuota_Refi, @Valor_Interes_Refi, @Valor_Total_Refi, @Fecha_Refi, @User_log_Refi, @Fk_Financiacion);";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Neto_Refi", Valor_Neto_Refi));
-            cmd.Parameters.Add(new SQLiteParameter("@Interes_Mora", Interes_Mora));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Deuda", Valor_Deuda));
-            cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Refi", Cuotas_Refi));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Refi", Valor_Cuota_Refi));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Interes_Refi", Valor_Interes_Refi));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Total_Refi", Valor_Total_Refi));
-            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Refi", Fecha_Refi));
-            cmd.Parameters.Add(new SQLiteParameter("@User_log_Refi", User_log_Refi));
-            cmd.Parameters.Add(new SQLiteParameter("@Fk_Financiacion", Fk_Financiacion));
+            try
+            {
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Neto_Refi", Valor_Neto_Refi));
+                cmd.Parameters.Add(new SQLiteParameter("@Interes_Mora", Interes_Mora));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Deuda", Valor_Deuda));
+                cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Refi", Cuotas_Refi));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Refi", Valor_Cuota_Refi));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Interes_Refi", Valor_Interes_Refi));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Total_Refi", Valor_Total_Refi));
+                cmd.Parameters.Add(new SQLiteParameter("@Fecha_Refi", Fecha_Refi));
+                cmd.Parameters.Add(new SQLiteParameter("@User_log_Refi", User_log_Refi));
+                cmd.Parameters.Add(new SQLiteParameter("@Fk_Financiacion", Fk_Financiacion));
+            }
+            catch (Exception ex){
+                Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                Console.WriteLine("  Message: {0}", ex.Message);
+
+            }
+            
             return cmd.ExecuteNonQuery();
         }
 

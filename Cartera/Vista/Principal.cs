@@ -25,6 +25,10 @@ namespace Cartera.Vista
             InitializeComponent();
             dtsession = User;
             LbUser.Text = User.Rows[0]["Nom_Usuario"].ToString();
+            label2.Text= "Ultima sesión: " + User.Rows[0]["Ultimo_Ingreso"].ToString();
+            DtosUsuario.NombreUser = User.Rows[0]["Nom_Usuario"].ToString();
+            DtosUsuario.IdUser = User.Rows[0]["Id_usuario"].ToString();
+            DtosUsuario.NombreUser = User.Rows[0]["Nom_Usuario"].ToString();
             DtosUsuario.NombreUser = User.Rows[0]["Nom_Usuario"].ToString();
         }
 

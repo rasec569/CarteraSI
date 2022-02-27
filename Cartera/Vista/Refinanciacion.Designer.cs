@@ -33,6 +33,7 @@ namespace Cartera.Vista
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Refinanciacion));
             this.TxtValorNeto = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.TxtTotal = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -55,7 +56,6 @@ namespace Cartera.Vista
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasFinan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).BeginInit();
@@ -103,6 +103,18 @@ namespace Cartera.Vista
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Refinanciación";
+            // 
+            // button2
+            // 
+            this.button2.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button2.Location = new System.Drawing.Point(711, 24);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(31, 32);
+            this.button2.TabIndex = 39;
+            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -322,18 +334,6 @@ namespace Cartera.Vista
             this.dataGridView3.TabIndex = 22;
             this.dataGridView3.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView3_DataBindingComplete);
             // 
-            // button2
-            // 
-            this.button2.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button2.Location = new System.Drawing.Point(711, 24);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(31, 32);
-            this.button2.TabIndex = 39;
-            this.toolTip1.SetToolTip(this.button2, "Guardar Reporte");
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // Refinanciacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,6 +348,7 @@ namespace Cartera.Vista
             this.Name = "Refinanciacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detalle Refinanciación";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Refinanciacion_FormClosed);
             this.Load += new System.EventHandler(this.Detalle_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

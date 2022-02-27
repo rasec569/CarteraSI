@@ -9,5 +9,7 @@ namespace Cartera
     internal class DtosUsuario
     {
         static public string NombreUser;
+
+        static public string IdUser;
     }
 }

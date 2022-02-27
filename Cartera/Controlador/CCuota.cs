@@ -14,31 +14,47 @@ namespace Cartera.Controlador
         {
             return Modelo.MCuota.crearcuota(cuota, valor, Tipo, fecha, Estado, financiacion);
         }
-        public int ActulziarCuota(int cuota, string Estado, int financiacion, string tipo)
+        public int InactivarCuota(int cuota, string Estado, int financiacion, string tipo)
         {
-            return Modelo.MCuota.actualizarcuota(cuota, Estado, financiacion,  tipo);
+            return Modelo.MCuota.InactivarCuota(cuota, Estado, financiacion,  tipo);
+        }
+        public int ModificarCuota(int idcuota, int cuota,int valor, string tipo, string fecha,  string Estado, int aporte)
+        {
+            return Modelo.MCuota.ModificarCuota(idcuota, cuota, valor, tipo, fecha, Estado,aporte);
+        }
+        public DataTable ConsultarCuotaAPagar(int productoid, int cuota, string tipo)
+        {
+            return MCuota.ConsultarCuotaAPagar(productoid, cuota, tipo);
+        }
+        public int ActulziarCuotaRegistroPago(int cuota, int aportes, string Estado, int financiacion, string tipo)
+        {
+            return Modelo.MCuota.ActulziarCuotaRegistroPago(cuota, aportes, Estado, financiacion, tipo);
         }
         public DataTable CuotasPagadas( int financiacion)
         {
             return MCuota.CuotasPagadas(financiacion);
         }
+        public DataTable CuotasPorPagar(int producto)
+        {
+             return MCuota.CuotasPorPagar(producto);
+        }
         public int EliminarCuotas(int financiacion)
         {
             return MCuota.EliminarCuotas(financiacion);
         }
-        public DataTable ListarCuotas(int financiacion)
+        public DataTable ListarCuotas(int financiacion, string filtro, string estado)
         {
-            return MCuota.ListarCuotas(financiacion);
+            return MCuota.ListarCuotas(financiacion, filtro, estado);
         }
         //valor pagado cuota y estado
-        public DataTable ActulizarEstadoCuotas(int cuota, int id_Producto, string tipo)
+        public DataTable BalanceCuota(int cuota, int id_Producto, string tipo)
         {
-            return MCuota.ActulizarEstadoCuotas(cuota, id_Producto, tipo);
+            return MCuota.BalanceCuota(cuota, id_Producto, tipo);
         }
         //valida cuotas en mora
-        public int ValidarEstadoCuotas(string Fecha)
+        public int ValidarEstadoCuotas(string Fecha, string actulizado)
         {
-            return MCuota.ValidarEstadoCuotas(Fecha);
+            return MCuota.ValidarEstadoCuotas(Fecha, actulizado);
         }
         public DataTable ListarCuotasInteres(int financiacion)
         {
@@ -79,6 +95,10 @@ namespace Cartera.Controlador
         public DataTable ValidarActulizacion(string user)
         {
             return MCuota.ValidarActulizacion(user);
+        }
+        public DataTable UltimoInicio()
+        {
+            return MCuota.UltimoInicio();
         }
         public DataTable ProyeccionMes(string FechaInicio, string FechaFin)
         {

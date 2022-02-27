@@ -16,14 +16,18 @@ namespace Cartera.Modelo
         public string Fecha_Pago { get; set; }
         public string Referencia_Pago { get; set; }  
         public int Valor_Pagado { get; set; }
+
+        
+
         public string Descuento { get; set; }
         public int Valor_Descuento { get; set; }
 
-        internal static DataTable ConsultarUltimaCuota(int productoid)
+        internal static DataTable ConsultarUltimaCuotaPagada(int productoid)
         {
-            return Conexion.consulta("Select Numero_Cuota, max(Id_Pagos) from Pagos where Fk_Id_Producto = '" + productoid + "';");
+            return Conexion.consulta("Select Numero_Cuota, max(Fecha_Pago),Porcentaje from Pagos where Fk_Id_Producto = '" + productoid + "';");
             throw new NotImplementedException();
         }
+        
         internal static DataTable ConsultarCuotas(int productoid, string tipo)
         {
             return Conexion.consulta("Select max(Numero_Cuota) as cuotas from Pagos where Fk_Id_Producto = '" + productoid + "'AND Porcentaje like '"+tipo+"';");

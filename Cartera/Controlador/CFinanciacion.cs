@@ -34,6 +34,9 @@ namespace Cartera.Controlador
         {
             return MFinanciacion.HistorialFinanciacion(Id_Producto);
         }
-
+        public DataTable Financiacion(int id_Financiacion)
+        {
+            return MFinanciacion.Financiacion(id_Financiacion);
+        }
     }
 }

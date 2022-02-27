@@ -26,10 +26,18 @@ namespace Cartera.Vista
         CPago pago = new CPago();
         CCliente cliente = new CCliente();
         CCuota cuota=new CCuota();
+        CFinanciacion financiacion = new CFinanciacion();
+        CRefinanciacion refinanciacion = new CRefinanciacion();
         int clienteId = 0;
         DataTable DtNombres = new DataTable();
+        DataTable DtFinanciacion = new DataTable();
+        DataTable DtRefi = new DataTable();
         bool modificar = false;
+        string TipoPago = "";
+        int ValorCuota = 0;
         string actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString();
+
+        DataTable DtCuotas=new DataTable();
         public RegistrarPago()
         {
             InitializeComponent();
@@ -61,7 +69,7 @@ namespace Cartera.Vista
             txtNombre.Text = nombre;
             Txtcedula.Text = cedula.ToString();
             txtProducto.Text = nomProducto;
-            cargarpagocuota();
+            CuotaPagar(0);
             tipoproducto();
 
         }
@@ -119,7 +127,7 @@ namespace Cartera.Vista
                     productoid = int.Parse(dataGridView1.Rows[n].Cells["Id_Producto"].Value.ToString());
                     valortotal = int.Parse(dataGridView1.Rows[n].Cells["Valor Total"].Value.ToString());                   
                     txtProducto.Text = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
-                    cargarpagocuota();
+                    CuotaPagar(0);
                 }
             }
             catch
@@ -127,36 +135,12 @@ namespace Cartera.Vista
                 MessageBox.Show("Valor no admitido");
             }
         }
-        private void tipoproducto()
-        {
-            DataTable DtProducto= producto.BuscarProductos(txtProducto.Text);
-            tipo = DtProducto.Rows[0]["Forma Pago"].ToString();
-            if (tipo== "Contado")
-            {
-                label5.Text = "Numero pago";
-            }
-        }
-        private void cargarpagocuota()
-        {
-            panelProductos.Visible = false;
-            DataTable Dtcuota = pago.ConsultarUltimaCuota(productoid);
-            string num_cuota = Dtcuota.Rows[0]["Numero_Cuota"].ToString();
-            if (num_cuota == "")
-            {
-                txtCuota.Text = "0";
-            }
-            else
-            {
-                txtCuota.Text = (1 + int.Parse(num_cuota)).ToString();
-            }
-        }
-
         private void CargarProducto()
         {
             dataGridView1.DataSource = producto.cargarProductosCliente(clienteId);
             dataGridView1.Columns["Id_Producto"].Visible = false;
             dataGridView1.Columns["Observaciones"].Visible = false;
-            dataGridView1.Columns["Tipo Producto"].Visible=false;
+            dataGridView1.Columns["Tipo Producto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Proyecto"].Visible = false;
             dataGridView1.Columns["Fk_Id_Tipo_Producto"].Visible = false;
             formatoGrid1();
@@ -173,6 +157,59 @@ namespace Cartera.Vista
             dataGridView1.Columns[6].Width = 65;
             dataGridView1.Columns[8].Width = 160;
         }
+        private void tipoproducto()
+        {
+            DataTable DtProducto= producto.BuscarProductos(txtProducto.Text);
+            tipo = DtProducto.Rows[0]["Forma Pago"].ToString();
+            if (tipo== "Contado")
+            {
+                label5.Text = "Numero pago";
+            }
+        }
+        private void CuotaPagar(int i)
+        {
+            panelProductos.Visible = false;
+            DtCuotas = cuota.CuotasPorPagar(productoid);
+            string tipo = DtCuotas.Rows[i]["Tipo"].ToString();
+            switch (tipo)
+            {
+                case "Contado":
+                    tipo = "Contado";
+                    break;
+                case "Valor Separación":
+                    tipo = "Separación";
+                    break;
+                case "Valor Inicial":
+                    tipo = "Inicial sin Interes";
+                    break;                    
+                case "Valor Saldo":
+                    if (DtCuotas.Rows[i]["Valor_Interes"].ToString() == "0")
+                    {
+                        tipo = "Saldo sin Interes";
+                    }
+                    else
+                    {
+                        tipo = "Saldo con Interes";
+                    }
+                    break;
+                case "Refinanciación":
+                    tipo = "Refinanciación";
+                    break;
+            }
+            comboTipoPago.Text = tipo;
+            txtCuota.Text = DtCuotas.Rows[i]["Num_Cuota"].ToString();
+            int TemAportes = 0;
+            if (DtCuotas.Rows[i]["Aporte_Pagos"].ToString() != "")
+            {
+                TemAportes = int.Parse(DtCuotas.Rows[i]["Aporte_Pagos"].ToString());
+            }
+            int TemCuota = int.Parse(DtCuotas.Rows[i]["Valor_Cuota"].ToString()) - TemAportes;
+            txtValor.Text = TemCuota.ToString("N0", CultureInfo.CurrentCulture);
+            comboTipoPago.Text = tipo;
+
+        }
+        
+        
         private bool ValidarCampos()
         {
             bool ok = true;
@@ -217,11 +254,6 @@ namespace Cartera.Vista
             carteraId= int.Parse(dtclientes.Rows[0]["Fk_Id_Cartera"].ToString());
             txtNombre.Text= dtclientes.Rows[0]["Nombre"].ToString()+" "+dtclientes.Rows[0]["Apellido"].ToString();
             CargarProducto();
-           // string clienteid = "";
-            //HistorialPagos Hp = new HistorialPagos();
-            //Hp.
-
-
         }
         private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
@@ -234,23 +266,44 @@ namespace Cartera.Vista
         private void RegistrarPago_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-        }
-        private void txtValor_Leave(object sender, EventArgs e)
+        }        
+        private void TipoCuotaValor(string tipo)
         {
-            try
+            DtFinanciacion = financiacion.FinanciacionProducto(productoid);
+            
+            if (DtFinanciacion.Rows[0]["Id_Refinanciacion"].ToString() != "")
             {
-                
-                if (!string.IsNullOrEmpty(txtValor.Text))
-                {
-                    int valor;
-                    valor = int.Parse(txtValor.Text);
-                    txtValor.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
-                }
-            }
-            catch
+                DtRefi = refinanciacion.RefinanciacionFinanciacion(int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()));
+
+            }            
+            switch (tipo)
             {
-                //MessageBox.Show("Valor no admitido");
-                //errorProvider1.SetError(txtValor, "Error");
+                case "Contado":
+                    TipoPago = "Inicial";
+                    break;
+                case "Entrada":
+                    TipoPago = "Separación";
+                    break;
+                case "Inicial sin Interes":
+                    TipoPago = "Inicial";
+                    ValorCuota = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString());
+                    break;
+                case "Inicial con Interes":
+                    TipoPago = "Inicial";
+                    ValorCuota = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString());
+                    break;
+                case "Saldo sin Interes":
+                    TipoPago = "Saldo";
+                    ValorCuota = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
+                    break;
+                case "Saldo con Interes":
+                    TipoPago = "Saldo";
+                    ValorCuota = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
+                    break;
+                case "Refinanciación":
+                    TipoPago = "Refinanciación";
+                    ValorCuota = int.Parse(DtRefi.Rows[0]["Valor_Cuota_Refi"].ToString());
+                    break;
             }
         }
         private void BtRegistrarPago_Click(object sender, EventArgs e)
@@ -258,31 +311,9 @@ namespace Cartera.Vista
             ValidarCampos();
             if ((error != true) && (ValidarCampos() == true))
             {
-                string TipoPago = "";
-                switch (comboTipoPago.Text)
-                {
-                    case "Contado":
-                        TipoPago = "Inicial";
-                        break;
-                    case "Entrada":
-                        TipoPago = "Separación";
-                        break;
-                    case "Inicial sin Interes":
-                        TipoPago = "Inicial";
-                        break;
-                    case "Inicial con Interes":
-                        TipoPago = "Inicial";
-                        break;
-                    case "Saldo sin Interes":
-                        TipoPago = "Saldo";
-                        break;
-                    case "Saldo con Interes":
-                        TipoPago = "Saldo";
-                        break;
-                    case "Refinanciación":
-                        TipoPago = "Refinanciación";
-                        break;
-                }
+                //TipoCuotaValor(comboTipoPago.Text);
+                DtFinanciacion = financiacion.FinanciacionProducto(productoid);
+
                 if (modificar == false)
                 {
                     if (comboDescuento.Text == "Seleccionar")
@@ -291,16 +322,34 @@ namespace Cartera.Vista
                     }
                     else 
                     {
+                        int TemAportes = 0;
+                        if (DtCuotas.Rows[0]["Aporte_Pagos"].ToString() != "")
+                        {
+                            TemAportes = int.Parse(DtCuotas.Rows[0]["Aporte_Pagos"].ToString());
+                        }
                         int NuevoValor = valortotal - int.Parse(Convert.ToDouble(txtValorDescuento.Text).ToString());
                         if (comboDescuento.Text == "Pago anticipado")
                         {
-                            //pendiente cambiar valor cuota(-el descuento)
+                            for (int i = 0; i < DtCuotas.Rows.Count; i++)
+                            {                                
+                                if (i == 0)
+                                {
+                                    cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Num_Cuota"].ToString()), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), DtCuotas.Rows[i]["Estado"].ToString(), TemAportes);
+                                }
+                                else
+                                {
+                                    cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Num_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Valor_Cuota"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Inactiva", TemAportes);
+                                }
+                            }
                         }
-                        
+                        else
+                        {
+                            cuota.ModificarCuota(int.Parse(DtCuotas.Rows[0]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[0]["Num_Cuota"].ToString()), (int.Parse(DtCuotas.Rows[0]["Valor_Cuota"].ToString()) - int.Parse(Convert.ToDouble(txtValorDescuento.Text).ToString())), DtCuotas.Rows[0]["Tipo"].ToString(), DtCuotas.Rows[0]["Fecha"].ToString(), DtCuotas.Rows[0]["Estado"].ToString(), TemAportes);
+                        }
                         pago.RegistrarPago(comboTipoPago.Text, txtCuota.Text, dateFechaPago.Text, txtConcepto.Text, TxtEntidad.Text, txtReferencia.Text, Convert.ToDouble(txtValor.Text).ToString(), comboDescuento.Text, Convert.ToDouble(txtValorDescuento.Text).ToString(), productoid.ToString());
                         producto.actualizarValorProducto(productoid, NuevoValor);                        
                         cartera.ActulizarValorTotal(int.Parse(clienteId.ToString()), carteraId);
-                        //pendiente actulizar valor cuota
+                        financiacion.actualizarFinanciacion(int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()), NuevoValor, int.Parse(DtFinanciacion.Rows[0]["Valor_Entrada"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Valor_Sin_interes"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Valor_Con_Interes"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Valor_Interes"].ToString()), DtFinanciacion.Rows[0]["Fecha_Recaudo"].ToString(), productoid);                       
                     }
                 }
                 else
@@ -318,7 +367,11 @@ namespace Cartera.Vista
                 
                 // 
                 //ActulizarCuotas();       
-                cuota.ActulizarEstadoCuotas(int.Parse(txtCuota.Text), productoid, TipoPago);
+                DataTable DtBalanceCuota= cuota.BalanceCuota(int.Parse(txtCuota.Text), productoid, TipoPago);
+                int valCuota = ValorCuota - int.Parse(DtBalanceCuota.Rows[0]["descuento"].ToString());
+                cuota.ActulziarCuotaRegistroPago(int.Parse(txtCuota.Text), int.Parse(DtBalanceCuota.Rows[0]["valor"].ToString()), DtBalanceCuota.Rows[0]["result"].ToString(), int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()),TipoPago);
+                //DtBalanceCuota = cuota.BalanceCuota(int.Parse(txtCuota.Text), productoid, TipoPago);
+                //cuota.ActulziarCuotaRegistroPago(int.Parse(txtCuota.Text), valCuota.ToString(), int.Parse(DtBalanceCuota.Rows[0]["valor"].ToString()), DtBalanceCuota.Rows[0]["result"].ToString(), int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()), TipoPago);
                 cartera.ActulizarValorRecaudado( carteraId);
                 cartera.ActulizarSaldo(carteraId);
                 //actulizar estado Cuota
@@ -326,128 +379,12 @@ namespace Cartera.Vista
                 this.Close();
             }
         }    
-        private void ActulizarCuotas()
-        {
-            CFinanciacion financiacion = new CFinanciacion();
-            CCuota cuota = new CCuota();
-            DataTable dtfinanciacion = financiacion.FinanciacionProducto(productoid);
-            if (dtfinanciacion.Rows.Count != 0)
-            {
-                int idfinanciacion = int.Parse(dtfinanciacion.Rows[0]["Id_Financiacion"].ToString());
-                int Valor_Producto_Financiacion = int.Parse(dtfinanciacion.Rows[0]["Valor_Producto_Financiacion"].ToString());
-                int valor_entrada = int.Parse(dtfinanciacion.Rows[0]["Valor_Entrada"].ToString());
-                int valor_sin_interes = int.Parse(dtfinanciacion.Rows[0]["Valor_Sin_interes"].ToString());
-                int Cuotas_sin_interes = int.Parse(dtfinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString());
-                int Valor_cuota_sin_interes = int.Parse(dtfinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString());
-                int Valor_con_interes = int.Parse(dtfinanciacion.Rows[0]["Valor_Con_Interes"].ToString());
-                int Cuotas_Con_Interes = int.Parse(dtfinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString());
-                int Valor_Cuota_Con_Interes = int.Parse(dtfinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
-                string Fecha_Recaudo = dtfinanciacion.Rows[0]["Fecha_Recaudo"].ToString();
-                DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                label1.Text = "Valor final: $ " + String.Format("{0:N0}", Valor_Producto_Financiacion);
-                label2.Text = "Valor inicial: $ " + String.Format("{0:N0}", valor_sin_interes);
-                label3.Text = "Valor separación: $ " + String.Format("{0:N0}", valor_entrada);
-                label4.Text = "N° de cuotas inicial: " + Cuotas_sin_interes;
-                label5.Text = "Valor cuotas inicial: $ " + String.Format("{0:N0}", Valor_cuota_sin_interes);
-                label6.Text = "Valor saldo: $ " + String.Format("{0:N0}", Valor_con_interes);
-                label7.Text = "N° de cuotas saldo: " + String.Format("{0:N0}", Cuotas_Con_Interes);
-                label8.Text = "Valor cuotas saldo: $ " + String.Format("{0:N0}", Valor_Cuota_Con_Interes);
-                if (Valor_Producto_Financiacion > 0 /*&& id_financiacion !=  0*/)
-                {
-                    DataTable dtCuotas = cuota.ListarCuotas(idfinanciacion);
-                    DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoid.ToString());
-                    int ValorPagado = 0;
-                    int num_cuota = 0;
-                    int contador = 1;
-                    int pagado = 0;
-                    string Estado = "";
-                    pagado = valor_entrada;
-                    int result = DateTime.Compare(date, actual);
-                    if (dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString() != "")
-                    {
-                        ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
-
-                        pagado = valor_entrada;
-                        if (pagado <= ValorPagado)
-                        {
-                            Estado = "Pagada";
-                        }
-                        else if (result > 0)
-                        {
-                            Estado = "Mora";
-                        }
-                        else
-                        {
-                            Estado = "Pendiente";
-                        }
-                    }
-                    else
-                    {
-                        Estado = "Pendiente";
-                    }
-                    if (dtCuotas.Rows.Count != 0)
-                    {
-                        cuota.ActulziarCuota(num_cuota, Estado, idfinanciacion, "Valor Separación");
-                    }
-                    num_cuota++;
-                    while (num_cuota <= Cuotas_sin_interes)
-                    {
-                        DateTime fechacuota = date.AddMonths(contador);
-                        result = DateTime.Compare(fechacuota, actual);
-                        pagado = pagado + Valor_cuota_sin_interes;
-                        if (pagado <= ValorPagado)
-                        {
-                            Estado = "Pagada";
-                        }
-                        else if (result < 0)
-                        {
-                            Estado = "Mora";
-                        }
-                        else
-                        {
-                            Estado = "Pendiente";
-                        }
-                        if (dtCuotas.Rows.Count != 0)
-                        {
-                            cuota.ActulziarCuota(num_cuota, Estado, idfinanciacion, "Valor Inicial");
-                        }
-                        contador++;
-                        num_cuota++;
-                    }
-                    num_cuota = 1;
-                    while (num_cuota <= Cuotas_Con_Interes)
-                    {
-                        DateTime fechacuota = date.AddMonths(contador);
-                        result = DateTime.Compare(fechacuota, actual);
-                        pagado = pagado + Valor_Cuota_Con_Interes;
-                        if (pagado <= ValorPagado)
-                        {
-                            Estado = "Pagada";
-                        }
-                        else if (result.ToString() == "-1")
-                        {
-                            Estado = "Mora";
-                        }
-                        else
-                        {
-                            Estado = "Pendiente";
-                        }
-                        if (dtCuotas.Rows.Count != 0)
-                        {
-                            cuota.ActulziarCuota(num_cuota, Estado, idfinanciacion, "Valor Saldo");
-                        }
-                        contador++;
-                        num_cuota++;
-                    }
-                }
-            }
-            
-        }
+        
             private void BtEliminar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Está seguro de eliminar el Pago?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {                
+            {
+                TipoCuotaValor(comboTipoPago.Text);
                 pago.EliminarPago(pagoId);
                 if (valdescuento != 0)
                 {
@@ -460,38 +397,6 @@ namespace Cartera.Vista
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }            
-        }
-        private void txtValorDescuento_Leave(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(txtValorDescuento.Text))
-                {
-                    int valor;
-                    valor = int.Parse(txtValorDescuento.Text);
-                    txtValorDescuento.Text = valor.ToString("N0", CultureInfo.CurrentCulture);
-                }
-            }
-            catch
-            {
-            }   
-        }
-
-        private void txtValor_TextChanged(object sender, EventArgs e)
-        {
-            foreach (char caracter in txtValor.Text)
-            {
-                if (char.IsLetter(caracter))
-                {
-                    error = true;
-                    errorProvider1.SetError(txtValor, "No se admiten letras");
-                }
-                else
-                {
-                    error = false;
-                    errorProvider1.Clear();
-                }
-            }
         }
 
         private void txtCuota_TextChanged(object sender, EventArgs e)
@@ -511,21 +416,63 @@ namespace Cartera.Vista
             }
         }
 
-        private void txtValorDescuento_TextChanged(object sender, EventArgs e)
+
+        private void txtValor_Validating(object sender, CancelEventArgs e)
         {
-            foreach (char caracter in txtValorDescuento.Text)
+            decimal value;
+
+            if (decimal.TryParse(txtValor.Text, NumberStyles.Currency, null, out value))
             {
-                if (char.IsLetter(caracter))
+                double numero = Convert.ToDouble(txtValor.Text);
+                txtValor.Text = numero.ToString("N0");
+            }
+        }
+
+        private void txtValor_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (char.IsLetter(System.Convert.ToChar(e.KeyValue)))
+            {
+                if (!string.IsNullOrEmpty(txtValor.Text))
                 {
+                    // Notify the user somehow
                     error = true;
-                    errorProvider1.SetError(txtValorDescuento, "No se admiten letras");
-                }
-                else
-                {
-                    error = false;
-                    errorProvider1.Clear();
+                    errorProvider1.SetError(txtValor, "No se admiten letras");
                 }
             }
-        }       
+            else
+            {
+                error = false;
+                errorProvider1.Clear();
+            }
+        }
+
+        private void txtValorDescuento_Validating(object sender, CancelEventArgs e)
+        {
+            decimal value;
+
+            if (decimal.TryParse(txtValorDescuento.Text, NumberStyles.Currency, null, out value))
+            {
+                double numero = Convert.ToDouble(txtValorDescuento.Text);
+                txtValorDescuento.Text = numero.ToString("N0");
+            }
+        }
+
+        private void txtValorDescuento_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (char.IsLetter(System.Convert.ToChar(e.KeyValue)))
+            {
+                if (!string.IsNullOrEmpty(txtValor.Text))
+                {
+                    // Notify the user somehow
+                    error = true;
+                    errorProvider1.SetError(txtValor, "No se admiten letras");
+                }
+            }
+            else
+            {
+                error = false;
+                errorProvider1.Clear();
+            }
+        }
     }    
 }

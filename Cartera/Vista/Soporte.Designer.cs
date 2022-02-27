@@ -247,7 +247,7 @@ namespace Cartera.Vista
             this.groupBox3.Size = new System.Drawing.Size(304, 169);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Session";
+            this.groupBox3.Text = "Sesión";
             // 
             // button1
             // 

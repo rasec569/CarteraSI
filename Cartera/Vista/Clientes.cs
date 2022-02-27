@@ -695,7 +695,7 @@ namespace Cartera.Vista
                 if (MessageBox.Show("¿Está seguro de Disolver el contrato?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     DataTable DtCartera = cartera.CarteraCliente(txtCedula.Text);
-                    cartera.ActulizarEstados(Cartera_id.ToString(), "Disuelto", int.Parse(DtCartera.Rows[0]["Cuotas Pact."].ToString()), int.Parse(DtCartera.Rows[0]["Cuotas Pag."].ToString()), int.Parse(DtCartera.Rows[0]["Cuotas Mora"].ToString()), int.Parse(DtCartera.Rows[0]["Meses Mora"].ToString()));
+                    cartera.ActulizarEstadoCartera(Cartera_id.ToString(), "Disuelto", int.Parse(DtCartera.Rows[0]["Cuotas Pact."].ToString()), int.Parse(DtCartera.Rows[0]["Cuotas Pag."].ToString()), int.Parse(DtCartera.Rows[0]["Cuotas Mora"].ToString()), int.Parse(DtCartera.Rows[0]["Meses Mora"].ToString()));
                     cliente_producto.EstadoDisolver(Cliente_id, Producto_id, dateFechaEstado.Text);
                     Panel_Registrar_user.Visible = false;                    
                     cartera.ActulizarValorTotal(int.Parse(Cliente_id.ToString()), Cartera_id);

@@ -143,14 +143,14 @@ namespace Cartera.Vista
         private async Task CargarRpProyeccion()
         {
             //tarea temporal para mostrar el loading 
-            Mostrar();
-            var cargar = new Task(() =>
-            {
-                actulziarCuotas();
-            });
-            cargar.Start();
-            await cargar;
-            cerrar();
+            //Mostrar();
+            //var cargar = new Task(() =>
+            //{
+            //    actulziarCuotas();
+            //});
+            //cargar.Start();
+            //await cargar;
+            //cerrar();
             
                 dataGridView4.DataSource = "";
             if (comboProyecto.Text == "TODOS LOS PROYECTOS")
@@ -438,12 +438,12 @@ namespace Cartera.Vista
                         if (Valor_Producto_Financiacion > 0 /*&& id_financiacion !=  0*/)
                         {
                             //DataTable dtCuotas = cuota.ListarCuotasActulizar(id_financiacion, actual.ToString("yyyy-MM-dd"));
-                            DataTable dtCuotas = cuota.ListarCuotas(id_financiacion);
+                            DataTable dtCuotas = cuota.ListarCuotas(id_financiacion, "Refinanciación","") ;
                             DataTable dtrecaudo = pagos.Tota_Recaudado_Producto(id_producto);
                             if (dtCuotas.Rows.Count != (Cuotas_Con_Interes + Cuotas_sin_interes + 1))
                             {
                                 cuota.EliminarCuotas(id_financiacion);
-                                dtCuotas = cuota.ListarCuotas(id_financiacion);
+                                dtCuotas = cuota.ListarCuotas(id_financiacion, "Refinanciación","");
                             }
                             int num_cuota = 0;
                             int contador = 1;
@@ -479,7 +479,7 @@ namespace Cartera.Vista
                             }
                             else
                             {
-                                cuota.ActulziarCuota(num_cuota, Estado, id_financiacion, "Valor Separación");
+                                cuota.InactivarCuota(num_cuota, Estado, id_financiacion, "Valor Separación");
                             }
                             num_cuota++;
                             while (num_cuota <= Cuotas_sin_interes)
@@ -505,7 +505,7 @@ namespace Cartera.Vista
                                 }
                                 else
                                 {
-                                    cuota.ActulziarCuota(num_cuota, Estado, id_financiacion, "Valor Inicial");
+                                    cuota.InactivarCuota(num_cuota, Estado, id_financiacion, "Valor Inicial");
                                 }
                                 contador++;
                                 num_cuota++;
@@ -534,7 +534,7 @@ namespace Cartera.Vista
                                 }
                                 else
                                 {
-                                    cuota.ActulziarCuota(num_cuota, Estado, id_financiacion, "Valor Saldo");
+                                    cuota.InactivarCuota(num_cuota, Estado, id_financiacion, "Valor Saldo");
                                 }
                                 contador++;
                                 num_cuota++;

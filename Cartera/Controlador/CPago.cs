@@ -10,10 +10,11 @@ namespace Cartera.Controlador
 {
     class CPago
     {
-        public DataTable ConsultarUltimaCuota(int productoid)
+        public DataTable ConsultarUltimaCuotaPagada(int productoid)
         {
-            return MPago.ConsultarUltimaCuota(productoid);
+            return MPago.ConsultarUltimaCuotaPagada(productoid);
         }
+        
         public DataTable ConsultarCuotas(int productoid, string tipo)
         {
             return MPago.ConsultarCuotas(productoid, tipo);

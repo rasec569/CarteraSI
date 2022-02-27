@@ -48,17 +48,17 @@ namespace Cartera.Vista
         }
         private void formatoGrid1()
         {
-            dataGridView1.Columns[4].DefaultCellStyle.Format = "n0";
-            dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
-            dataGridView1.Columns[6].DefaultCellStyle.Format = "n0";
-            dataGridView1.Columns[1].Width = 65;
-            dataGridView1.Columns[2].Width = 65;
-            dataGridView1.Columns[3].Width = 70;
-            dataGridView1.Columns[4].Width = 65;
-            dataGridView1.Columns[5].Width = 65;
-            dataGridView1.Columns[6].Width = 65;
-            dataGridView1.Columns[7].Width = 65;
-            dataGridView1.Columns[9].Width = 160;
+            dataGridView1.Columns["Valor Neto"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Pagado"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Valor Final"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Producto"].Width = 65;
+            dataGridView1.Columns["Contrato"].Width = 65;
+            dataGridView1.Columns["Forma Pago"].Width = 70;
+            dataGridView1.Columns["Valor Neto"].Width = 65;
+            dataGridView1.Columns["Pagado"].Width = 65;
+            dataGridView1.Columns["Valor Final"].Width = 65;
+            dataGridView1.Columns["Fecha Venta"].Width = 65;
+            dataGridView1.Columns["Proyecto"].Width = 160;
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;            
             if (cargarbotones == true)
             {

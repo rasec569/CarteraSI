@@ -83,8 +83,8 @@ namespace Cartera.Vista
             this.comboTipoPago.FormattingEnabled = true;
             this.comboTipoPago.Items.AddRange(new object[] {
             "Contado",
+            "Separación",
             "Inicial sin Interes",
-            "Inicial con Interes",
             "Saldo sin Interes",
             "Saldo con Interes",
             "Refinanciación"});
@@ -147,8 +147,8 @@ namespace Cartera.Vista
             this.txtValor.Name = "txtValor";
             this.txtValor.Size = new System.Drawing.Size(125, 20);
             this.txtValor.TabIndex = 11;
-            this.txtValor.TextChanged += new System.EventHandler(this.txtValor_TextChanged);
-            this.txtValor.Leave += new System.EventHandler(this.txtValor_Leave);
+            this.txtValor.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtValor_PreviewKeyDown);
+            this.txtValor.Validating += new System.ComponentModel.CancelEventHandler(this.txtValor_Validating);
             // 
             // label8
             // 
@@ -193,8 +193,8 @@ namespace Cartera.Vista
             this.txtValorDescuento.Name = "txtValorDescuento";
             this.txtValorDescuento.Size = new System.Drawing.Size(125, 20);
             this.txtValorDescuento.TabIndex = 13;
-            this.txtValorDescuento.TextChanged += new System.EventHandler(this.txtValorDescuento_TextChanged);
-            this.txtValorDescuento.Leave += new System.EventHandler(this.txtValorDescuento_Leave);
+            this.txtValorDescuento.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtValorDescuento_PreviewKeyDown);
+            this.txtValorDescuento.Validating += new System.ComponentModel.CancelEventHandler(this.txtValorDescuento_Validating);
             // 
             // groupBox1
             // 

@@ -51,6 +51,7 @@ namespace Cartera.Vista
             this.BtClientes = new System.Windows.Forms.Button();
             this.PanelContenedor = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             this.PanelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -59,6 +60,7 @@ namespace Cartera.Vista
             // 
             this.PanelMenu.AutoSize = true;
             this.PanelMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.PanelMenu.Controls.Add(this.label2);
             this.PanelMenu.Controls.Add(this.label1);
             this.PanelMenu.Controls.Add(this.LbUser);
             this.PanelMenu.Controls.Add(this.BtProductos);
@@ -87,7 +89,7 @@ namespace Cartera.Vista
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bernard MT Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
-            this.label1.Location = new System.Drawing.Point(2, 554);
+            this.label1.Location = new System.Drawing.Point(3, 542);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 19);
             this.label1.TabIndex = 24;
@@ -98,7 +100,7 @@ namespace Cartera.Vista
             this.LbUser.AutoSize = true;
             this.LbUser.Font = new System.Drawing.Font("Bernard MT Condensed", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
-            this.LbUser.Location = new System.Drawing.Point(22, 573);
+            this.LbUser.Location = new System.Drawing.Point(23, 561);
             this.LbUser.Name = "LbUser";
             this.LbUser.Size = new System.Drawing.Size(59, 25);
             this.LbUser.TabIndex = 23;
@@ -315,6 +317,16 @@ namespace Cartera.Vista
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(60)))), ((int)(((byte)(12)))));
+            this.label2.Location = new System.Drawing.Point(27, 591);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "label2";
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -363,6 +375,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label LbUser;
+        private System.Windows.Forms.Label label2;
     }
 }
 
