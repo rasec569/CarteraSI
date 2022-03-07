@@ -10,7 +10,7 @@ namespace Cartera.Modelo
 {
     internal class MRefinanciacion
     {
-        internal static int crearRefinanciacion(int Valor_Neto_Refi, int Interes_Mora, int Valor_Deuda, int Cuotas_Refi, int Valor_Cuota_Refi, int Valor_Interes_Refi, int Valor_Total_Refi, string Fecha_Refi, string User_log_Refi, int Fk_Financiacion)
+        internal static int crearRefinanciacion(double Valor_Neto_Refi, double Interes_Mora, double Valor_Deuda, int Cuotas_Refi, double Valor_Cuota_Refi, double Valor_Interes_Refi, int Valor_Total_Refi, string Fecha_Refi, string User_log_Refi, int Fk_Financiacion)
         {
             string sql = "INSERT INTO Refinanciacion (Valor_Neto_Refi, Interes_Mora, Valor_Deuda, Cuotas_Refi, Valor_Cuota_Refi, Valor_Interes_Refi, Valor_Total_Refi, Fecha_Refi, User_log_Refi, Fk_Financiacion) VALUES(@Valor_Neto_Refi, @Interes_Mora, @Valor_Deuda, @Cuotas_Refi, @Valor_Cuota_Refi, @Valor_Interes_Refi, @Valor_Total_Refi, @Fecha_Refi, @User_log_Refi, @Fk_Financiacion);";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());

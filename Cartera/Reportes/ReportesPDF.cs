@@ -2341,9 +2341,6 @@ namespace Cartera.Reportes
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
-
-
-
                                 texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                 texto.Add("TABLA AMORTIZACÍON");
                                 texto.Alignment = 1;
@@ -2449,6 +2446,217 @@ namespace Cartera.Reportes
                         document.Add(texto);
                         texto.RemoveAt(0);
                         texto.Add("VALOR FINAL: "+ValorFin);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+
+                        //texto.Add(Valor_deduda);
+                        //document.Add(texto);
+                        //texto.RemoveAt(0);
+                        //texto.Add(valor_total);
+                        //document.Add(texto);
+                        //texto.RemoveAt(0);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+                    finally
+                    {
+                        //********************** Cerrar documento ********************         
+                        document.Close();
+                    }
+                    // abrir Pdf Luego de crearlo
+                    System.Diagnostics.Process.Start(nombre);
+                }
+                //return file;                
+            }
+        }
+        public void Refinanciacion(DataTable report, string cliente, string nomproducto, string nomproyecto, string ValorNeto, string ValorIni, string ValorSaldo, string ValorCuotaSal, string CuotasSal, string ValorInteres, string ValorFin, string InteresFecha)
+        {
+            //string nombre = "Historial de pagos";
+
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "PDF file|*.pdf", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    ////Dirección del proyecto donde se va a guardar
+
+
+                    ////string file = "report1.pdf";
+                    //string FilePath = dir2 + @"\Documento\" + file;
+                    var nombre = sfd.FileName;
+                    var nombre2 = sfd.Title;
+                    string file = nombre2 + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".pdf";
+                    Document document = new Document(PageSize.LETTER, 30, 20, 50, 50);
+                    try
+                    {
+                        //Save pdf file
+                        //PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.OpenOrCreate));
+                        MemoryStream m = new MemoryStream();
+
+                        //********************** Encabezado *******************************
+                        PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(nombre, FileMode.OpenOrCreate));
+                        writer.PageEvent = new HeaderFooter();
+                        //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(FilePath, FileMode.OpenOrCreate)); writer.PageEvent = new HeaderFooter();
+
+                        Paragraph texto = new Paragraph();
+                        texto.Alignment = Element.ALIGN_CENTER;
+                        texto.Font = FontFactory.GetFont("Verdana", 12);
+                        texto.Add("URBANIZADORA Y CONSTRUCTORA SAN ISIDRO S.A.S");
+                        Paragraph info = new Paragraph();
+                        info.Alignment = 1;
+                        info.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
+                        //*********************** Encabezado *************************
+
+                        //******* abrir documento
+                        document.Open();
+
+                        //******* Lineas **********            
+                        PdfContentByte pdfContent = writer.DirectContent;
+                        //****** Lineas **********
+
+                        //********* inicio portada**************
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (i == 0)
+                            {
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+                            }
+                            else if (i == 1)
+                            {
+                                //Logo 
+                                var path = AppDomain.CurrentDomain.BaseDirectory;
+                                string ruta = path + @"img\logo San Isidro.png";
+                                // Creamos la imagen y le ajustamos el tamaño
+                                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(ruta);
+                                imagen.BorderWidth = 0;
+                                imagen.SetAbsolutePosition(document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) - 60);
+                                float percentage = 0.0f;
+                                percentage = 70 / imagen.Width;
+                                imagen.ScalePercent(percentage * 100);
+                                // Insertamos la imagen en el documento
+                                document.Add(imagen);
+                                texto.Font = FontFactory.GetFont("Verdana", 8, Font.BOLD);
+                                texto.Add("NIT: 901100097-1".ToUpper());
+                                texto.Alignment = 1;
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                texto.Add("Conjunto el Encanto Calle 24 No. 19C-24 Local 4");
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                texto.Add("3126120806");
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                                texto.Add("REFINANCIACIÓN");
+                                texto.Alignment = 1;
+                                document.Add(texto);
+                                texto.RemoveAt(0);
+
+                                //Tabla detalle
+                                PdfPTable table = new PdfPTable(3) { WidthPercentage = 100f };
+                                //proporcion relativa - 2/3 y 1/3
+                                float[] widths = new float[] { 1f, 1.2f, 0.8f };
+                                table.SetWidths(widths);
+                                table.HorizontalAlignment = 0;
+                                table.SpacingBefore = 3f;
+
+                                //agg las filas
+                                table.AddCell(new PdfPCell(new Paragraph("CLIENTE: " + cliente, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table.AddCell(new PdfPCell(new Paragraph("PRODUCTO " + nomproducto + " " + nomproyecto, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table.AddCell(new PdfPCell(new Paragraph("FECHA REPORTE: " + DateTime.Now.ToString(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                document.Add(table);
+
+                                // Tablas detalle 2
+                                PdfPTable table2 = new PdfPTable(5) { WidthPercentage = 100f };
+                                table2.HorizontalAlignment = 0;
+                                //table2.SpacingBefore = 5f;
+                                //agg las filas
+                                table2.AddCell(new PdfPCell(new Paragraph("VALOR NETO: " + ValorNeto, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph("VALOR INICIAL: " + ValorIni, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph("VALOR SALDO: " + ValorSaldo, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph("NUM. CUOTAS: " + CuotasSal, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph("VALOR INTERES: " + ValorInteres, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+
+                                document.Add(table2);
+
+                                // Tablas detalle 3
+                                PdfPTable table3 = new PdfPTable(4) { WidthPercentage = 100f };
+                                table2.HorizontalAlignment = 0;
+                                //agg las filas
+                                //table3.AddCell(new PdfPCell(new Paragraph(PagadoFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                //table3.AddCell(new PdfPCell(new Paragraph(InteresFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                //table3.AddCell(new PdfPCell(new Paragraph(SaldoFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                //table3.AddCell(new PdfPCell(new Paragraph(DeudaFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                //document.Add(table3);
+
+                                //texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
+                                //texto.Add(ValorIni + "  " + ValorSepare + "  " + CuotasIni + "  " + ValorCuotaIni);
+                                //document.Add(texto);
+                                //texto.RemoveAt(0);
+
+                                //texto.Add(ValorSaldo + "  " + CuotasSal + "  " + ValorCuotaSal);
+                                //document.Add(texto);
+                                //texto.RemoveAt(0);
+
+                                document.Add(new Paragraph(" "));
+
+                                //*** Linea cabesera
+                                pdfContent.MoveTo(30, document.PageSize.Height - 120);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 120);
+                                pdfContent.Stroke();
+                                //*** Linea detalle
+                                pdfContent.MoveTo(30, document.PageSize.Height - 150);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 150);
+                                pdfContent.Stroke();
+                                ////*** Linea detalle 2
+                                //pdfContent.MoveTo(40, document.PageSize.Height - 180);
+                                //pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 180);
+                                //pdfContent.Stroke();
+                            }
+                            else if (i == 2)
+                            {
+                                document.Add(TablasLetras(report, new float[] { 8f, 11f, 11f, 11f, 11f, 11f, 11f, 11f, 12f }, 100, 7));
+                            }
+                            else
+                            {
+                                document.Add(new Paragraph(" "));
+                            }
+                        }
+                        //int height = (int)(document.PageSize.Height - texto.TotalLeading);
+                        //pdfContent.MoveTo(30, document.PageSize.Height - height);
+                        //pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - height);
+                        //pdfContent.Stroke();
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
+                        texto.Add("________________________________________________________________________________________________________________________________________________");
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+
+                        //texto.Alignment = Element.ALIGN_LEFT;
+                        //texto.Add("CUOTAS PACTADAS: " + cuotas + "  MESES TRANSCURRIDOS: " + meses + "  CUOTAS PAGADAS: " + pagos + "  CUOTAS EN MORA: " + mora + "  MESES EN MORA: " + mes_mora);
+                        //document.Add(texto);
+                        //texto.RemoveAt(0);
+
+                        //if (!string.IsNullOrEmpty(deuda_fecha))
+                        //{
+                        //    texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                        //    texto.Add("Si desea cancelar a la fecha del reporte el saldo a pagar es de: $" + deuda_fecha);
+                        //    document.Add(texto);
+                        //    texto.RemoveAt(0);
+                        //}
+
+                        texto.Alignment = Element.ALIGN_RIGHT;
+                        texto.IndentationRight = 30;
+                        texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                        texto.Add("VALOR CUOTA: " + ValorCuotaSal);
+                        document.Add(texto);
+                        texto.RemoveAt(0);
+                        texto.Add("VALOR FINAL: " + ValorFin);
                         document.Add(texto);
                         texto.RemoveAt(0);
 

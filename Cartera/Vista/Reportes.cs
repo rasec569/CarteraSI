@@ -32,7 +32,7 @@ namespace Cartera.Vista
         private ReportesPDF reportesPDF;
         DataTable Dtproyectos = new DataTable();
         DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-        Int64 total = 0;
+        double total = 0;
         Boolean arranque = true;
         public Reportes()
         {
@@ -130,14 +130,14 @@ namespace Cartera.Vista
         }
         private void RpPagos()
         {            
-                total = Int64.Parse(DtValorPagos.Rows[0]["valor"].ToString());
-                labelTotal.Text = "TOTAL INGRESOS: $" + String.Format("{0:N0}", total);
+                total = double.Parse(DtValorPagos.Rows[0]["valor"].ToString());
+                labelTotal.Text = "TOTAL INGRESOS: $" + String.Format("{0:N2}", total);
                 labelNumero.Text = "CANTIDAD: " + DtValorPagos.Rows[0]["pagos"].ToString();
                 dataGridView1.DataSource = DtPagos;
                 dataGridView1.Columns[1].Width = 50;
                 dataGridView1.Columns[2].Width = 80;
                 dataGridView1.Columns[3].Width = 230;
-                dataGridView1.Columns[5].DefaultCellStyle.Format = "n0";
+                dataGridView1.Columns[5].DefaultCellStyle.Format = "n2";
                 dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
         private async Task CargarRpProyeccion()

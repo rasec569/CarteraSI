@@ -1163,7 +1163,7 @@ namespace Cartera.Vista
                         txtValorCuotaInteres.Text = String.Format("{0:N2}", ValorCuota);
                         txtValorCon.ResetText();
                         txtValorCon.Text = ValConInteres.ToString("N2", CultureInfo.CurrentCulture);
-                        int valTotal = int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()) + int.Parse(Convert.ToDouble(txtValorCon.Text).ToString());
+                        double valTotal = double.Parse(Convert.ToDouble(txtValorSin.Text).ToString(), CultureInfo.CurrentCulture) + double.Parse(Convert.ToDouble(txtValorCon.Text).ToString(), CultureInfo.CurrentCulture);
                         txtValorTotal.Text = valTotal.ToString();
                         txtValorTotal.Text = String.Format("{0:N2}", Convert.ToDouble(txtValorTotal.Text));
 
@@ -1370,7 +1370,7 @@ namespace Cartera.Vista
         {
             if(Financiacion_id != "")
             {
-                Refinanciacion Re = new Refinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), Refi);
+                Refinanciacion Re = new Refinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), Refi, (txtNombres.Text +" "+ txtApellidos.Text), txtNombreProducto.Text, comboProyecto.Text);
                 //Refinanciacion Re = new Refinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()));
                 Re.ShowDialog();
             }

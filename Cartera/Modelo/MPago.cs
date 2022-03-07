@@ -95,7 +95,7 @@ namespace Cartera.Modelo
         }
         internal static DataTable reportPagos(string FechaInicio, string FechaFin)
         {
-            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto INNER join Cliente_Producto on Pfk_ID_Producto=Id_Producto WHERE Estado_Cliente='Activo' and Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
+            return Conexion.consulta("SELECT Nombre_Producto as Producto, Numero_Cuota as 'Cuota', Porcentaje as 'Tipo pago', Concepto, Fecha_Pago as Fecha, Referencia_Pago as Referencia, printf('%, d', Valor_Pagado)|| substr(printf('%.2f', Valor_Pagado), instr(printf('%.2f', Valor_Pagado), '.'), length(printf('%.2f', Valor_Pagado)) - instr(printf('%.2f', Valor_Pagado), '.') + 1) as Valor, Descuento, printf('%, d', Valor_Descuento) as'Valor Descuento' FROM Pagos INNER JOIN Producto on Id_Producto= Fk_Id_Producto INNER join Cliente_Producto on Pfk_ID_Producto=Id_Producto WHERE Estado_Cliente='Activo' and Fecha_Pago BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "';");
         }
         internal static DataTable reportPagosTipo(string FechaInicio, string FechaFin, string Tipo)
         {

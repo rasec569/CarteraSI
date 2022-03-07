@@ -23,11 +23,18 @@ namespace Cartera.Vista
         int ProductoId;
         ReportesPDF reportesPDF = new ReportesPDF();
         int Financiacion, Valor_Neto, valorSin, ValorInteres,  ValorTotal;
+        string cliente, nomproducto, nomproyecto;
         double  ValorCuotaInteres;
         string Refi;
+
         public HistorialFinanciacion()
         {
             InitializeComponent();
+            DataTable Dtdatos = producto.ClienteProducto(ProductoId);
+
+            cliente = Dtdatos.Rows[0]["Nombre"].ToString() + " " + Dtdatos.Rows[0]["Apellido"].ToString();
+            nomproducto = Dtdatos.Rows[0]["Producto"].ToString();
+            nomproyecto = Dtdatos.Rows[0]["Proyecto"].ToString();
         }
         public HistorialFinanciacion(string IdProducto)
         {
@@ -263,11 +270,7 @@ namespace Cartera.Vista
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DataTable Dtdatos = producto.ClienteProducto(ProductoId);
-
-            string cliente = Dtdatos.Rows[0]["Nombre"].ToString() + " " + Dtdatos.Rows[0]["Apellido"].ToString();
-            string nomproducto = Dtdatos.Rows[0]["Producto"].ToString();
-            string nomproyecto = Dtdatos.Rows[0]["Proyecto"].ToString();
+            
             Amortizacion Am =new Amortizacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal, cliente, nomproducto, nomproyecto);            
             Am.ShowDialog();
         }
@@ -282,7 +285,7 @@ namespace Cartera.Vista
         }
             private void BtRefinanciar_Click(object sender, EventArgs e)
         {
-            Refinanciacion Re = new Refinanciacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal, int.Parse(Refi));
+            Refinanciacion Re = new Refinanciacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal, int.Parse(Refi), cliente, nomproducto, nomproyecto);
             Re.FormClosed += Refinanciacion_FormClose;
             Re.ShowDialog();
             
