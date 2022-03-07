@@ -129,7 +129,7 @@ namespace Cartera.Vista
             this.dateFechaPago.Name = "dateFechaPago";
             this.dateFechaPago.Size = new System.Drawing.Size(182, 20);
             this.dateFechaPago.TabIndex = 10;
-            this.dateFechaPago.Value = new System.DateTime(2022, 1, 12, 0, 0, 0, 0);
+            this.dateFechaPago.Value = new System.DateTime(2022, 3, 1, 0, 0, 0, 0);
             // 
             // label7
             // 

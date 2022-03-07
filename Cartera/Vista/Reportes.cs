@@ -410,141 +410,141 @@ namespace Cartera.Vista
             }
         }
         //metodo temporal para actuizar el estado de las cuotas 
-        private void actulziarCuotas()
-        {
-            DataTable UltimaActulizacion= cuota.ValidarActulizacion(User.Rows[0]["Id_usuario"].ToString());
+        //private void actulziarCuotas()
+        //{
+        //    DataTable UltimaActulizacion= cuota.ValidarActulizacion(User.Rows[0]["Id_usuario"].ToString());
             
-            if (UltimaActulizacion.Rows[0]["ActualizacionEstados"].ToString() != actual.ToString("yyyy-MM-dd")){
-                DataTable DtProducto = producto.cargarProductos();
-                for (int i = 0; i < DtProducto.Rows.Count; i++)
-                {
-                    if (!string.IsNullOrEmpty(DtProducto.Rows[i]["Id_Financiacion"].ToString()))
-                    {
-                        string id_producto = DtProducto.Rows[i]["Id_Producto"].ToString();
-                        int id_financiacion = int.Parse(DtProducto.Rows[i]["Id_Financiacion"].ToString());
-                        int Valor_Producto_Financiacion = int.Parse(DtProducto.Rows[i]["Valor Total"].ToString().Replace(",", ""));
-                        int valor_entrada = int.Parse(DtProducto.Rows[i]["Inicial"].ToString().Replace(",", ""));
-                        int Cuotas_sin_interes = int.Parse(DtProducto.Rows[i]["Cuotas Inicial"].ToString());
-                        int Valor_cuota_sin_interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Inicial"].ToString().Replace(",", ""));
-                        int Cuotas_Con_Interes = int.Parse(DtProducto.Rows[i]["Cuotas Saldo"].ToString());
-                        int Valor_Cuota_Con_Interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Saldo"].ToString().Replace(",", ""));
-                        string Fecha_Recaudo = DtProducto.Rows[i]["Fecha Recaudo"].ToString();
-                        DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                        string año = date.ToString("yyyy");
-                        string mes = date.ToString("MM");
-                        string dia = date.ToString("dd");
-                        DateTime FechaCuota = new DateTime(Convert.ToInt32(año), Convert.ToInt32(mes), Convert.ToInt32(dia));
-                        DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                        if (Valor_Producto_Financiacion > 0 /*&& id_financiacion !=  0*/)
-                        {
-                            //DataTable dtCuotas = cuota.ListarCuotasActulizar(id_financiacion, actual.ToString("yyyy-MM-dd"));
-                            DataTable dtCuotas = cuota.ListarCuotas(id_financiacion, "Refinanciación","") ;
-                            DataTable dtrecaudo = pagos.Tota_Recaudado_Producto(id_producto);
-                            if (dtCuotas.Rows.Count != (Cuotas_Con_Interes + Cuotas_sin_interes + 1))
-                            {
-                                cuota.EliminarCuotas(id_financiacion);
-                                dtCuotas = cuota.ListarCuotas(id_financiacion, "Refinanciación","");
-                            }
-                            int num_cuota = 0;
-                            int contador = 1;
-                            int pagado = 0;
-                            int ValorPagado = 0;
-                            string Estado = "";
-                            int result = DateTime.Compare(date, actual);
-                            if (dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString() != "")
-                            {
-                                ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
+        //    if (UltimaActulizacion.Rows[0]["ActualizacionEstados"].ToString() != actual.ToString("yyyy-MM-dd")){
+        //        DataTable DtProducto = producto.cargarProductos();
+        //        for (int i = 0; i < DtProducto.Rows.Count; i++)
+        //        {
+        //            if (!string.IsNullOrEmpty(DtProducto.Rows[i]["Id_Financiacion"].ToString()))
+        //            {
+        //                string id_producto = DtProducto.Rows[i]["Id_Producto"].ToString();
+        //                int id_financiacion = int.Parse(DtProducto.Rows[i]["Id_Financiacion"].ToString());
+        //                int Valor_Producto_Financiacion = int.Parse(DtProducto.Rows[i]["Valor Total"].ToString().Replace(",", ""));
+        //                int valor_entrada = int.Parse(DtProducto.Rows[i]["Inicial"].ToString().Replace(",", ""));
+        //                int Cuotas_sin_interes = int.Parse(DtProducto.Rows[i]["Cuotas Inicial"].ToString());
+        //                int Valor_cuota_sin_interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Inicial"].ToString().Replace(",", ""));
+        //                int Cuotas_Con_Interes = int.Parse(DtProducto.Rows[i]["Cuotas Saldo"].ToString());
+        //                int Valor_Cuota_Con_Interes = int.Parse(DtProducto.Rows[i]["Valor Cuota Saldo"].ToString().Replace(",", ""));
+        //                string Fecha_Recaudo = DtProducto.Rows[i]["Fecha Recaudo"].ToString();
+        //                DateTime date = DateTime.ParseExact(Fecha_Recaudo, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        //                string año = date.ToString("yyyy");
+        //                string mes = date.ToString("MM");
+        //                string dia = date.ToString("dd");
+        //                DateTime FechaCuota = new DateTime(Convert.ToInt32(año), Convert.ToInt32(mes), Convert.ToInt32(dia));
+        //                DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        //                if (Valor_Producto_Financiacion > 0 /*&& id_financiacion !=  0*/)
+        //                {
+        //                    //DataTable dtCuotas = cuota.ListarCuotasActulizar(id_financiacion, actual.ToString("yyyy-MM-dd"));
+        //                    DataTable dtCuotas = cuota.ListarCuotas(id_financiacion, "Refinanciación","") ;
+        //                    DataTable dtrecaudo = pagos.Tota_Recaudado_Producto(id_producto);
+        //                    if (dtCuotas.Rows.Count != (Cuotas_Con_Interes + Cuotas_sin_interes + 1))
+        //                    {
+        //                        cuota.EliminarCuotas(id_financiacion);
+        //                        dtCuotas = cuota.ListarCuotas(id_financiacion, "Refinanciación","");
+        //                    }
+        //                    int num_cuota = 0;
+        //                    int contador = 1;
+        //                    int pagado = 0;
+        //                    int ValorPagado = 0;
+        //                    string Estado = "";
+        //                    int result = DateTime.Compare(date, actual);
+        //                    if (dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString() != "")
+        //                    {
+        //                        ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
 
-                                pagado = valor_entrada;
-                                if (pagado <= ValorPagado)
-                                {
-                                    Estado = "Pagada";
-                                }
-                                else if (result > 0)
-                                {
-                                    Estado = "Mora";
-                                }
-                                else
-                                {
-                                    Estado = "Pendiente";
-                                }
-                            }
-                            else
-                            {
-                                Estado = "Pendiente";
-                            }
-                            if (dtCuotas.Rows.Count == 0)
-                            {
-                                cuota.CrearCuota(num_cuota, valor_entrada, "Valor Separación", date.ToString("yyyy-MM-dd"), Estado, id_financiacion);
-                            }
-                            else
-                            {
-                                cuota.InactivarCuota(num_cuota, Estado, id_financiacion, "Valor Separación");
-                            }
-                            num_cuota++;
-                            while (num_cuota <= Cuotas_sin_interes)
-                            {
-                                DateTime fechacuota = FechaCuota.AddMonths(contador - 1);
-                                result = DateTime.Compare(fechacuota, actual);
-                                pagado = pagado + Valor_cuota_sin_interes;
-                                if (pagado <= ValorPagado)
-                                {
-                                    Estado = "Pagada";
-                                }
-                                else if (result < 0)
-                                {
-                                    Estado = "Mora";
-                                }
-                                else
-                                {
-                                    Estado = "Pendiente";
-                                }
-                                if (dtCuotas.Rows.Count == 0)
-                                {
-                                    cuota.CrearCuota(num_cuota, Valor_cuota_sin_interes, "Valor Inicial", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);
-                                }
-                                else
-                                {
-                                    cuota.InactivarCuota(num_cuota, Estado, id_financiacion, "Valor Inicial");
-                                }
-                                contador++;
-                                num_cuota++;
-                            }
-                            num_cuota = 1;
-                            while (num_cuota <= Cuotas_Con_Interes)
-                            {
-                                DateTime fechacuota = FechaCuota.AddMonths(contador - 1);
-                                result = DateTime.Compare(fechacuota, actual);
-                                pagado = pagado + Valor_Cuota_Con_Interes;
-                                if (pagado <= ValorPagado)
-                                {
-                                    Estado = "Pagada";
-                                }
-                                else if (result.ToString() == "-1")
-                                {
-                                    Estado = "Mora";
-                                }
-                                else
-                                {
-                                    Estado = "Pendiente";
-                                }
-                                if (dtCuotas.Rows.Count == 0)
-                                {
-                                    cuota.CrearCuota(num_cuota, Valor_Cuota_Con_Interes, "Valor Saldo", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);
-                                }
-                                else
-                                {
-                                    cuota.InactivarCuota(num_cuota, Estado, id_financiacion, "Valor Saldo");
-                                }
-                                contador++;
-                                num_cuota++;
-                            }
-                        }
-                    }
-                }
-                cuota.UltimaActuliacionEstadosCuota(User.Rows[0]["Id_usuario"].ToString(), DateTime.Now.ToString("yyyy-MM-dd"));
-            }
-        }
+        //                        pagado = valor_entrada;
+        //                        if (pagado <= ValorPagado)
+        //                        {
+        //                            Estado = "Pagada";
+        //                        }
+        //                        else if (result > 0)
+        //                        {
+        //                            Estado = "Mora";
+        //                        }
+        //                        else
+        //                        {
+        //                            Estado = "Pendiente";
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        Estado = "Pendiente";
+        //                    }
+        //                    if (dtCuotas.Rows.Count == 0)
+        //                    {
+        //                        cuota.CrearCuota(num_cuota, valor_entrada, "Valor Separación", date.ToString("yyyy-MM-dd"), Estado, id_financiacion);
+        //                    }
+        //                    else
+        //                    {
+        //                        cuota.InactivarCuota(num_cuota, Estado, id_financiacion, "Valor Separación");
+        //                    }
+        //                    num_cuota++;
+        //                    while (num_cuota <= Cuotas_sin_interes)
+        //                    {
+        //                        DateTime fechacuota = FechaCuota.AddMonths(contador - 1);
+        //                        result = DateTime.Compare(fechacuota, actual);
+        //                        pagado = pagado + Valor_cuota_sin_interes;
+        //                        if (pagado <= ValorPagado)
+        //                        {
+        //                            Estado = "Pagada";
+        //                        }
+        //                        else if (result < 0)
+        //                        {
+        //                            Estado = "Mora";
+        //                        }
+        //                        else
+        //                        {
+        //                            Estado = "Pendiente";
+        //                        }
+        //                        if (dtCuotas.Rows.Count == 0)
+        //                        {
+        //                            cuota.CrearCuota(num_cuota, Valor_cuota_sin_interes, "Valor Inicial", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);
+        //                        }
+        //                        else
+        //                        {
+        //                            cuota.InactivarCuota(num_cuota, Estado, id_financiacion, "Valor Inicial");
+        //                        }
+        //                        contador++;
+        //                        num_cuota++;
+        //                    }
+        //                    num_cuota = 1;
+        //                    while (num_cuota <= Cuotas_Con_Interes)
+        //                    {
+        //                        DateTime fechacuota = FechaCuota.AddMonths(contador - 1);
+        //                        result = DateTime.Compare(fechacuota, actual);
+        //                        pagado = pagado + Valor_Cuota_Con_Interes;
+        //                        if (pagado <= ValorPagado)
+        //                        {
+        //                            Estado = "Pagada";
+        //                        }
+        //                        else if (result.ToString() == "-1")
+        //                        {
+        //                            Estado = "Mora";
+        //                        }
+        //                        else
+        //                        {
+        //                            Estado = "Pendiente";
+        //                        }
+        //                        if (dtCuotas.Rows.Count == 0)
+        //                        {
+        //                            cuota.CrearCuota(num_cuota, Valor_Cuota_Con_Interes, "Valor Saldo", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, id_financiacion);
+        //                        }
+        //                        else
+        //                        {
+        //                            cuota.InactivarCuota(num_cuota, Estado, id_financiacion, "Valor Saldo");
+        //                        }
+        //                        contador++;
+        //                        num_cuota++;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        cuota.UltimaActuliacionEstadosCuota(User.Rows[0]["Id_usuario"].ToString(), DateTime.Now.ToString("yyyy-MM-dd"));
+        //    }
+        //}
 
         private void BtBuscar_Click(object sender, EventArgs e)
         {

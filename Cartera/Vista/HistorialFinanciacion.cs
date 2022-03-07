@@ -203,9 +203,9 @@ namespace Cartera.Vista
             dataGridView2.DataSource = DtAcuerdoPago;
             panel1.Visible = true;
             dataGridView2.Columns[0].Width = 50;
-            dataGridView2.Columns[1].Width = 80;
+            dataGridView2.Columns[1].Width = 90;
             dataGridView2.Columns[2].Width = 110;
-            dataGridView2.Columns[1].DefaultCellStyle.Format = "n0";
+            dataGridView2.Columns[1].DefaultCellStyle.Format = "n2";
             dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 

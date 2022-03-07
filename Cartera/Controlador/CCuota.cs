@@ -10,7 +10,7 @@ namespace Cartera.Controlador
 {
     class CCuota
     {
-        public int CrearCuota(int cuota, int valor, string Tipo, string fecha, string Estado, int financiacion)
+        public int CrearCuota(int cuota, double valor, string Tipo, string fecha, string Estado, int financiacion)
         {
             return Modelo.MCuota.crearcuota(cuota, valor, Tipo, fecha, Estado, financiacion);
         }
@@ -18,7 +18,7 @@ namespace Cartera.Controlador
         {
             return Modelo.MCuota.InactivarCuota(cuota, Estado, financiacion,  tipo);
         }
-        public int ModificarCuota(int idcuota, int cuota,int valor, string tipo, string fecha,  string Estado, int aporte)
+        public int ModificarCuota(int idcuota, int cuota, double valor, string tipo, string fecha,  string Estado, double aporte)
         {
             return Modelo.MCuota.ModificarCuota(idcuota, cuota, valor, tipo, fecha, Estado,aporte);
         }

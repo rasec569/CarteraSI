@@ -33,6 +33,7 @@ namespace Cartera.Vista
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Amortizacion));
             this.TxtValorNeto = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.TxtTotal = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.TxtValorCuotaInteres = new System.Windows.Forms.TextBox();
@@ -52,7 +53,6 @@ namespace Cartera.Vista
             this.labelPagado = new System.Windows.Forms.Label();
             this.labelInteres = new System.Windows.Forms.Label();
             this.labelDeuda = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasFinan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).BeginInit();
@@ -93,6 +93,17 @@ namespace Cartera.Vista
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Financiación";
+            // 
+            // button1
+            // 
+            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
+            this.button1.Location = new System.Drawing.Point(711, 18);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(31, 32);
+            this.button1.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // TxtTotal
             // 
@@ -287,18 +298,7 @@ namespace Cartera.Vista
             this.labelDeuda.Size = new System.Drawing.Size(105, 13);
             this.labelDeuda.TabIndex = 32;
             this.labelDeuda.Text = "Deuda a la fecha";
-            this.toolTip1.SetToolTip(this.labelDeuda, "Total Aportes a la cartera");
-            // 
-            // button1
-            // 
-            this.button1.Image = global::Cartera.Properties.Resources.ReporPdf;
-            this.button1.Location = new System.Drawing.Point(711, 18);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(31, 32);
-            this.button1.TabIndex = 33;
-            this.toolTip1.SetToolTip(this.button1, "Guardar Reporte");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.toolTip1.SetToolTip(this.labelDeuda, "TotalCuotas en mora");
             // 
             // Amortizacion
             // 

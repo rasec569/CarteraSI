@@ -46,7 +46,7 @@ namespace Cartera.Vista
             numCuotasFinan.Enabled = true;
             numValorInteres.Enabled = true;
         }
-        public Refinanciacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, int Valor_Cuota_Con_Interes, int Valor_Total, int Refinanciacion)
+        public Refinanciacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, int Valor_Total, int Refinanciacion)
         {
             InitializeComponent();
             reportesPDF = new ReportesPDF();
@@ -159,7 +159,7 @@ namespace Cartera.Vista
             
         }
 
-        private void listarCuotasFinaciadas(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, int Valor_Cuota_Con_Interes, int Total)
+        private void listarCuotasFinaciadas(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, int Total)
         {
             try
             {
@@ -171,7 +171,7 @@ namespace Cartera.Vista
 
                 decimal saldo = Valor_Neto - Valor_Sin;
                 decimal interes = saldo * (Convert.ToDecimal(Valor_Interes) / 100);
-                decimal capital = Valor_Cuota_Con_Interes - interes;
+                decimal capital = (decimal)Valor_Cuota_Con_Interes - interes;
                 decimal interesfecha = 0;
                 //double interes = Math.Round(saldo * (Convert.ToDouble(Valor_Interes) / 100), 1);
                 for (int i = 0; i < DtCuotasInteres.Rows.Count; i++)
@@ -181,7 +181,7 @@ namespace Cartera.Vista
                     {
 
                         interes = saldo * (Convert.ToDecimal(Valor_Interes) / 100);
-                        capital = Valor_Cuota_Con_Interes - interes;
+                        capital = (decimal)Valor_Cuota_Con_Interes - interes;
                     }
                     if (date <= actual)
                     {
@@ -355,7 +355,7 @@ namespace Cartera.Vista
                 for (int n = 0; n+1 < DtNuevasCuotas.Rows.Count; n++)
                 {
                     int NumCuota = int.Parse(DtNuevasCuotas.Rows[n]["Cuota"].ToString());
-                    int ValorCuota = int.Parse(DtNuevasCuotas.Rows[n]["Valor"].ToString().Replace(".", ""));
+                    double ValorCuota = int.Parse(DtNuevasCuotas.Rows[n]["Valor"].ToString().Replace(".", ""));
                     string TipoCuota = DtNuevasCuotas.Rows[n]["Tipo"].ToString();
                     string FechaCuota = DtNuevasCuotas.Rows[n]["Fecha"].ToString();
 
