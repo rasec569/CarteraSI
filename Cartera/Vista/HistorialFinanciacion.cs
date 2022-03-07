@@ -22,7 +22,8 @@ namespace Cartera.Vista
         DataTable DtAcuerdoPago= new DataTable();
         int ProductoId;
         ReportesPDF reportesPDF = new ReportesPDF();
-        int Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal;
+        int Financiacion, Valor_Neto, valorSin, ValorInteres,  ValorTotal;
+        double  ValorCuotaInteres;
         string Refi;
         public HistorialFinanciacion()
         {
@@ -78,7 +79,7 @@ namespace Cartera.Vista
 
         private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-                dataGridView2.Columns[1].Width = 70;
+                //dataGridView2.Columns[1].Width = 70;
                 DataGridView dgv = sender as DataGridView;
                 int n = e.RowIndex;
                 try
@@ -126,8 +127,6 @@ namespace Cartera.Vista
                     int id_financiacion = int.Parse(dataGridView1.Rows[n].Cells["Id_Financiacion"].Value.ToString());
                     Financiacion = id_financiacion;
                     CargarFinanciacion(id_financiacion);
-
-
                 }
             }
             catch
@@ -147,10 +146,10 @@ namespace Cartera.Vista
             int valor_sin_interes = int.Parse(DtFinanciacion.Rows[0]["Valor_Sin_interes"].ToString());
             valorSin = valor_sin_interes;
             int Cuotas_sin_interes = int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString());
-            int Valor_cuota_sin_interes = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString());
-            int Valor_con_interes = int.Parse(DtFinanciacion.Rows[0]["Valor_Con_Interes"].ToString());
+            double Valor_cuota_sin_interes = double.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString());
+            double Valor_con_interes = double.Parse(DtFinanciacion.Rows[0]["Valor_Con_Interes"].ToString());
             int Cuotas_Con_Interes = int.Parse(DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString());
-            int Valor_Cuota_Con_Interes = int.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
+            double Valor_Cuota_Con_Interes = double.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
             ValorCuotaInteres = Valor_Cuota_Con_Interes;
             int Valor_Interes = int.Parse(DtFinanciacion.Rows[0]["Valor_Interes"].ToString());
             ValorInteres = Valor_Interes;
@@ -187,13 +186,13 @@ namespace Cartera.Vista
             label5.Text = "Valor cuotas inicial: $ " + String.Format("{0:N0}", Valor_cuota_sin_interes);
             label6.Text = "Valor saldo: $ " + String.Format("{0:N0}", Valor_con_interes);
             label7.Text = "N° de cuotas saldo: " + String.Format("{0:N0}", Cuotas_Con_Interes);
-            label8.Text = "Valor cuotas saldo: $ " + String.Format("{0:N0}", Valor_Cuota_Con_Interes);
+            label8.Text = "Valor cuotas saldo: $ " + String.Format("{0:N2}", Valor_Cuota_Con_Interes);
             label10.Text = "Valor interes: $ " + Valor_Interes;
-            int ValorPagado = 0;
+            double ValorPagado = 0;
             DataTable dtrecaudo = pago.Tota_Recaudado_Producto(ProductoId.ToString());
             if (dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString() != "")
             {
-                ValorPagado = int.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
+                ValorPagado = double.Parse(dtrecaudo.Rows[0]["sum(Valor_Pagado)"].ToString());
 
             }
             label9.Text = "Valor pagado: $ " + String.Format("{0:N0}", ValorPagado);
@@ -203,9 +202,9 @@ namespace Cartera.Vista
             dataGridView2.DataSource = DtAcuerdoPago;
             panel1.Visible = true;
             dataGridView2.Columns[0].Width = 50;
-            dataGridView2.Columns[1].Width = 90;
-            dataGridView2.Columns[2].Width = 110;
-            dataGridView2.Columns[1].DefaultCellStyle.Format = "n2";
+            dataGridView2.Columns[1].Width = 80;
+            dataGridView2.Columns[2].Width = 100;
+            //dataGridView2.Columns[1].DefaultCellStyle.Format = "n2";
             dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 

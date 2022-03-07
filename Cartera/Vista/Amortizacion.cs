@@ -41,7 +41,7 @@ namespace Cartera.Vista
 
             listarCuotasFinaciadas(Financiacion, Valor_Neto, Valor_Sin, Valor_Interes, Valor_Cuota_Con_Interes, Valor_Total);
         }
-        public Amortizacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, int Valor_Cuota_Con_Interes, int Valor_Total, string Cliente, string Producto, string Proyeco)
+        public Amortizacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, int Valor_Total, string Cliente, string Producto, string Proyeco)
         {            
             //Financiacion,Valor_Neto,valorSin,ValorInteres,ValorCuotaInteres
             InitializeComponent();
@@ -135,14 +135,14 @@ namespace Cartera.Vista
                 TotalCuotas += (decimal)Valor_Cuota_Con_Interes;
                 TotalInteres += interes;
                 TotalCapital += capital;
-                TotalAportes += decimal.Parse( DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", ""));
+                TotalAportes += decimal.Parse( DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", ""), CultureInfo.CurrentCulture);
             }
             DataRow row = DtCuotasInteres.NewRow();
             row["Estado"] = "Total";
             row["Capital"] = TotalCapital.ToString("n2");
             row["Interes"] = TotalInteres.ToString("n2");
-            row["Valor"] = TotalCuotas.ToString("n0");
-            row["Aportado"] = TotalAportes.ToString("n0");
+            row["Valor"] = TotalCuotas.ToString("n2");
+            row["Aportado"] = TotalAportes.ToString("n2");
             DtCuotasInteres.Rows.Add(row);
             FilaTotal = DtCuotasInteres.Rows.Count;
             

@@ -26,7 +26,7 @@ namespace Cartera.Controlador
         {
             return MCuota.ConsultarCuotaAPagar(productoid, cuota, tipo);
         }
-        public int ActulziarCuotaRegistroPago(int cuota, int aportes, string Estado, int financiacion, string tipo)
+        public int ActulziarCuotaRegistroPago(int cuota, double aportes, string Estado, int financiacion, string tipo)
         {
             return Modelo.MCuota.ActulziarCuotaRegistroPago(cuota, aportes, Estado, financiacion, tipo);
         }

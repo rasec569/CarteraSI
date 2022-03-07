@@ -30,7 +30,8 @@ namespace Cartera.Vista
         bool clearall = true;
         int cuotas, meses, pagos, mora, mes_mora;
         string Nom_Producto, Nom_Proyecto;
-        int ProductoVal,ValorPagado,ValorDeuda,ValorNeto;
+        int ProductoVal,ValorNeto;
+        double ValorPagado, ValorDeuda;
         ReportesPDF reportesPDF = new ReportesPDF();
         DataTable dtpagos = new DataTable();
         int Financiacion;
@@ -230,7 +231,7 @@ namespace Cartera.Vista
             //Valor Pagado
             DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
             dtpagos = pago.ListarPagosCliente(productoId);
-            ValorPagado = int.Parse(dtrecaudo.Rows[0]["Sum(Valor_Pagado)"].ToString());
+            ValorPagado = double.Parse(dtrecaudo.Rows[0]["Sum(Valor_Pagado)"].ToString());
             DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(productoId));
             string fecha = dtfechas.Rows[0]["Fecha_Recaudo"].ToString();
             Financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString());
@@ -492,7 +493,7 @@ namespace Cartera.Vista
             dataGridView2.Columns[2].Width = 80;
             dataGridView2.Columns[3].Width = 280;
             dataGridView2.Columns[4].Width = 150;
-            dataGridView2.Columns[5].DefaultCellStyle.Format = "N0";
+            dataGridView2.Columns[5].DefaultCellStyle.Format = "N2";
 
         }
 

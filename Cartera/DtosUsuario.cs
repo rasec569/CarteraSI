@@ -14,8 +14,8 @@ namespace Cartera
         static public string NombreUser;
 
         static public string IdUser;
-        
-        
+
+
 
         static public DataTable amortizacionFinanciacion(int Financiacion)
         {
@@ -23,19 +23,19 @@ namespace Cartera
             CCuota cuota = new CCuota();
 
             DataTable Dtfinanciacion = financiacion.Financiacion(Financiacion);
-            int Valor_Neto = int.Parse(Dtfinanciacion.Rows[0]["Valor_Neto"].ToString());
-            int Valor_Sin = int.Parse(Dtfinanciacion.Rows[0]["Valor_Sin_interes"].ToString());
-            int Valor_Interes = int.Parse(Dtfinanciacion.Rows[0]["Valor_Interes"].ToString());
-            int Valor_Cuota_Con_Interes = int.Parse(Dtfinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
+            decimal Valor_Neto = int.Parse(Dtfinanciacion.Rows[0]["Valor_Neto"].ToString());
+            decimal Valor_Sin = int.Parse(Dtfinanciacion.Rows[0]["Valor_Sin_interes"].ToString());
+            decimal Valor_Interes = int.Parse(Dtfinanciacion.Rows[0]["Valor_Interes"].ToString());
+            decimal Valor_Cuota_Con_Interes = decimal.Parse(Dtfinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
 
             DataTable DtCuotas = cuota.ListarCuotas(Financiacion, "Refinanciación", "");
-            decimal PagadoInicialFecha=0;
+            decimal PagadoInicialFecha = 0;
             for (int i = 0; i < DtCuotas.Rows.Count; i++)
             {
                 if (DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial" || DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Separación")
                 {
-                    PagadoInicialFecha += decimal.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", ""));
-                } 
+                    PagadoInicialFecha += decimal.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", ""), CultureInfo.InvariantCulture);
+                }
             }
 
             DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -55,12 +55,12 @@ namespace Cartera
 
             decimal saldo = Valor_Neto - Valor_Sin;
             decimal interes = saldo * (decimal)Valor_Interes / 100;
-            decimal capital = int.Parse(DtCuotasInteres.Rows[0]["Valor"].ToString().Replace(",", "")) - interes;
+            decimal capital = Convert.ToDecimal(DtCuotasInteres.Rows[0]["Valor"].ToString().Replace(",", ""), CultureInfo.InvariantCulture) - interes;
             decimal deudafecha = 0;
             decimal interespagadofecha = 0;
             decimal interesmorafecha = 0;
             decimal capitalpagadofecha = 0;
-            decimal aportadofecha=0;
+            decimal aportadofecha = 0;
             decimal aportesfecha = 0;
             for (int i = 0; i < DtCuotasInteres.Rows.Count; i++)
             {
@@ -69,7 +69,7 @@ namespace Cartera
                 {
 
                     interes = saldo * (Convert.ToDecimal(Valor_Interes) / 100);
-                    capital = int.Parse(DtCuotasInteres.Rows[i]["Valor"].ToString().Replace(",", "")) - interes;
+                    capital = decimal.Parse(DtCuotasInteres.Rows[i]["Valor"].ToString().Replace(",", ""), CultureInfo.InvariantCulture) - interes;
                 }
                 if (date <= actual)
                 {
@@ -80,32 +80,32 @@ namespace Cartera
                         interespagadofecha += interes;
                         capitalpagadofecha += capital;
                     }
-                    else if(DtCuotasInteres.Rows[i]["Estado"].ToString() == "Mora")
+                    else if (DtCuotasInteres.Rows[i]["Estado"].ToString() == "Mora")
                     {
-                            if (int.Parse(DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", "")) != 0)
-                            {
-                                capitalpagadofecha += int.Parse(DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", ""));
-                            }
-                            interesmorafecha += interes;
-                            deudafecha += Valor_Cuota_Con_Interes;                        
+                        if (decimal.Parse(DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", ""), CultureInfo.InvariantCulture) != 0)
+                        {
+                            capitalpagadofecha += decimal.Parse(DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", ""), CultureInfo.InvariantCulture);
+                        }
+                        interesmorafecha += interes;
+                        deudafecha += (decimal)Valor_Cuota_Con_Interes;
                     }
-                    aportadofecha= int.Parse(DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", "")) - interes;
+                    aportadofecha = decimal.Parse(DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", ""), CultureInfo.InvariantCulture) - interes;
                 }
                 saldo = saldo - capital;
-                DtCuotasInteres.Rows[i]["Saldo"] = saldo.ToString("N0", CultureInfo.CurrentCulture);
-                DtCuotasInteres.Rows[i]["Interes"] = interes.ToString("N0", CultureInfo.CurrentCulture);
-                DtCuotasInteres.Rows[i]["Capital"] = capital.ToString("N0", CultureInfo.CurrentCulture);
-                aportesfecha += decimal.Parse(DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", ""));
+                DtCuotasInteres.Rows[i]["Saldo"] = saldo.ToString("N2", CultureInfo.CurrentCulture);
+                DtCuotasInteres.Rows[i]["Interes"] = interes.ToString("N2", CultureInfo.CurrentCulture);
+                DtCuotasInteres.Rows[i]["Capital"] = capital.ToString("N2", CultureInfo.CurrentCulture);
+                aportesfecha += decimal.Parse(DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", ""), CultureInfo.InvariantCulture);
             }
             DataRow row = DtResult.NewRow();
             row["interesfecha"] = interespagadofecha.ToString();
             row["deudafecha"] = deudafecha.ToString();
             row["capitalfecha"] = capitalpagadofecha.ToString();
             row["aportesfecha"] = aportesfecha.ToString();
-            int neto = Valor_Neto;
-            int inetermora = (int)Math.Round(interesmorafecha);
-            int pagoinicial = (int)PagadoInicialFecha;
-            int capipagado = (int)Math.Round(capitalpagadofecha);
+            decimal neto = Valor_Neto;
+            decimal inetermora = (int)Math.Round(interesmorafecha);
+            decimal pagoinicial = (int)PagadoInicialFecha;
+            decimal capipagado = (int)Math.Round(capitalpagadofecha);
             row["saldofecha"] = ((neto + inetermora) - (pagoinicial + capipagado)).ToString();
             DtResult.Rows.Add(row);
             return DtResult;

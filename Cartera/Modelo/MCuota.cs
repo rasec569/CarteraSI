@@ -98,7 +98,7 @@ namespace Cartera.Modelo
 			return Conexion.consulta("SELECT IIF(Aporte_Pagos IS NULL, Valor_Cuota, Valor_Cuota - Aporte_Pagos) as Valor,	Estado FROM	Cuotas INNER JOIN Financiacion ON Fk_Id_Financiacion = Id_Financiacion WHERE Estado_Financiacion = 'Activa' AND Estado <> 'Inactiva' AND Fk_Producto = '" + productoid + "' AND Num_Cuota = '" + cuota + "' AND Tipo LIKE  '%" + tipo + "%';");
 			throw new NotImplementedException();
 		}
-		internal static int ActulziarCuotaRegistroPago(int cuota, int aportes, string Estado, int financiacion, string tipo)
+		internal static int ActulziarCuotaRegistroPago(int cuota, double aportes, string Estado, int financiacion, string tipo)
 		{
 			string sql1 = "UPDATE Cuotas SET  Aporte_Pagos=@Aporte_Pagos, Estado=@Estado, User_log_Cuota=@User_log_Cuota WHERE Fk_Id_Financiacion = " + financiacion + " AND Num_Cuota  = " + cuota + " AND Tipo LIKE '%" + tipo + "%';";
 			SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
@@ -119,7 +119,7 @@ namespace Cartera.Modelo
 		internal static DataTable ListarCuotas(int financiacion, string filtro, string estado)
 		{
 
-			return Conexion.consulta("SELECT Id_Cuota, Num_Cuota as 'Cuota',  printf('%,d', Valor_Cuota) || substr(printf(' % .2f', Valor_Cuota), instr(printf(' % .2f', Valor_Cuota), '.'), length(printf(' % .2f', Valor_Cuota)) - instr(printf(' % .2f', Valor_Cuota), '.') + 1)  as Valor, Tipo, Fecha as 'Fecha',printf('% , d', Aporte_Pagos) as 'Aportado',Estado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo<>'" + filtro + "'AND Estado<>'" + estado + "';");
+			return Conexion.consulta("SELECT Id_Cuota, Num_Cuota as 'Cuota',  printf('%,d', Valor_Cuota) || substr(printf(' % .2f', Valor_Cuota), instr(printf(' % .2f', Valor_Cuota), '.'), length(printf(' % .2f', Valor_Cuota)) - instr(printf(' % .2f', Valor_Cuota), '.') + 1)  as Valor, Tipo, Fecha as 'Fecha',printf('% , d', Aporte_Pagos) || substr(printf(' % .2f', Aporte_Pagos), instr(printf(' % .2f', Aporte_Pagos), '.'), length(printf(' % .2f', Aporte_Pagos)) - instr(printf(' % .2f', Aporte_Pagos), '.') + 1) as 'Aportado',Estado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo<>'" + filtro + "'AND Estado<>'" + estado + "';");
 			//return Conexion.consulta("SELECT Num_Cuota as 'Cuota', printf('% , d', Valor_Cuota)as Valor, Tipo, Fecha as 'Fecha',printf('% , d', Aporte_Pagos) as 'Aportado',Estado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo<>'Refinanciación' ;");
 		}
 
@@ -147,7 +147,7 @@ namespace Cartera.Modelo
 		internal static DataTable ListarCuotasInteres2(int financiacion)
 		{
 
-			return Conexion.consulta("SELECT Id_Cuota, Num_Cuota as '# Cuota', Fecha as 'Fecha Pago', Estado, printf('% , d', Valor_Cuota)|| substr(printf('%.2f', Valor_Cuota), instr(printf('%.2f', Valor_Cuota), '.'), length(printf('%.2f', Valor_Cuota)) - instr(printf('%.2f', Valor_Cuota), '.') + 1) as Valor, printf('% , d', Aporte_Pagos) as Aportado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo='Valor Saldo';");
+			return Conexion.consulta("SELECT Id_Cuota, Num_Cuota as '# Cuota', Fecha as 'Fecha Pago', Estado, printf('% , d', Valor_Cuota)|| substr(printf('%.2f', Valor_Cuota), instr(printf('%.2f', Valor_Cuota), '.'), length(printf('%.2f', Valor_Cuota)) - instr(printf('%.2f', Valor_Cuota), '.') + 1) as Valor, printf('% , d', Aporte_Pagos) || substr(printf(' % .2f', Aporte_Pagos), instr(printf(' % .2f', Aporte_Pagos), '.'), length(printf(' % .2f', Aporte_Pagos)) - instr(printf(' % .2f', Aporte_Pagos), '.') + 1) as Aportado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo='Valor Saldo';");
 		}
 		internal static DataTable ListarCuotasActulizar(int financiacion, string fecha)
 		{
