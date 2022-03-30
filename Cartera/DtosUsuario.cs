@@ -103,9 +103,9 @@ namespace Cartera
             row["capitalfecha"] = capitalpagadofecha.ToString();
             row["aportesfecha"] = aportesfecha.ToString();
             decimal neto = Valor_Neto;
-            decimal inetermora = (int)Math.Round(interesmorafecha);
-            decimal pagoinicial = (int)PagadoInicialFecha;
-            decimal capipagado = (int)Math.Round(capitalpagadofecha);
+            decimal inetermora = Math.Round(interesmorafecha, 2);
+            decimal pagoinicial = PagadoInicialFecha;
+            decimal capipagado = Math.Round(capitalpagadofecha,2);
             row["saldofecha"] = ((neto + inetermora) - (pagoinicial + capipagado)).ToString();
             DtResult.Rows.Add(row);
             return DtResult;

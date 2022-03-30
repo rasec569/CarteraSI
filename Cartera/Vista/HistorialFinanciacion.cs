@@ -22,7 +22,8 @@ namespace Cartera.Vista
         DataTable DtAcuerdoPago= new DataTable();
         int ProductoId;
         ReportesPDF reportesPDF = new ReportesPDF();
-        int Financiacion, Valor_Neto, valorSin, ValorInteres,  ValorTotal;
+        int Financiacion, Valor_Neto, valorSin, ValorInteres;
+        double ValorTotal;
         string cliente, nomproducto, nomproyecto;
         double  ValorCuotaInteres;
         string Refi;
@@ -40,6 +41,11 @@ namespace Cartera.Vista
         {
             InitializeComponent();
             ProductoId = int.Parse(IdProducto);
+            DataTable Dtdatos = producto.ClienteProducto(ProductoId);
+
+            cliente = Dtdatos.Rows[0]["Nombre"].ToString() + " " + Dtdatos.Rows[0]["Apellido"].ToString();
+            nomproducto = Dtdatos.Rows[0]["Producto"].ToString();
+            nomproyecto = Dtdatos.Rows[0]["Proyecto"].ToString();
         }
 
         private void HistorialFinanciacion_Load(object sender, EventArgs e)
@@ -54,7 +60,7 @@ namespace Cartera.Vista
             dataGridView1.Columns["Valor_Neto"].DefaultCellStyle.Format = "n0";
             dataGridView1.Columns["Valor_Neto"].Width = 70;
             dataGridView1.Columns["Valor_Producto_Financiacion"].HeaderText = "Valor Final";
-            dataGridView1.Columns["Valor_Producto_Financiacion"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Valor_Producto_Financiacion"].DefaultCellStyle.Format = "n2";
             dataGridView1.Columns["Valor_Producto_Financiacion"].Width = 70;
             dataGridView1.Columns["Valor_Sin_interes"].HeaderText = "Valor Inicial";
             dataGridView1.Columns["Valor_Sin_interes"].DefaultCellStyle.Format = "n0";
@@ -65,15 +71,15 @@ namespace Cartera.Vista
             dataGridView1.Columns["Cuotas_Sin_interes"].HeaderText = "cuotas Inicial";
             dataGridView1.Columns["Cuotas_Sin_interes"].Width = 40;
             dataGridView1.Columns["Valor_Cuota_Sin_interes"].HeaderText = "Valor cuotas Inicial";
-            dataGridView1.Columns["Valor_Cuota_Sin_interes"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Valor_Cuota_Sin_interes"].DefaultCellStyle.Format = "n2";
             dataGridView1.Columns["Valor_Cuota_Sin_interes"].Width = 70;
             dataGridView1.Columns["Valor_Con_Interes"].HeaderText = "Valor Saldo";
-            dataGridView1.Columns["Valor_Con_Interes"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Valor_Con_Interes"].DefaultCellStyle.Format = "n2";
             dataGridView1.Columns["Valor_Con_Interes"].Width = 70;
             dataGridView1.Columns["Cuotas_Con_Interes"].HeaderText = "Cuotas Saldo";
             dataGridView1.Columns["Cuotas_Con_Interes"].Width = 40;
             dataGridView1.Columns["Valor_Cuota_Con_Interes"].HeaderText = "Valor cuotas saldo";
-            dataGridView1.Columns["Valor_Cuota_Con_Interes"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Valor_Cuota_Con_Interes"].DefaultCellStyle.Format = "n2";
             dataGridView1.Columns["Valor_Cuota_Con_Interes"].Width = 70;
             dataGridView1.Columns["Valor_Interes"].HeaderText = "Interes";
             dataGridView1.Columns["Valor_Interes"].Width = 40;
@@ -147,7 +153,7 @@ namespace Cartera.Vista
             DataTable DtFinanciacion = financiacion.Financiacion(id_financiacion);
             int Valor_Producto_Neto = int.Parse(DtFinanciacion.Rows[0]["Valor_Neto"].ToString());
             Valor_Neto = Valor_Producto_Neto;
-            int Valor_Producto_Financiacion = int.Parse(DtFinanciacion.Rows[0]["Valor_Producto_Financiacion"].ToString());
+            double Valor_Producto_Financiacion = double.Parse(DtFinanciacion.Rows[0]["Valor_Producto_Financiacion"].ToString());
             ValorTotal = Valor_Producto_Financiacion;
             int valor_entrada = int.Parse(DtFinanciacion.Rows[0]["Valor_Entrada"].ToString());
             int valor_sin_interes = int.Parse(DtFinanciacion.Rows[0]["Valor_Sin_interes"].ToString());
@@ -186,12 +192,12 @@ namespace Cartera.Vista
             {
                 BtAmortizacion.Visible = false;
             }
-            label1.Text = "Valor final: $ " + String.Format("{0:N0}", Valor_Producto_Financiacion);
+            label1.Text = "Valor final: $ " + String.Format("{0:N2}", Valor_Producto_Financiacion);
             label2.Text = "Valor inicial: $ " + String.Format("{0:N0}", valor_sin_interes);
             label3.Text = "Valor separación: $ " + String.Format("{0:N0}", valor_entrada);
             label4.Text = "N° de cuotas inicial: " + Cuotas_sin_interes;
-            label5.Text = "Valor cuotas inicial: $ " + String.Format("{0:N0}", Valor_cuota_sin_interes);
-            label6.Text = "Valor saldo: $ " + String.Format("{0:N0}", Valor_con_interes);
+            label5.Text = "Valor cuotas inicial: $ " + String.Format("{0:N2}", Valor_cuota_sin_interes);
+            label6.Text = "Valor saldo: $ " + String.Format("{0:N2}", Valor_con_interes);
             label7.Text = "N° de cuotas saldo: " + String.Format("{0:N0}", Cuotas_Con_Interes);
             label8.Text = "Valor cuotas saldo: $ " + String.Format("{0:N2}", Valor_Cuota_Con_Interes);
             label10.Text = "Valor interes: $ " + Valor_Interes;
@@ -223,17 +229,20 @@ namespace Cartera.Vista
                 cell.ToolTipText = "Doble clic para ver detalle de financiación";
             }
         }
+        //private void DatosCliente()
+        //{
+        //    DataTable Dtdatos = producto.ClienteProducto(ProductoId);
 
+        //    string cliente = Dtdatos.Rows[0]["Nombre"].ToString() + " " + Dtdatos.Rows[0]["Apellido"].ToString();
+        //    string nomproducto = Dtdatos.Rows[0]["Producto"].ToString();
+        //    string nomproyecto = Dtdatos.Rows[0]["Proyecto"].ToString();
+        //}
         private void button1_Click(object sender, EventArgs e)
         {
             //DataTable DtRepor = new DataTable();
             //DtRepor = ((DataTable)dataGridView2.DataSource);
 
-            DataTable Dtdatos = producto.ClienteProducto(ProductoId);
-
-            string cliente = Dtdatos.Rows[0]["Nombre"].ToString() + " " + Dtdatos.Rows[0]["Apellido"].ToString();
-            string nomproducto = Dtdatos.Rows[0]["Producto"].ToString();
-            string nomproyecto = Dtdatos.Rows[0]["Proyecto"].ToString();
+            
             
             reportesPDF.PagoProgramado(DtAcuerdoPago, cliente, nomproducto, nomproyecto, label1.Text.ToUpper(), label2.Text.ToUpper(), label3.Text.ToUpper(), label4.Text.ToUpper(), label5.Text.ToUpper(), label6.Text.ToUpper(), label7.Text.ToUpper(), label8.Text.ToUpper(), label9.Text.ToUpper());
         }
@@ -283,7 +292,7 @@ namespace Cartera.Vista
                 CargarFinanciacion(Financiacion);
             }
         }
-            private void BtRefinanciar_Click(object sender, EventArgs e)
+        private void BtRefinanciar_Click(object sender, EventArgs e)
         {
             Refinanciacion Re = new Refinanciacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal, int.Parse(Refi), cliente, nomproducto, nomproyecto);
             Re.FormClosed += Refinanciacion_FormClose;

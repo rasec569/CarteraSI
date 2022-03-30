@@ -58,11 +58,18 @@ namespace Cartera.Modelo
 			//throw new NotImplementedException();
         }
 
-        internal static DataTable CuotasPagadas(int financiacion)
+        
+
+        internal static DataTable NumCuotasPagadas(int financiacion)
         {
 			//SELECT max(Num_Cuota) FROM Cuotas WHERE Fk_Id_Financiacion=" + financiacion + " AND Tipo= '"+tipo+"';
 			//SELECT count(Estado) FROM Cuotas WHERE Fk_Id_Financiacion=" + financiacion + " AND Estado= 'Pagada'
 			return Conexion.consulta("SELECT count(Estado) as cuotas FROM Cuotas WHERE Fk_Id_Financiacion=" + financiacion + " AND Estado= 'Pagada'");
+		}
+		internal static DataTable CuotasPagas(int financiacion)
+		{
+			return Conexion.consulta("SELECT * FROM Cuotas WHERE Fk_Id_Financiacion=" + financiacion + " AND Estado= 'Pagada'");
+			throw new NotImplementedException();
 		}
 		internal static DataTable CuotasPorPagar(int producto)
         {
@@ -149,10 +156,11 @@ namespace Cartera.Modelo
 
 			return Conexion.consulta("SELECT Id_Cuota, Num_Cuota as '# Cuota', Fecha as 'Fecha Pago', Estado, printf('% , d', Valor_Cuota)|| substr(printf('%.2f', Valor_Cuota), instr(printf('%.2f', Valor_Cuota), '.'), length(printf('%.2f', Valor_Cuota)) - instr(printf('%.2f', Valor_Cuota), '.') + 1) as Valor, printf('% , d', Aporte_Pagos) || substr(printf(' % .2f', Aporte_Pagos), instr(printf(' % .2f', Aporte_Pagos), '.'), length(printf(' % .2f', Aporte_Pagos)) - instr(printf(' % .2f', Aporte_Pagos), '.') + 1) as Aportado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Tipo='Valor Saldo';");
 		}
-		internal static DataTable ListarCuotasActulizar(int financiacion, string fecha)
+		internal static DataTable ListarCuotasActivarDelect(int financiacion)
 		{
 
-			return Conexion.consulta("SELECT Num_Cuota as '# Cuota', printf('% , d', Valor_Cuota)as Valor, Tipo, Fecha as 'Fecha Pactada', Estado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Fecha< '" + fecha + "';");
+			return Conexion.consulta("SELECT *FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "'AND Estado='Inactiva';");
+			//return Conexion.consulta("SELECT Num_Cuota as '# Cuota', printf('% , d', Valor_Cuota)as Valor, Tipo, Fecha as 'Fecha Pactada', Estado FROM Cuotas WHERE Fk_Id_Financiacion='" + financiacion + "' AND Fecha< '" + fecha + "';");
 		}
 		internal static DataTable reportProyeccion(string FechaInicio, string FechaFin)
 		{
@@ -172,7 +180,7 @@ namespace Cartera.Modelo
 		}
 		internal static DataTable PagosProgramados(int financiacion, string fecha)
         {
-			return Conexion.consulta("SELECT sum(Valor_Cuota) as 'Valor Programado' FROM Cuotas where Fk_Id_Financiacion='" + financiacion + "' AND Fecha BETWEEN '2015-01-28' AND '" + fecha + "';");
+			return Conexion.consulta("SELECT sum(Valor_Cuota) as 'Valor Programado' FROM Cuotas where Fk_Id_Financiacion='" + financiacion + "' AND Estado<>'Inactiva' AND Fecha BETWEEN '2015-01-28' AND '" + fecha + "';");
         }
 		internal static int UltimaActuliacionEstadosCuota(string Usuario, string fecha)
 		{
@@ -186,11 +194,11 @@ namespace Cartera.Modelo
 		}
 		internal static DataTable ProyeccionMes(string FechaInicio, string FechaFin)
 		{
-			return Conexion.consulta("SELECT SUM(Valor_Cuota) as Valor, strftime('%m-%Y', Fecha) as 'Mes-Año'  FROM Cuotas INNER JOIN Financiacion on Id_Financiacion=Fk_Id_Financiacion INNER JOIN Producto on Id_Producto=Fk_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fecha BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'AND Estado_Financiacion= 'Activa' AND Estado_Cliente='Activo' group by strftime('%m-%Y', Fecha) ORDER BY Fecha;");
+			return Conexion.consulta("SELECT SUM(Valor_Cuota) as Valor, strftime('%m-%Y', Fecha) as 'Mes-Año'  FROM Cuotas INNER JOIN Financiacion on Id_Financiacion=Fk_Id_Financiacion INNER JOIN Producto on Id_Producto=Fk_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fecha BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'AND Estado_Financiacion= 'Activa' AND Estado_Cliente='Activo' AND Estado<>'Inactiva' group by strftime('%m-%Y', Fecha) ORDER BY Fecha;");
 		}
 		internal static DataTable ProyeccionMesProyecto(string FechaInicio, string FechaFin, string proyecto)
 		{
-			return Conexion.consulta("SELECT SUM(Valor_Cuota) as Valor, strftime('%m-%Y', Fecha) as 'Mes-Año'  FROM Cuotas INNER JOIN Financiacion on Id_Financiacion=Fk_Id_Financiacion INNER JOIN Producto on Id_Producto=Fk_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fecha BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'AND Estado_Financiacion= 'Activa' AND Estado_Cliente='Activo' group by strftime('%m-%Y', Fecha) ORDER BY Fecha;");
+			return Conexion.consulta("SELECT SUM(Valor_Cuota) as Valor, strftime('%m-%Y', Fecha) as 'Mes-Año'  FROM Cuotas INNER JOIN Financiacion on Id_Financiacion=Fk_Id_Financiacion INNER JOIN Producto on Id_Producto=Fk_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente= Pfk_ID_Cliente WHERE Fk_Id_Proyecto= '" + proyecto + "' AND Fecha BETWEEN '" + FechaInicio + "' AND '" + FechaFin + "'AND Estado_Financiacion= 'Activa' AND Estado_Cliente='Activo' AND Estado<>'Inactiva' group by strftime('%m-%Y', Fecha) ORDER BY Fecha;");
 		}
 	}
 }

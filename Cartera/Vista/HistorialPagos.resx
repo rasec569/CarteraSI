@@ -137,6 +137,9 @@
         sP8+B0wMghuY/v9fxYwqBsxwe18U2O574Q8A6cfRVwe05wUAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>449, 17</value>
+  </metadata>
   <data name="BtBuscar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
@@ -160,7 +163,7 @@
   <data name="button1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAbVJREFUOE+VlL9OAkEQxlHwz1moT2BlJRofQkVj7vYgBi1oqOhobT0xVtpZmZjI
+        wQAADsEBuJFr7QAAAbVJREFUOE+VlL9OAkEQxlHwz1moT2BlJRofQkVj7vYgBi1oqOhobT0xVtpZmZjI
         8QK+gZWFT+ArKImFhR3G8/cduwTJCVJ8zM58s9/OztySC4IgyUK1Wl0B80IURQUwmyTJDH6+0WjMDXNh
         GN7/KVQul1ddojHmDESgBS6EMPRP3AH47bFCLjGLZ/OjOFWJ38kUIundiSgR0R1ie1xhH3uAX6pUKpvu
         quxJhR5AkaQtyG3sxrBIVk9GOcTjnBolclziJA6hdk4/kxLHcbLp1IzxYwUQvAVfU+JOoqmQGqXT5KjR

@@ -48,17 +48,19 @@ namespace Cartera.Vista
         }
         private void formatoGrid1()
         {
-            dataGridView1.Columns["Valor Neto"].DefaultCellStyle.Format = "n0";
-            dataGridView1.Columns["Pagado"].DefaultCellStyle.Format = "n0";
-            dataGridView1.Columns["Valor Final"].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns["Valor Neto"].DefaultCellStyle.Format = "n2";
+            dataGridView1.Columns["Pagado"].DefaultCellStyle.Format = "n2";
+            dataGridView1.Columns["Valor Final"].DefaultCellStyle.Format = "n2";
             dataGridView1.Columns["Producto"].Width = 65;
             dataGridView1.Columns["Contrato"].Width = 65;
             dataGridView1.Columns["Forma Pago"].Width = 70;
-            dataGridView1.Columns["Valor Neto"].Width = 65;
-            dataGridView1.Columns["Pagado"].Width = 65;
-            dataGridView1.Columns["Valor Final"].Width = 65;
+            dataGridView1.Columns["Valor Neto"].Width = 80;
+            dataGridView1.Columns["Pagado"].Width = 80;
+            dataGridView1.Columns["Valor Final"].Width = 80;
             dataGridView1.Columns["Fecha Venta"].Width = 65;
-            dataGridView1.Columns["Proyecto"].Width = 160;
+            dataGridView1.Columns["Proyecto"].Width = 145;
+            dataGridView1.Columns["Tipo Producto"].Width = 70;
+
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;            
             if (cargarbotones == true)
             {
@@ -118,7 +120,7 @@ namespace Cartera.Vista
                     string valor = dataGridView1.Rows[n].Cells["Valor Final"].Value.ToString();
                     if (e.ColumnIndex == 0)
                     {
-                        RegistrarPago Rp = new RegistrarPago(int.Parse(Txtcedula.Text), txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, int.Parse(valor));
+                        RegistrarPago Rp = new RegistrarPago(int.Parse(Txtcedula.Text), txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, double.Parse(valor));
                         Rp.FormClosed += Pagos_FormClose;
                         Rp.ShowDialog();
                     }
@@ -126,7 +128,8 @@ namespace Cartera.Vista
                     {
                         HistorialPagos Hp = new HistorialPagos(Txtcedula.Text, txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, proyecto, neto, valor);
                         //this.Hide();
-                        Hp.MdiParent = this.MdiParent;
+                        //Hp.MdiParent = this.MdiParent;
+                        Hp.FormClosed += Pagos_FormClose;
                         Hp.ShowDialog();
                     }
                 }

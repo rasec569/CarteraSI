@@ -20,7 +20,7 @@ namespace Cartera.Controlador
             return MPago.ConsultarCuotas(productoid, tipo);
         }
 
-        public int RegistrarPago(string Porcentaje,string Numero_Cuota,string Fecha_Pago,string Concepto, string Entidad, string Referencia_Pago,string Valor_Pagado,string Descuento,string Valor_Descuento,string Fk_Id_Producto)
+        public int RegistrarPago(string Porcentaje,string Numero_Cuota,string Fecha_Pago,string Concepto, string Entidad, string Referencia_Pago,double Valor_Pagado,string Descuento, double Valor_Descuento,string Fk_Id_Producto)
         {
             return MPago.RegistrarPago(Porcentaje, Numero_Cuota, Fecha_Pago, Concepto, Entidad, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto);
         }

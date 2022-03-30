@@ -33,10 +33,10 @@ namespace Cartera.Vista
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Refinanciacion));
             this.TxtValorNeto = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TxtAportes = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.TxtTotal = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.TxtValorCuota = new System.Windows.Forms.TextBox();
             this.TxtValorDeuda = new System.Windows.Forms.TextBox();
             this.TxtValorMora = new System.Windows.Forms.TextBox();
@@ -48,6 +48,8 @@ namespace Cartera.Vista
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.TxtTotalRefi = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -56,6 +58,8 @@ namespace Cartera.Vista
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.TxtTotal = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasFinan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).BeginInit();
@@ -80,10 +84,10 @@ namespace Cartera.Vista
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.TxtAportes);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.TxtTotal);
-            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.TxtValorCuota);
             this.groupBox1.Controls.Add(this.TxtValorDeuda);
             this.groupBox1.Controls.Add(this.TxtValorMora);
@@ -103,6 +107,25 @@ namespace Cartera.Vista
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Refinanciación";
+            // 
+            // TxtAportes
+            // 
+            this.TxtAportes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.TxtAportes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TxtAportes.Enabled = false;
+            this.TxtAportes.Location = new System.Drawing.Point(240, 36);
+            this.TxtAportes.Name = "TxtAportes";
+            this.TxtAportes.Size = new System.Drawing.Size(102, 20);
+            this.TxtAportes.TabIndex = 41;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(249, 18);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(83, 13);
+            this.label8.TabIndex = 40;
+            this.label8.Text = "Aporte Fecha";
             // 
             // button2
             // 
@@ -127,31 +150,12 @@ namespace Cartera.Vista
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // TxtTotal
-            // 
-            this.TxtTotal.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.TxtTotal.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TxtTotal.Enabled = false;
-            this.TxtTotal.Location = new System.Drawing.Point(599, 36);
-            this.TxtTotal.Name = "TxtTotal";
-            this.TxtTotal.Size = new System.Drawing.Size(102, 20);
-            this.TxtTotal.TabIndex = 38;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(616, 18);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 13);
-            this.label7.TabIndex = 37;
-            this.label7.Text = "Valor Total";
-            // 
             // TxtValorCuota
             // 
             this.TxtValorCuota.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtValorCuota.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TxtValorCuota.Enabled = false;
-            this.TxtValorCuota.Location = new System.Drawing.Point(482, 36);
+            this.TxtValorCuota.Location = new System.Drawing.Point(470, 36);
             this.TxtValorCuota.Name = "TxtValorCuota";
             this.TxtValorCuota.Size = new System.Drawing.Size(102, 20);
             this.TxtValorCuota.TabIndex = 36;
@@ -161,7 +165,7 @@ namespace Cartera.Vista
             this.TxtValorDeuda.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtValorDeuda.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TxtValorDeuda.Enabled = false;
-            this.TxtValorDeuda.Location = new System.Drawing.Point(243, 36);
+            this.TxtValorDeuda.Location = new System.Drawing.Point(355, 36);
             this.TxtValorDeuda.Name = "TxtValorDeuda";
             this.TxtValorDeuda.Size = new System.Drawing.Size(102, 20);
             this.TxtValorDeuda.TabIndex = 35;
@@ -171,7 +175,7 @@ namespace Cartera.Vista
             this.TxtValorMora.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtValorMora.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TxtValorMora.Enabled = false;
-            this.TxtValorMora.Location = new System.Drawing.Point(124, 36);
+            this.TxtValorMora.Location = new System.Drawing.Point(125, 36);
             this.TxtValorMora.Name = "TxtValorMora";
             this.TxtValorMora.Size = new System.Drawing.Size(102, 20);
             this.TxtValorMora.TabIndex = 34;
@@ -179,7 +183,7 @@ namespace Cartera.Vista
             // numCuotasFinan
             // 
             this.numCuotasFinan.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numCuotasFinan.Location = new System.Drawing.Point(358, 36);
+            this.numCuotasFinan.Location = new System.Drawing.Point(585, 36);
             this.numCuotasFinan.Maximum = new decimal(new int[] {
             36,
             0,
@@ -192,8 +196,9 @@ namespace Cartera.Vista
             // 
             // numValorInteres
             // 
+            this.numValorInteres.Enabled = false;
             this.numValorInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numValorInteres.Location = new System.Drawing.Point(425, 36);
+            this.numValorInteres.Location = new System.Drawing.Point(648, 36);
             this.numValorInteres.Maximum = new decimal(new int[] {
             36,
             0,
@@ -207,7 +212,7 @@ namespace Cartera.Vista
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(497, 18);
+            this.label5.Location = new System.Drawing.Point(485, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 13);
             this.label5.TabIndex = 31;
@@ -216,7 +221,7 @@ namespace Cartera.Vista
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(418, 18);
+            this.label6.Location = new System.Drawing.Point(641, 18);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
             this.label6.TabIndex = 29;
@@ -225,7 +230,7 @@ namespace Cartera.Vista
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(360, 18);
+            this.label4.Location = new System.Drawing.Point(583, 18);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 27;
@@ -234,16 +239,17 @@ namespace Cartera.Vista
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(258, 18);
+            this.label1.Location = new System.Drawing.Point(369, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 25;
             this.label1.Text = "Valor Deuda";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(134, 20);
+            this.label3.Location = new System.Drawing.Point(134, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 23;
@@ -258,6 +264,27 @@ namespace Cartera.Vista
             this.label2.TabIndex = 21;
             this.label2.Text = "Valor Neto";
             // 
+            // TxtTotalRefi
+            // 
+            this.TxtTotalRefi.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.TxtTotalRefi.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TxtTotalRefi.Enabled = false;
+            this.TxtTotalRefi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtTotalRefi.Location = new System.Drawing.Point(453, 360);
+            this.TxtTotalRefi.Name = "TxtTotalRefi";
+            this.TxtTotalRefi.Size = new System.Drawing.Size(102, 20);
+            this.TxtTotalRefi.TabIndex = 38;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(335, 363);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(112, 13);
+            this.label7.TabIndex = 37;
+            this.label7.Text = "Valor Financiación";
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -265,7 +292,7 @@ namespace Cartera.Vista
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(0, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(738, 275);
+            this.dataGridView1.Size = new System.Drawing.Size(738, 252);
             this.dataGridView1.TabIndex = 20;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
@@ -277,7 +304,7 @@ namespace Cartera.Vista
             this.tabControl1.Location = new System.Drawing.Point(3, 82);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(748, 304);
+            this.tabControl1.Size = new System.Drawing.Size(748, 278);
             this.tabControl1.TabIndex = 22;
             // 
             // tabPage1
@@ -286,7 +313,7 @@ namespace Cartera.Vista
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(740, 278);
+            this.tabPage1.Size = new System.Drawing.Size(740, 252);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Cuotas";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -297,7 +324,7 @@ namespace Cartera.Vista
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(740, 278);
+            this.tabPage2.Size = new System.Drawing.Size(740, 252);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Amortización";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -318,7 +345,7 @@ namespace Cartera.Vista
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(740, 278);
+            this.tabPage3.Size = new System.Drawing.Size(740, 252);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Nuevas";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -334,14 +361,39 @@ namespace Cartera.Vista
             this.dataGridView3.TabIndex = 22;
             this.dataGridView3.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView3_DataBindingComplete);
             // 
+            // TxtTotal
+            // 
+            this.TxtTotal.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.TxtTotal.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TxtTotal.Enabled = false;
+            this.TxtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtTotal.Location = new System.Drawing.Point(638, 360);
+            this.TxtTotal.Name = "TxtTotal";
+            this.TxtTotal.Size = new System.Drawing.Size(102, 20);
+            this.TxtTotal.TabIndex = 40;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(563, 363);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(69, 13);
+            this.label9.TabIndex = 39;
+            this.label9.Text = "Valor Total";
+            // 
             // Refinanciacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(753, 384);
+            this.Controls.Add(this.TxtTotal);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.TxtTotalRefi);
+            this.Controls.Add(this.label7);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -362,6 +414,7 @@ namespace Cartera.Vista
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -382,7 +435,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.TextBox TxtValorCuota;
         private System.Windows.Forms.TextBox TxtValorDeuda;
         private System.Windows.Forms.TextBox TxtValorMora;
-        private System.Windows.Forms.TextBox TxtTotal;
+        private System.Windows.Forms.TextBox TxtTotalRefi;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabControl tabControl1;
@@ -392,5 +445,9 @@ namespace Cartera.Vista
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox TxtAportes;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox TxtTotal;
+        private System.Windows.Forms.Label label9;
     }
 }

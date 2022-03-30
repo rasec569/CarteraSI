@@ -159,7 +159,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 5f, 12f, 33f, 17f, 9f, 9f, 10f, 10f, 10f }, 100, 6));
+                                document.Add(TablasLetras(report, new float[] { 5f, 12f, 33f, 17f, 10f, 9f, 9f, 10f, 10f }, 100, 6));
                             }
                             else
                             {
@@ -446,7 +446,7 @@ namespace Cartera.Reportes
                 //return file;                
             }            
         }
-        public void Cartera(DataTable report, string total, string recaudado, string deuda, string proyecto )
+        public void Cartera(DataTable report, string total, string recaudado, string deuda, string proyecto, string estado )
         {
             //string nombre = "Historial de pagos";
 
@@ -527,7 +527,7 @@ namespace Cartera.Reportes
                                 texto.RemoveAt(0);
 
                                 texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
-                                texto.Add("REPORTE - CARTERA "+ proyecto);
+                                texto.Add("REPORTE - CARTERA "+ estado.ToUpper() +" "+ proyecto);
                                 document.Add(texto);
                                 texto.RemoveAt(0);
 
@@ -572,7 +572,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 10f, 19f, 20f, 14f, 7f, 7f, 7f, 7f, 10f, 8f, 9f, 9f}, 100, 6));
+                                document.Add(TablasLetras(report, new float[] { 10f, 19f, 20f, 14f, 7f, 7f, 7f, 7f, 10f, 6f, 10f, 10f}, 100, 6));
                             }
                             else
                             {
@@ -2472,7 +2472,7 @@ namespace Cartera.Reportes
                 //return file;                
             }
         }
-        public void Refinanciacion(DataTable report, string cliente, string nomproducto, string nomproyecto, string ValorNeto, string ValorIni, string ValorSaldo, string ValorCuotaSal, string CuotasSal, string ValorInteres, string ValorFin, string InteresFecha)
+        public void Refinanciacion(DataTable report, string cliente, string nomproducto, string nomproyecto, string ValorNeto, string ValorMora, string ValorPagado, string ValorDeuda, string ValorCuota, string NumCuotas, string ValorInteres, string valorRefi, string valorTotal)
         {
             //string nombre = "Historial de pagos";
 
@@ -2573,36 +2573,25 @@ namespace Cartera.Reportes
                                 document.Add(table);
 
                                 // Tablas detalle 2
-                                PdfPTable table2 = new PdfPTable(5) { WidthPercentage = 100f };
+                                PdfPTable table2 = new PdfPTable(3) { WidthPercentage = 100f };
                                 table2.HorizontalAlignment = 0;
                                 //table2.SpacingBefore = 5f;
                                 //agg las filas
                                 table2.AddCell(new PdfPCell(new Paragraph("VALOR NETO: " + ValorNeto, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
-                                table2.AddCell(new PdfPCell(new Paragraph("VALOR INICIAL: " + ValorIni, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
-                                table2.AddCell(new PdfPCell(new Paragraph("VALOR SALDO: " + ValorSaldo, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
-                                table2.AddCell(new PdfPCell(new Paragraph("NUM. CUOTAS: " + CuotasSal, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
-                                table2.AddCell(new PdfPCell(new Paragraph("VALOR INTERES: " + ValorInteres, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph("VALOR MORA: " + ValorMora, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table2.AddCell(new PdfPCell(new Paragraph("VALOR PAGADO: " + ValorPagado, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
 
                                 document.Add(table2);
 
                                 // Tablas detalle 3
                                 PdfPTable table3 = new PdfPTable(4) { WidthPercentage = 100f };
-                                table2.HorizontalAlignment = 0;
+                                table3.HorizontalAlignment = 0;
                                 //agg las filas
-                                //table3.AddCell(new PdfPCell(new Paragraph(PagadoFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
-                                //table3.AddCell(new PdfPCell(new Paragraph(InteresFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
-                                //table3.AddCell(new PdfPCell(new Paragraph(SaldoFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
-                                //table3.AddCell(new PdfPCell(new Paragraph(DeudaFecha.ToUpper(), font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
-                                //document.Add(table3);
-
-                                //texto.Font = FontFactory.GetFont("Verdana", 7, Font.NORMAL);
-                                //texto.Add(ValorIni + "  " + ValorSepare + "  " + CuotasIni + "  " + ValorCuotaIni);
-                                //document.Add(texto);
-                                //texto.RemoveAt(0);
-
-                                //texto.Add(ValorSaldo + "  " + CuotasSal + "  " + ValorCuotaSal);
-                                //document.Add(texto);
-                                //texto.RemoveAt(0);
+                                table3.AddCell(new PdfPCell(new Paragraph("REFINANCIACIÓN: "+ ValorDeuda, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table3.AddCell(new PdfPCell(new Paragraph("VALOR CUOTA: " + ValorCuota, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table3.AddCell(new PdfPCell(new Paragraph("NUM. CUOTAS: " + NumCuotas, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                table3.AddCell(new PdfPCell(new Paragraph("VALOR INTERES: " + ValorInteres, font: FontFactory.GetFont("Verdana", 7))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                                document.Add(table3);
 
                                 document.Add(new Paragraph(" "));
 
@@ -2611,8 +2600,8 @@ namespace Cartera.Reportes
                                 pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 120);
                                 pdfContent.Stroke();
                                 //*** Linea detalle
-                                pdfContent.MoveTo(30, document.PageSize.Height - 150);
-                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 150);
+                                pdfContent.MoveTo(30, document.PageSize.Height - 180);
+                                pdfContent.LineTo(document.PageSize.Width - 20, document.PageSize.Height - 180);
                                 pdfContent.Stroke();
                                 ////*** Linea detalle 2
                                 //pdfContent.MoveTo(40, document.PageSize.Height - 180);
@@ -2650,13 +2639,11 @@ namespace Cartera.Reportes
                         //    texto.RemoveAt(0);
                         //}
 
+                        
                         texto.Alignment = Element.ALIGN_RIGHT;
                         texto.IndentationRight = 30;
                         texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
-                        texto.Add("VALOR CUOTA: " + ValorCuotaSal);
-                        document.Add(texto);
-                        texto.RemoveAt(0);
-                        texto.Add("VALOR FINAL: " + ValorFin);
+                        texto.Add("VALOR TOTAL: " + valorTotal);
                         document.Add(texto);
                         texto.RemoveAt(0);
 

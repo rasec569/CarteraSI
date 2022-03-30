@@ -76,8 +76,6 @@ namespace Cartera.Vista
                 DtReporte = DtCartera.Copy();
                 DtReporte.Columns.Remove("Id_Cliente");
                 DtReporte.Columns.Remove("Id_Cartera");
-
-                //DtReporte.Columns[5].DefaultCellStyle.Format = "n1";
                 dataGridView1.DataSource = DtCartera;
             }
             else
@@ -86,30 +84,20 @@ namespace Cartera.Vista
                 dataGridView1.DataSource = DtCartera;
             }
 
-            Int64 total = 0;
-            Int64 deuda = 0;
-            Int64 pagado = 0;
+            double total = 0;
+            double deuda = 0;
+            double pagado = 0;
 
             foreach (DataRow row in DtCartera.Rows)
             {
-                //string ensayo = row["Total"].ToString().Trim(new Char[] { ',', ',', ',' });
-                //string resultado = row["Total"].ToString().Replace(",", "");
-                //elimino las , amtes de hacer la operacion suma del total
-                total += Convert.ToInt64(row["Total"].ToString().Replace(",", ""));
-                deuda += Convert.ToInt64(row["Saldo"].ToString().Replace(",", ""));
-                pagado += Convert.ToInt64(row["Recaudado"].ToString().Replace(",", ""));
+                total += Convert.ToDouble(row["Total"].ToString().Replace(",", "").Replace(".", ","));
+                deuda += Convert.ToDouble(row["Saldo"].ToString().Replace(",", "").Replace(".", ","));
+                pagado += Convert.ToDouble(row["Recaudado"].ToString().Replace(",", "").Replace(".", ","));
 
             }
-            labelTotal.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
-            labelDeuda.Text = "VALOR DEUDA: $ " + String.Format("{0:N0}", deuda);
-            labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N0}", pagado);
-            //DataTable DtValoreCartera = cartera.TotalesCartera();
-            //Int64 total = Int64.Parse(DtValoreCartera.Rows[0]["total"].ToString());
-            //Int64 deuda = Int64.Parse(DtValoreCartera.Rows[0]["saldo"].ToString());
-            //Int64 pagado = Int64.Parse(DtValoreCartera.Rows[0]["recaudo"].ToString());
-            //labelTotal.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
-            //labelDeuda.Text = "VALOR DEUDA: $ " + String.Format("{0:N0}", deuda);
-            //labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N0}", pagado);
+            labelTotal.Text = "TOTAL: $ " + String.Format("{0:N2}", total);
+            labelDeuda.Text = "VALOR DEUDA: $ " + String.Format("{0:N2}", deuda);
+            labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N2}", pagado);
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
 
             formatoGrid1();
@@ -118,10 +106,10 @@ namespace Cartera.Vista
         {
             //dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridView1.Columns ["Id_Cliente"].Visible = false;
-            dataGridView1.Columns [9].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns [9].DefaultCellStyle.Format = "n2";
             //dataGridView1.Columns["Id_Producto"].Visible = false;
-            dataGridView1.Columns [11].DefaultCellStyle.Format = "n0";
-            dataGridView1.Columns [12].DefaultCellStyle.Format = "n0";
+            dataGridView1.Columns [11].DefaultCellStyle.Format = "n2";
+            dataGridView1.Columns [12].DefaultCellStyle.Format = "n2";
             dataGridView1.Columns ["Id_Cartera"].Visible = false;
             dataGridView1.Columns [1].Width = 85;
             dataGridView1.Columns [2].Width = 120;
@@ -131,7 +119,8 @@ namespace Cartera.Vista
             dataGridView1.Columns [6].Width = 45;
             dataGridView1.Columns [7].Width = 45;
             dataGridView1.Columns [8].Width = 45;
-            dataGridView1.Columns [10].Width = 60;
+            dataGridView1.Columns [9].Width = 85;
+            dataGridView1.Columns [10].Width = 35;
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             //dataGridView1.Columns[3].Width = 230;
 
@@ -160,38 +149,85 @@ namespace Cartera.Vista
         private void comboEstados_SelectedValueChanged(object sender, EventArgs e)
         {
             string Estados = comboEstados.Items[comboEstados.SelectedIndex].ToString();
-            if (Estados == "Menos de 30 días")
+            if (Estados == "Todo"|| Estados == "Seleccione una opción")
             {
-                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Menos de 30 días'";
+                CarteraPorProyecto();
             }
-            else if (Estados == "De 31 a 60 días")
+            else
             {
-                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 31 a 60 días'";
-            }
-            else if (Estados == "De 61 a 90 días")
-            {
-                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 61 a 90 días'";
-            }
-            else if (Estados == "De 91 a 180 días")
-            {
-                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 91 a 180 días'";
-            }
-            else if (Estados == "De 181 a 360 días")
-            {
-                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 181 a 360 días'";
-            }
-            else if (Estados == "Mas de 360 días")
-            {
-                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Mas de 360 días'";
-            }
-            else if (Estados == "Pagado")
-            {
-                DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Pagado'";
-            }
-            else if(Estados=="Todo")
-            {
-                CargarCartera();
-            }
+                DataRow[] DtCarteraPorEstado = DtCartera.Select(String.Format("Pago like '%{0}%'", Estados));
+                if (DtCarteraPorEstado.Length > 0)
+                {
+                    DataTable dt1 = DtCarteraPorEstado.CopyToDataTable();  
+                    DtReporte = dt1.Copy();
+                    DtReporte.Columns.Remove("Id_Cliente");
+                    DtReporte.Columns.Remove("Id_Cartera");
+                    dataGridView1.DataSource = dt1;
+                    if (dt1.Rows.Count > 0)
+                    {
+                        double total = 0;
+                        double deuda = 0;
+                        double pagado = 0;
+                        foreach (DataRow row in dt1.Rows)
+                        {
+                            total += Convert.ToDouble(row["Total"].ToString().Replace(",", "").Replace(".", ","));
+                            deuda += Convert.ToDouble(row["Saldo"].ToString().Replace(",", "").Replace(".", ","));
+                            pagado += Convert.ToDouble(row["Recaudado"].ToString().Replace(",", "").Replace(".", ","));
+                        }
+                        labelTotal.Text = "TOTAL: $ " + String.Format("{0:N2}", total);
+                        labelDeuda.Text = "VALOR DEUDA: $ " + String.Format("{0:N2}", deuda);
+                        labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N2}", pagado);
+                        this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
+                        formatoGrid1();                        
+                    }
+                    if (tabControl1.SelectedIndex != 0)
+                    {
+                        estadisca();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Sin datos para mostrar");
+                    dataGridView1.DataSource = "";
+                    labelTotal.Text = "TOTAL: $ " + "0.0";
+                    labelDeuda.Text = "VALOR DEUDA: $ " + "0.0";
+                    labelRecaudo.Text = "VALOR RECAUDADO: $ " + "0.0";
+                }
+            }               
+
+
+            //if (Estados == "Menos de 30 días")
+            //{
+            //    DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Menos de 30 días'";
+            //}
+            //else if (Estados == "De 31 a 60 días")
+            //{
+            //    DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 31 a 60 días'";
+            //}
+            //else if (Estados == "De 61 a 90 días")
+            //{
+            //    DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 61 a 90 días'";
+            //}
+            //else if (Estados == "De 91 a 180 días")
+            //{
+            //    DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 91 a 180 días'";
+            //}
+            //else if (Estados == "De 181 a 360 días")
+            //{
+            //    DtCartera.DefaultView.RowFilter = $"Pago LIKE 'De 181 a 360 días'";
+            //}
+            //else if (Estados == "Mas de 360 días")
+            //{
+            //    DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Mas de 360 días'";
+            //}
+            //else if (Estados == "Pagada")
+            //{
+            //    DtCartera.DefaultView.RowFilter = $"Pago LIKE 'Pagada'";
+            //}
+            //else if(Estados=="Todo")
+            //{
+            //    CarteraPorProyecto();
+            //}
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -234,12 +270,13 @@ namespace Cartera.Vista
                 string Cliente = DtCartera.Rows[i]["Id_Cliente"].ToString();
                 string Cartera = DtCartera.Rows[i]["Id_Cartera"].ToString();
                 if (DtCartera.Rows[i]["Pago"].ToString() != "Disuelto")
-                {                    
+                {
                     //error de comas al parecer
-                    if (int.Parse(DtCartera.Rows[i]["Recaudado"].ToString().Replace(",", "")) - int.Parse(DtCartera.Rows[i]["Total"].ToString().Replace(",", "")) >= 0)
+                    //MessageBox.Show("Esto Trae"+ double.Parse(DtCartera.Rows[i]["Recaudado"].ToString().Replace(",", "").Replace(".", ",")) + double.Parse(DtCartera.Rows[i]["Total"].ToString().Replace(",", "").Replace(".", ",")));
+                    if (double.Parse(DtCartera.Rows[i]["Recaudado"].ToString().Replace(",", "").Replace(".", ",")) - double.Parse(DtCartera.Rows[i]["Total"].ToString().Replace(",", "").Replace(".", ",")) >= 0)
                     {
                         cartera.ActulizarValorRecaudado(int.Parse(Cliente));
-                        cartera.ActulizarEstadoCartera(Cartera, "Pagado", 0, 0, 0, 0);
+                        cartera.ActulizarEstadoCartera(Cartera, "Pagada", 0, 0, 0, 0);
                         //dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Aquamarine;
                     }
                     else
@@ -256,7 +293,7 @@ namespace Cartera.Vista
                                 {
                                     if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[h]["Fecha_Pago"].ToString()))
                                     {
-                                        cartera.ActulizarEstadoCartera(Cartera, "Pagado", 0, 0, 0, 0);
+                                        cartera.ActulizarEstadoCartera(Cartera, "Pagada", 0, 0, 0, 0);
                                     }
                                     else
                                     {
@@ -276,7 +313,7 @@ namespace Cartera.Vista
                                         string fecha1 = dtfechas.Rows[h]["Fecha_Pago"].ToString();
                                         string fecha2 = dtfechas.Rows[h]["Fecha_Recaudo"].ToString();
                                         int cuotas = int.Parse(dtfechas.Rows[h]["Cuotas"].ToString());
-                                        DataTable dtcuotas = cuota.CuotasPagadas(financiacion);
+                                        DataTable dtcuotas = cuota.NumCuotasPagadas(financiacion);
                                         int pagos = int.Parse(dtcuotas.Rows[0]["cuotas"].ToString()) - 1;
                                         //DataTable dtcuotas = pago.ConsultarCuotas(int.Parse(Producto), "Inicial%");
                                         //int pagos = 0;
@@ -430,13 +467,18 @@ namespace Cartera.Vista
         {
             Txtcedula.Clear();
             comboProyecto.Text = "TODOS LOS PROYECTOS";
-            comboEstados.Text = "seleccione una opción";
+            comboEstados.Text = "Seleccione una opción";
             CargarCartera();
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {            
-            reportesPDF.Cartera(DtReporte, labelTotal.Text, labelRecaudo.Text, labelDeuda.Text, comboProyecto.Text);
+        {
+            string estado="";
+            if(comboEstados.Text != "Seleccione una opción"|| comboEstados.Text != "Todo")
+            {
+                estado=comboEstados.Text;
+            }
+            reportesPDF.Cartera(DtReporte, labelTotal.Text, labelRecaudo.Text, labelDeuda.Text, comboProyecto.Text, estado);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -455,7 +497,7 @@ namespace Cartera.Vista
                     
                     if (n != -1)
                     {
-                        if (e.Value.ToString().Contains("Pagado"))   //Si el valor de la celda contiene la palabra hora
+                        if (e.Value.ToString().Contains("Pagada"))   //Si el valor de la celda contiene la palabra hora
                         {
                             e.CellStyle.ForeColor = Color.DodgerBlue;
                             e.CellStyle.BackColor = Color.Honeydew;
@@ -510,6 +552,11 @@ namespace Cartera.Vista
 
         private void comboProyecto_SelectedIndexChanged(object sender, EventArgs e)
         {
+            CarteraPorProyecto();
+            comboEstados.Text = "Seleccione una opción";
+        }
+        private void CarteraPorProyecto()
+        {
             try
             {
                 if (comboProyecto.SelectedIndex == 0)
@@ -522,43 +569,45 @@ namespace Cartera.Vista
                 }
                 else
                 {
-                    DtCartera = cartera.ListarCarteraProyecto(int.Parse(comboProyecto.SelectedIndex.ToString())-1);
+                    DtCartera = cartera.ListarCarteraProyecto(int.Parse(comboProyecto.SelectedIndex.ToString()) - 1);
                     DtReporte = DtCartera.Copy();
                     DtReporte.Columns.Remove("Id_Cliente");
                     DtReporte.Columns.Remove("Id_Cartera");
                     dataGridView1.DataSource = DtCartera;
-
-                    Int64 total = 0;
-                    Int64 deuda = 0;
-                    Int64 pagado = 0;
-
-                    foreach (DataRow row in DtCartera.Rows)
+                    if (DtCartera.Rows.Count > 0)
                     {
-                        //string ensayo = row["Total"].ToString().Trim(new Char[] { ',', ',', ',' });
-                        //string resultado = row["Total"].ToString().Replace(",", "");
-                        //elimino las , amtes de hacer la operacion suma del total
-                        total += Convert.ToInt64(row["Total"].ToString().Replace(",", ""));
-                        deuda += Convert.ToInt64(row["Saldo"].ToString().Replace(",", ""));
-                        pagado += Convert.ToInt64(row["Recaudado"].ToString().Replace(",", ""));
-
+                        double total = 0;
+                        double deuda = 0;
+                        double pagado = 0;
+                        foreach (DataRow row in DtCartera.Rows)
+                        {
+                            total += Convert.ToDouble(row["Total"].ToString().Replace(",", "").Replace(".", ","));
+                            deuda += Convert.ToDouble(row["Saldo"].ToString().Replace(",", "").Replace(".", ","));
+                            pagado += Convert.ToDouble(row["Recaudado"].ToString().Replace(",", "").Replace(".", ","));
+                        }
+                        labelTotal.Text = "TOTAL: $ " + String.Format("{0:N2}", total);
+                        labelDeuda.Text = "VALOR DEUDA: $ " + String.Format("{0:N2}", deuda);
+                        labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N2}", pagado);
+                        this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
+                        formatoGrid1();
+                        if (tabControl1.SelectedIndex != 0)
+                        {
+                            estadisca();
+                        }
                     }
-                    labelTotal.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
-                    labelDeuda.Text = "VALOR DEUDA: $ " + String.Format("{0:N0}", deuda);
-                    labelRecaudo.Text = "VALOR RECAUDADO: $ " + String.Format("{0:N0}", pagado);
-                    this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
-                    formatoGrid1();
-                    if (tabControl1.SelectedIndex != 0)
+                    else
                     {
-                        estadisca();
-                    }
+                        MessageBox.Show("Sin datos para mostrar");
+                        labelTotal.Text = "TOTAL: $ " + "0.0";
+                        labelDeuda.Text = "VALOR DEUDA: $ " + "0.0";
+                        labelRecaudo.Text = "VALOR RECAUDADO: $ " + "0.0";
+                    }                    
                 }
-                
             }
-            catch
+            catch(Exception e)
             {
-
+                MessageBox.Show("Error al cargar cartera por proyecto" + e);
             }
-            
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -655,7 +704,7 @@ namespace Cartera.Vista
                 {
                     mas360++;
                 }
-                else if (row["Pago"].ToString() == "Pagado")
+                else if (row["Pago"].ToString() == "Pagada")
                 {
                     pagados++;
                 }

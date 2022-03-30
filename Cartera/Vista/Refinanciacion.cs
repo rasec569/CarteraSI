@@ -47,23 +47,28 @@ namespace Cartera.Vista
             numCuotasFinan.Enabled = true;
             numValorInteres.Enabled = true;
         }
-        public Refinanciacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, int Valor_Total, int Refinanciacion, string Cliente, string Producto, string Proyeco)
+        public Refinanciacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, double Valor_Total, int Refinanciacion, string Cliente, string Producto, string Proyeco)
         {
             InitializeComponent();
             reportesPDF = new ReportesPDF();
-            TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorNeto.Text = Valor_Neto.ToString("N2", CultureInfo.CurrentCulture);
+            TxtTotal.Text= Valor_Total.ToString("N2", CultureInfo.CurrentCulture);
             Refi = Refinanciacion;
             if (Refinanciacion != 0)
             {
                 DataTable DtRefi = new DataTable();
                 DtRefi=refinanciacion.RefinanciacionFinanciacion(Financiacion);
                 Refi = int.Parse(DtRefi.Rows[0]["Id_Refinanciacion"].ToString());
-                TxtValorMora.Text = DtRefi.Rows[0]["Interes Mora"].ToString();
-                TxtValorDeuda.Text = DtRefi.Rows[0]["Valor Deuda"].ToString();
+                double ValorMora = double.Parse(DtRefi.Rows[0]["Interes Mora"].ToString());
+                TxtValorMora.Text = ValorMora.ToString("N2", CultureInfo.CurrentCulture);
+                double ValorDeuda = double.Parse(DtRefi.Rows[0]["Valor Deuda"].ToString());
+                TxtValorDeuda.Text = ValorDeuda.ToString("N2", CultureInfo.CurrentCulture);
                 numCuotasFinan.Text = DtRefi.Rows[0]["# Cuotas"].ToString();
                 numValorInteres.Text = DtRefi.Rows[0]["Valor Interes"].ToString();
-                TxtValorCuota.Text = DtRefi.Rows[0]["Valor Cuota"].ToString();
-                TxtTotal.Text = DtRefi.Rows[0]["Valor Total"].ToString();
+                double ValorCuota = double.Parse(DtRefi.Rows[0]["Valor Cuota"].ToString());
+                TxtValorCuota.Text = ValorCuota.ToString("N2", CultureInfo.CurrentCulture);
+                double ValorTotal = double.Parse(DtRefi.Rows[0]["Valor Total"].ToString());
+                TxtTotalRefi.Text = ValorTotal.ToString("N2", CultureInfo.CurrentCulture);
                 ListarRefi();
                 ListarCuotasRefi(Financiacion);
             }
@@ -103,9 +108,9 @@ namespace Cartera.Vista
                             capital = ValCuota - interes;
                         }
                         saldo = saldo - capital;
-                        DtCuotasRefi.Rows[i]["Saldo"] = Math.Round(saldo);
-                        DtCuotasRefi.Rows[i]["Interes"] = Math.Round(interes);
-                        DtCuotasRefi.Rows[i]["Capital"] = Math.Round(capital);
+                        DtCuotasRefi.Rows[i]["Saldo"] = saldo.ToString("N2", CultureInfo.CurrentCulture);
+                        DtCuotasRefi.Rows[i]["Interes"] = interes.ToString("N2", CultureInfo.CurrentCulture);
+                        DtCuotasRefi.Rows[i]["Capital"] = capital.ToString("N2", CultureInfo.CurrentCulture);
                     }
                 }
                 DtRpRefinaciacion = DtCuotasRefi.Copy();
@@ -141,6 +146,7 @@ namespace Cartera.Vista
                         DtCamio.ImportRow(DtCuotas.Rows[i]); //se copia la  fila del  dt1  en el  DataTable nuevo
                     }
                 }
+                TxtAportes.Text = Math.Round(Convert.ToDouble(pagadofecha), 2).ToString("N2", CultureInfo.CurrentCulture);
                 dataGridView1.DataSource = DtCuotas;
                 dataGridView1.Columns[0].Visible = false;
                 if (Refi == 0)
@@ -162,7 +168,7 @@ namespace Cartera.Vista
             
         }
 
-        private void listarCuotasFinaciadas(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, int Total)
+        private void listarCuotasFinaciadas(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, double Total)
         {
             try
             {
@@ -205,15 +211,15 @@ namespace Cartera.Vista
                 }
                 if (Refi == 0)
                 {
-                    TxtValorMora.Text = interesfecha.ToString("N0", CultureInfo.CurrentCulture);
-                    TxtValorDeuda.Text = ((Valor_Neto - pagadofecha) + interesfecha).ToString("N0", CultureInfo.CurrentCulture);
+                    TxtValorMora.Text = interesfecha.ToString("N2", CultureInfo.CurrentCulture);
+                    TxtValorDeuda.Text = ((Valor_Neto - pagadofecha) + interesfecha).ToString("N2", CultureInfo.CurrentCulture);
                 }
                 dataGridView2.DataSource = DtCuotasInteres;
                 dataGridView2.Columns["Id_Cuota"].Visible = false;
 
-                dataGridView2.Columns["Capital"].DefaultCellStyle.Format = "n0";
-                dataGridView2.Columns["Interes"].DefaultCellStyle.Format = "n0";
-                dataGridView2.Columns["Saldo"].DefaultCellStyle.Format = "n0";
+                dataGridView2.Columns["Capital"].DefaultCellStyle.Format = "n2";
+                dataGridView2.Columns["Interes"].DefaultCellStyle.Format = "n2";
+                dataGridView2.Columns["Saldo"].DefaultCellStyle.Format = "n2";
 
                 //DtRpAmortizacion = DtCuotasInteres.Copy();
                 //DtRpAmortizacion.Columns.Remove("Id_Cuota");
@@ -259,7 +265,7 @@ namespace Cartera.Vista
                         saldo = saldo - capital;
                         DataRow fila = DtNuevasCuotas.NewRow();
                         fila["Cuota"] = i + 1;
-                        fila["Valor"] = Valor_Cuota_Con_Interes.ToString("N0", CultureInfo.CurrentCulture);
+                        fila["Valor"] = Valor_Cuota_Con_Interes.ToString("N2", CultureInfo.CurrentCulture);
                         fila["Tipo"] = "Refinanciación";
                         fila["Fecha"] = fecha;
                         fila["Aportado"] = 0;
@@ -349,16 +355,16 @@ namespace Cartera.Vista
         private void button1_Click(object sender, EventArgs e)
         {
             try
-            {
+            {                
                 for (int i = 0; i < DtCamio.Rows.Count; i++)
                 {
                     cuota.InactivarCuota(int.Parse(DtCamio.Rows[i]["Cuota"].ToString()), "Inactiva", Id_Financiacion, DtCamio.Rows[i]["Tipo"].ToString());
                 }
-                refinanciacion.crearRefinanciacion(int.Parse(Convert.ToDouble(TxtValorNeto.Text).ToString()), int.Parse(Convert.ToDouble(TxtValorMora.Text).ToString()), double.Parse(Convert.ToDouble(TxtValorDeuda.Text).ToString()), int.Parse(numCuotasFinan.Text.ToString()), double.Parse(Convert.ToDouble(TxtValorCuota.Text).ToString()), int.Parse(numValorInteres.Text.ToString()), int.Parse(Convert.ToDouble(TxtValorCuota.Text).ToString()), DateTime.Now.ToString("yyyy-MM-dd"), DtosUsuario.NombreUser, Id_Financiacion);
+                refinanciacion.crearRefinanciacion(int.Parse(Convert.ToDouble(TxtValorNeto.Text).ToString()), double.Parse(Convert.ToDouble(TxtValorMora.Text).ToString(), CultureInfo.CurrentCulture), double.Parse(Convert.ToDouble(TxtValorDeuda.Text).ToString(), CultureInfo.CurrentCulture   ), int.Parse(numCuotasFinan.Text.ToString()), double.Parse(Convert.ToDouble(TxtValorCuota.Text).ToString()), int.Parse(numValorInteres.Text.ToString()), double.Parse(Convert.ToDouble(TxtTotalRefi.Text).ToString()), double.Parse(Convert.ToDouble(TxtTotal.Text).ToString()), DateTime.Now.ToString("yyyy-MM-dd"), DtosUsuario.NombreUser, Id_Financiacion);
                 for (int n = 0; n+1 < DtNuevasCuotas.Rows.Count; n++)
                 {
                     int NumCuota = int.Parse(DtNuevasCuotas.Rows[n]["Cuota"].ToString());
-                    double ValorCuota = int.Parse(DtNuevasCuotas.Rows[n]["Valor"].ToString().Replace(".", ""));
+                    double ValorCuota = double.Parse(DtNuevasCuotas.Rows[n]["Valor"].ToString().Replace(".", ""));
                     string TipoCuota = DtNuevasCuotas.Rows[n]["Tipo"].ToString();
                     string FechaCuota = DtNuevasCuotas.Rows[n]["Fecha"].ToString();
 
@@ -380,7 +386,7 @@ namespace Cartera.Vista
 }
         private void button2_Click(object sender, EventArgs e)
         {
-            reportesPDF.Refinanciacion(DtRpRefinaciacion, NomCliente , NomProducto ,NomProyeco, TxtValorNeto.Text, TxtValorNeto.Text, TxtValorDeuda.Text, TxtValorCuota.Text, numCuotasFinan.Text, numValorInteres.Text, TxtTotal.Text, TxtValorMora.Text);
+            reportesPDF.Refinanciacion(DtRpRefinaciacion, NomCliente , NomProducto ,NomProyeco, TxtValorNeto.Text, TxtValorMora.Text, TxtAportes.Text, TxtValorDeuda.Text, TxtValorCuota.Text, numCuotasFinan.Text, numValorInteres.Text, TxtTotalRefi.Text, TxtTotal.Text);
         }
         private void dataGridView3_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -394,6 +400,11 @@ namespace Cartera.Vista
         private void Refinanciacion_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.DialogResult=DialogResult.OK;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void numValorInteres_Click(object sender, EventArgs e)
@@ -430,9 +441,9 @@ namespace Cartera.Vista
                     ValInteres = Interes / 100;
                     ValorCuotaInteres = (ValInteres * saldo) / (1 - Math.Pow(1 + ValInteres, -cuotas));
                 }
-                TxtTotal.Text = (ValorCuotaInteres * NumCuotas).ToString("n0");
-                TxtValorCuota.Text = ValorCuotaInteres.ToString("n0");
-                CalcularCuotasFinacianciacion(int.Parse(Convert.ToDouble(TxtValorDeuda.Text).ToString()), Convert.ToInt16(Interes), ValorCuotaInteres, int.Parse(numCuotasFinan.Text));
+                TxtTotalRefi.Text = (ValorCuotaInteres * NumCuotas).ToString("n2");
+                TxtValorCuota.Text = ValorCuotaInteres.ToString("n2");               
+                CalcularCuotasFinacianciacion(double.Parse(Convert.ToDouble(TxtValorDeuda.Text).ToString()), Convert.ToInt16(Interes), ValorCuotaInteres, int.Parse(numCuotasFinan.Text));
             }
             catch(Exception ex)
             {

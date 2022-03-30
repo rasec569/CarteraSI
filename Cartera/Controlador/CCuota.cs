@@ -30,9 +30,13 @@ namespace Cartera.Controlador
         {
             return Modelo.MCuota.ActulziarCuotaRegistroPago(cuota, aportes, Estado, financiacion, tipo);
         }
-        public DataTable CuotasPagadas( int financiacion)
+        public DataTable NumCuotasPagadas( int financiacion)
         {
-            return MCuota.CuotasPagadas(financiacion);
+            return MCuota.NumCuotasPagadas(financiacion);
+        }
+        public DataTable CuotasPagas(int financiacion)
+        {
+            return MCuota.CuotasPagas(financiacion);
         }
         public DataTable CuotasPorPagar(int producto)
         {
@@ -64,9 +68,9 @@ namespace Cartera.Controlador
         {
             return MCuota.ListarCuotasInteres2(financiacion);
         }
-        public DataTable ListarCuotasActulizar(int financiacion, string fecha)
+        public DataTable ListarCuotasActivarDelect(int financiacion)
         {
-            return MCuota.ListarCuotasActulizar(financiacion, fecha);
+            return MCuota.ListarCuotasActivarDelect(financiacion);
         }
         public DataTable reportProyeccion(string FechaInicio, string FechaFin)
         {

@@ -33,7 +33,7 @@ namespace Cartera.Modelo
             return Conexion.consulta("Select max(Numero_Cuota) as cuotas from Pagos where Fk_Id_Producto = '" + productoid + "'AND Porcentaje like '"+tipo+"';");
             throw new NotImplementedException();
         }
-        internal static int RegistrarPago(string porcentaje, string numero_Cuota, string fecha_Pago, string Concepto, string Entidad, string referencia_Pago, string valor_Pagado, string descuento, string valor_Descuento, string fk_Id_Producto)
+        internal static int RegistrarPago(string porcentaje, string numero_Cuota, string fecha_Pago, string Concepto, string Entidad, string referencia_Pago, double valor_Pagado, string descuento, double valor_Descuento, string fk_Id_Producto)
         {
             string sql = "INSERT INTO Pagos(Porcentaje, Numero_Cuota, Fecha_Pago, Concepto, Entidad, Referencia_Pago, Valor_Pagado, Descuento, Valor_Descuento, Fk_Id_Producto)VALUES(@Porcentaje, @Numero_Cuota, @Fecha_Pago, @Concepto, @Entidad, @Referencia_Pago, @Valor_Pagado, @Descuento, @Valor_Descuento, @Fk_Id_Producto)";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
@@ -81,7 +81,7 @@ namespace Cartera.Modelo
         }
         internal static DataTable ReportesPagosCliente(string productoid)
         {
-            return Conexion.consulta("SELECT  Numero_Cuota as 'Cuota', Porcentaje as 'Tipo', Concepto, Entidad, printf('%, d', Valor_Pagado) as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,Valor_Descuento as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
+            return Conexion.consulta("SELECT  Numero_Cuota as 'Cuota', Porcentaje as 'Tipo', Concepto, Entidad, printf('% , d', Valor_Pagado) || substr(printf('%.2f', Valor_Pagado), instr(printf('%.2f', Valor_Pagado), '.'), length(printf('%.2f', Valor_Pagado)) - instr(printf('%.2f', Valor_Pagado), '.') + 1) as 'Valor', Fecha_Pago as Fecha, Referencia_Pago as Referencia, Descuento,printf('% , d', Valor_Descuento) || substr(printf('%.2f', Valor_Descuento), instr(printf('%.2f', Valor_Descuento), '.'), length(printf('%.2f', Valor_Descuento)) - instr(printf('%.2f', Valor_Descuento), '.') + 1) as  'Valor Descuento' FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "'");
         }
 
         internal static DataTable Tota_Recaudado_Producto(string productoid)

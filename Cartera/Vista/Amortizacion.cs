@@ -25,7 +25,7 @@ namespace Cartera.Vista
         {
             InitializeComponent();
         }
-        public Amortizacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, int Valor_Total)
+        public Amortizacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, double Valor_Total)
         {            
             //Financiacion,Valor_Neto,valorSin,ValorInteres,ValorCuotaInteres
             InitializeComponent();
@@ -41,31 +41,31 @@ namespace Cartera.Vista
 
             listarCuotasFinaciadas(Financiacion, Valor_Neto, Valor_Sin, Valor_Interes, Valor_Cuota_Con_Interes, Valor_Total);
         }
-        public Amortizacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, int Valor_Total, string Cliente, string Producto, string Proyeco)
+        public Amortizacion(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, double Valor_Total, string Cliente, string Producto, string Proyeco)
         {            
             //Financiacion,Valor_Neto,valorSin,ValorInteres,ValorCuotaInteres
             InitializeComponent();
             reportesPDF = new ReportesPDF();
-            TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
-            TxtValorInicial.Text = Valor_Sin.ToString("N0", CultureInfo.CurrentCulture);
-            TxtValorSaldo.Text = (Valor_Neto - Valor_Sin).ToString("N0", CultureInfo.CurrentCulture);
-            TxtValorCuotaInteres.Text = Valor_Cuota_Con_Interes.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorNeto.Text = Valor_Neto.ToString("N2", CultureInfo.CurrentCulture);
+            TxtValorInicial.Text = Valor_Sin.ToString("N2", CultureInfo.CurrentCulture);
+            TxtValorSaldo.Text = (Valor_Neto - Valor_Sin).ToString("N2", CultureInfo.CurrentCulture);
+            TxtValorCuotaInteres.Text = Valor_Cuota_Con_Interes.ToString("N2", CultureInfo.CurrentCulture);
             numValorInteres.Text = Valor_Interes.ToString();
-            TxtTotal.Text = Valor_Total.ToString("N0", CultureInfo.CurrentCulture);
+            TxtTotal.Text = Valor_Total.ToString("N2", CultureInfo.CurrentCulture);
             NomCliente = Cliente; NomProducto = Producto; NomProyeco = Proyeco;
             listarCuotasFinaciadas(Financiacion, Valor_Neto, Valor_Sin, Valor_Interes, Valor_Cuota_Con_Interes, Valor_Total);
         }
-        public Amortizacion(int Valor_Neto, int Valor_Sin, int Valor_Interes,int NumCuotas, int Valor_Cuota_Con_Interes, int Valor_Total,int Ensayo)
+        public Amortizacion(int Valor_Neto, int Valor_Sin, int Valor_Interes,int NumCuotas, int Valor_Cuota_Con_Interes, double Valor_Total,int Ensayo)
         {
             InitializeComponent();
             reportesPDF = new ReportesPDF();
-            TxtValorNeto.Text = Valor_Neto.ToString("N0", CultureInfo.CurrentCulture);
-            TxtValorInicial.Text = Valor_Sin.ToString("N0", CultureInfo.CurrentCulture);
-            TxtValorSaldo.Text = (Valor_Neto - Valor_Sin).ToString("N0", CultureInfo.CurrentCulture);
-            TxtValorCuotaInteres.Text = Valor_Cuota_Con_Interes.ToString("N0", CultureInfo.CurrentCulture);
+            TxtValorNeto.Text = Valor_Neto.ToString("N2", CultureInfo.CurrentCulture);
+            TxtValorInicial.Text = Valor_Sin.ToString("N2", CultureInfo.CurrentCulture);
+            TxtValorSaldo.Text = (Valor_Neto - Valor_Sin).ToString("N2", CultureInfo.CurrentCulture);
+            TxtValorCuotaInteres.Text = Valor_Cuota_Con_Interes.ToString("N2", CultureInfo.CurrentCulture);
             numValorInteres.Text = Valor_Interes.ToString();
             numCuotasFinan.Text = NumCuotas.ToString();
-            TxtTotal.Text = Valor_Total.ToString("N0", CultureInfo.CurrentCulture);
+            TxtTotal.Text = Valor_Total.ToString("N2", CultureInfo.CurrentCulture);
 
             CalcularCuotasFinaciadas(Valor_Neto, Valor_Sin, Valor_Interes, Valor_Cuota_Con_Interes, NumCuotas);
         }
@@ -84,7 +84,7 @@ namespace Cartera.Vista
         {
 
         }
-        private void listarCuotasFinaciadas(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, int Total)
+        private void listarCuotasFinaciadas(int Financiacion, int Valor_Neto, int Valor_Sin, int Valor_Interes, double Valor_Cuota_Con_Interes, double Total)
         {
             DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
             DataTable DtCuotasInteres = new DataTable();
@@ -94,7 +94,7 @@ namespace Cartera.Vista
             DtCuotasInteres.Columns.Add("Interes", typeof(string));
             DtCuotasInteres.Columns.Add("Saldo", typeof(string));
 
-            decimal saldo = Valor_Neto - Valor_Sin;
+            decimal saldo = (decimal)Valor_Neto - Valor_Sin;
             decimal interes = saldo * (Convert.ToDecimal(Valor_Interes) / 100);
             decimal capital = (decimal)Valor_Cuota_Con_Interes - interes;
             decimal deudafecha = 0;
@@ -124,7 +124,11 @@ namespace Cartera.Vista
                     }
                     else
                     {
-                        deudafecha += (decimal)Valor_Cuota_Con_Interes;
+                        if (DtCuotasInteres.Rows[i]["Estado"].ToString() != "Inactiva")
+                        {
+                            deudafecha += (decimal)Valor_Cuota_Con_Interes;
+                        }
+                            
                     }
                 //aqui actuliza el estado de la cuota
                 }
@@ -135,14 +139,14 @@ namespace Cartera.Vista
                 TotalCuotas += (decimal)Valor_Cuota_Con_Interes;
                 TotalInteres += interes;
                 TotalCapital += capital;
-                TotalAportes += decimal.Parse( DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", ""), CultureInfo.CurrentCulture);
+                TotalAportes += decimal.Parse( DtCuotasInteres.Rows[i]["Aportado"].ToString().Replace(",", "").Replace(".", ","), CultureInfo.CurrentCulture);
             }
             DataRow row = DtCuotasInteres.NewRow();
             row["Estado"] = "Total";
-            row["Capital"] = TotalCapital.ToString("n2");
-            row["Interes"] = TotalInteres.ToString("n2");
-            row["Valor"] = TotalCuotas.ToString("n2");
-            row["Aportado"] = TotalAportes.ToString("n2");
+            row["Capital"] = Math.Round(TotalCapital,2).ToString("n2");
+            row["Interes"] = Math.Round(TotalInteres,2).ToString("n2");
+            row["Valor"] =  Math.Round(TotalCuotas, 2).ToString("n2");
+            row["Aportado"] = Math.Round(TotalAportes, 2).ToString("n2");
             DtCuotasInteres.Rows.Add(row);
             FilaTotal = DtCuotasInteres.Rows.Count;
             
@@ -152,10 +156,10 @@ namespace Cartera.Vista
             dataGridView1.Columns["Interes"].DefaultCellStyle.Format = "n2";
             dataGridView1.Columns["Saldo"].DefaultCellStyle.Format = "n2";
             ListarCuotas();
-            labelPagado.Text = "Abono Capital: " + capitalfecha.ToString("n0");
-            labelInteres.Text = "Abono Interes: " + interesfecha.ToString("n0");
-            labelSaldo.Text = "Pagado a la fecha: " + TotalAportes.ToString("n0");
-            labelDeuda.Text= "Mora a la fecha: " + deudafecha.ToString("n0");
+            labelPagado.Text = "Abono Capital: " + capitalfecha.ToString("n1");
+            labelInteres.Text = "Abono Interes: " + interesfecha.ToString("n1");
+            labelSaldo.Text = "Pagado a la fecha: " + TotalAportes.ToString("n1");
+            labelDeuda.Text= "Mora a la fecha: " + deudafecha.ToString("n1");
             formatoGrid1();
 
             DtRpAmortizacion = DtCuotasInteres.Copy();
@@ -200,7 +204,7 @@ namespace Cartera.Vista
             DataRow row = DtCuotasInteres.NewRow();
             row["Capital"] = TotalCapital;
             row["Interes"] = TotalInteres;
-            row["Valor"] = TotalCuotas.ToString("n1");
+            row["Valor"] = Math.Round( double.Parse(TotalCuotas.ToString("n2")),2);
             DtCuotasInteres.Rows.Add(row);
             FilaTotal = DtCuotasInteres.Rows.Count;
             //DataRow row = DtCuotasInteres.NewRow();

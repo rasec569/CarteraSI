@@ -80,10 +80,10 @@ namespace Cartera.Vista
             this.txtObeservaciones = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dateFechaEstado = new System.Windows.Forms.DateTimePicker();
             this.comboEstadoCliente = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtNombres = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -92,10 +92,10 @@ namespace Cartera.Vista
             this.Panel_Registrar_user = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtRefinanciar = new System.Windows.Forms.Button();
-            this.BtAmortizacionFinan = new System.Windows.Forms.Button();
-            this.BtHistorialFinan = new System.Windows.Forms.Button();
             this.txtValorCuotaInteres = new System.Windows.Forms.TextBox();
+            this.BtAmortizacionFinan = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.BtHistorialFinan = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.txtValorTotal = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -626,6 +626,18 @@ namespace Cartera.Vista
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(148, 23);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(82, 65);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 26;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
+            // 
             // dateFechaEstado
             // 
             this.dateFechaEstado.CustomFormat = "yyyy-MM-dd";
@@ -661,18 +673,6 @@ namespace Cartera.Vista
             this.label24.TabIndex = 27;
             this.label24.Text = "Estado";
             this.label24.Visible = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(148, 23);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(82, 65);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 26;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
             // 
             // txtNombres
             // 
@@ -791,6 +791,15 @@ namespace Cartera.Vista
             this.BtRefinanciar.Visible = false;
             this.BtRefinanciar.Click += new System.EventHandler(this.button1_Click_2);
             // 
+            // txtValorCuotaInteres
+            // 
+            this.txtValorCuotaInteres.Enabled = false;
+            this.txtValorCuotaInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorCuotaInteres.Location = new System.Drawing.Point(478, 179);
+            this.txtValorCuotaInteres.Name = "txtValorCuotaInteres";
+            this.txtValorCuotaInteres.Size = new System.Drawing.Size(98, 20);
+            this.txtValorCuotaInteres.TabIndex = 22;
+            // 
             // BtAmortizacionFinan
             // 
             this.BtAmortizacionFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtAmortizacionFinan.Image")));
@@ -804,27 +813,6 @@ namespace Cartera.Vista
             this.BtAmortizacionFinan.VisibleChanged += new System.EventHandler(this.ComboFormaPago_SelectedValueChanged);
             this.BtAmortizacionFinan.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // BtHistorialFinan
-            // 
-            this.BtHistorialFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialFinan.Image")));
-            this.BtHistorialFinan.Location = new System.Drawing.Point(428, 13);
-            this.BtHistorialFinan.Name = "BtHistorialFinan";
-            this.BtHistorialFinan.Size = new System.Drawing.Size(26, 27);
-            this.BtHistorialFinan.TabIndex = 66;
-            this.toolTip1.SetToolTip(this.BtHistorialFinan, "Historial de Financiación");
-            this.BtHistorialFinan.UseVisualStyleBackColor = true;
-            this.BtHistorialFinan.Click += new System.EventHandler(this.button1_Click);
-            this.BtHistorialFinan.MouseHover += new System.EventHandler(this.BtHistorialFinan_MouseHover);
-            // 
-            // txtValorCuotaInteres
-            // 
-            this.txtValorCuotaInteres.Enabled = false;
-            this.txtValorCuotaInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorCuotaInteres.Location = new System.Drawing.Point(478, 179);
-            this.txtValorCuotaInteres.Name = "txtValorCuotaInteres";
-            this.txtValorCuotaInteres.Size = new System.Drawing.Size(98, 20);
-            this.txtValorCuotaInteres.TabIndex = 22;
-            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -837,6 +825,18 @@ namespace Cartera.Vista
             this.toolTip1.SetToolTip(this.checkBox1, "Nueva Financiacion");
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // BtHistorialFinan
+            // 
+            this.BtHistorialFinan.Image = ((System.Drawing.Image)(resources.GetObject("BtHistorialFinan.Image")));
+            this.BtHistorialFinan.Location = new System.Drawing.Point(428, 13);
+            this.BtHistorialFinan.Name = "BtHistorialFinan";
+            this.BtHistorialFinan.Size = new System.Drawing.Size(26, 27);
+            this.BtHistorialFinan.TabIndex = 66;
+            this.toolTip1.SetToolTip(this.BtHistorialFinan, "Historial de Financiación");
+            this.BtHistorialFinan.UseVisualStyleBackColor = true;
+            this.BtHistorialFinan.Click += new System.EventHandler(this.button1_Click);
+            this.BtHistorialFinan.MouseHover += new System.EventHandler(this.BtHistorialFinan_MouseHover);
             // 
             // label25
             // 

@@ -200,11 +200,11 @@ namespace Cartera.Vista
             // labelTotal
             // 
             this.labelTotal.AutoSize = true;
-            this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Bold);
             this.labelTotal.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.labelTotal.Location = new System.Drawing.Point(845, 396);
+            this.labelTotal.Location = new System.Drawing.Point(846, 396);
             this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(96, 13);
+            this.labelTotal.Size = new System.Drawing.Size(91, 13);
             this.labelTotal.TabIndex = 22;
             this.labelTotal.Text = "VALOR TOTAL:";
             this.toolTip1.SetToolTip(this.labelTotal, "Valor con intereses Producto");
@@ -213,11 +213,11 @@ namespace Cartera.Vista
             // labelPagado
             // 
             this.labelPagado.AutoSize = true;
-            this.labelPagado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPagado.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Bold);
             this.labelPagado.ForeColor = System.Drawing.Color.Green;
-            this.labelPagado.Location = new System.Drawing.Point(448, 396);
+            this.labelPagado.Location = new System.Drawing.Point(441, 396);
             this.labelPagado.Name = "labelPagado";
-            this.labelPagado.Size = new System.Drawing.Size(116, 13);
+            this.labelPagado.Size = new System.Drawing.Size(114, 13);
             this.labelPagado.TabIndex = 21;
             this.labelPagado.Text = "VALOR ABONADO:";
             this.toolTip1.SetToolTip(this.labelPagado, "Valor abonado por el Cliente");
@@ -226,11 +226,11 @@ namespace Cartera.Vista
             // labelDeuda
             // 
             this.labelDeuda.AutoSize = true;
-            this.labelDeuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDeuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Bold);
             this.labelDeuda.ForeColor = System.Drawing.Color.Crimson;
-            this.labelDeuda.Location = new System.Drawing.Point(650, 396);
+            this.labelDeuda.Location = new System.Drawing.Point(646, 396);
             this.labelDeuda.Name = "labelDeuda";
-            this.labelDeuda.Size = new System.Drawing.Size(103, 13);
+            this.labelDeuda.Size = new System.Drawing.Size(102, 13);
             this.labelDeuda.TabIndex = 20;
             this.labelDeuda.Text = "SALDO AL FINA:";
             this.toolTip1.SetToolTip(this.labelDeuda, "Saldo a pagar por Cliente");
@@ -239,10 +239,10 @@ namespace Cartera.Vista
             // labelNeto
             // 
             this.labelNeto.AutoSize = true;
-            this.labelNeto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNeto.Location = new System.Drawing.Point(266, 396);
+            this.labelNeto.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Bold);
+            this.labelNeto.Location = new System.Drawing.Point(258, 396);
             this.labelNeto.Name = "labelNeto";
-            this.labelNeto.Size = new System.Drawing.Size(90, 13);
+            this.labelNeto.Size = new System.Drawing.Size(86, 13);
             this.labelNeto.TabIndex = 23;
             this.labelNeto.Text = "VALOR NETO:";
             this.toolTip1.SetToolTip(this.labelNeto, "Valor Neto Producto");
@@ -251,11 +251,11 @@ namespace Cartera.Vista
             // labelSaldoFecha
             // 
             this.labelSaldoFecha.AutoSize = true;
-            this.labelSaldoFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSaldoFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Bold);
             this.labelSaldoFecha.ForeColor = System.Drawing.Color.DarkOrange;
-            this.labelSaldoFecha.Location = new System.Drawing.Point(12, 396);
+            this.labelSaldoFecha.Location = new System.Drawing.Point(7, 396);
             this.labelSaldoFecha.Name = "labelSaldoFecha";
-            this.labelSaldoFecha.Size = new System.Drawing.Size(134, 13);
+            this.labelSaldoFecha.Size = new System.Drawing.Size(133, 13);
             this.labelSaldoFecha.TabIndex = 24;
             this.labelSaldoFecha.Text = "SALDO AL LA FECHA:";
             this.toolTip1.SetToolTip(this.labelSaldoFecha, "Valor Neto Producto");
@@ -265,11 +265,11 @@ namespace Cartera.Vista
             // 
             this.TxtDeudaFecha.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtDeudaFecha.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TxtDeudaFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtDeudaFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Bold);
             this.TxtDeudaFecha.ForeColor = System.Drawing.Color.DarkOrange;
-            this.TxtDeudaFecha.Location = new System.Drawing.Point(148, 393);
+            this.TxtDeudaFecha.Location = new System.Drawing.Point(142, 393);
             this.TxtDeudaFecha.Name = "TxtDeudaFecha";
-            this.TxtDeudaFecha.Size = new System.Drawing.Size(110, 20);
+            this.TxtDeudaFecha.Size = new System.Drawing.Size(110, 18);
             this.TxtDeudaFecha.TabIndex = 12;
             this.toolTip1.SetToolTip(this.TxtDeudaFecha, "Digite la cedula del cliente");
             this.TxtDeudaFecha.Visible = false;

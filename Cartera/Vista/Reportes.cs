@@ -73,8 +73,8 @@ namespace Cartera.Vista
             {
                 CargarRpPagos();
                 arranque = false;
-                dataGridView1.Columns[6].DefaultCellStyle.Format = "n0";
-                dataGridView1.Columns[8].DefaultCellStyle.Format = "n0";
+                dataGridView1.Columns[6].DefaultCellStyle.Format = "n2";
+                dataGridView1.Columns[8].DefaultCellStyle.Format = "n2";
             }
             catch
             {
@@ -193,13 +193,13 @@ namespace Cartera.Vista
                 dataGridView4.Columns[4].Width = 250;
                 dataGridView4.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                Int64 total = 0;
+                double total = 0;
                 foreach (DataRow row in DtProgramado.Rows)
                 {
                     //elimino las , amtes de hacer la operacion suma del total
-                    total += Convert.ToInt64(row["Valor a Pagar"].ToString().Replace(",", ""));
+                    total += Convert.ToDouble(row["Valor a Pagar"].ToString().Replace(",", "").Replace(".", ","));
                 }
-                labelTotal.Text = "TOTAL INGRESOS: $ " + String.Format("{0:N0}", total);
+                labelTotal.Text = "TOTAL INGRESOS: $ " + String.Format("{0:N2}", total);
             }
             
         }
@@ -249,17 +249,17 @@ namespace Cartera.Vista
                 }
 
                 
-                Int64 total = Int64.Parse(DtValorVentas.Rows[0]["valor"].ToString());
-                labelTotal.Text = "VALOR VENTAS: $" + String.Format("{0:N0}", total);
+                double total = double.Parse(DtValorVentas.Rows[0]["valor"].ToString());
+                labelTotal.Text = "VALOR VENTAS: $" + String.Format("{0:N2}", total);
                 labelNumero.Text = "CANTIDAD: " + DtValorVentas.Rows[0]["productos"].ToString();
                 dataGridView2.DataSource = DtVentas;
-                dataGridView2.Columns[3].DefaultCellStyle.Format = "n0";
+                dataGridView2.Columns[3].DefaultCellStyle.Format = "n2";
                 dataGridView2.Columns["Cedula"].Visible = false;
                 dataGridView2.Columns[2].Width = 80;
                 dataGridView2.Columns[3].Width = 80;
-                dataGridView2.Columns[4].Width = 80;
-                dataGridView2.Columns[6].Width = 250;
-                dataGridView2.Columns[7].Width = 250;
+                dataGridView2.Columns[4].Width = 100;
+                dataGridView2.Columns[6].Width = 200;
+                dataGridView2.Columns[7].Width = 200;
                 dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
             catch
@@ -352,21 +352,21 @@ namespace Cartera.Vista
                         DtPagados = producto.cargarProductosPagadosProyecto(comboProyecto.SelectedValue.ToString(), (comboTipo.SelectedIndex - 1).ToString());
                     }
                 }
-                Int64 total = 0;
+                double total = 0;
 
                 foreach (DataRow row in DtPagados.Rows)
                 {
-                    total += Convert.ToInt64(row["Valor Pagado"].ToString().Replace(",", ""));
+                    total += Convert.ToDouble(row["Valor Pagado"].ToString().Replace(",", ""));
 
                 }
-                labelTotal.Text = "TOTAL: $ " + String.Format("{0:N0}", total);
+                labelTotal.Text = "TOTAL: $ " + String.Format("{0:N2}", total);
                 labelNumero.Text = "CANTIDAD: " + DtPagados.Rows.Count.ToString();
                 dataGridView5.DataSource = DtPagados;
                 dataGridView5.Columns[0].Width = 200;
                 dataGridView5.Columns[1].Width = 200;
-                dataGridView5.Columns[3].DefaultCellStyle.Format = "n1";
-                dataGridView5.Columns[4].DefaultCellStyle.Format = "n1";
-                dataGridView5.Columns[5].DefaultCellStyle.Format = "n1";
+                dataGridView5.Columns[3].DefaultCellStyle.Format = "n2";
+                dataGridView5.Columns[4].DefaultCellStyle.Format = "n2";
+                dataGridView5.Columns[5].DefaultCellStyle.Format = "n2";
                 //dataGridView3.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
             catch
