@@ -36,6 +36,10 @@ namespace Cartera.Controlador
         {
             return MCartera.ActulizarValorRecaudado(carteraid);
         }
+        public int ActulizarValorRecaudado2(int carteraid, int productoid)
+        {
+            return MCartera.ActulizarValorRecaudado2(carteraid, productoid);
+        }
         public int ActulizarSaldo(int carteraid)
         {
             return MCartera.ActulizarSaldo(carteraid);

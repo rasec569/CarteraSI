@@ -119,3 +119,5 @@ C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\Accordion.dll
 C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\WinFormAnimation.dll
 C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\Accordion.pdb
 C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\Accordion.xml
+C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\System.ValueTuple.dll
+C:\Users\RASEC\Documents\CarteraSI\Cartera\bin\Debug\System.ValueTuple.xml

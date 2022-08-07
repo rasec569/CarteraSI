@@ -255,9 +255,9 @@ namespace Cartera.Vista
             this.labelSaldoFecha.ForeColor = System.Drawing.Color.DarkOrange;
             this.labelSaldoFecha.Location = new System.Drawing.Point(7, 396);
             this.labelSaldoFecha.Name = "labelSaldoFecha";
-            this.labelSaldoFecha.Size = new System.Drawing.Size(133, 13);
+            this.labelSaldoFecha.Size = new System.Drawing.Size(126, 13);
             this.labelSaldoFecha.TabIndex = 24;
-            this.labelSaldoFecha.Text = "SALDO AL LA FECHA:";
+            this.labelSaldoFecha.Text = "SALDO A LA FECHA:";
             this.toolTip1.SetToolTip(this.labelSaldoFecha, "Valor Neto Producto");
             this.labelSaldoFecha.Visible = false;
             // 

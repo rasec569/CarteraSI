@@ -85,6 +85,14 @@ namespace Cartera.Modelo
 			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
 			return cmd.ExecuteNonQuery();
 		}
+		internal static int ActulizarValorRecaudado2(int carteraid, int productoid) //corregir error valor recaudado
+		{
+			string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado) FROM Pagos INNER JOIN Producto on Id_Producto='" + productoid + "' INNER JOIN Cliente_Producto on Pfk_ID_Producto= '" + productoid + "' INNER JOIN Cliente on Id_Cliente=Pfk_ID_Cliente INNER JOIN Cartera on Id_Cartera=Fk_Id_Cartera WHERE Id_Cartera ='" + carteraid + "' AND Estado_Cliente='Activo') WHERE Id_Cartera='" + carteraid + "';";
+			//string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado) FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto) WHERE Id_Cartera='" + carteraid + "'";
+			//string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado), FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto) WHERE Id_Cartera='" + carteraid + "'";
+			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+			return cmd.ExecuteNonQuery();
+		}
 		internal static int ActulizarSaldo(int carteraid)
 		{
 			string sql = "UPDATE Cartera SET Saldo=(Total_Cartera-Valor_Recaudado) WHERE Id_Cartera='" + carteraid + "';";

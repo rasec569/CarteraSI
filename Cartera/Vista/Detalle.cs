@@ -118,6 +118,7 @@ namespace Cartera.Vista
                     string proyecto = dataGridView1.Rows[n].Cells["Proyecto"].Value.ToString();
                     string neto = dataGridView1.Rows[n].Cells["Valor Neto"].Value.ToString();
                     string valor = dataGridView1.Rows[n].Cells["Valor Final"].Value.ToString();
+                    string formapago= dataGridView1.Rows[n].Cells["Forma Pago"].Value.ToString();
                     if (e.ColumnIndex == 0)
                     {
                         RegistrarPago Rp = new RegistrarPago(int.Parse(Txtcedula.Text), txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, double.Parse(valor));
@@ -126,7 +127,7 @@ namespace Cartera.Vista
                     }
                     else if (e.ColumnIndex == 1)
                     {
-                        HistorialPagos Hp = new HistorialPagos(Txtcedula.Text, txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, proyecto, neto, valor);
+                        HistorialPagos Hp = new HistorialPagos(Txtcedula.Text, txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, proyecto, neto, valor, formapago);
                         //this.Hide();
                         //Hp.MdiParent = this.MdiParent;
                         Hp.FormClosed += Pagos_FormClose;

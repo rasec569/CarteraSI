@@ -60,6 +60,8 @@ namespace Cartera.Vista
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.TxtTotal = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.DateRecaudo = new System.Windows.Forms.DateTimePicker();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCuotasFinan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numValorInteres)).BeginInit();
@@ -382,12 +384,33 @@ namespace Cartera.Vista
             this.label9.TabIndex = 39;
             this.label9.Text = "Valor Total";
             // 
+            // DateRecaudo
+            // 
+            this.DateRecaudo.CustomFormat = "yyyy-MM-dd";
+            this.DateRecaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DateRecaudo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DateRecaudo.Location = new System.Drawing.Point(596, 74);
+            this.DateRecaudo.Name = "DateRecaudo";
+            this.DateRecaudo.Size = new System.Drawing.Size(149, 20);
+            this.DateRecaudo.TabIndex = 42;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(502, 78);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(84, 13);
+            this.label16.TabIndex = 42;
+            this.label16.Text = "Fecha Recaudo";
+            // 
             // Refinanciacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(753, 384);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.DateRecaudo);
             this.Controls.Add(this.TxtTotal);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.tabControl1);
@@ -449,5 +472,7 @@ namespace Cartera.Vista
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox TxtTotal;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DateTimePicker DateRecaudo;
+        private System.Windows.Forms.Label label16;
     }
 }

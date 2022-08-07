@@ -46,6 +46,10 @@ namespace Cartera.Controlador
         {
             return MCuota.EliminarCuotas(financiacion);
         }
+        public int EliminarCuota(int cuota)
+        {
+            return MCuota.EliminarCuota(cuota);
+        }
         public DataTable ListarCuotas(int financiacion, string filtro, string estado)
         {
             return MCuota.ListarCuotas(financiacion, filtro, estado);
@@ -54,6 +58,11 @@ namespace Cartera.Controlador
         public DataTable BalanceCuota(int cuota, int id_Producto, string tipo)
         {
             return MCuota.BalanceCuota(cuota, id_Producto, tipo);
+        }
+        //valor pagado cuota y estado nuevo metodo
+        public DataTable ValoryAporteCuota(int cuota, int id_Producto, string tipo)
+        {
+            return MCuota.ValoryAporteCuota(cuota, id_Producto, tipo);
         }
         //valida cuotas en mora
         public int ValidarEstadoCuotas(string Fecha, string actulizado)

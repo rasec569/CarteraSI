@@ -159,7 +159,7 @@ namespace Cartera.Reportes
                             }
                             else if (i == 2)
                             {
-                                document.Add(TablasLetras(report, new float[] { 5f, 12f, 33f, 17f, 10f, 9f, 9f, 10f, 10f }, 100, 6));
+                                document.Add(TablasLetras(report, new float[] { 5f, 12f, 33f, 17f, 10f, 9f, 9f, 10f, 10f }, 100, 5));
                             }
                             else
                             {
@@ -194,7 +194,7 @@ namespace Cartera.Reportes
                         {
                             texto.Alignment = Element.ALIGN_LEFT;
                             texto.Font = FontFactory.GetFont("Verdana", 7, Font.BOLD);
-                            texto.Add("SI DESEA CANCELAR A LA FECHA DEL REPORTE EL SALDO A PAGAR ES DE: $" + deuda_fecha);
+                            texto.Add("SI DESEA CANCELAR A LA FECHA DEL REPORTE, EL SALDO A PAGAR ES DE: $" + deuda_fecha);
                             document.Add(texto);
                             texto.RemoveAt(0);
                         }

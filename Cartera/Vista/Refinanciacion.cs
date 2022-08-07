@@ -254,13 +254,14 @@ namespace Cartera.Vista
                     {
                         if (i == 0)
                         {
-                            fecha = actual.ToString("yyyy-MM-dd");
+                            fecha = DateRecaudo.Text;
                         }
                         if (i != 0)
                         {
                             interes = saldo * (Convert.ToDecimal(Valor_Interes) / 100);
                             capital = Convert.ToDecimal(Valor_Cuota_Con_Interes) - interes;
-                            fecha = actual.AddMonths(i).ToString("yyyy-MM-dd");
+                            DateTime daterecaudo = Convert.ToDateTime(DateRecaudo.Text);
+                            fecha = daterecaudo.AddMonths(i).ToString("yyyy-MM-dd");
                         }
                         saldo = saldo - capital;
                         DataRow fila = DtNuevasCuotas.NewRow();

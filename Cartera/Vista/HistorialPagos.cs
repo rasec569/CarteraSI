@@ -27,6 +27,7 @@ namespace Cartera.Vista
         string productoId = "";
         string carteraId ="";
         string clienteid = "";
+        string forpago = "";
         bool clearall = true;
         int cuotas, meses, pagos, mora, mes_mora;
         string Nom_Producto, Nom_Proyecto;
@@ -43,7 +44,7 @@ namespace Cartera.Vista
 
             
         }
-        public HistorialPagos(string cedula, string nombre, string id_cliente, string cartera, string id_producto, string nom_producto, string nom_proyecto, string neto, string valor)
+        public HistorialPagos(string cedula, string nombre, string id_cliente, string cartera, string id_producto, string nom_producto, string nom_proyecto, string neto, string valor, string formapago)
         {
             InitializeComponent();
             clearall = false;
@@ -59,6 +60,7 @@ namespace Cartera.Vista
             Nom_Proyecto = nom_proyecto;
             ValorNeto = int.Parse(neto);
             ProductoVal = double.Parse(valor);
+            forpago = formapago;
             //this.Height += 200;
             EstadoPago();
             ListarPagosCliente();
@@ -206,7 +208,8 @@ namespace Cartera.Vista
                     Nom_Producto = dataGridView1.Rows[n].Cells["Producto"].Value.ToString();
                     Nom_Proyecto = dataGridView1.Rows[n].Cells["Proyecto"].Value.ToString();
                     ValorNeto = int.Parse(dataGridView1.Rows[n].Cells["Valor Neto"].Value.ToString());
-                    ProductoVal = int.Parse(dataGridView1.Rows[n].Cells["Valor Final"].Value.ToString());                    
+                    ProductoVal = int.Parse(dataGridView1.Rows[n].Cells["Valor Final"].Value.ToString());
+                    forpago = dataGridView1.Rows[n].Cells["Forma Pago"].Value.ToString();
                 }
                 else
                 {
@@ -230,13 +233,15 @@ namespace Cartera.Vista
             try {
                 groupBox2.Visible = true;
                 //Valor Pagado
+                mora = 0;
+                DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
                 dtpagos = pago.ListarPagosCliente(productoId);
                 if (dtpagos.Rows.Count > 0)
                 {
-                    if (double.Parse(dtrecaudo.Rows[0]["Sum(Valor_Pagado)"].ToString().Replace(",","")) > 0)
+                    if (double.Parse(dtrecaudo.Rows[0]["Sum(Valor_Pagado)"].ToString()) > 0)
                     {
-                        ValorPagado = double.Parse(dtrecaudo.Rows[0]["Sum(Valor_Pagado)"].ToString().Replace(",", ""));
+                        ValorPagado = double.Parse(dtrecaudo.Rows[0]["Sum(Valor_Pagado)"].ToString());
                     }
                     else
                     {
@@ -245,12 +250,13 @@ namespace Cartera.Vista
                     DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(productoId));
                     string fecha = dtfechas.Rows[0]["Fecha_Recaudo"].ToString();
                     Financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString());
-                    if (!string.IsNullOrEmpty(dtfechas.Rows[0]["Id_Financiacion"].ToString()))
+                    if (!string.IsNullOrEmpty(dtfechas.Rows[0]["Id_Financiacion"].ToString()) && forpago == "Financiado")
                     {
                         button1.Enabled = true;
+                        ValidarEstadoCuota();
                         DataTable DtCuotas = cuota.ListarCuotas(Financiacion, "Refinanciación", "");
                         for (int i = 0; i < DtCuotas.Rows.Count; i++)
-                        {
+                        {                            
                             if (DtCuotas.Rows[i]["Estado"].ToString() == "Pagada")
                             {
                                 pagos++;
@@ -264,8 +270,7 @@ namespace Cartera.Vista
                         DataTable DtAlaFecha = DtosUsuario.amortizacionFinanciacion(Financiacion);
 
                         //Meses trasncurridos
-                        DateTime date = DateTime.ParseExact(fecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                        DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        DateTime date = DateTime.ParseExact(fecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);                        
                         TimeSpan trascurrido = actual.Subtract(date);
                         cuotas = DtCuotas.Rows.Count - 1;
                         int dia = int.Parse(trascurrido.Days.ToString());
@@ -336,6 +341,49 @@ namespace Cartera.Vista
                 MessageBox.Show("error: " + e);
             }
         }
+        private void ValidarEstadoCuota()
+        {
+            try
+            {
+                DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                DataTable DtCuotas = cuota.ListarCuotas(Financiacion, "Refinanciación", "");
+                for (int i = 0; i < DtCuotas.Rows.Count; i++)
+                {
+                    int resultfecha = DateTime.Compare(DateTime.ParseExact(DtCuotas.Rows[i]["Fecha"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture), actual);
+                    if (resultfecha < 0)
+                    {
+                        if (double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')) > 0)
+                        {
+                            if (double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')) >= double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')))
+                            {
+                                //pagado                                        
+                                cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Pagada", double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                            }
+                            else
+                            {
+                                //mora
+                                cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Mora", double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                            }
+                        }
+                        else
+                        {
+                            //mora
+                            cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Mora", double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                        }
+                    }
+                    else
+                    {
+                        //pendiente
+                        cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Pendiente", double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("error: " + e);
+            }
+
+        }
 
         private void estadoPagoCliente()
         {
@@ -346,7 +394,7 @@ namespace Cartera.Vista
             if (dtpagos.Rows.Count > 0)
             {
                 ValorPagado = double.Parse(dtrecaudo.Rows[0]["Sum(Valor_Pagado)"].ToString().Replace(",", ""));
-                if (!string.IsNullOrEmpty(dtfechas.Rows[0]["Id_Financiacion"].ToString()))
+                if (!string.IsNullOrEmpty(dtfechas.Rows[0]["Id_Financiacion"].ToString()) && forpago != "Contado")
                 {
                     Financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString());
                     if (dtfechas.Rows.Count > 0 && !string.IsNullOrEmpty(dtfechas.Rows[0]["Fecha_Recaudo"].ToString()))
@@ -472,9 +520,9 @@ namespace Cartera.Vista
         {// separar contado de financiacion  
             if (Financiacion.ToString()!="0"){                
                 DataTable dtprogramado = cuota.PagosProgramados(Financiacion, DateTime.Now.ToString("yyyy-MM-dd"));
-                string programado = dtprogramado.Rows[0]["Valor Programado"].ToString();                
+                double programado = double.Parse(dtprogramado.Rows[0]["Valor Programado"].ToString());                
                 ValorDeuda = ProductoVal - ValorPagado;
-                double relacion = ValorPagado - double.Parse(programado);
+                double relacion = ValorPagado - programado;
                 labelDeuda.Visible = true;
                 labelPagado.Visible = true;
                 labelTotal.Visible = true;
@@ -488,7 +536,7 @@ namespace Cartera.Vista
                     //cambio 10-01-21
                     if(Math.Abs(relacion) > 10)
                     {
-                        labelProgramado.Text = "PAGOS PROGRAMADOS A LA FECHA: $" + String.Format("{0:N2}", double.Parse(programado));
+                        labelProgramado.Text = "PAGOS PROGRAMADOS A LA FECHA: $" + String.Format("{0:N2}", programado);
                         if (relacion < 0)
                         {
                             labelRelacion.Text = "SALDO VENCIDO O EN MORA: $" + String.Format("{0:N2}", Math.Abs(relacion));

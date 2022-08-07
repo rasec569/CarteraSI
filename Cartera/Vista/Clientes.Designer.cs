@@ -554,6 +554,7 @@ namespace Cartera.Vista
             this.numCuotasInteres.Size = new System.Drawing.Size(44, 20);
             this.numCuotasInteres.TabIndex = 21;
             this.numCuotasInteres.ValueChanged += new System.EventHandler(this.numCuotasInteres_ValueChanged);
+            this.numCuotasInteres.MouseClick += new System.Windows.Forms.MouseEventHandler(this.numCuotasInteres_MouseClick);
             // 
             // label21
             // 

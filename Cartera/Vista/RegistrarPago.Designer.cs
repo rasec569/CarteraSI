@@ -93,6 +93,7 @@ namespace Cartera.Vista
             this.comboTipoPago.Size = new System.Drawing.Size(182, 21);
             this.comboTipoPago.TabIndex = 5;
             this.comboTipoPago.Text = "Seleccionar";
+            this.comboTipoPago.SelectedIndexChanged += new System.EventHandler(this.comboTipoPago_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -167,6 +168,7 @@ namespace Cartera.Vista
             "Seleccionar",
             "Pago anticipado",
             "Pago oportuno",
+            "Interes cuota",
             "Oferta expecial",
             "Otros"});
             this.comboDescuento.Location = new System.Drawing.Point(127, 200);
