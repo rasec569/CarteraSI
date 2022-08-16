@@ -24,6 +24,10 @@ namespace Cartera.Controlador
         {
             return MCartera.ListarCartera();
         }
+        public DataTable ListarVistaCartera()
+        {
+            return MCartera.ListarVistaCartera();
+        }        
         public  DataTable ListarCarteraProyecto(int proyectoid)
         {
             return MCartera.ListarCarteraProyecto(proyectoid);
@@ -31,6 +35,10 @@ namespace Cartera.Controlador
         public DataTable CarteraCliente(string cedula)
         {
             return MCartera.CarteraCliente(cedula);
+        }
+        public DataTable BuscarCartera(string cedula)
+        {
+            return MCartera.BuscarCartera(cedula);
         }
         public int ActulizarValorRecaudado(int carteraid)
         {
@@ -57,6 +65,11 @@ namespace Cartera.Controlador
         {
             return MCartera.ActulizarEstados(carteraid, estado, cuotas, meses, pagas, mora);
         }
+        public int ActivarEstadoCartera(string carteraid, double total)
+        {
+            return MCartera.ActivarEstadoCartera(carteraid, total);
+        }
+        
         public DataTable TotalesCartera()
         {
             return MCartera.TotalesCartera();

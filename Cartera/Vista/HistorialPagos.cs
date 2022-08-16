@@ -349,15 +349,23 @@ namespace Cartera.Vista
                 DataTable DtCuotas = cuota.ListarCuotas(Financiacion, "Refinanciación", "");
                 for (int i = 0; i < DtCuotas.Rows.Count; i++)
                 {
-                    int resultfecha = DateTime.Compare(DateTime.ParseExact(DtCuotas.Rows[i]["Fecha"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture), actual);
-                    if (resultfecha < 0)
+                    if (DtCuotas.Rows[i]["Estado"].ToString() !="Inactiva")
                     {
-                        if (double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')) > 0)
+                        int resultfecha = DateTime.Compare(DateTime.ParseExact(DtCuotas.Rows[i]["Fecha"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture), actual);
+                        if (resultfecha < 0)
                         {
-                            if (double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')) >= double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')))
+                            if (double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')) > 0)
                             {
-                                //pagado                                        
-                                cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Pagada", double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                                if (double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')) >= double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')))
+                                {
+                                    //pagado                                        
+                                    cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Pagada", double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                                }
+                                else
+                                {
+                                    //mora
+                                    cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Mora", double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                                }
                             }
                             else
                             {
@@ -367,14 +375,9 @@ namespace Cartera.Vista
                         }
                         else
                         {
-                            //mora
-                            cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Mora", double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                            //pendiente
+                            cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Pendiente", double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
                         }
-                    }
-                    else
-                    {
-                        //pendiente
-                        cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), double.Parse(DtCuotas.Rows[i]["Valor"].ToString().Replace(",", "").Replace('.', ',')), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), "Pendiente", double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
                     }
                 }
             }

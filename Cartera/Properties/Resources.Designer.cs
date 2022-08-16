@@ -108,7 +108,17 @@ namespace Cartera.Properties {
                 object obj = ResourceManager.GetObject("Guardar1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
-        }        
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap home2 {
+            get {
+                object obj = ResourceManager.GetObject("home2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
         
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
@@ -173,12 +183,62 @@ namespace Cartera.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Refinanciacio {
+            get {
+                object obj = ResourceManager.GetObject("Refinanciacio", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Refinanciacion {
+            get {
+                object obj = ResourceManager.GetObject("Refinanciacion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Refinanciacion13 {
+            get {
+                object obj = ResourceManager.GetObject("Refinanciacion13", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Refinanciacionb3_vectorized {
+            get {
+                object obj = ResourceManager.GetObject("Refinanciacionb3_vectorized", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ReporPdf {
             get {
                 object obj = ResourceManager.GetObject("ReporPdf", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
-        }        
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TipoProduc {
+            get {
+                object obj = ResourceManager.GetObject("TipoProduc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
         
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.

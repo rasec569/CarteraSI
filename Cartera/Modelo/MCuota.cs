@@ -151,7 +151,7 @@ namespace Cartera.Modelo
         }
 		internal static int ValidarEstadoCuotas(string Fecha, string actulizado)
         {
-			string sql1 = "UPDATE Cuotas as C set User_log_Cuota='Sistema', Estado=(SELECT IIF(Fecha>='" + Fecha + "', 'Pendiente', 'Mora') from Cuotas as C2 WHERE Estado<>'Pagada' and C.Id_Cuota=C2.Id_Cuota) WHERE Estado<>'Pagada' AND Estado<>'Inactiva' AND Fecha BETWEEN '" + actulizado + "' AND '" + Fecha + "'";
+			string sql1 = "UPDATE Cuotas as C set User_log_Cuota='Sistema Cartera', Estado=(SELECT IIF(Fecha>='" + Fecha + "', 'Pendiente', 'Mora') from Cuotas as C2 WHERE Estado<>'Pagada' AND Estado <> 'Inactiva'  AND C.Id_Cuota=C2.Id_Cuota) WHERE Estado<>'Pagada' AND Estado<>'Inactiva' AND Fecha BETWEEN '" + actulizado + "' AND '" + Fecha + "'";
 			SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
 			return cmd1.ExecuteNonQuery();
 		}

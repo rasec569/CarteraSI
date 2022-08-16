@@ -48,8 +48,20 @@ namespace Cartera.Modelo
 
 			throw new NotImplementedException();
         }
+		internal static int ActivarEstadoCartera(string carteraid, double total)
+		{
+			string sql = "UPDATE Cartera SET Estado_cartera = @Estado_cartera, Valor_Recaudado=@Valor_Recaudado, Saldo=@Saldo, Total_Cartera=@Total_Cartera WHERE Id_Cartera='" + carteraid + "';";
+			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+			cmd.Parameters.Add(new SQLiteParameter("@Estado_cartera", "Nueva"));
+			cmd.Parameters.Add(new SQLiteParameter("@Valor_Recaudado", "0"));
+			cmd.Parameters.Add(new SQLiteParameter("@Saldo", "0"));
+			cmd.Parameters.Add(new SQLiteParameter("@Total_Cartera", total));
+			return cmd.ExecuteNonQuery();
 
-        internal static DataTable BuscarFechaspagos(int productoid)
+			throw new NotImplementedException();
+		}
+
+		internal static DataTable BuscarFechaspagos(int productoid)
         {
 			return Conexion.consulta("SELECT max(Fecha_Pago) as Fecha_Pago, Fecha_Recaudo, Cuotas_Sin_interes+Cuotas_Con_Interes as Cuotas, Cuotas_Sin_interes, Cuotas_Con_Interes, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto LEFT JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "';");
 			//return Conexion.consulta("SELECT max(Fecha_Pago) as Fecha_Pago, Fecha_Recaudo, Cuotas_Sin_interes, Valor_Entrada, Valor_Sin_interes, Cuotas_Con_Interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Sin_interes+Cuotas_Con_Interes as Cuotas,  sum(Valor_Pagado) as Pagado, Nombre_Producto, max(Id_Financiacion) as  Id_Financiacion FROM Producto INNER JOIN Pagos on Fk_Id_Producto= Id_Producto LEFT JOIN Financiacion on Fk_Producto=Id_Producto WHERE Id_Producto='" + productoid + "';");
@@ -62,6 +74,11 @@ namespace Cartera.Modelo
 			//return Conexion.consulta("SELECT Id_Cliente, Cedula, Nombre as Nombres, Apellido as Apellidos, Estado_cartera as Pago ,Cuotas as 'Cuotas Pact.', Pagas as 'Cuotas Pag.', Mora as 'Cuotas Mora', Meses  as 'Meses Mora', Valor_Recaudado as Recaudado, count(Id_Producto) as Productos, Saldo, Total_Cartera as Total, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' GROUP by Id_Cliente ORDER by Nombre;");
 			return Conexion.consulta("SELECT Id_Cliente, printf('%,d', Cedula) as Cedula, Nombre as Nombres, Apellido as Apellidos, Estado_cartera as Pago, Cuotas as 'Cuotas Pact.', Pagas as 'Cuotas Pag.', Mora as 'Cuotas Mora', Meses  as 'Meses Mora',printf('%,d', Valor_Recaudado) || substr(printf(' % .2f', Valor_Recaudado), instr(printf(' % .2f', Valor_Recaudado), '.'), length(printf(' % .2f', Valor_Recaudado)) - instr(printf(' % .2f', Valor_Recaudado), '.') + 1) as Recaudado, count(Id_Producto) as Items, printf('%,d', Saldo) || substr(printf(' % .2f', Saldo), instr(printf(' % .2f', Saldo), '.'), length(printf(' % .2f', Saldo)) - instr(printf(' % .2f', Saldo), '.') + 1) as Saldo, printf('%,d', Total_Cartera) || substr(printf(' % .2f', Total_Cartera), instr(printf(' % .2f', Total_Cartera), '.'), length(printf(' % .2f', Total_Cartera)) - instr(printf(' % .2f', Total_Cartera), '.') + 1) as Total, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' and Estado_cartera<>'Disuelto' GROUP by Id_Cliente ORDER by Nombre;");
         }
+		internal static DataTable ListarVistaCartera()
+		{
+			//Consulta a la vista cartera que trae valores actulizados 
+			return Conexion.consulta("SELECT Vista_Cartera.Fk_Id_Cartera, Vista_Cartera.V_Recaudado, Vista_Cartera.V_Saldo, Vista_Cartera.V_Total, Vista_Cartera.Productos,	Vista_Cartera.Cuotas_Pactadas FROM	Vista_Cartera;");
+		}
 		internal static DataTable ListarCarteraProyecto(int proyectoid)
 		{
 			
@@ -72,6 +89,11 @@ namespace Cartera.Modelo
             return Conexion.consulta("SELECT Id_Cliente, printf('%,d', Cedula) as Cedula, Nombre as Nombres, Apellido as Apellidos, Estado_cartera as Pago, Cuotas as 'Cuotas Pact.', Pagas as 'Cuotas Pag.', Mora as 'Cuotas Mora', Meses  as 'Meses Mora', printf('%,d', Valor_Recaudado) || substr(printf(' % .2f', Valor_Recaudado), instr(printf(' % .2f', Valor_Recaudado), '.'), length(printf(' % .2f', Valor_Recaudado)) - instr(printf(' % .2f', Valor_Recaudado), '.') + 1) as Recaudado, count(Id_Producto) as Items, printf('%,d', Saldo) || substr(printf(' % .2f', Saldo), instr(printf(' % .2f', Saldo), '.'), length(printf(' % .2f', Saldo)) - instr(printf(' % .2f', Saldo), '.') + 1) as Saldo, printf('%,d', Total_Cartera) || substr(printf(' % .2f', Total_Cartera), instr(printf(' % .2f', Total_Cartera), '.'), length(printf(' % .2f', Total_Cartera)) - instr(printf(' % .2f', Total_Cartera), '.') + 1) as Total, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' and Cedula='" + cedula + "' GROUP by Id_Cliente;");
             //return Conexion.consulta("SELECT Id_Cliente, Cedula, Nombre, Apellido, Estado_cartera, Valor_Recaudado, Id_Producto, Nombre_Producto, Valor_Mora, Total_Cartera, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' and Cedula='" + cedula + "'");
         }
+		internal static DataTable BuscarCartera(string cedula)
+		{
+			return Conexion.consulta("SELECT Cartera.Estado_cartera FROM Cartera INNER JOIN Cliente ON Cartera.Id_Cartera = Cliente.Fk_Id_Cartera WHERE Cliente.Cedula = '" + cedula + "';");
+			//return Conexion.consulta("SELECT Id_Cliente, Cedula, Nombre, Apellido, Estado_cartera, Valor_Recaudado, Id_Producto, Nombre_Producto, Valor_Mora, Total_Cartera, Id_Cartera FROM Cartera INNER JOIN Cliente on Fk_Id_Cartera= Id_Cartera INNER JOIN Cliente_Producto on Pfk_ID_Cliente= Id_Cliente INNER JOIN Producto on Id_Producto= Pfk_ID_Producto WHERE Estado_Cliente = 'Activo' and Cedula='" + cedula + "'");
+		}
 
 		internal static DataTable UltimoRegistro()
         {

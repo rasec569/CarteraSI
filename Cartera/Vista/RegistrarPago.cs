@@ -361,11 +361,13 @@ namespace Cartera.Vista
         private void TipoCuotaValor(string tipo)
         {
             DtFinanciacion = financiacion.FinanciacionProducto(productoid);
+            //Valida que tenga una refinanciación
                 if (DtFinanciacion.Rows[0]["Id_Refinanciacion"].ToString() != "")
                 {
-                    //cambiar a Double
+                    //Consulta Datatable Refinanciación !cambiar a Double!
                     DtRefi = refinanciacion.RefinanciacionFinanciacion(int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()));
-                }            
+                }   
+                //deacuerdo al tipo selecciona la clave de la consulta sql  y en ocaciones almacena el valor de la cuota
                 switch (tipo)
                 {
                     case "Contado":
@@ -489,7 +491,7 @@ namespace Cartera.Vista
                     (string estado, double Aportes, double Descuento) = ValidarEstadoCuota(int.Parse(txtCuota.Text), productoid, TipoPago);
                     double valCuota = ValorCuota - Descuento;                    
                     cuota.ActulziarCuotaRegistroPago(int.Parse(txtCuota.Text), Aportes, estado, int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()), TipoPago);                   
-                    cartera.ActulizarValorRecaudado2(carteraId, productoid);
+                    cartera.ActulizarValorRecaudado(carteraId);
                     cartera.ActulizarSaldo(carteraId);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
@@ -513,54 +515,87 @@ namespace Cartera.Vista
         }
         
         private void BtEliminar_Click(object sender, EventArgs e)
+            //Metodo para accion de boton eliminar un pago registrado
         {
             try { 
+                //Validación de Confirmación por el usuario de eliminar
                 if (MessageBox.Show("¿Está seguro de eliminar el Pago?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    TipoCuotaValor(comboTipoPago.Text);                    
+                    //Consulta el tipo de Cuota pagada
+                    TipoCuotaValor(comboTipoPago.Text);    
+                    // Valida si hay valor en descuento
                     if (valdescuento != 0)
                     {
+                        //Lista las Cuotas pagadas
                         DataTable DtCuotasPagas = cuota.CuotasPagas(int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()));
+                        //valida si el descuento es Pago anticipado
                         if (comboDescuento.Text == "Pago anticipado")
-                        {                            
+                        {
+                            //Valida que no tenga una refinanciación
                             if (DtFinanciacion.Rows[0]["Id_Refinanciacion"].ToString() == "")
-                            {                               
+                            {   // filtra DtCuotasPagas por los valores de txtCuota.Text y TipoPago                             
                                 DataRow[] CuotaPagoAnticipo = DtCuotasPagas.Select(String.Format("Num_Cuota = '{0}' AND Tipo like '%{1}%'", txtCuota.Text, TipoPago));
+                                // si el DataRow no esta vacio
                                 if (CuotaPagoAnticipo.Length > 0)
                                 {
+                                    //almacena temporal los valores de DataRow
                                     DataTable dt1 = CuotaPagoAnticipo.CopyToDataTable();
+                                    //modifica los valores de la cuota afectada
                                     cuota.ModificarCuota(int.Parse(dt1.Rows[0]["Id_Cuota"].ToString()), int.Parse(dt1.Rows[0]["Num_Cuota"].ToString()), ValorCuota, dt1.Rows[0]["Tipo"].ToString(), dt1.Rows[0]["Fecha"].ToString(), EvaluaEstadoCuotaFecha(Convert.ToDateTime(dt1.Rows[0]["Fecha"].ToString())), double.Parse(dt1.Rows[0]["Aporte_Pagos"].ToString()));
                                 }
                                 //cuota.ModificarCuota(int.Parse(DTCuotasInactivas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DTCuotasInactivas.Rows[i]["Num_Cuota"].ToString()), double.Parse(DTCuotasInactivas.Rows[i]["Valor_Cuota"].ToString()), DTCuotasInactivas.Rows[i]["Tipo"].ToString(), DTCuotasInactivas.Rows[i]["Fecha"].ToString(), EvaluaEstadoCuotaFecha(Convert.ToDateTime(DTCuotasInactivas.Rows[i]["Fecha"].ToString())), double.Parse(DTCuotasInactivas.Rows[i]["Aporte_Pagos"].ToString()));
+                                //Lista las cuotas inactivas que afecto el pago anticipado
                                 DataTable DTCuotasInactivas = cuota.ListarCuotasActivarDelect(int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()));
                                 for (int i = 0; i < DTCuotasInactivas.Rows.Count; i++)
                                 {
+                                    //Cambia el estado a activas
                                     cuota.ModificarCuota(int.Parse(DTCuotasInactivas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DTCuotasInactivas.Rows[i]["Num_Cuota"].ToString()), double.Parse(DTCuotasInactivas.Rows[i]["Valor_Cuota"].ToString()), DTCuotasInactivas.Rows[i]["Tipo"].ToString(), DTCuotasInactivas.Rows[i]["Fecha"].ToString(), EvaluaEstadoCuotaFecha(Convert.ToDateTime(DTCuotasInactivas.Rows[i]["Fecha"].ToString())), double.Parse(DTCuotasInactivas.Rows[i]["Aporte_Pagos"].ToString()));
                                 }
                             }
                         }
+                        //si el descuento comun
                         else
                         {
+                            // filtra DtCuotasPagas por los valores de txtCuota.Text y TipoPago   
                             DataRow[] CuotaPagoDescuento = DtCuotasPagas.Select(String.Format("Num_Cuota = '{0}' AND Tipo like '%{1}%'", txtCuota.Text, TipoPago));
+
+                            // si el DataRow no esta vacio
                             if (CuotaPagoDescuento.Length > 0)
                             {
+                                //almacena temporal los valores de DataRow
                                 DataTable dt1 = CuotaPagoDescuento.CopyToDataTable();
+                                //modifica los valores de la cuota afectada
                                 cuota.ModificarCuota(int.Parse(dt1.Rows[0]["Id_Cuota"].ToString()), int.Parse(dt1.Rows[0]["Num_Cuota"].ToString()), ValorCuota, dt1.Rows[0]["Tipo"].ToString(), dt1.Rows[0]["Fecha"].ToString(), EvaluaEstadoCuotaFecha(Convert.ToDateTime(dt1.Rows[0]["Fecha"].ToString())), double.Parse(dt1.Rows[0]["Aporte_Pagos"].ToString()));
                             }
                         }
+                        //metodo para eliminar el pago
                         pago.EliminarPago(pagoId);
+                        //calcula el valor total mas el descueto aplicado
                         double nuevo = valortotal + valdescuento;
+                        //modifica el valor del producto con los parametros del nuevo valor y el id del producto
                         producto.actualizarValorProducto(productoid, nuevo);
+                        //modifica el valor del total de la financiacion con los parametros del nuevo valor, id financiacion y el id del producto
                         financiacion.actualizarFinanciacion(int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()), nuevo, int.Parse(DtFinanciacion.Rows[0]["Valor_Entrada"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Valor_Sin_interes"].ToString()), double.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString()), double.Parse(DtFinanciacion.Rows[0]["Valor_Con_Interes"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString()), double.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString()), int.Parse(DtFinanciacion.Rows[0]["Valor_Interes"].ToString()), DtFinanciacion.Rows[0]["Fecha_Recaudo"].ToString(), productoid);
                     }
+                    // si no hay descuento
                     else
                     {
+                        //metodo para eliminar el pago
                         pago.EliminarPago(pagoId);
                     }
-                    (string estado,double TemAportes, double Descuento) = ValidarEstadoCuota(int.Parse(txtCuota.Text), productoid, TipoPago);                    
-                    cuota.ActulziarCuotaRegistroPago(int.Parse(txtCuota.Text), TemAportes, estado, int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()), TipoPago);
+                    //Captura en tres varibles los valores resibidos por el metodo validar estado de la cuota que retorna el mismo numero de variables
+                    (string estado,double TemAportes, double Descuento) = ValidarEstadoCuota(int.Parse(txtCuota.Text), productoid, TipoPago);
+                    //Pago sin numero de cuota correcta
+                    if (estado!= "SinCuota")
+                    {
+                        //actuliza los valores de la cuota con los datos del metodo validar estado cuota
+                        cuota.ActulziarCuotaRegistroPago(int.Parse(txtCuota.Text), TemAportes, estado, int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString()), TipoPago);
+                    }
+                    //actuliza los valor total de la cartera
                     cartera.ActulizarValorTotal(int.Parse(clienteId.ToString()), carteraId);
-                    cartera.ActulizarValorRecaudado2(carteraId, productoid);
+                    //actuliza los valor Recaudado de la cartera
+                    cartera.ActulizarValorRecaudado(carteraId);
+                    //actuliza los valor saldo de la cartera
                     cartera.ActulizarSaldo(carteraId);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
@@ -570,56 +605,71 @@ namespace Cartera.Vista
                 MessageBox.Show("Error: " + ex);
             }          
         }
-        //metodo para validar el estado de las fechas
         private (string, double, double) ValidarEstadoCuota(int NumCuota, int producto, string tipo)
+        //metodo para validar el estado de las fechas de las cuotas con 3 parametros de entra y los mismo de salida
         {
+            //Variable temporar para almacenar el esta de la cuota
             string Estado = "";
+            //lista cuota con criterio de busqueda numero de cuota, id producto y tipo
             DataTable DtBalanceCuota = cuota.ValoryAporteCuota(NumCuota, producto, tipo);
+            //Variable temporar para almacenar los aportes de la cuota
             double TemAportes = 0;
+            //Variable temporar para almacenar el descunto de la cuota
             double Descuento = 0;
-            double Valor= double.Parse(DtBalanceCuota.Rows[0]["Valor"].ToString());
-            if (!DtBalanceCuota.Rows[0].IsNull("Pagado"))
-            {
-                TemAportes = double.Parse(DtBalanceCuota.Rows[0]["Pagado"].ToString());
-                if (!DtBalanceCuota.Rows[0].IsNull("descuento"))
+            //Valida que el valor de la cuota no sea null
+            if (!DtBalanceCuota.Rows[0].IsNull("Valor")) {
+                //Variable temporar para almacenar el descunto de la cuota
+                double Valor = double.Parse(DtBalanceCuota.Rows[0]["Valor"].ToString());
+                //Valida que el valor pagado no sea null
+                if (!DtBalanceCuota.Rows[0].IsNull("Pagado"))
                 {
-                    Descuento = double.Parse(DtBalanceCuota.Rows[0]["descuento"].ToString());
+                    TemAportes = double.Parse(DtBalanceCuota.Rows[0]["Pagado"].ToString());
+                    //Valida que el descuento no sea null
+                    if (!DtBalanceCuota.Rows[0].IsNull("descuento"))
+                    {
+                        Descuento = double.Parse(DtBalanceCuota.Rows[0]["descuento"].ToString());
+                    }
+                    else
+                    {
+                        Descuento = 0;
+                    }
                 }
                 else
                 {
-                    Descuento = 0;
+                    TemAportes = 0;
+                }//Valida el estado de la cuota
+                if (TemAportes >= Valor)
+                {
+                    Estado = "Pagada";
+                }
+                else
+                {
+                    if (DtBalanceCuota.Rows[0]["Estado"].ToString() == "Vencida")
+                    {
+                        Estado = "Mora";
+                    }
+                    else
+                    {
+                        if (TemAportes > 0)
+                        {
+                            Estado = "Abono";
+                        }
+                        else
+                        {
+                            Estado = "Pendiente";
+                        }
+                    }
                 }
             }
+            //el valor de la cuota es null !!no existe!!
             else
             {
+                Descuento = 0;
+                Estado = "SinCuota";
                 TemAportes = 0;
+                MessageBox.Show("Pago con numero de cuota incorrecta!!!");
             }
-            if (DtBalanceCuota.Rows[0]["Estado"].ToString() == "Vencida")
-            {
-                if (TemAportes >= Valor)
-                {
-                    Estado = "Pagada";
-                }
-                else
-                {
-                    Estado = "Mora";
-                }
-            }
-            else
-            {
-                if (TemAportes >= Valor)
-                {
-                    Estado = "Pagada";
-                }
-                else if (TemAportes > 0)
-                {
-                    Estado = "Abono";
-                }                
-                else
-                {
-                    Estado = "Pendiente";
-                }
-            }            
+                           
             return (Estado, TemAportes, Descuento);
         }
         private void txtCuota_TextChanged(object sender, EventArgs e)

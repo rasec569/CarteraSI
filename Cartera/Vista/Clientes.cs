@@ -273,6 +273,7 @@ namespace Cartera.Vista
             //ValidarCampos();
             if ((error != true) && (ValidarCampos() == true))
             {
+                //Valida cliente nuevo
                 if (Cliente_id == "")
                 {
                     if (comboEstadoCliente.Text == "Ceder")
@@ -349,6 +350,10 @@ namespace Cartera.Vista
                     //Crea nuevo Producto
                     if ((Producto_id == "") && (txtNombreProducto.Text != ""))
                     {
+                        if (cartera.BuscarCartera(txtCedula.Text).Rows[0]["Estado_cartera"].ToString()== "Disuelto")
+                        {
+                            cartera.ActivarEstadoCartera(Cartera_id.ToString(), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()));
+                        }
                         int retorno = producto.crearProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
 
                         if (retorno != 0)
@@ -361,7 +366,6 @@ namespace Cartera.Vista
                             {
                                 financiacion.crearFinanciacion(double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
                                 CrearCuotas();
-
                             }
                             else
                             {

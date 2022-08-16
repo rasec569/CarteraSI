@@ -73,6 +73,8 @@ namespace Cartera.Vista
             if (Txtcedula.Text == "")
             {
                 DtCartera = cartera.ListarCartera();
+                //Provicional para actulizar los valores de cartera
+                //DataTable DTVistaCartera = cartera.ListarVistaCartera();
                 DtReporte = DtCartera.Copy();
                 DtReporte.Columns.Remove("Id_Cliente");
                 DtReporte.Columns.Remove("Id_Cartera");
