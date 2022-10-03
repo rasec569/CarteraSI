@@ -171,3 +171,4 @@ C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\obj\Debug\Cartera.csproj.CoreC
 C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\obj\Debug\Cartera.csproj.CopyComplete
 C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\obj\Debug\Cartera.exe
 C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\obj\Debug\Cartera.pdb
+C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\obj\Debug\Cartera.Vista.HistorialTransferencia.resources

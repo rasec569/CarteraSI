@@ -126,6 +126,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Reportes\ReportesPDF.cs" />
+    <Compile Include="Vista\HistorialTransferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\HistorialTransferencia.Designer.cs">
+      <DependentUpon>HistorialTransferencia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\Refinanciacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +248,9 @@
     <Compile Include="Vista\TipoProducto.Designer.cs">
       <DependentUpon>TipoProducto.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Vista\HistorialTransferencia.resx">
+      <DependentUpon>HistorialTransferencia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vista\Refinanciacion.resx">
       <DependentUpon>Refinanciacion.cs</DependentUpon>
     </EmbeddedResource>

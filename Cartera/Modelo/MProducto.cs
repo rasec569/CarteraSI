@@ -43,6 +43,30 @@ namespace Cartera.Modelo
                 return Conexion.consulta("SELECT  Nombre,Apellido, Nombre_Producto as 'Producto', printf('%,d', Valor_Total_Pagos) || substr(printf(' % .2f', Valor_Total_Pagos), instr(printf(' % .2f', Valor_Total_Pagos), '.'), length(printf(' % .2f', Valor_Total_Pagos)) - instr(printf(' % .2f', Valor_Total_Pagos), '.') + 1) as 'Valor Pagado', printf('%,d', Valor_Producto) || substr(printf(' % .2f', Valor_Producto), instr(printf(' % .2f', Valor_Producto), '.'), length(printf(' % .2f', Valor_Producto)) - instr(printf(' % .2f', Valor_Producto), '.') + 1) as 'Valor Producto', printf('%,d', Valor_Producto-Valor_Total_Pagos) || substr(printf(' % .2f', Valor_Producto-Valor_Total_Pagos), instr(printf(' % .2f', Valor_Producto-Valor_Total_Pagos), '.'), length(printf(' % .2f', Valor_Producto-Valor_Total_Pagos)) - instr(printf(' % .2f', Valor_Producto-Valor_Total_Pagos), '.') + 1) as 'Diferencia' from Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto inner join Cliente on Id_Cliente =Pfk_ID_Cliente INNER join Proyecto on Id_Proyecto=Fk_Id_Proyecto where Valor_Total_Pagos>=Valor_Producto AND Estado_Cliente='Activo' and Fk_Id_Tipo_Producto='" + TipoProductoId + "' order by Nombre;");
             }
         }
+
+        internal static int crearTraslado(string old_Nombre_Producto, string old_Numero_contrato, string nombre_Producto, string numero_contrato, string Fecha_traslado, int Producto)
+        {
+            string sql = "INSERT INTO Traslados(Old_Producto, Old_Contrato, New_Producto, New_Contrato, Fecha_traslado,Fk_PK_Producto) VALUES(@Old_Producto, @Old_Contrato, @New_Producto, @New_Contrato, @Fecha_traslado, @Fk_PK_Producto)";
+            SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+            try
+            {
+                cmd.Parameters.Add(new SQLiteParameter("@Old_Producto", old_Nombre_Producto));
+                cmd.Parameters.Add(new SQLiteParameter("@Old_Contrato", old_Numero_contrato));
+                cmd.Parameters.Add(new SQLiteParameter("@New_Producto", nombre_Producto));
+                cmd.Parameters.Add(new SQLiteParameter("@New_Contrato", numero_contrato));
+                cmd.Parameters.Add(new SQLiteParameter("@Fecha_traslado", Fecha_traslado));
+                cmd.Parameters.Add(new SQLiteParameter("@Fk_PK_Producto", Producto));
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                Console.WriteLine("  Message: {0}", ex.Message);
+
+            }
+            return cmd.ExecuteNonQuery();
+        }
+
         public static DataTable cargarProductosPagadosProyecto(string proyecto, string TipoProductoId)
         {
             if (TipoProductoId == "")
@@ -122,6 +146,10 @@ namespace Cartera.Modelo
 
             //return Conexion.consulta("SELECT Id_Producto, Nombre_Producto, Numero_contrato, Forma_pago, Valor_Producto, Fecha_Venta, Observaciones, Proyecto_Nombre, Nom_Tipo_Producto, Id_Financiacion, Valor_Producto_Financiacion, Valor_Entrada, Valor_Sin_interes, Cuotas_Sin_interes, Valor_Cuota_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Fk_Id_Proyecto, Fk_Id_Tipo_Producto FROM Cliente_Producto INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER join Proyecto on Id_Proyecto = Fk_Id_Proyecto INNER join Tipo_Producto on Id_Tipo_Producto = Fk_Id_Tipo_Producto INNER JOIN Financiacion on Fk_Producto= Id_Producto WHERE Pfk_ID_Cliente = " + IdCliente + "");
             //ajustar consulta porque falta tener en cuenta la tabla de Cliente_Producto en el join
+        }
+        public static DataTable ListarTraslado(int IdProducto)
+        {
+            return Conexion.consulta("SELECT Old_Producto as 'Producto', Old_Contrato as 'Contrato', New_Producto as 'Nuevo Producto', New_Contrato as 'Nuevo Contrato', Fecha_traslado as'Fecha Traslado' from Traslados WHERE Fk_PK_Producto=" + IdProducto + " ORDER by Fecha_traslado");
         }
 
         public static int crearProducto(string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Neto, double Valor_Producto, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
@@ -215,7 +243,7 @@ namespace Cartera.Modelo
         }
         public static DataTable ClienteProducto(int IdProducto)
         {
-            return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Telefono, Correo, Nombre_Producto as Producto, Proyecto_Nombre as Proyecto FROM Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto WHERE Id_Producto='" + IdProducto + "' AND Estado_Cliente= 'Activo';");
+            return Conexion.consulta("SELECT Cedula, Nombre, Apellido, Telefono, Correo, Nombre_Producto as Producto, Numero_contrato as Contrato, Proyecto_Nombre as Proyecto FROM Cliente INNER JOIN Cliente_Producto on Pfk_ID_Cliente = Id_Cliente INNER JOIN Producto on Id_Producto=Pfk_ID_Producto INNER JOIN Proyecto on Id_Proyecto = Fk_Id_Proyecto WHERE Id_Producto='" + IdProducto + "' AND Estado_Cliente= 'Activo';");
         }
         //public static DataTable 
 

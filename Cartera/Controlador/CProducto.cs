@@ -66,7 +66,14 @@ namespace Cartera.Controlador
         {
             return MProducto.cargarProductosCliente(IdCliente);
         }
-
+        public DataTable ListarTraslado(int IdProducto) 
+        {
+            return MProducto.ListarTraslado(IdProducto);
+        }
+        public int crearTraslado(string Old_Nombre_Producto, string Old_Numero_contrato, string Nombre_Producto, string Numero_contrato, string Fecha_Venta, int Producto)
+        {
+            return MProducto.crearTraslado(Old_Nombre_Producto, Old_Numero_contrato, Nombre_Producto, Numero_contrato, Fecha_Venta, Producto);
+        }
         public int crearProducto(string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Neto, double Valor_Total, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
         {
             return MProducto.crearProducto(Nombre_Producto, Numero_contrato, Forma_Pago, Valor_Neto, Valor_Total, Fecha_Venta, Observaciones, Fk_Id_Proyecto, Fk_Id_Tipo_Producto);
