@@ -9,7 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cartera.Controlador;
+using Cartera.Modelo;
 using Cartera.Reportes;
+using Org.BouncyCastle.Utilities;
 
 namespace Cartera.Vista
 {
@@ -25,7 +27,7 @@ namespace Cartera.Vista
         int Financiacion, Valor_Neto, valorSin, ValorInteres;
         double ValorTotal;
         string cliente, nomproducto, nomproyecto;
-        double  ValorCuotaInteres;
+        decimal  ValorCuotaInteres, ValorCuotaSinInteres, ValorEntrada;      
         string Refi;
 
         public HistorialFinanciacion()
@@ -139,7 +141,7 @@ namespace Cartera.Vista
                 {
                     int id_financiacion = int.Parse(dataGridView1.Rows[n].Cells["Id_Financiacion"].Value.ToString());
                     Financiacion = id_financiacion;
-                    CargarFinanciacion(id_financiacion);
+                    CargarFinanciacion(Financiacion);
                 }
             }
             catch
@@ -156,13 +158,15 @@ namespace Cartera.Vista
             double Valor_Producto_Financiacion = double.Parse(DtFinanciacion.Rows[0]["Valor_Producto_Financiacion"].ToString());
             ValorTotal = Valor_Producto_Financiacion;
             int valor_entrada = int.Parse(DtFinanciacion.Rows[0]["Valor_Entrada"].ToString());
+            ValorEntrada = valor_entrada;
             int valor_sin_interes = int.Parse(DtFinanciacion.Rows[0]["Valor_Sin_interes"].ToString());
             valorSin = valor_sin_interes;
             int Cuotas_sin_interes = int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString());
-            double Valor_cuota_sin_interes = double.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString());
+            decimal Valor_cuota_sin_interes = decimal.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Sin_interes"].ToString());
+            ValorCuotaSinInteres = Valor_cuota_sin_interes;
             double Valor_con_interes = double.Parse(DtFinanciacion.Rows[0]["Valor_Con_Interes"].ToString());
             int Cuotas_Con_Interes = int.Parse(DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString());
-            double Valor_Cuota_Con_Interes = double.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
+            decimal Valor_Cuota_Con_Interes = decimal.Parse(DtFinanciacion.Rows[0]["Valor_Cuota_Con_Interes"].ToString());
             ValorCuotaInteres = Valor_Cuota_Con_Interes;
             int Valor_Interes = int.Parse(DtFinanciacion.Rows[0]["Valor_Interes"].ToString());
             ValorInteres = Valor_Interes;
@@ -210,15 +214,30 @@ namespace Cartera.Vista
             }
             label9.Text = "Valor pagado: $ " + String.Format("{0:N0}", ValorPagado);
             dataGridView1.Visible = false;
-            DtAcuerdoPago = cuota.ListarCuotas(id_financiacion, "Refinanciación", "");
-            DtAcuerdoPago.Columns.Remove("Id_Cuota");
+            ListarCuotas(id_financiacion);
+
+        }
+        private void ListarCuotas(int finan)
+        {
+            dataGridView2.Columns.Clear();
+            dataGridView2.Refresh();
+            //dataGridView2.DataSource = null;
+            DtAcuerdoPago = cuota.ListarCuotas(finan, "Refinanciación", "");
+            //DtAcuerdoPago.Columns.Remove("Id_Cuota");
             dataGridView2.DataSource = DtAcuerdoPago;
             panel1.Visible = true;
-            dataGridView2.Columns[0].Width = 50;
-            dataGridView2.Columns[1].Width = 80;
-            dataGridView2.Columns[2].Width = 100;
+            dataGridView2.Columns["Id_Cuota"].Visible = false;
+            dataGridView2.Columns["Cuota"].Width = 50;
+            dataGridView2.Columns["Valor"].Width = 80;
+            dataGridView2.Columns["Tipo"].Width = 100;
             //dataGridView2.Columns[1].DefaultCellStyle.Format = "n2";
+            this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
             dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataGridViewButtonColumn BtValidar = new DataGridViewButtonColumn();
+            BtValidar.Name = "Validar";
+            BtValidar.HeaderText = "";
+            BtValidar.UseColumnTextForButtonValue = true;
+            dataGridView2.Columns.Add(BtValidar);
         }
 
         private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
@@ -229,6 +248,123 @@ namespace Cartera.Vista
                 cell.ToolTipText = "Doble clic para ver detalle de financiación";
             }
         }
+
+        private void dataGridView2_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+            if (e.ColumnIndex >= 7 && this.dataGridView2.Columns[e.ColumnIndex].Name == "Validar" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                DataGridViewButtonCell celboton = this.dataGridView2.Rows[e.RowIndex].Cells["Validar"] as DataGridViewButtonCell;
+                Icon ValidaIcon = new Icon(Environment.CurrentDirectory + @"\\img\reload.ico");
+                e.Graphics.DrawIcon(ValidaIcon, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
+                this.dataGridView2.Rows[e.RowIndex].Height = ValidaIcon.Height + 8;
+                this.dataGridView2.Columns[e.ColumnIndex].Width = ValidaIcon.Width + 8;
+                e.Handled = true;
+            }
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int x = dataGridView2.Rows.Count;
+            int n = e.RowIndex;
+            if (n < x - 1)
+            {
+                try
+                {
+                    int cuotaid = int.Parse(dataGridView2.Rows[n].Cells["Id_Cuota"].Value.ToString());
+                    Int64 numero = int.Parse(dataGridView2.Rows[n].Cells["Cuota"].Value.ToString());
+                    string Temptipoo = dataGridView2.Rows[n].Cells["Tipo"].Value.ToString();
+                    string tipoo= Temptipoo.Substring(6); 
+                    string fecha = dataGridView2.Rows[n].Cells["Fecha"].Value.ToString();
+                    string estado = dataGridView2.Rows[n].Cells["Estado"].Value.ToString();
+                    decimal valor = 0, aportes = 0, descuentos = 0;
+                    if (e.ColumnIndex >= 7)
+                    {
+                        DataTable dt1 = new DataTable();
+                        //asigna valor temporal segun tipo
+                        if (tipoo == "Inicial")
+                        {
+                            valor = ValorCuotaSinInteres;
+                        }
+                        else if (tipoo == "Saldo")
+                        {
+                            valor = ValorCuotaInteres;
+                        }
+                        else
+                        {
+                            valor = ValorEntrada;
+                        }
+                        DataTable dtpagos = pago.ListarPagosCliente(ProductoId.ToString());
+                        if (dtpagos.Rows.Count > 0)
+                        {
+                            // filtra DtCuotasPagas por los valores de txtCuota.Text y TipoPago                             
+                            DataRow[] PagosCuota = dtpagos.Select(String.Format("Cuota = '{0}' AND Tipo like '%{1}%'", numero, tipoo));
+                            // si el DataRow no esta vacio
+                            if (PagosCuota.Length > 0)
+                            {
+                                //almacena temporal los valores de DataRow
+                                dt1 = PagosCuota.CopyToDataTable();
+
+                                //recore el Dt result suma aportes y descuentos, calcula el valor si el descuento >0
+                                for (int i = 0; i < dt1.Rows.Count; i++)
+                                {
+                                    if (dt1.Rows[i]["Tipo"].ToString() != "Refinanciación")
+                                    {
+                                        aportes += decimal.Parse(dt1.Rows[i]["Valor"].ToString().Replace(",", ""));
+                                        descuentos += decimal.Parse(dt1.Rows[i]["Valor Descuento"].ToString().Replace(",", ""));
+                                        valor -= descuentos;
+                                    }
+                                }
+                            }
+                        }
+                        //modifica los valores de la cuota afectada y validar el estado de la cuota deacuerto a los aportes y fecha
+                        cuota.ModificarCuota(cuotaid, (int)numero, (double)valor, Temptipoo, fecha, EvaluaEstadoCuotaFecha(Convert.ToDateTime(fecha), double.Parse(aportes.ToString()), double.Parse(valor.ToString())), (double)aportes);
+                        ListarCuotas(Financiacion);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Error", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Campo no valido", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+        private string EvaluaEstadoCuotaFecha(DateTime fecha, double Pagado, double Valor)
+        {
+            string CuoEstado = "Pendiente";
+            string actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString();
+
+            if (Pagado >= Valor)
+            {
+                CuoEstado = "Pagada";
+            }
+            else
+            {
+                if (fecha <= Convert.ToDateTime(actual))
+                {
+                    CuoEstado = "Mora";
+                }
+                else if (fecha > Convert.ToDateTime(actual))
+                {
+                    CuoEstado = "Abono";
+                }
+            }
+            return CuoEstado;
+        }
+
+        private void dataGridView2_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridView1.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 16, e.RowBounds.Location.Y + 4);
+            }
+        }
+
         //private void DatosCliente()
         //{
         //    DataTable Dtdatos = producto.ClienteProducto(ProductoId);
@@ -239,12 +375,12 @@ namespace Cartera.Vista
         //}
         private void button1_Click(object sender, EventArgs e)
         {
-            //DataTable DtRepor = new DataTable();
-            //DtRepor = ((DataTable)dataGridView2.DataSource);
+            DataTable DtRepor = new DataTable();
+            DtRepor = DtAcuerdoPago;
+            DtRepor.Columns.Remove("Id_Cuota");
 
-            
-            
-            reportesPDF.PagoProgramado(DtAcuerdoPago, cliente, nomproducto, nomproyecto, label1.Text.ToUpper(), label2.Text.ToUpper(), label3.Text.ToUpper(), label4.Text.ToUpper(), label5.Text.ToUpper(), label6.Text.ToUpper(), label7.Text.ToUpper(), label8.Text.ToUpper(), label9.Text.ToUpper());
+
+            reportesPDF.PagoProgramado(DtRepor, cliente, nomproducto, nomproyecto, label1.Text.ToUpper(), label2.Text.ToUpper(), label3.Text.ToUpper(), label4.Text.ToUpper(), label5.Text.ToUpper(), label6.Text.ToUpper(), label7.Text.ToUpper(), label8.Text.ToUpper(), label9.Text.ToUpper());
         }
         
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -280,7 +416,7 @@ namespace Cartera.Vista
         private void button2_Click(object sender, EventArgs e)
         {
             
-            Amortizacion Am =new Amortizacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal, cliente, nomproducto, nomproyecto);            
+            Amortizacion Am =new Amortizacion(Financiacion, Valor_Neto, valorSin, ValorInteres, double.Parse(ValorCuotaInteres.ToString()), ValorTotal, cliente, nomproducto, nomproyecto);            
             Am.ShowDialog();
         }
 
@@ -294,7 +430,7 @@ namespace Cartera.Vista
         }
         private void BtRefinanciar_Click(object sender, EventArgs e)
         {
-            Refinanciacion Re = new Refinanciacion(Financiacion, Valor_Neto, valorSin, ValorInteres, ValorCuotaInteres, ValorTotal, int.Parse(Refi), cliente, nomproducto, nomproyecto);
+            Refinanciacion Re = new Refinanciacion(Financiacion, Valor_Neto, valorSin, ValorInteres, double.Parse(ValorCuotaInteres.ToString()), ValorTotal, int.Parse(Refi), cliente, nomproducto, nomproyecto);
             Re.FormClosed += Refinanciacion_FormClose;
             Re.ShowDialog();
             

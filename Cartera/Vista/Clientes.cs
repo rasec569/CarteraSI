@@ -115,15 +115,12 @@ namespace Cartera.Vista
                     else
                     {
                         dataGridView1.DataSource = "";
-                        //DataRow[] DtBusquedaCliente;
-                        //DtBusquedaCliente = DtCliente.Select("Nombres="+ cliente, "Id_Cliente");
-                        DataView dvData = new DataView(DtCliente);
-                        dvData.RowFilter = "Nombres like '%" + cliente+ "%'";
-
-                        //if (DtBusquedaCliente.Length > 0)
-                        //{
-                            //DataTable dt1 = DtBusquedaCliente.CopyToDataTable();
-                            dataGridView1.DataSource = dvData;
+                        //Busca en el datatable el valor del txt y busca por 2 criterios
+                        DataRow[] PagosCuota = DtCliente.Select(String.Format("Nombres like '{0}' OR Apellidos like '%{1}%'", cliente, cliente));
+                        DataTable dt1 = PagosCuota.CopyToDataTable();
+                        ////DataView dvData = new DataView(DtCliente); //FUNCIONA SOLO CON UN LIKE 
+                        ////dvData.RowFilter = "Nombres like '%" + cliente+ "%'";
+                        dataGridView1.DataSource = dt1;
                             formatogrid();
                             dataGridView1.Columns["Id_Cliente"].Visible = false;
                             dataGridView1.Columns["Fk_Id_Cartera"].Visible = false;
@@ -194,17 +191,22 @@ namespace Cartera.Vista
             AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
 
             DtCliente = cliente.cargarClientes();
-            DataTable distinctTable = DtCliente.DefaultView.ToTable(true, "Nombres");
+            //DataTable distinctTable = DtCliente.DefaultView.ToTable(true, "Nombres");
 
-            for (int i = 0; i < distinctTable.Rows.Count; i++)
+            for (int i = 0; i < DtCliente.Rows.Count; i++)
             {
-                lista.Add(distinctTable.Rows[i]["Nombres"].ToString());
+                lista.Add(DtCliente.Rows[i]["Nombres"].ToString());
                 txtBuscarCliente.AutoCompleteCustomSource = lista;
             }
 
             for (int i = 0; i < DtCliente.Rows.Count; i++)
             {
                 lista.Add(DtCliente.Rows[i]["Cedula"].ToString());                
+                txtBuscarCliente.AutoCompleteCustomSource = lista;
+            }
+            for (int i = 0; i < DtCliente.Rows.Count; i++)
+            {
+                lista.Add(DtCliente.Rows[i]["Apellidos"].ToString());
                 txtBuscarCliente.AutoCompleteCustomSource = lista;
             }
         }
@@ -614,7 +616,7 @@ namespace Cartera.Vista
             double ValCuota = 0;
             switch (tipo)
             {
-                case "Valor Separación":
+                case "Separación":
                     ValCuota = double.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString());
                     break;
                 case "Valor Inicial":
@@ -639,7 +641,7 @@ namespace Cartera.Vista
             string Estado = "Pendiente";
             DataTable Dtfinan = financiacion.FinanciacionProducto(int.Parse(Producto_id));
 
-            cuota.CrearCuota(num_cuota, double.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), "Valor Separación", date.ToString("yyyy-MM-dd"), Estado, int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
+            cuota.CrearCuota(num_cuota, double.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), "Separación", date.ToString("yyyy-MM-dd"), Estado, int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
 
             num_cuota++;
 

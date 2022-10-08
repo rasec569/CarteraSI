@@ -82,8 +82,31 @@ namespace Cartera.Vista
             }
             else
             {
-                DtCartera = cartera.CarteraCliente(Txtcedula.Text);
-                dataGridView1.DataSource = DtCartera;
+                DataTable DtBusquedaCartera = new DataTable();
+                string TexBusqueda = Txtcedula.Text;
+                if (DtCartera.Rows.Count > 0 && !TexBusqueda.All(char.IsDigit))
+                {
+                    try
+                    {
+
+                        DataRow[] Carteracliente = DtCartera.Select(String.Format("Nombres like '%{0}%' OR Apellidos like '%{1}%'", TexBusqueda, TexBusqueda));
+                        DtBusquedaCartera = Carteracliente.CopyToDataTable();
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Seleccione una opción","Advertencia",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+                else
+                {
+                    DtBusquedaCartera = cartera.CarteraCliente(Txtcedula.Text);
+                }
+                if (DtBusquedaCartera != null)
+                {
+                    dataGridView1.DataSource = DtBusquedaCartera;
+                }
+
             }
 
             double total = 0;
@@ -454,6 +477,14 @@ namespace Cartera.Vista
             for (int i = 0; i < DtCliente.Rows.Count; i++)
             {
                 lista.Add(DtCliente.Rows[i]["Cedula"].ToString());
+            }
+            for (int i = 0; i < DtCliente.Rows.Count; i++)
+            {
+                lista.Add(DtCliente.Rows[i]["Nombres"].ToString());
+            }
+            for (int i = 0; i < DtCliente.Rows.Count; i++)
+            {
+                lista.Add(DtCliente.Rows[i]["Apellidos"].ToString());
             }
             Txtcedula.AutoCompleteCustomSource = lista;
         }
