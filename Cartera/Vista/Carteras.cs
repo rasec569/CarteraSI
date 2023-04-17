@@ -129,30 +129,36 @@ namespace Cartera.Vista
         }
         private void formatoGrid1()
         {
-            //dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridView1.Columns ["Id_Cliente"].Visible = false;
-            dataGridView1.Columns [9].DefaultCellStyle.Format = "n2";
-            //dataGridView1.Columns["Id_Producto"].Visible = false;
-            dataGridView1.Columns [11].DefaultCellStyle.Format = "n2";
-            dataGridView1.Columns [12].DefaultCellStyle.Format = "n2";
-            dataGridView1.Columns ["Id_Cartera"].Visible = false;
-            dataGridView1.Columns [1].Width = 85;
-            dataGridView1.Columns [2].Width = 120;
-            dataGridView1.Columns [3].Width = 150;
-            dataGridView1.Columns [4].Width = 100;
-            dataGridView1.Columns [5].Width = 45;
-            dataGridView1.Columns [6].Width = 45;
-            dataGridView1.Columns [7].Width = 45;
-            dataGridView1.Columns [8].Width = 45;
-            dataGridView1.Columns [9].Width = 85;
-            dataGridView1.Columns [10].Width = 35;
-            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            //dataGridView1.Columns[3].Width = 230;
+            try
+            {           
+                //dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dataGridView1.Columns ["Id_Cliente"].Visible = false;
+                dataGridView1.Columns [9].DefaultCellStyle.Format = "n2";
+                //dataGridView1.Columns["Id_Producto"].Visible = false;
+                dataGridView1.Columns [11].DefaultCellStyle.Format = "n2";
+                dataGridView1.Columns [12].DefaultCellStyle.Format = "n2";
+                dataGridView1.Columns ["Id_Cartera"].Visible = false;
+                dataGridView1.Columns [1].Width = 85;
+                dataGridView1.Columns [2].Width = 120;
+                dataGridView1.Columns [3].Width = 150;
+                dataGridView1.Columns [4].Width = 100;
+                dataGridView1.Columns [5].Width = 45;
+                dataGridView1.Columns [6].Width = 45;
+                dataGridView1.Columns [7].Width = 45;
+                dataGridView1.Columns [8].Width = 45;
+                dataGridView1.Columns [9].Width = 85;
+                dataGridView1.Columns [10].Width = 35;
+                dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                //dataGridView1.Columns[3].Width = 230;
+                if (Validarestados == true)
+                {
+                    actulizarestado();
 
-            if (Validarestados == true)
+                }
+            }
+            catch (Exception e)
             {
-                actulizarestado();
-            
+                MessageBox.Show(e.Message);
             }
         }        
         private void button1_Click(object sender, EventArgs e)

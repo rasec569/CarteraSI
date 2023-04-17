@@ -128,9 +128,9 @@ namespace Cartera.Vista
             {
                 DataTable DtCuotas = new DataTable();
                 DtCuotas = cuota.ListarCuotas(Financiacion, "Refinanciación", "");
-                //DtCuotas.Columns.Remove("Id_Cuota");//Provicional
+                //DtCuotasPorPagar.Columns.Remove("Id_Cuota");//Provicional
                 DtCuotas.Columns["Valor"].SetOrdinal(5);
-                //FilaTotal = DtCuotas.Rows.Count;
+                //FilaTotal = DtCuotasPorPagar.Rows.Count;
                 DtRefinanciacion = DtCuotas.Clone(); //para tener la misma estructura del dt1 y no tener problemas
                 DtCamio = DtCuotas.Clone();
                 for (int i = 0; i < DtCuotas.Rows.Count; i++)
@@ -138,7 +138,7 @@ namespace Cartera.Vista
                     pagadofecha += decimal.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", ""), CultureInfo.InvariantCulture);
                     if (DtCuotas.Rows[i]["Estado"].ToString() == "Pagada")
                     {
-                        //pagadofecha += decimal.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", ""));
+                        //pagadofecha += decimal.Parse(DtCuotasPorPagar.Rows[i]["Aportado"].ToString().Replace(",", ""));
                         DtRefinanciacion.ImportRow(DtCuotas.Rows[i]); //se copia la  fila del  dt1  en el  DataTable nuevo
                     }
                     else

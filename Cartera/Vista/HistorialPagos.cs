@@ -23,6 +23,7 @@ namespace Cartera.Vista
         CProducto producto = new CProducto();
         CCuota cuota = new CCuota();
         CFinanciacion financiacion = new CFinanciacion();
+        CRefinanciacion refinanciacion = new CRefinanciacion();
         bool error = false;        
         string productoId = "";
         string carteraId ="";
@@ -234,6 +235,8 @@ namespace Cartera.Vista
                 groupBox2.Visible = true;
                 //Valor Pagado
                 mora = 0;
+                string IdRefi="";
+                DataTable DtCuotas = new DataTable();
                 DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 DataTable dtrecaudo = pago.Tota_Recaudado_Producto(productoId);
                 dtpagos = pago.ListarPagosCliente(productoId);
@@ -250,11 +253,25 @@ namespace Cartera.Vista
                     DataTable dtfechas = cartera.BuscarFechaspagos(int.Parse(productoId));
                     string fecha = dtfechas.Rows[0]["Fecha_Recaudo"].ToString();
                     Financiacion = int.Parse(dtfechas.Rows[0]["Id_Financiacion"].ToString());
+                    DataTable DtFinanciacion = new DataTable();
+                    DtFinanciacion = financiacion.Financiacion(Financiacion);
+                    DataTable DtRefi = new DataTable();
+                    DtRefi = refinanciacion.RefinanciacionFinanciacion(Financiacion);
+                    
                     if (!string.IsNullOrEmpty(dtfechas.Rows[0]["Id_Financiacion"].ToString()) && forpago == "Financiado")
                     {
                         button1.Enabled = true;
                         ValidarEstadoCuota();
-                        DataTable DtCuotas = cuota.ListarCuotas(Financiacion, "Refinanciación", "");
+                        if (string.IsNullOrEmpty(DtFinanciacion.Rows[0]["Id_Refinanciacion"].ToString()))
+                        {
+                            DtCuotas = cuota.ListarCuotas(Financiacion, "Refinanciación", "");
+                        }
+                        else
+                        {
+                            IdRefi = DtRefi.Rows[0]["Id_Refinanciacion"].ToString();
+                            DtCuotas = cuota.ListarCuotas(Financiacion, "", "Inactiva"); 
+                        }
+                        
                         for (int i = 0; i < DtCuotas.Rows.Count; i++)
                         {                            
                             if (DtCuotas.Rows[i]["Estado"].ToString() == "Pagada")
@@ -287,25 +304,39 @@ namespace Cartera.Vista
                         {
                             mes_mora = meses - pagos;
                         }
-                        if (ProductoVal - ValorPagado != 0)
+                        double saldotemp = double.Parse(DtAlaFecha.Rows[0]["saldofecha"].ToString());
+                        if (!string.IsNullOrEmpty(DtFinanciacion.Rows[0]["Id_Refinanciacion"].ToString()))
                         {
-                            labelmes.Text = "Meses Transcurridos:  " + meses;
-                            labelMora.Text = "Cuotas en Mora:  " + mora;
-                            labelMeses.Text = "Meses en Mora:  " + mes_mora;
-                            labelPagadas.Text = "Cuotas Pagadas:  " + pagos;
-                            double saldotemp = double.Parse(DtAlaFecha.Rows[0]["saldofecha"].ToString());
+                            labelCuotas.Text = "Refinanciacion " + DtRefi.Rows[0]["Fecha"].ToString();
+                            labelmes.Text = "Refinanciado: " + double.Parse(DtRefi.Rows[0]["Valor Total"].ToString()).ToString("N2", CultureInfo.CurrentCulture);
+                            labelPagadas.Text = " Valor Cuotas: " + double.Parse(DtRefi.Rows[0]["Valor Cuota"].ToString()).ToString("N2", CultureInfo.CurrentCulture); 
+                            labelMora.Text = "Numero de Cuotas: "+ DtRefi.Rows[0]["# Cuotas"].ToString(); 
+                            labelMeses.Text = "Cuotas Pactadas:  " + cuotas;
                             TxtDeudaFecha.Text = saldotemp.ToString("N2", CultureInfo.CurrentCulture);
-                            //TxtDeudaFecha.Text = Math.Round(int.Parse(DtAlaFecha.Rows[0]["saldofecha"].ToString()),0).ToString("N0", CultureInfo.CurrentCulture);
                         }
                         else
                         {
-                            labelmes.Text = "";
-                            labelPagadas.Text = "Pagos:  " + dtpagos.Rows.Count;
-                            labelMora.Text = "";
-                            labelMeses.Text = "Pagado";
-                            labelPagadas.Text = "";
-                        }
-                        labelCuotas.Text = "Cuotas Pactadas:  " + cuotas;
+                            if (ProductoVal - ValorPagado != 0)
+
+                            {
+                                labelmes.Text = "Meses Transcurridos:  " + meses;
+                                labelMora.Text = "Cuotas en Mora:  " + mora;
+                                labelMeses.Text = "Meses en Mora:  " + mes_mora;
+                                labelPagadas.Text = "Cuotas Pagadas:  " + pagos;
+                                TxtDeudaFecha.Text = saldotemp.ToString("N2", CultureInfo.CurrentCulture);
+                                //TxtDeudaFecha.Text = Math.Round(int.Parse(DtAlaFecha.Rows[0]["saldofecha"].ToString()),0).ToString("N0", CultureInfo.CurrentCulture);
+                            }
+
+                            else
+                            {
+                                labelmes.Text = "";
+                                labelPagadas.Text = "Pagos:  " + dtpagos.Rows.Count;
+                                labelMora.Text = "";
+                                labelMeses.Text = "Pagado";
+                                labelPagadas.Text = "";                                
+                            }
+                            labelCuotas.Text = "Cuotas Pactadas:  " + cuotas;
+                        }  
                     }
                     else
                     {
@@ -346,7 +377,7 @@ namespace Cartera.Vista
             try
             {
                 DateTime actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                DataTable DtCuotas = cuota.ListarCuotas(Financiacion, "Refinanciación", "");
+                DataTable DtCuotas = cuota.ListarCuotas(Financiacion, "", "Inactiva");
                 for (int i = 0; i < DtCuotas.Rows.Count; i++)
                 {
                     if (DtCuotas.Rows[i]["Estado"].ToString() !="Inactiva")

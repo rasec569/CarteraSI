@@ -27,19 +27,29 @@ namespace Cartera.Modelo
         {
             string sql = "INSERT INTO Financiacion (Valor_Producto_Financiacion, Valor_Entrada, Valor_Sin_interes, Valor_Cuota_Sin_interes, Cuotas_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Fk_Producto, Estado_Financiacion, User_log_Financiacion) VALUES(@Valor_Producto_Financiacion, @Valor_Entrada, @Valor_Sin_interes, @Valor_Cuota_Sin_interes, @Cuotas_Sin_interes, @Valor_Con_Interes, @Cuotas_Con_Interes, @Valor_Cuota_Con_Interes, @Valor_Interes, @Fecha_Recaudo, @Fk_Producto, @Estado_Financiacion, @User_log_Financiacion);";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto_Financiacion", Valor_Producto_Financiacion));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Entrada", Valor_Entrada));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", Valor_Sin_interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Sin_interes", Valor_Cuota_Sin_interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Sin_interes", Cuotas_Sin_interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", Valor_Con_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Cuotas_Con_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Con_Interes", Valor_Cuota_Con_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Interes", Valor_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", Fecha_Recaudo));
-            cmd.Parameters.Add(new SQLiteParameter("@Fk_Producto", Fk_Producto));
-            cmd.Parameters.Add(new SQLiteParameter("@User_log_Financiacion", DtosUsuario.NombreUser));
-            cmd.Parameters.Add(new SQLiteParameter("@Estado_Financiacion", "Activa"));
+            
+            try
+            {
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto_Financiacion", Valor_Producto_Financiacion));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Entrada", Valor_Entrada));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", Valor_Sin_interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Sin_interes", Valor_Cuota_Sin_interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Sin_interes", Cuotas_Sin_interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", Valor_Con_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Cuotas_Con_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Con_Interes", Valor_Cuota_Con_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Interes", Valor_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", Fecha_Recaudo));
+                cmd.Parameters.Add(new SQLiteParameter("@Fk_Producto", Fk_Producto));
+                cmd.Parameters.Add(new SQLiteParameter("@User_log_Financiacion", DtosUsuario.NombreUser));
+                cmd.Parameters.Add(new SQLiteParameter("@Estado_Financiacion", "Activa"));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                Console.WriteLine("  Message: {0}", ex.Message);
+
+            }
             return cmd.ExecuteNonQuery();
         }
 
@@ -60,18 +70,28 @@ namespace Cartera.Modelo
                                               
             string sql = "UPDATE Financiacion SET Valor_Producto_Financiacion = @Valor_Producto_Financiacion, Valor_Entrada = @Valor_Entrada, Valor_Sin_interes = @Valor_Sin_interes, Valor_Cuota_Sin_interes = @Valor_Cuota_Sin_interes, Cuotas_Sin_interes = @Cuotas_Sin_interes, Valor_Con_Interes = @Valor_Con_Interes, Cuotas_Con_Interes = @Cuotas_Con_Interes, Valor_Cuota_Con_Interes = @Valor_Cuota_Con_Interes, Valor_Interes = @Valor_Interes, Fecha_Recaudo = @Fecha_Recaudo, Fk_Producto = @Fk_Producto ,User_log_Financiacion=@User_log_Financiacion WHERE Id_Financiacion = '" + Id_Financiacion + "';";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto_Financiacion", Valor_Producto_Financiacion));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Entrada", Valor_Entrada));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", Valor_Sin_interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Sin_interes", Valor_Cuota_Sin_interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Sin_interes", Cuotas_Sin_interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", Valor_Con_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Cuotas_Con_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Con_Interes", Valor_Cuota_Con_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Interes", Valor_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", Fecha_Recaudo));
-            cmd.Parameters.Add(new SQLiteParameter("@Fk_Producto", Fk_Producto)); 
-            cmd.Parameters.Add(new SQLiteParameter("@User_log_Financiacion", DtosUsuario.NombreUser));
+            
+            try
+            {
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto_Financiacion", Valor_Producto_Financiacion));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Entrada", Valor_Entrada));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", Valor_Sin_interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Sin_interes", Valor_Cuota_Sin_interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Sin_interes", Cuotas_Sin_interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", Valor_Con_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Cuotas_Con_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Con_Interes", Valor_Cuota_Con_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Interes", Valor_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", Fecha_Recaudo));
+                cmd.Parameters.Add(new SQLiteParameter("@Fk_Producto", Fk_Producto));
+                cmd.Parameters.Add(new SQLiteParameter("@User_log_Financiacion", DtosUsuario.NombreUser));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                Console.WriteLine("  Message: {0}", ex.Message);
+
+            }
             return cmd.ExecuteNonQuery();
         }
         public static int InactivarFinanciacion(int Id_Financiacion)
@@ -87,19 +107,29 @@ namespace Cartera.Modelo
         {
             string sql = "INSERT INTO Financiacion (Valor_Producto_Financiacion, Valor_Entrada, Valor_Sin_interes, Valor_Cuota_Sin_interes, Cuotas_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Fk_Producto, Fk_Predecesor_Financiacion, Estado_Financiacion) VALUES(@Valor_Producto_Financiacion, @Valor_Entrada, @Valor_Sin_interes, @Valor_Cuota_Sin_interes, @Cuotas_Sin_interes, @Valor_Con_Interes, @Cuotas_Con_Interes, @Valor_Cuota_Con_Interes, @Valor_Interes, @Fecha_Recaudo, @Fk_Producto, @Fk_Predecesor_Financiacion, @Estado_Financiacion );";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto_Financiacion", Valor_Producto_Financiacion));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Entrada", Valor_Entrada));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", Valor_Sin_interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Sin_interes", Valor_Cuota_Sin_interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Sin_interes", Cuotas_Sin_interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", Valor_Con_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Cuotas_Con_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Con_Interes", Valor_Cuota_Con_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Interes", Valor_Interes));
-            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", Fecha_Recaudo));
-            cmd.Parameters.Add(new SQLiteParameter("@Fk_Producto", Fk_Producto));
-            cmd.Parameters.Add(new SQLiteParameter("@Fk_Predecesor_Financiacion", Id_Financiacion));
-            cmd.Parameters.Add(new SQLiteParameter("@Estado_Financiacion", "Activa"));
+            try
+            {
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto_Financiacion", Valor_Producto_Financiacion));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Entrada", Valor_Entrada));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", Valor_Sin_interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Sin_interes", Valor_Cuota_Sin_interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Sin_interes", Cuotas_Sin_interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Con_Interes", Valor_Con_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Cuotas_Con_Interes", Cuotas_Con_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota_Con_Interes", Valor_Cuota_Con_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Interes", Valor_Interes));
+                cmd.Parameters.Add(new SQLiteParameter("@Fecha_Recaudo", Fecha_Recaudo));
+                cmd.Parameters.Add(new SQLiteParameter("@Fk_Producto", Fk_Producto));
+                cmd.Parameters.Add(new SQLiteParameter("@Fk_Predecesor_Financiacion", Id_Financiacion));
+                cmd.Parameters.Add(new SQLiteParameter("@Estado_Financiacion", "Activa"));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                Console.WriteLine("  Message: {0}", ex.Message);
+
+            }
+            
             return cmd.ExecuteNonQuery();
         }
 

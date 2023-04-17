@@ -1163,4 +1163,7 @@
         A////////+AAAP///////////8AP////////4AAA///////////////////////gAAA=
 </value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>141, 13</value>
+  </metadata>
 </root>

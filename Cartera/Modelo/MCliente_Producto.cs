@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Cartera.Controlador;
 using System.Data.SQLite;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace Cartera.Modelo
 {
-    class MCliente_Producto
+    class MCliente_Producto:MError
 
     {
         int Id_Cliente { get; set; }
@@ -21,10 +22,16 @@ namespace Cartera.Modelo
         {
             string sql = "INSERT INTO Cliente_Producto(Pfk_ID_Cliente, Pfk_ID_Producto, Fecha_Cambio, Estado_Cliente) VALUES (@Id_Cliente, @Id_Producto, @Fecha_Cambio, @Estado_Cliente); ";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Id_Cliente", id_Cliente));
-            cmd.Parameters.Add(new SQLiteParameter("@Id_Producto", Id_Producto));
-            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", DateTime.Now.ToShortDateString()));
-            cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Activo"));
+            try {
+                cmd.Parameters.Add(new SQLiteParameter("@Id_Cliente", id_Cliente));
+                cmd.Parameters.Add(new SQLiteParameter("@Id_Producto", Id_Producto));
+                cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", DateTime.Now.ToShortDateString()));
+                cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Activo"));
+            }            
+            catch (Exception ex)
+            {
+                LongError("InsertCliente_Producto", sql, ex.Message);
+            }
             return cmd.ExecuteNonQuery();
         }
 
@@ -32,8 +39,15 @@ namespace Cartera.Modelo
         {
             string sql = "UPDATE Cliente_Producto SET Estado_Cliente=@Estado_Cliente, Fecha_Cambio=@Fecha_Cambio WHERE Pfk_ID_Cliente= '" + id_Cliente + "' AND Pfk_ID_Producto='" + id_Producto + "'";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Disuelto"));
-            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", fechacambio));
+            try
+            {
+                cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Disuelto"));
+                cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", fechacambio));
+            }
+            catch (Exception ex)
+            {
+                LongError("EstadoDisolver", sql, ex.Message);
+            }
             return cmd.ExecuteNonQuery();
         }
 
@@ -41,8 +55,15 @@ namespace Cartera.Modelo
         {
             string sql = "UPDATE Cliente_Producto SET Estado_Cliente=@Estado_Cliente, Fecha_Cambio=@Fecha_Cambio WHERE Pfk_ID_Cliente= '" + id_Cliente + "' AND Pfk_ID_Producto='" + id_Producto + "'";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Cedido"));
-            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", fechacambio));
+            try
+            {
+                cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Cedido"));
+                cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", fechacambio));
+            }
+            catch (Exception ex)
+            {
+                LongError("EstadoTrasferir", sql, ex.Message);
+            }
             return cmd.ExecuteNonQuery();
            
         }

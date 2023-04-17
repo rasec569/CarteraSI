@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cartera.Modelo
 {
-    class MCuota
+    class MCuota:MError
     {
 		internal static int crearcuota(int cuota, double valor, string tipo, string fecha, string Estado, int financiacion)
 		{
@@ -28,33 +28,35 @@ namespace Cartera.Modelo
 			{
 				Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
 				Console.WriteLine("  Message: {0}", ex.Message);
+                LongError("crearcuota", sql, ex.Message);
 
-			}
+            }
 			return cmd.ExecuteNonQuery();
 
 		}
 
         internal static int ModificarCuota(int idcuota, int cuota, double valor, string tipo, string fecha, string estado, double aporte)
         {
-			string sql1 = "UPDATE Cuotas SET Num_Cuota=@Num_Cuota, Valor_Cuota=@Valor_Cuota, Tipo=@Tipo, Estado=@Estado, Fecha=@Fecha, Aporte_Pagos=@Aporte_Pagos, User_log_Cuota=@User_log_Cuota WHERE Id_Cuota = " + idcuota + ";";
-			SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
+			string sql = "UPDATE Cuotas SET Num_Cuota=@Num_Cuota, Valor_Cuota=@Valor_Cuota, Tipo=@Tipo, Estado=@Estado, Fecha=@Fecha, Aporte_Pagos=@Aporte_Pagos, User_log_Cuota=@User_log_Cuota WHERE Id_Cuota = " + idcuota + ";";
+			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
 			try
 			{
-				cmd1.Parameters.Add(new SQLiteParameter("@Num_Cuota", cuota));
-				cmd1.Parameters.Add(new SQLiteParameter("@Valor_Cuota", valor));
-				cmd1.Parameters.Add(new SQLiteParameter("@Tipo", tipo));
-				cmd1.Parameters.Add(new SQLiteParameter("@Fecha", fecha));
-				cmd1.Parameters.Add(new SQLiteParameter("@Estado", estado));
-				cmd1.Parameters.Add(new SQLiteParameter("@Aporte_Pagos", aporte));				
-				cmd1.Parameters.Add(new SQLiteParameter("@User_log_Cuota", DtosUsuario.NombreUser));
+				cmd.Parameters.Add(new SQLiteParameter("@Num_Cuota", cuota));
+				cmd.Parameters.Add(new SQLiteParameter("@Valor_Cuota", valor));
+				cmd.Parameters.Add(new SQLiteParameter("@Tipo", tipo));
+				cmd.Parameters.Add(new SQLiteParameter("@Fecha", fecha));
+				cmd.Parameters.Add(new SQLiteParameter("@Estado", estado));
+				cmd.Parameters.Add(new SQLiteParameter("@Aporte_Pagos", aporte));				
+				cmd.Parameters.Add(new SQLiteParameter("@User_log_Cuota", DtosUsuario.NombreUser));
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
 				Console.WriteLine("  Message: {0}", ex.Message);
+                LongError("crearcuota", sql, ex.Message);
 
-			}
-			return cmd1.ExecuteNonQuery();
+            }
+			return cmd.ExecuteNonQuery();
 			//throw new NotImplementedException();
         }
 
@@ -90,20 +92,21 @@ namespace Cartera.Modelo
 		internal static int InactivarCuota(int cuota, string Estado, int financiacion, string tipo)
 		{		
 			
-				string sql1 = "UPDATE Cuotas SET Estado=@Estado, User_log_Cuota=@User_log_Cuota WHERE Fk_Id_Financiacion = " + financiacion + " AND Num_Cuota  = " + cuota + " AND Tipo= '" + tipo + "';";
-				SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
+				string sql = "UPDATE Cuotas SET Estado=@Estado, User_log_Cuota=@User_log_Cuota WHERE Fk_Id_Financiacion = " + financiacion + " AND Num_Cuota  = " + cuota + " AND Tipo= '" + tipo + "';";
+				SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
 				try
 				{
-					cmd1.Parameters.Add(new SQLiteParameter("@Estado", Estado));
-					cmd1.Parameters.Add(new SQLiteParameter("@User_log_Cuota", DtosUsuario.NombreUser));
+					cmd.Parameters.Add(new SQLiteParameter("@Estado", Estado));
+					cmd.Parameters.Add(new SQLiteParameter("@User_log_Cuota", DtosUsuario.NombreUser));
 				}
 				catch (Exception ex)
 				{
 					Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
 					Console.WriteLine("  Message: {0}", ex.Message);
+					LongError("crearcuota", sql, ex.Message);
 
 				}
-				return cmd1.ExecuteNonQuery();
+				return cmd.ExecuteNonQuery();
 		}
 		internal static DataTable ConsultarCuotaAPagar(int productoid, int cuota, string tipo)
 		{
@@ -112,21 +115,22 @@ namespace Cartera.Modelo
 		}
 		internal static int ActulziarCuotaRegistroPago(int cuota, double aportes, string Estado, int financiacion, string tipo)
 		{
-			string sql1 = "UPDATE Cuotas SET  Aporte_Pagos=@Aporte_Pagos, Estado=@Estado, User_log_Cuota=@User_log_Cuota WHERE Fk_Id_Financiacion = " + financiacion + " AND Num_Cuota  = " + cuota + " AND Tipo LIKE '%" + tipo + "%';";
-			SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
+			string sql = "UPDATE Cuotas SET  Aporte_Pagos=@Aporte_Pagos, Estado=@Estado, User_log_Cuota=@User_log_Cuota WHERE Fk_Id_Financiacion = " + financiacion + " AND Num_Cuota  = " + cuota + " AND Tipo LIKE '%" + tipo + "%';";
+			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
 			try
 			{
-				cmd1.Parameters.Add(new SQLiteParameter("@Aporte_Pagos", aportes));
-				cmd1.Parameters.Add(new SQLiteParameter("@Estado", Estado));
-				cmd1.Parameters.Add(new SQLiteParameter("@User_log_Cuota", DtosUsuario.NombreUser));
+				cmd.Parameters.Add(new SQLiteParameter("@Aporte_Pagos", aportes));
+				cmd.Parameters.Add(new SQLiteParameter("@Estado", Estado));
+				cmd.Parameters.Add(new SQLiteParameter("@User_log_Cuota", DtosUsuario.NombreUser));
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
 				Console.WriteLine("  Message: {0}", ex.Message);
+                LongError("crearcuota", sql, ex.Message);
 
-			}
-			return cmd1.ExecuteNonQuery();
+            }
+			return cmd.ExecuteNonQuery();
 		}
 		internal static DataTable ListarCuotas(int financiacion, string filtro, string estado)
 		{
@@ -194,7 +198,14 @@ namespace Cartera.Modelo
 		internal static int UltimaActuliacionEstadosCuota(string Usuario, string fecha)
 		{
 			string sql = "UPDATE Usuario SET Ultimo_Ingreso = '" + fecha + "' WHERE Id_usuario = '" + Usuario + "';";
-			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+            SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
+            try
+			{
+
+			}catch (Exception ex)
+			{
+                LongError("crearcuota", sql, ex.Message);
+            }			
 			return cmd.ExecuteNonQuery();
 		}
 		internal static DataTable ValidarActulizacion(string Usuario)

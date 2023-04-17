@@ -111,6 +111,7 @@
     <Compile Include="Modelo\MCliente.cs" />
     <Compile Include="Modelo\MCliente_Producto.cs" />
     <Compile Include="Modelo\MCuota.cs" />
+    <Compile Include="Modelo\MError.cs" />
     <Compile Include="Modelo\MFinanciacion.cs" />
     <Compile Include="Modelo\MLogin.cs" />
     <Compile Include="Modelo\MPago.cs" />

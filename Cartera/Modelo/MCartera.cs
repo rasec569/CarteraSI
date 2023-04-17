@@ -10,7 +10,7 @@ using Cartera.Controlador;
 namespace Cartera.Modelo
 {
 
-	class MCartera
+	class MCartera:MError
 	{
 		public int Id_Cartera { get; set; }
 		public string Estado_cartera { get; set; }
@@ -20,12 +20,19 @@ namespace Cartera.Modelo
 
 		internal static int crearCartera()
 		{
-			string sql1 = "insert into Cartera(Estado_cartera,Valor_Recaudado,Saldo,Total_Cartera) values (@Estado_cartera,@Valor_Recaudado,@Saldo,@Total_Cartera);";
-			SQLiteCommand cmd1 = new SQLiteCommand(sql1, Conexion.instanciaDb());
-			cmd1.Parameters.Add(new SQLiteParameter("@Estado_cartera", "Nueva"));
-			cmd1.Parameters.Add(new SQLiteParameter("@Valor_Recaudado", "0"));
-			cmd1.Parameters.Add(new SQLiteParameter("@Saldo", "0"));
-			cmd1.Parameters.Add(new SQLiteParameter("@Total_Cartera", "0"));
+			string sql = "insert into Cartera(Estado_cartera,Valor_Recaudado,Saldo,Total_Cartera) values (@Estado_cartera,@Valor_Recaudado,@Saldo,@Total_Cartera);";
+			SQLiteCommand cmd1 = new SQLiteCommand(sql, Conexion.instanciaDb());
+			try
+			{
+                cmd1.Parameters.Add(new SQLiteParameter("@Estado_cartera", "Nueva"));
+                cmd1.Parameters.Add(new SQLiteParameter("@Valor_Recaudado", "0"));
+                cmd1.Parameters.Add(new SQLiteParameter("@Saldo", "0"));
+                cmd1.Parameters.Add(new SQLiteParameter("@Total_Cartera", "0"));
+            }
+            catch (Exception ex)
+			{
+                LongError("crearCartera", sql, ex.Message);
+            }			
 			return cmd1.ExecuteNonQuery();
 		}
 
@@ -39,26 +46,41 @@ namespace Cartera.Modelo
         {
 			string sql = "UPDATE Cartera SET Estado_cartera = @Estado_cartera, Cuotas=@Cuotas, Meses=@Meses, Pagas=@Pagas, Mora=@Mora WHERE Id_Cartera='" + carteraid + "';";
 			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-			cmd.Parameters.Add(new SQLiteParameter("@Estado_cartera", estado));
-			cmd.Parameters.Add(new SQLiteParameter("@Cuotas", cuotas));
-			cmd.Parameters.Add(new SQLiteParameter("@Meses", meses));
-			cmd.Parameters.Add(new SQLiteParameter("@Pagas", pagas));
-			cmd.Parameters.Add(new SQLiteParameter("@Mora", mora));
-			return cmd.ExecuteNonQuery();
+
+			try
+			{
+				cmd.Parameters.Add(new SQLiteParameter("@Estado_cartera", estado));
+				cmd.Parameters.Add(new SQLiteParameter("@Cuotas", cuotas));
+				cmd.Parameters.Add(new SQLiteParameter("@Meses", meses));
+				cmd.Parameters.Add(new SQLiteParameter("@Pagas", pagas));
+				cmd.Parameters.Add(new SQLiteParameter("@Mora", mora));
+			}
+			catch (Exception ex)
+
+			{
+				LongError("ActulizarEstados", sql, ex.Message);
+			}
+            return cmd.ExecuteNonQuery();
 
 			throw new NotImplementedException();
         }
 		internal static int ActivarEstadoCartera(string carteraid, double total)
 		{
+
 			string sql = "UPDATE Cartera SET Estado_cartera = @Estado_cartera, Valor_Recaudado=@Valor_Recaudado, Saldo=@Saldo, Total_Cartera=@Total_Cartera WHERE Id_Cartera='" + carteraid + "';";
 			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-			cmd.Parameters.Add(new SQLiteParameter("@Estado_cartera", "Nueva"));
-			cmd.Parameters.Add(new SQLiteParameter("@Valor_Recaudado", "0"));
-			cmd.Parameters.Add(new SQLiteParameter("@Saldo", "0"));
-			cmd.Parameters.Add(new SQLiteParameter("@Total_Cartera", total));
-			return cmd.ExecuteNonQuery();
-
-			throw new NotImplementedException();
+			try
+			{
+				cmd.Parameters.Add(new SQLiteParameter("@Estado_cartera", "Nueva"));
+				cmd.Parameters.Add(new SQLiteParameter("@Valor_Recaudado", "0"));
+				cmd.Parameters.Add(new SQLiteParameter("@Saldo", "0"));
+				cmd.Parameters.Add(new SQLiteParameter("@Total_Cartera", total));
+			}
+            catch (Exception ex)
+            {
+                LongError("ActivarEstadoCartera", sql, ex.Message);
+            }
+            return cmd.ExecuteNonQuery();
 		}
 
 		internal static DataTable BuscarFechaspagos(int productoid)
@@ -102,10 +124,11 @@ namespace Cartera.Modelo
 		internal static int ActulizarValorRecaudado(int carteraid )
         {
 			string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado) FROM Pagos INNER JOIN Producto on Id_Producto=Fk_Id_Producto INNER JOIN Cliente_Producto on Pfk_ID_Producto= Id_Producto INNER JOIN Cliente on Id_Cliente=Pfk_ID_Cliente INNER JOIN Cartera on Id_Cartera=Fk_Id_Cartera WHERE Id_Cartera ='" + carteraid + "' AND Estado_Cliente='Activo') WHERE Id_Cartera='" + carteraid + "';";
-			//string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado) FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto) WHERE Id_Cartera='" + carteraid + "'";
-			//string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado), FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto) WHERE Id_Cartera='" + carteraid + "'";
-			SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-			return cmd.ExecuteNonQuery();
+
+            //string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado) FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto) WHERE Id_Cartera='" + carteraid + "'";
+            //string sql = "UPDATE Cartera SET Valor_Recaudado=(SELECT sum(Valor_Pagado), FROM Pagos WHERE Fk_Id_Producto = '" + productoid + "' GROUP by Fk_Id_Producto=Fk_Id_Producto) WHERE Id_Cartera='" + carteraid + "'";
+            SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());            
+            return cmd.ExecuteNonQuery();
 		}
 		internal static int ActulizarValorRecaudado2(int carteraid, int productoid) //corregir error valor recaudado
 		{

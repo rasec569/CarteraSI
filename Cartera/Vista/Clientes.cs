@@ -335,6 +335,7 @@ namespace Cartera.Vista
                                     //    CrearCuotas();
                                     //}
                                 }
+                                ActualizarValoresCartera();
                             }
                         }
                     }
@@ -437,7 +438,7 @@ namespace Cartera.Vista
                                     else
                                     {
                                         fechapag = date.AddMonths(i - 1).ToString("yyyy-MM-dd");
-                                        cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), fechapag, DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));  //double.Parse(DtCuotas.Rows[i]["Valor_Cuota"].ToString(), CultureInfo.CurrentCulture) - TemAportes;
+                                        cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), fechapag, DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));  //double.Parse(DtCuotasPorPagar.Rows[i]["Valor_Cuota"].ToString(), CultureInfo.CurrentCulture) - TemAportes;
                                     }
                                 }
                             }
@@ -576,9 +577,7 @@ namespace Cartera.Vista
 
                             checkBox1.Checked = false;
                         }
-                        cartera.ActulizarValorTotal(int.Parse(Cliente_id.ToString()), Cartera_id);
-                        cartera.ActulizarValorRecaudado(int.Parse(Cliente_id));
-                        cartera.ActulizarSaldo(Cartera_id);
+                        ActualizarValoresCartera();
                     }
                 }
                 BtBuscarCliente.Enabled = true;
@@ -616,7 +615,7 @@ namespace Cartera.Vista
             double ValCuota = 0;
             switch (tipo)
             {
-                case "Separación":
+                case "Valor Separación":
                     ValCuota = double.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString());
                     break;
                 case "Valor Inicial":
@@ -952,9 +951,7 @@ namespace Cartera.Vista
             if (comboEstadoCliente.Text == "Ceder")
             {
                 cliente_producto.EstadoTrasferir(Cliente_id, Producto_id, dateFechaEstado.Text);
-                cartera.ActulizarValorTotal(int.Parse(Cliente_id.ToString()), Cartera_id);
-                cartera.ActulizarValorRecaudado(int.Parse(Cliente_id));
-                cartera.ActulizarSaldo(Cartera_id);
+                
                 Cliente_id = "";
                 LimpiarUsuario();
             }
@@ -963,15 +960,23 @@ namespace Cartera.Vista
                 if (MessageBox.Show("¿Está seguro de Disolver el contrato?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     DataTable DtCartera = cartera.CarteraCliente(txtCedula.Text);
-                    cartera.ActulizarEstadoCartera(Cartera_id.ToString(), "Disuelto", int.Parse(DtCartera.Rows[0]["Cuotas Pact."].ToString()), int.Parse(DtCartera.Rows[0]["Cuotas Pag."].ToString()), int.Parse(DtCartera.Rows[0]["Cuotas Mora"].ToString()), int.Parse(DtCartera.Rows[0]["Meses Mora"].ToString()));
+                    if (int.Parse(DtCartera.Rows[0]["Items"].ToString()) == 1)
+                    {
+                        cartera.ActulizarEstadoCartera(Cartera_id.ToString(), "Disuelto", int.Parse(DtCartera.Rows[0]["Cuotas Pact."].ToString()), int.Parse(DtCartera.Rows[0]["Cuotas Pag."].ToString()), int.Parse(DtCartera.Rows[0]["Cuotas Mora"].ToString()), int.Parse(DtCartera.Rows[0]["Meses Mora"].ToString()));
+                    }                    
                     cliente_producto.EstadoDisolver(Cliente_id, Producto_id, dateFechaEstado.Text);
                     Panel_Registrar_user.Visible = false;
-                    cartera.ActulizarValorTotal(int.Parse(Cliente_id.ToString()), Cartera_id);
-                    cartera.ActulizarValorRecaudado(int.Parse(Cliente_id));
-                    cartera.ActulizarSaldo(Cartera_id);
+                    ActualizarValoresCartera();
                     CargarClientes();
                 }
             }
+        }
+
+        private void ActualizarValoresCartera()
+        {
+            cartera.ActulizarValorTotal(int.Parse(Cliente_id.ToString()), Cartera_id);
+            cartera.ActulizarValorRecaudado(int.Parse(Cartera_id.ToString()));
+            cartera.ActulizarSaldo(Cartera_id);
         }
         private void dataGridView2_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
@@ -1698,6 +1703,19 @@ namespace Cartera.Vista
             {
                 limpiar();
             }
+        }
+
+        private void BTActulizarValoresCartera_Click(object sender, EventArgs e)
+        {
+            if (Cartera_id == null)
+            {
+                MessageBox.Show("Seleccione un producto con financiación", "Accion no permitida ", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                ActualizarValoresCartera();
+            }           
+
         }
     }
 }

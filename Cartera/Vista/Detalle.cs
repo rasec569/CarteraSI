@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cartera.Controlador;
+using Cartera.Modelo;
 
 namespace Cartera.Vista
 {
@@ -18,6 +19,7 @@ namespace Cartera.Vista
         string productoId = "";
         string productoNom = "";
         CProducto producto = new CProducto();
+        CFinanciacion financiacion=new CFinanciacion();
         bool cargarbotones= true;
         public Detalle()
         {
@@ -119,9 +121,11 @@ namespace Cartera.Vista
                     string neto = dataGridView1.Rows[n].Cells["Valor Neto"].Value.ToString();
                     string valor = dataGridView1.Rows[n].Cells["Valor Final"].Value.ToString();
                     string formapago= dataGridView1.Rows[n].Cells["Forma Pago"].Value.ToString();
+                    DataTable DtFinanciacion = financiacion.FinanciacionProducto(int.Parse(productoId));
+                    int financiacionid = int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString());
                     if (e.ColumnIndex == 0)
                     {
-                        RegistrarPago Rp = new RegistrarPago(int.Parse(Txtcedula.Text), txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, double.Parse(valor));
+                        RegistrarPago Rp = new RegistrarPago(int.Parse(Txtcedula.Text), txtNombre.Text, clienteId.ToString(), carteraId.ToString(), productoId, productoNom, double.Parse(valor), financiacionid);
                         Rp.FormClosed += Pagos_FormClose;
                         Rp.ShowDialog();
                     }
