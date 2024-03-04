@@ -9,7 +9,7 @@ using Cartera.Controlador;
 
 namespace Cartera.Modelo
 {
-    class MFinanciacion
+    class MFinanciacion : MError
     {
         public int Id_Financiacion { get; set; }
         public int Valor_Producto_Financiacion { get; set;}
@@ -43,14 +43,15 @@ namespace Cartera.Modelo
                 cmd.Parameters.Add(new SQLiteParameter("@Fk_Producto", Fk_Producto));
                 cmd.Parameters.Add(new SQLiteParameter("@User_log_Financiacion", DtosUsuario.NombreUser));
                 cmd.Parameters.Add(new SQLiteParameter("@Estado_Financiacion", "Activa"));
+                cmd.ExecuteNonQuery();
+                long lastInsertId = cmd.Connection.LastInsertRowId;
+                return (int)lastInsertId;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
-                Console.WriteLine("  Message: {0}", ex.Message);
-
+                LongError("crearFinanciacion", sql, ex.Message);
+                return -1;
             }
-            return cmd.ExecuteNonQuery();
         }
 
         internal static DataTable HistorialFinanciacion(int id_Producto)
@@ -90,6 +91,7 @@ namespace Cartera.Modelo
             {
                 Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
                 Console.WriteLine("  Message: {0}", ex.Message);
+                LongError("crearFinanciacion", sql, ex.Message);
 
             }
             return cmd.ExecuteNonQuery();
@@ -103,12 +105,12 @@ namespace Cartera.Modelo
             return cmd.ExecuteNonQuery();
         }
 
-        public static int CambiarFinanciacion(int Id_Financiacion, int Valor_Producto_Financiacion, int Valor_Entrada, int Valor_Sin_interes, int Valor_Cuota_Sin_interes, int Cuotas_Sin_interes, int Valor_Con_Interes, int Cuotas_Con_Interes, int Valor_Cuota_Con_Interes, int Valor_Interes, string Fecha_Recaudo, int Fk_Producto)
+        public static int CambiarFinanciacion(int Id_Financiacion, double Valor_Producto_Financiacion, int Valor_Entrada, int Valor_Sin_interes, double Valor_Cuota_Sin_interes, int Cuotas_Sin_interes, double Valor_Con_Interes, int Cuotas_Con_Interes, double Valor_Cuota_Con_Interes, int Valor_Interes, string Fecha_Recaudo, int Fk_Producto)
         {
             string sql = "INSERT INTO Financiacion (Valor_Producto_Financiacion, Valor_Entrada, Valor_Sin_interes, Valor_Cuota_Sin_interes, Cuotas_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Fk_Producto, Fk_Predecesor_Financiacion, Estado_Financiacion) VALUES(@Valor_Producto_Financiacion, @Valor_Entrada, @Valor_Sin_interes, @Valor_Cuota_Sin_interes, @Cuotas_Sin_interes, @Valor_Con_Interes, @Cuotas_Con_Interes, @Valor_Cuota_Con_Interes, @Valor_Interes, @Fecha_Recaudo, @Fk_Producto, @Fk_Predecesor_Financiacion, @Estado_Financiacion );";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
             try
-            {
+            {        
                 cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto_Financiacion", Valor_Producto_Financiacion));
                 cmd.Parameters.Add(new SQLiteParameter("@Valor_Entrada", Valor_Entrada));
                 cmd.Parameters.Add(new SQLiteParameter("@Valor_Sin_interes", Valor_Sin_interes));
@@ -122,15 +124,17 @@ namespace Cartera.Modelo
                 cmd.Parameters.Add(new SQLiteParameter("@Fk_Producto", Fk_Producto));
                 cmd.Parameters.Add(new SQLiteParameter("@Fk_Predecesor_Financiacion", Id_Financiacion));
                 cmd.Parameters.Add(new SQLiteParameter("@Estado_Financiacion", "Activa"));
+                cmd.ExecuteNonQuery();
+                long lastInsertId = cmd.Connection.LastInsertRowId;
+                return (int)lastInsertId;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
                 Console.WriteLine("  Message: {0}", ex.Message);
-
+                LongError("crearFinanciacion", sql, ex.Message);
+                return -1;
             }
-            
-            return cmd.ExecuteNonQuery();
         }
 
     }

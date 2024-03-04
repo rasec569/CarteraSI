@@ -148,6 +148,8 @@ namespace Cartera.Vista
                 dataGridView1.Columns [8].Width = 45;
                 dataGridView1.Columns [9].Width = 85;
                 dataGridView1.Columns [10].Width = 35;
+                dataGridView1.Columns[11].Width = 85;
+                dataGridView1.Columns[12].Width = 85;
                 dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 //dataGridView1.Columns[3].Width = 230;
                 if (Validarestados == true)
@@ -301,14 +303,11 @@ namespace Cartera.Vista
                 string Cliente = DtCartera.Rows[i]["Id_Cliente"].ToString();
                 string Cartera = DtCartera.Rows[i]["Id_Cartera"].ToString();
                 if (DtCartera.Rows[i]["Pago"].ToString() != "Disuelto")
-                {
-                    //error de comas al parecer
-                    //MessageBox.Show("Esto Trae"+ double.Parse(DtCartera.Rows[i]["Recaudado"].ToString().Replace(",", "").Replace(".", ",")) + double.Parse(DtCartera.Rows[i]["Total"].ToString().Replace(",", "").Replace(".", ",")));
+                {                    
                     if (double.Parse(DtCartera.Rows[i]["Recaudado"].ToString().Replace(",", "").Replace(".", ",")) - double.Parse(DtCartera.Rows[i]["Total"].ToString().Replace(",", "").Replace(".", ",")) >= 0)
                     {
                         cartera.ActulizarValorRecaudado(int.Parse(Cliente));
                         cartera.ActulizarEstadoCartera(Cartera, "Pagada", 0, 0, 0, 0);
-                        //dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Aquamarine;
                     }
                     else
                     {                        

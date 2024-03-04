@@ -1,5 +1,7 @@
 ﻿using Cartera.Controlador;
 using Cartera.Reportes;
+using iTextSharp.text;
+using iTextSharp.text.pdf.codec.wmf;
 using System;
 using System.Data;
 using System.Drawing;
@@ -30,12 +32,12 @@ namespace Cartera.Vista
         DataTable Dtproyectos = new DataTable();
         DataTable DtFinanciacion;
         public static int Cartera_id = 0;
-        public static string Cliente_id = "";
-        public static string Producto_id = "";
-        public static string Financiacion_id = "";
+        public static int Cliente_id = 0;
+        public static int Producto_id = 0;
+        public static int Financiacion_id = 0;
         public static double valor = 0;
         string actual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString();
-        DateTime date;
+        DateTime date, date2;
         double val_total;
         int Refi;
         bool load = false;
@@ -47,12 +49,10 @@ namespace Cartera.Vista
             InitializeComponent();
             DateRecaudo.MinDate = new DateTime(2015, 1, 1);
             DateVenta.MinDate = new DateTime(2015, 1, 1);
-            DateRecaudo.MaxDate = DateTime.Today;
-            DateVenta.MaxDate = DateTime.Today;
             Cartera_id = 0;
-            Cliente_id = "";
-            Producto_id = "";
-            Financiacion_id = "";
+            Cliente_id = 0;
+            Producto_id = 0;
+            Financiacion_id = 0;
             valor = 0;
             autocompletar();
 
@@ -97,7 +97,7 @@ namespace Cartera.Vista
                         DataTable DtUsuario = new DataTable();
 
                         DtUsuario = this.cliente.BuscarClientesCedula(cliente);
-                        Cliente_id = DtUsuario.Rows[0]["Id_Cliente"].ToString();
+                        Cliente_id = int.Parse(DtUsuario.Rows[0]["Id_Cliente"].ToString());
                         txtCedula.Text = DtUsuario.Rows[0]["Cedula"].ToString();
                         txtNombres.Text = DtUsuario.Rows[0]["Nombre"].ToString();
                         txtApellidos.Text = DtUsuario.Rows[0]["Apellido"].ToString();
@@ -167,7 +167,7 @@ namespace Cartera.Vista
         }
         private void CargarProducto()
         {
-            dataGridView2.DataSource = producto.cargarProductosCliente(int.Parse(Cliente_id));
+            dataGridView2.DataSource = producto.cargarProductosCliente(Cliente_id);
             dataGridView2.Columns["Id_Producto"].Visible = false;
             dataGridView2.Columns["Observaciones"].Visible = false;
             dataGridView2.Columns["Fk_Id_Proyecto"].Visible = false;
@@ -238,7 +238,7 @@ namespace Cartera.Vista
                 ok = false;
                 errorProvider1.SetError(txtTelefono, "Digite un telefono");
             }
-            if (Cliente_id == "")
+            if (Cliente_id == 0)
             {
                 if (txtNombreProducto.Text == "")
                 {
@@ -279,7 +279,7 @@ namespace Cartera.Vista
                     }
                 }
             }
-            if (Financiacion_id != "")
+            if (Financiacion_id != 0)
             {
                 if (numCuotaSinInteres.Text != DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString() || numCuotasInteres.Text != DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString())
                 {
@@ -304,293 +304,322 @@ namespace Cartera.Vista
                 throw new Exception("Algo fallo");
             }
         }
+        private void MostrarError(string mensaje)
+        {
+            MessageBox.Show($"Error inesperado: {mensaje}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         private void BtGuardarCliente_Click(object sender, EventArgs e)
         {
-            //ValidarCampos();
-            if ((error != true) && (ValidarCampos() == true))
+            try
             {
-                //Valida cliente nuevo
-                if (Cliente_id == "")
+                if ((error != true) && (ValidarCampos() == true))
                 {
-                    if (comboEstadoCliente.Text == "Ceder")
+                    if (Cliente_id == 0) //nuevo cliente
                     {
-                        //Proceso ceder
-                        int rt = cartera.crearCartera();
-                        if (rt != 0)
+                        Cartera_id = NuevaCartera();
+                        if(Cartera_id > 0)
                         {
-                            Cartera_id = int.Parse(cartera.UltimoRegistro().Rows[0]["max(Id_Cartera)"].ToString());
-                            int rt2 = cliente.crearCliente(txtCedula.Text, txtNombres.Text, txtApellidos.Text, txtTelefono.Text, txtDireccion.Text, txtCorreo.Text, Cartera_id);
-                            if (rt2 != 0)
+                            Cliente_id = NuevoCliente(txtCedula.Text, txtNombres.Text, txtApellidos.Text, txtTelefono.Text, txtDireccion.Text, txtCorreo.Text, Cartera_id);
+                            if(Cliente_id>0)
                             {
-                                Cliente_id = cliente.ultimoCliente().Rows[0]["max(Id_Cliente)"].ToString();
-                                int rt3 = cliente_producto.InsertCliente_Producto(Cliente_id, Producto_id);
-                                if (rt3 != 0)
+                                if (comboEstadoCliente.Text != "Ceder")                                
                                 {
-                                    int rt4 = producto.actualizarProducto(int.Parse(Producto_id), txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
-                                    cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
-                                    //if ((rt4 != 0) && (ComboFormaPago.Text == "Financiado"))
-                                    //{
-                                    //    //ya convertido
-                                    //    financiacion.crearFinanciacion(int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
-                                    //    CrearCuotas();
-                                    //}
+                                    Producto_id= NuevoProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
                                 }
-                                ActualizarValoresCartera();
-                            }
-                        }
-                    }
-                    // Crear cartera, usuario y producto
-                    else
-                    {
-                        int retorno = cartera.crearCartera();
-                        if (retorno != 0)
-                        {
-                            Cartera_id = int.Parse(cartera.UltimoRegistro().Rows[0]["max(Id_Cartera)"].ToString());
-                            int retorno2 = cliente.crearCliente(txtCedula.Text, txtNombres.Text, txtApellidos.Text, txtTelefono.Text, txtDireccion.Text, txtCorreo.Text, Cartera_id);
-                            if (retorno2 != 0)
-                            {
-                                if (Producto_id == "")
+                                if(Producto_id > 0)
                                 {
-                                    int retorno3 = producto.crearProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
-                                    if (retorno3 != 0)
+                                    int retorno=NuevoClienteProducto(Cliente_id, Producto_id);
+                                    if (retorno > 0)
                                     {
-                                        Cliente_id = cliente.ultimoCliente().Rows[0]["max(Id_Cliente)"].ToString();
-                                        Producto_id = producto.ultimoProducto().Rows[0]["max(Id_Producto)"].ToString();
-                                        int retorno4 = cliente_producto.InsertCliente_Producto(Cliente_id, Producto_id);
-                                        cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
-                                        if ((ComboFormaPago.Text == "Financiado") && (retorno4 != 0))
+                                        if (comboEstadoCliente.Text != "Ceder")
                                         {
-                                            financiacion.crearFinanciacion(double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
-                                            CrearCuotas();
-                                            //financiacion.crearFinanciacion(int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    int retorno4 = cliente_producto.InsertCliente_Producto(Cliente_id, Producto_id);
-                                    if ((ComboFormaPago.Text == "Financiado") && (retorno4 != 0))
-                                    {
-                                        financiacion.crearFinanciacion(double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
-                                        CrearCuotas();
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
-                //actualizar Datos
-                else
-                {
-                    cliente.actualizarCliente(Cliente_id, txtCedula.Text, txtNombres.Text, txtApellidos.Text, txtTelefono.Text, txtDireccion.Text, txtCorreo.Text, Cartera_id);
-                    //Crea nuevo Producto
-                    if ((Producto_id == "") && (txtNombreProducto.Text != ""))
-                    {
-                        if (cartera.BuscarCartera(txtCedula.Text).Rows[0]["Estado_cartera"].ToString() == "Disuelto")
-                        {
-                            cartera.ActivarEstadoCartera(Cartera_id.ToString(), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()));
-                        }
-                        int retorno = producto.crearProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
-
-                        if (retorno != 0)
-                        {
-                            Producto_id = producto.ultimoProducto().Rows[0]["max(Id_Producto)"].ToString();
-                            cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
-                            int retorno2 = cliente_producto.InsertCliente_Producto(Cliente_id, Producto_id);
-                            //si es financiado crea la financiacion y las cuotas
-                            if ((retorno2 != 0) && (ComboFormaPago.Text == "Financiado"))
-                            {
-                                financiacion.crearFinanciacion(double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
-                                CrearCuotas();
-                            }
-                            else
-                            {
-                                financiacion.crearFinanciacion(double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), 0, int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), 1, 0, 0, 0, 0, DateVenta.Text, Producto_id);
-                                DataTable Dtfinan = financiacion.FinanciacionProducto(int.Parse(Producto_id));
-                                cuota.CrearCuota(1, double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), "Valor Contado", DateVenta.Text, "Pendiente", int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
-                            }
-                        }
-                    }
-                    // Actualiza producto
-                    else if (txtNombreProducto.Text != "")
-                    {
-                        producto.actualizarProducto(int.Parse(Producto_id), txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
-                        cartera.ActulizarValorTotal(int.Parse(Cliente_id), Cartera_id);
-                        //Actualiza la financiacion
-                        if ((ComboFormaPago.Text == "Financiado") & (checkBox1.Checked == false))
-                        {
-                            date = DateTime.ParseExact(DateRecaudo.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                            string UltimaFecha = "";
-                            DateTime date2;
-                            financiacion.actualizarFinanciacion(int.Parse(Financiacion_id), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, int.Parse(Producto_id));
-                            DataTable DtCuotas = cuota.ListarCuotas(int.Parse(Financiacion_id), "Refinanciación", "");
-                            // evalua si son el mismo numero de cuotas
-                            if ((int.Parse(numCuotaSinInteres.Value.ToString()) + int.Parse(numCuotasInteres.Value.ToString()) + 1) == DtCuotas.Rows.Count)
-                            {
-                                for (int i = 0; i < DtCuotas.Rows.Count; i++)
-                                {
-                                    string fechapag = date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-                                    if (i == 0)
-                                    {
-                                        cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), DateVenta.Text, DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
-                                    }
-                                    else
-                                    {
-                                        fechapag = date.AddMonths(i - 1).ToString("yyyy-MM-dd");
-                                        cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), fechapag, DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));  //double.Parse(DtCuotasPorPagar.Rows[i]["Valor_Cuota"].ToString(), CultureInfo.CurrentCulture) - TemAportes;
-                                    }
-                                }
-                            }
-                            else // si no son el mismo numero de cuotas
-                            {   //modificar la cuota inicial 0                             
-                                cuota.ModificarCuota(int.Parse(DtCuotas.Rows[0]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[0]["Cuota"].ToString()), ValorCuota(0, DtCuotas.Rows[0]["Tipo"].ToString()), DtCuotas.Rows[0]["Tipo"].ToString(), DateVenta.Text, DtCuotas.Rows[0]["Estado"].ToString(), double.Parse(DtCuotas.Rows[0]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
-                                // si las cuotas sin interes son diferentes 
-                                if (int.Parse(numCuotaSinInteres.Text) != int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString()))
-                                {
-                                    //cuotas nuevas mayores a antiguas
-                                    if (int.Parse(numCuotaSinInteres.Text) >= int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString()))
-                                    {
-                                        for (int i = 1; i <= int.Parse(numCuotaSinInteres.Text); i++)
-                                        {   //Modifica las cuotas existentes inicial                                         
-                                            if (i < DtCuotas.Rows.Count && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial")
+                                            if (ComboFormaPago.Text == "Contado")
                                             {
-                                                if (int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()) <= int.Parse(numCuotaSinInteres.Text) && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial")
-                                                {
-                                                    cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
-                                                }
-
-                                            }
-                                            else //crea las cuotas faltantes
-                                            {
-                                                cuota.CrearCuota(i, double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), "Valor Inicial", date.AddMonths(i - 1).ToString("yyyy-MM-dd"), "Pendiente", int.Parse(Financiacion_id));
-                                                UltimaFecha = date.AddMonths(i - 1).ToString("yyyy-MM-dd");
-                                            }
-                                        }
-                                    }
-                                    else if (int.Parse(numCuotaSinInteres.Text) <= int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString()))
-                                    {
-                                        for (int i = 0; i < DtCuotas.Rows.Count; i++)
-                                        {   //Modifica las cuotas existentes inicial
-                                            if (i > 0)
-                                            {
-                                                if (i <= int.Parse(numCuotaSinInteres.Text) && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial")
-                                                {
-                                                    if (int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()) <= int.Parse(numCuotaSinInteres.Text) && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial")
-                                                    {
-                                                        cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
-                                                        UltimaFecha = DtCuotas.Rows[i]["Fecha"].ToString();
-                                                    }
-                                                }
-                                                else //elimina las cuotas restantes
-                                                {
-                                                    if (DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial")
-                                                    {
-                                                        cuota.EliminarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()));
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }// si las cuotas con interes son diferentes 
-                                int conta;
-                                if (UltimaFecha == "")
-                                {
-                                    conta = 0;
-                                    UltimaFecha = DateRecaudo.Text;
-                                    date2 = DateTime.ParseExact(UltimaFecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                                    if (int.Parse(numCuotaSinInteres.Text) == int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString()))
-                                    {
-                                        conta = int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString());
-                                    }
-                                }
-                                else
-                                {
-                                    conta = 1;
-                                    date2 = DateTime.ParseExact(UltimaFecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                                }
-                                if (int.Parse(numCuotasInteres.Text) != int.Parse(DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString()))
-                                {
-                                    DataTable DtCuotaSaldo = new DataTable();
-                                    DataRow[] DrCuotaSaldo = DtCuotas.Select(String.Format("Tipo = '{0}'", "Valor Saldo"));
-                                    if (DrCuotaSaldo.Length > 0)
-                                    {
-                                        DtCuotaSaldo = DrCuotaSaldo.CopyToDataTable();
-                                    }
-                                    //cuotas nuevas mayores a antiguas
-                                    if (int.Parse(numCuotasInteres.Text) > int.Parse(DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString()))
-                                    {
-                                        for (int i = 0; i < int.Parse(numCuotasInteres.Value.ToString()); i++)
-                                        {   //Modifica las cuotas existentes saldo                                         
-                                            if (i < DtCuotaSaldo.Rows.Count)
-                                            {
-                                                cuota.ModificarCuota(int.Parse(DtCuotaSaldo.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotaSaldo.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotaSaldo.Rows[i]["Tipo"].ToString()), DtCuotaSaldo.Rows[i]["Tipo"].ToString(), date2.AddMonths(conta).ToString("yyyy-MM-dd"), EvaluaEstadoCuotaFecha(Convert.ToDateTime(DtCuotaSaldo.Rows[0]["Fecha"].ToString()), double.Parse(DtCuotaSaldo.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')), ValorCuota(i, DtCuotaSaldo.Rows[i]["Tipo"].ToString())), double.Parse(DtCuotaSaldo.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
-                                                conta++;
+                                                NuevaFinanciacion(double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), 0, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), 0, 0, 0, 0, 0, 0, DateVenta.Text, Producto_id.ToString());
                                             }
                                             else
                                             {
-                                                cuota.CrearCuota(i + 1, double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), "Valor Saldo", date2.AddMonths(conta).ToString("yyyy-MM-dd"), EvaluaEstadoCuotaFecha(Convert.ToDateTime(date2.AddMonths(conta).ToString("yyyy-MM-dd")), 0, double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString())), int.Parse(Financiacion_id));
-                                                conta++;
+                                                NuevaFinanciacion(double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id.ToString());
                                             }
+                                            CrearCuotas();
                                         }
+                                        else
+                                        {                                        
+                                            EditarProducto(Producto_id, txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
+                                            ActualizarValoresCartera();
+                                        }                                        
                                     }
-                                    else if (int.Parse(numCuotasInteres.Text) < int.Parse(DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString()))
-                                    {
-                                        for (int i = 0; i < DtCuotaSaldo.Rows.Count; i++)
-                                        {   //Modifica las cuotas existentes inicial saldo                                               
-                                            if (i < int.Parse(numCuotasInteres.Text))
-                                            {
-                                                cuota.ModificarCuota(int.Parse(DtCuotaSaldo.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotaSaldo.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotaSaldo.Rows[i]["Tipo"].ToString()), DtCuotaSaldo.Rows[i]["Tipo"].ToString(), date2.AddMonths(conta).ToString("yyyy-MM-dd"), EvaluaEstadoCuotaFecha(Convert.ToDateTime(DtCuotaSaldo.Rows[0]["Fecha"].ToString()), double.Parse(DtCuotaSaldo.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')), ValorCuota(i, DtCuotaSaldo.Rows[i]["Tipo"].ToString())), double.Parse(DtCuotaSaldo.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
-                                                conta++;
-                                            }
-                                            else //elimina las cuotas restantes saldo
-                                            {
-                                                cuota.EliminarCuota(int.Parse(DtCuotaSaldo.Rows[i]["Id_Cuota"].ToString()));
-                                            }
-                                        }
-                                    }
+                                    ActualizarValorTotal(Cliente_id, Cartera_id);
+                                }
+                            }                           
+                        }                        
+                    }
+                    else
+                    {
+                        EditarCliente(Cliente_id.ToString(), txtCedula.Text, txtNombres.Text, txtApellidos.Text, txtTelefono.Text, txtDireccion.Text, txtCorreo.Text, Cartera_id);
+                        if ((Producto_id == 0)&& (txtNombreProducto.Text != ""))//nuevo producto
+                        {
+                            if (cartera.BuscarCartera(txtCedula.Text).Rows[0]["Estado_cartera"].ToString() == "Disuelto")
+                            {
+                                cartera.ActivarEstadoCartera(Cartera_id.ToString(), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()));
+                            }
+                            Producto_id=NuevoProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
+                            if (Producto_id > 0)
+                            {
+                                ActualizarValorTotal(Cliente_id, Cartera_id);
+                                int retorno = NuevoClienteProducto(Cliente_id, Producto_id);
+                                if ((retorno != 0) && (ComboFormaPago.Text == "Financiado"))
+                                {
+                                    NuevaFinanciacion(double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id.ToString());
+                                    CrearCuotas();
                                 }
                                 else
                                 {
-                                    for (int i = 0; i <= DtCuotas.Rows.Count; i++)
-                                    {   //Modifica las cuotas existentes Saldo
+                                    NuevaFinanciacion(double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), 0, int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), 1, 0, 0, 0, 0, DateVenta.Text, Producto_id.ToString());
+                                    DataTable Dtfinan = financiacion.FinanciacionProducto(Producto_id);
+                                    NuevaCuota(1, double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), "Valor Contado", DateVenta.Text, "Pendiente", int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
+                                }
+                            }                            
+                        }
+                        else//editar Producto
+                        {
+                            EditarProducto(Producto_id, txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
+                            ActualizarValorTotal(Cliente_id, Cartera_id);
+                            EditarFinanciacion(Financiacion_id, double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
+                            if (checkBox1.Checked == false)
+                            {
+                                ModificarCuotas();
+                            }
+                            else
+                            {
+                                financiacion.InactivarFinanciacion(Financiacion_id);
+                                financiacion.CambiarFinanciacion(Financiacion_id, double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
+                               
+                                
+                                CrearCuotas();
+                                checkBox1.Checked = false;
+                            }
+                        }
+                    }
 
-                                        if (i <= int.Parse(numCuotasInteres.Text) && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Saldo")
+                    BtBuscarCliente.Enabled = true;
+                    Panel_Registrar_user.Visible = false;
+                    BtAmortizacionFinan.Visible = false;
+                    BtRefinanciar.Visible = false;
+                    CargarClientes();
+                    autocompletar();
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex.Message);
+            }
+        }
+        public void CrearCuotas()
+        {
+            //Validar si la cuota a crea es contado o credito
+            int num_cuota = 0;
+            int contador = 1;
+            string Estado = "Pendiente";
+            DataTable Dtfinan = financiacion.FinanciacionProducto(Producto_id);
+            date = DateTime.ParseExact(DateVenta.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            date2 = DateTime.ParseExact(DateRecaudo.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            if (ComboFormaPago.Text == "Contado")
+            {
+                cuota.CrearCuota(1, double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), "Valor Contado", date.ToString("yyyy-MM-dd"), Estado, int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
+            }
+            else
+            {
+                cuota.CrearCuota(num_cuota, double.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), "Valor Separación", date.ToString("yyyy-MM-dd"), Estado, int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
+                num_cuota++;
+
+                while (num_cuota <= int.Parse(numCuotaSinInteres.Value.ToString()))
+                {
+                    cuota.CrearCuota(num_cuota, double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), "Valor Inicial", date2.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
+                    contador++;
+                    num_cuota++;
+                }
+                num_cuota = 1;
+                while (num_cuota <= int.Parse(numCuotasInteres.Value.ToString()))
+                {
+                    cuota.CrearCuota(num_cuota, double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), "Valor Saldo", date2.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
+                    contador++;
+                    num_cuota++;
+                }
+            }
+        }
+        public void ModificarCuotas()
+        {
+            if (ComboFormaPago.Text == "Financiado")
+            {
+                date = DateTime.ParseExact(DateRecaudo.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                string UltimaFecha = "";
+                DateTime date2;                
+                DataTable DtCuotas = cuota.ListarCuotas(Financiacion_id, "Refinanciación", "");
+                //modificar la cuota inicial 0                             
+                EditarCuota(int.Parse(DtCuotas.Rows[0]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[0]["Cuota"].ToString()), ValorCuota(0, DtCuotas.Rows[0]["Tipo"].ToString()), DtCuotas.Rows[0]["Tipo"].ToString(), DateVenta.Text, DtCuotas.Rows[0]["Estado"].ToString(), double.Parse(DtCuotas.Rows[0]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                // mismo numero de cuotas
+                if ((int.Parse(numCuotaSinInteres.Value.ToString()) + int.Parse(numCuotasInteres.Value.ToString()) + 1) == DtCuotas.Rows.Count)
+                {
+                    for (int i = 0; i < DtCuotas.Rows.Count; i++)
+                    {
+                        string fechapag = date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        if (i == 0)
+                        {
+                            EditarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), DateVenta.Text, DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                        }
+                        else
+                        {
+                            fechapag = date.AddMonths(i - 1).ToString("yyyy-MM-dd");
+                            EditarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), fechapag, DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                        }
+                    }
+                }
+                else // Diferenciar en numero de cuotas
+                {                       
+                    if (int.Parse(numCuotaSinInteres.Text) != int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString()))// Cuotas sin interes son diferentes 
+                    {//cuotas sin interes nuevas mayores a antiguas
+                        if (int.Parse(numCuotaSinInteres.Text) >= int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString()))
+                        {
+                            for (int i = 1; i <= int.Parse(numCuotaSinInteres.Text); i++)
+                            {   //Modifica las cuotas existentes inicial                                         
+                                if (i < DtCuotas.Rows.Count && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial")
+                                {
+                                    if (int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()) <= int.Parse(numCuotaSinInteres.Text) && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial")
+                                    {
+                                        EditarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                                    }
+                                }
+                                else //crea las cuotas faltantes
+                                {
+                                    cuota.CrearCuota(i, double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), "Valor Inicial", date.AddMonths(i - 1).ToString("yyyy-MM-dd"), "Pendiente", Financiacion_id);
+                                    UltimaFecha = date.AddMonths(i - 1).ToString("yyyy-MM-dd");
+                                }
+                            }
+                        }//cuotas sin interes nuevas menores a antiguas
+                        else if (int.Parse(numCuotaSinInteres.Text) <= int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString()))
+                        {
+                            for (int i = 0; i < DtCuotas.Rows.Count; i++)
+                            {   //Modifica las cuotas existentes inicial
+                                if (i > 0)
+                                {
+                                    if (i <= int.Parse(numCuotaSinInteres.Text) && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial")
+                                    {
+                                        if (int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()) <= int.Parse(numCuotaSinInteres.Text) && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial")
                                         {
-                                            if (int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()) <= int.Parse(numCuotasInteres.Text) && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Saldo")
-                                            {
-                                                //MessageBox.Show("Fecha: " + date2.ToString());
-                                                cuota.ModificarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), date2.AddMonths(conta).ToString("yyyy-MM-dd"), DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
-                                                conta++;
-                                            }
+                                            EditarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), DtCuotas.Rows[i]["Fecha"].ToString(), DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                                            UltimaFecha = DtCuotas.Rows[i]["Fecha"].ToString();
+                                        }
+                                    }
+                                    else //elimina las cuotas restantes
+                                    {
+                                        if (DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Inicial")
+                                        {
+                                            cuota.EliminarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()));
                                         }
                                     }
                                 }
                             }
-                            //aqui                 
                         }
-                        else if(checkBox1.Checked != false)
+                    }//cuotas con interes son diferentes 
+                    int conta;
+                    if (UltimaFecha == "")
+                    {
+                        conta = 0;
+                        UltimaFecha = DateRecaudo.Text;
+                        date2 = DateTime.ParseExact(UltimaFecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        if (int.Parse(numCuotaSinInteres.Text) == int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString()))
                         {
-                            financiacion.InactivarFinanciacion(int.Parse(Financiacion_id));
-                            financiacion.CambiarFinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), int.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, int.Parse(Producto_id));
-                            CrearCuotas();
-
-                            checkBox1.Checked = false;
+                            conta = int.Parse(DtFinanciacion.Rows[0]["Cuotas_Sin_interes"].ToString());
                         }
-                        ActualizarValoresCartera();
+                    }
+                    else
+                    {
+                        conta = 1;
+                        date2 = DateTime.ParseExact(UltimaFecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                    }
+                    if (int.Parse(numCuotasInteres.Text) != int.Parse(DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString()))
+                    {
+                        DataTable DtCuotaSaldo = new DataTable();
+                        DataRow[] DrCuotaSaldo = DtCuotas.Select(String.Format("Tipo = '{0}'", "Valor Saldo"));
+                        if (DrCuotaSaldo.Length > 0)
+                        {
+                            DtCuotaSaldo = DrCuotaSaldo.CopyToDataTable();
+                        }
+                        //cuotas con interes nuevas mayores a antiguas
+                        if (int.Parse(numCuotasInteres.Text) > int.Parse(DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString()))
+                        {
+                            for (int i = 0; i < int.Parse(numCuotasInteres.Value.ToString()); i++)
+                            {   //Modifica las cuotas existentes saldo                                         
+                                if (i < DtCuotaSaldo.Rows.Count)
+                                {
+                                    EditarCuota(int.Parse(DtCuotaSaldo.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotaSaldo.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotaSaldo.Rows[i]["Tipo"].ToString()), DtCuotaSaldo.Rows[i]["Tipo"].ToString(), date2.AddMonths(conta).ToString("yyyy-MM-dd"), EvaluaEstadoCuotaFecha(Convert.ToDateTime(DtCuotaSaldo.Rows[0]["Fecha"].ToString()), double.Parse(DtCuotaSaldo.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')), ValorCuota(i, DtCuotaSaldo.Rows[i]["Tipo"].ToString())), double.Parse(DtCuotaSaldo.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                                    conta++;
+                                }
+                                else
+                                {
+                                    cuota.CrearCuota(i + 1, double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), "Valor Saldo", date2.AddMonths(conta).ToString("yyyy-MM-dd"), EvaluaEstadoCuotaFecha(Convert.ToDateTime(date2.AddMonths(conta).ToString("yyyy-MM-dd")), 0, double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString())), Financiacion_id);
+                                    conta++;
+                                }
+                            }
+                        }//cuotas con interes nuevas menores a antiguas
+                        else if (int.Parse(numCuotasInteres.Text) < int.Parse(DtFinanciacion.Rows[0]["Cuotas_Con_Interes"].ToString()))
+                        {
+                            for (int i = 0; i < DtCuotaSaldo.Rows.Count; i++)
+                            {   //Modifica las cuotas existentes inicial saldo                                               
+                                if (i < int.Parse(numCuotasInteres.Text))
+                                {
+                                    EditarCuota(int.Parse(DtCuotaSaldo.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotaSaldo.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotaSaldo.Rows[i]["Tipo"].ToString()), DtCuotaSaldo.Rows[i]["Tipo"].ToString(), date2.AddMonths(conta).ToString("yyyy-MM-dd"), EvaluaEstadoCuotaFecha(Convert.ToDateTime(DtCuotaSaldo.Rows[0]["Fecha"].ToString()), double.Parse(DtCuotaSaldo.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')), ValorCuota(i, DtCuotaSaldo.Rows[i]["Tipo"].ToString())), double.Parse(DtCuotaSaldo.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                                    conta++;
+                                }
+                                else //elimina las cuotas restantes saldo
+                                {
+                                    cuota.EliminarCuota(int.Parse(DtCuotaSaldo.Rows[i]["Id_Cuota"].ToString()));
+                                }
+                            }
+                        }
+                    }
+                    else//cuotas con interes iguales antiguas
+                    {
+                        for (int i = 0; i <= DtCuotas.Rows.Count; i++)
+                        {   //Modifica las cuotas existentes Saldo
+
+                            if (i <= int.Parse(numCuotasInteres.Text) && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Saldo")
+                            {
+                                if (int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()) <= int.Parse(numCuotasInteres.Text) && DtCuotas.Rows[i]["Tipo"].ToString() == "Valor Saldo")
+                                {
+                                    EditarCuota(int.Parse(DtCuotas.Rows[i]["Id_Cuota"].ToString()), int.Parse(DtCuotas.Rows[i]["Cuota"].ToString()), ValorCuota(i, DtCuotas.Rows[i]["Tipo"].ToString()), DtCuotas.Rows[i]["Tipo"].ToString(), date2.AddMonths(conta).ToString("yyyy-MM-dd"), DtCuotas.Rows[i]["Estado"].ToString(), double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')));
+                                    conta++;
+                                }
+                            }
+                        }
                     }
                 }
-                BtBuscarCliente.Enabled = true;
-                Panel_Registrar_user.Visible = false;
-                BtAmortizacionFinan.Visible = false;
-                BtRefinanciar.Visible = false;
-                //Panel_Clientes.Visible = true;
-                CargarClientes();
-                autocompletar();
-            }
+            }            
         }
-        private string EvaluaEstadoCuotaFecha(DateTime fecha, double Pagado, double Valor)
-        {
+        private int NuevaCartera() => cartera.crearCartera();
+        private int NuevoCliente(string Cedula, string Nombres, string Apellidos, string telefono, string direccion, string correo, int cartera) => 
+            cliente.crearCliente(Cedula, Nombres, Apellidos, telefono, direccion, correo, cartera);
+        private int NuevoProducto(string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Neto, double Valor_Total, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto) =>
+            producto.crearProducto(txtNombreProducto.Text, txtContrato.Text, ComboFormaPago.Text, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), DateVenta.Text, txtObeservaciones.Text, int.Parse(comboProyecto.SelectedValue.ToString()), int.Parse(comboTipoProducto.SelectedValue.ToString()));
+        private int NuevoClienteProducto(int cliente, int produto) =>
+            cliente_producto.InsertCliente_Producto(cliente.ToString(), produto.ToString());
+        private int NuevaFinanciacion(double Valor_Producto_Financiacion, int Valor_Entrada, int Valor_Sin_interes, double Valor_Cuota_Sin_interes, int Cuotas_Sin_interes, double Valor_Con_Interes, int Cuotas_Con_Interes, double Valor_Cuota_Con_Interes, int Valor_Interes, string Fecha_Recaudo, string Fk_Producto) =>
+            financiacion.crearFinanciacion(Valor_Producto_Financiacion, Valor_Entrada, Valor_Sin_interes, Valor_Cuota_Sin_interes, Cuotas_Sin_interes, Valor_Con_Interes, Cuotas_Con_Interes, Valor_Cuota_Con_Interes, Valor_Interes, Fecha_Recaudo, Fk_Producto);
+        private void NuevaCuota(int numcuota, double valor, string Tipo, string fecha, string Estado, int financiacion) => 
+            cuota.CrearCuota(numcuota, valor, Tipo, fecha, Estado, financiacion);
+        private void ActualizarValorTotal(int Cliente, int Cartera)=> 
+            cartera.ActulizarValorTotal(Cliente, Cartera);
+        private int EditarCliente(string Cliente, string Cedula, string Nombre, string Apellido, string Telefono, string Direccion, string Correo, int Cartera) => 
+            cliente.actualizarCliente(Cliente, Cedula, Nombre, Apellido, Telefono, Direccion, Correo, Cartera);
+        private int EditarProducto(int Producto, string NombreProducto, string Numerocontrato, string FormaPago, int ValorNeto, double ValorTotal, string FechaVenta, string Observaciones, int Proyecto, int TipoProducto) => 
+            producto.actualizarProducto(Producto, NombreProducto, Numerocontrato, FormaPago, ValorNeto, ValorTotal, FechaVenta, Observaciones, Proyecto, TipoProducto);
+        private int EditarFinanciacion(int Financiacion, double ValorProductoFinanciacion, int ValorEntrada, int ValorSininteres, double ValorCuotaSininteres, int CuotasSininteres, double ValorConInteres, int CuotasConInteres, double ValorCuotaConInteres, int ValorInteres, string FechaRecaudo, int Producto) =>
+            financiacion.actualizarFinanciacion(Financiacion, ValorProductoFinanciacion, ValorEntrada, ValorSininteres, ValorCuotaSininteres, CuotasSininteres, ValorConInteres, CuotasConInteres, ValorCuotaConInteres, ValorInteres, FechaRecaudo, Producto);
+        private int EditarCuota(int idcuota, int numcuota, double valor, string tipo, string fecha, string Estado, double aporte) =>
+            cuota.ModificarCuota(idcuota, numcuota, valor, tipo, fecha, Estado, aporte);
+       private string EvaluaEstadoCuotaFecha(DateTime fecha, double Pagado, double Valor)
+       {
             string CuoEstado = "Pendiente";
 
             if (Pagado >= Valor)
@@ -631,33 +660,7 @@ namespace Cartera.Vista
             }
             return ValCuota;
         }
-        public void CrearCuotas()
-        {
-            date = DateTime.ParseExact(DateRecaudo.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-            int num_cuota = 0;
-            int contador = 1;
-            string Estado = "Pendiente";
-            DataTable Dtfinan = financiacion.FinanciacionProducto(int.Parse(Producto_id));
-
-            cuota.CrearCuota(num_cuota, double.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), "Separación", date.ToString("yyyy-MM-dd"), Estado, int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
-
-            num_cuota++;
-
-            while (num_cuota <= int.Parse(numCuotaSinInteres.Value.ToString()))
-            {
-                cuota.CrearCuota(num_cuota, double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), "Valor Inicial", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
-                contador++;
-                num_cuota++;
-            }
-            num_cuota = 1;
-            while (num_cuota <= int.Parse(numCuotasInteres.Value.ToString()))
-            {
-                cuota.CrearCuota(num_cuota, double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), "Valor Saldo", date.AddMonths(contador - 1).ToString("yyyy-MM-dd"), Estado, int.Parse(Dtfinan.Rows[0]["Id_Financiacion"].ToString()));
-                contador++;
-                num_cuota++;
-            }
-        }
+        
         private void LimpiarProducto()
         {
             txtNombreProducto.ResetText();
@@ -706,10 +709,10 @@ namespace Cartera.Vista
             button2.Enabled = false;
             button4.Enabled = false;
             Cartera_id = 0;
-            Cliente_id = "";
-            Producto_id = "";
-            Financiacion_id = "";
-            dataGridView2.DataSource = "";
+            Cliente_id = 0;
+            Producto_id = 0;
+            Financiacion_id = 0;
+            dataGridView2.DataSource = 0;
             //Panel_Clientes.Visible = false
 
         }
@@ -792,7 +795,7 @@ namespace Cartera.Vista
                     BtGuardarCliente.Enabled = true;
                     LimpiarUsuario();
                     LimpiarProducto();
-                    Cliente_id = dataGridView1.Rows[n].Cells["Id_Cliente"].Value.ToString();
+                    Cliente_id = int.Parse(dataGridView1.Rows[n].Cells["Id_Cliente"].Value.ToString());
                     txtCedula.Text = dataGridView1.Rows[n].Cells["Cedula"].Value.ToString();
                     txtNombres.Text = dataGridView1.Rows[n].Cells["Nombres"].Value.ToString();
                     txtApellidos.Text = dataGridView1.Rows[n].Cells["Apellidos"].Value.ToString();
@@ -814,13 +817,13 @@ namespace Cartera.Vista
         {
             try
             {
-                Producto_id = "";
-                Financiacion_id = "";
+                Producto_id = 0;
+                Financiacion_id = 0;
                 int n = e.RowIndex;
                 if (n != -1)
                 {
                     LimpiarProducto();
-                    Producto_id = dataGridView2.Rows[n].Cells["Id_Producto"].Value.ToString();
+                    Producto_id = int.Parse(dataGridView2.Rows[n].Cells["Id_Producto"].Value.ToString());
                     txtNombreProducto.Text = dataGridView2.Rows[n].Cells["Producto"].Value.ToString();
                     txtContrato.Text = dataGridView2.Rows[n].Cells["Contrato"].Value.ToString();
                     // fotmatear campo valor
@@ -843,8 +846,8 @@ namespace Cartera.Vista
                     if (forma_pago == "Financiado")
                     {
                         load = true;
-                        DtFinanciacion = financiacion.FinanciacionProducto(int.Parse(Producto_id));
-                        Financiacion_id = DtFinanciacion.Rows[0]["Id_Financiacion"].ToString();
+                        DtFinanciacion = financiacion.FinanciacionProducto(Producto_id);
+                        Financiacion_id = int.Parse(DtFinanciacion.Rows[0]["Id_Financiacion"].ToString());
                         //txtValorTotal.Text = DtFinanciacion.Rows[0]["Valor_Producto_Financiacion"].ToString();
                         int ValorSin = int.Parse(DtFinanciacion.Rows[0]["Valor_Sin_interes"].ToString());
                         txtValorSin.Text = ValorSin.ToString("N0", CultureInfo.CurrentCulture);
@@ -932,12 +935,12 @@ namespace Cartera.Vista
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (Producto_id != "" && Cliente_id != "")
+            if (Producto_id != 0 && Cliente_id != 0)
             {
-                HistorialClientes historial = new HistorialClientes(Producto_id);
+                HistorialClientes historial = new HistorialClientes(Producto_id.ToString());
                 historial.Show();
             }
-            else if (Cliente_id == "")
+            else if (Cliente_id == 0)
             {
                 MessageBox.Show("Busque un usuario y seleccione producto");
             }
@@ -952,7 +955,7 @@ namespace Cartera.Vista
             {
                 cliente_producto.EstadoTrasferir(Cliente_id, Producto_id, dateFechaEstado.Text);
                 
-                Cliente_id = "";
+                Cliente_id = 0;
                 LimpiarUsuario();
             }
             else if (comboEstadoCliente.Text == "Disolver")
@@ -974,8 +977,8 @@ namespace Cartera.Vista
 
         private void ActualizarValoresCartera()
         {
-            cartera.ActulizarValorTotal(int.Parse(Cliente_id.ToString()), Cartera_id);
-            cartera.ActulizarValorRecaudado(int.Parse(Cartera_id.ToString()));
+            DataTable ValorTotal =cartera.ActulizarValorTotal(Cliente_id, Cartera_id);
+            int ValorRecaudado = cartera.ActulizarValorRecaudado(Cartera_id);
             cartera.ActulizarSaldo(Cartera_id);
         }
         private void dataGridView2_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
@@ -1002,16 +1005,16 @@ namespace Cartera.Vista
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Producto_id != "" && Cliente_id != "" && Financiacion_id != "")
+            if (Producto_id != 0 && Cliente_id != 0 && Financiacion_id != 0)
             {
-                HistorialFinanciacion historial = new HistorialFinanciacion(Producto_id);
+                HistorialFinanciacion historial = new HistorialFinanciacion(Producto_id.ToString());
                 historial.ShowDialog();
             }
-            else if (Cliente_id == "")
+            else if (Cliente_id == 0)
             {
                 MessageBox.Show("Busque un usuario y seleccione producto", "Accion no permitida ", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
-            else if (Producto_id == "")
+            else if (Producto_id == 0)
             {
                 MessageBox.Show("Seleccione un producto", "Accion no permitida ", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
@@ -1031,21 +1034,6 @@ namespace Cartera.Vista
         }
         private void txtValor_Leave(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    
-            //    else
-            //    {
-            //        valor = int.Parse(txtValor.Text);
-            //        txtValorTotal.Text = valor.ToString("N", CultureInfo.CurrentCulture);
-            //    }
-
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Valor no admitido");
-            //    errorProvider1.SetError(txtValorEntrada, "No se admiten letras");
-            //}
             try
             {
 
@@ -1463,9 +1451,9 @@ namespace Cartera.Vista
             button2.Enabled = true;
             button4.Enabled = true;
             Cartera_id = 0;
-            Cliente_id = "";
-            Producto_id = "";
-            Financiacion_id = "";
+            Cliente_id = 0;
+            Producto_id = 0;
+            Financiacion_id = 0;
             dataGridView2.DataSource = "";
             CargarClientes();
         }
@@ -1537,26 +1525,26 @@ namespace Cartera.Vista
 
         private void ComboFormaPago_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(Producto_id) && !string.IsNullOrEmpty(Financiacion_id))
+            if (Producto_id != 0 && Financiacion_id != 0)
             {
                 if (ComboFormaPago.Text == "Financiado")
                 {
                     //ya convertido
-                    financiacion.crearFinanciacion(int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id);
+                    financiacion.crearFinanciacion(int.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), int.Parse(Convert.ToDouble(txtValorEntrada.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), double.Parse(Convert.ToDouble(txtValorCuotaSin.Text).ToString()), int.Parse(numCuotaSinInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCon.Text).ToString()), int.Parse(numCuotasInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), DateRecaudo.Text, Producto_id.ToString());
                     CrearCuotas();
                 }
                 else if (ComboFormaPago.Text == "Contado")
                 {
-                    financiacion.InactivarFinanciacion(int.Parse(Financiacion_id));
+                    financiacion.InactivarFinanciacion(Financiacion_id);
                 }
             }
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (Financiacion_id != "")
+            if (Financiacion_id != 0)
             {
-                Amortizacion Am = new Amortizacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()));
+                Amortizacion Am = new Amortizacion(Financiacion_id, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()));
                 Am.ShowDialog();
             }
             else
@@ -1660,10 +1648,10 @@ namespace Cartera.Vista
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-            if (Financiacion_id != "")
+            if (Financiacion_id != 0)
             {
-                Refinanciacion Re = new Refinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), Refi, (txtNombres.Text + " " + txtApellidos.Text), txtNombreProducto.Text, comboProyecto.Text);
-                //Refinanciacion Re = new Refinanciacion(int.Parse(Financiacion_id), int.Parse(Convert.ToDouble(txtValor.Text).ToString()));
+                Refinanciacion Re = new Refinanciacion(Financiacion_id, int.Parse(Convert.ToDouble(txtValor.Text).ToString()), int.Parse(Convert.ToDouble(txtValorSin.Text).ToString()), int.Parse(numValorInteres.Value.ToString()), double.Parse(Convert.ToDouble(txtValorCuotaInteres.Text).ToString()), double.Parse(Convert.ToDouble(txtValorTotal.Text).ToString()), Refi, (txtNombres.Text + " " + txtApellidos.Text), txtNombreProducto.Text, comboProyecto.Text);
+                //Refinanciacion Re = new Refinanciacion(Financiacion_id, int.Parse(Convert.ToDouble(txtValor.Text).ToString()));
                 Re.ShowDialog();
             }
 
@@ -1676,17 +1664,17 @@ namespace Cartera.Vista
 
         private void BTtransferir_Click(object sender, EventArgs e)
         {
-            if (Producto_id != "" && Cliente_id != "" && Financiacion_id != "")
+            if (Producto_id != 0 && Cliente_id != 0 && Financiacion_id != 0)
             {
-                HistorialTransferencia historialT = new HistorialTransferencia(Producto_id);
+                HistorialTransferencia historialT = new HistorialTransferencia(Producto_id.ToString());
                 historialT.FormClosed += Traslado_Formclose;
                 historialT.ShowDialog();
             }
-            else if (Cliente_id == "")
+            else if (Cliente_id == 0)
             {
                 MessageBox.Show("Busque un usuario y seleccione producto", "Accion no permitida ", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
-            else if (Producto_id == "")
+            else if (Producto_id == 0)
             {
                 MessageBox.Show("Seleccione un producto", "Accion no permitida ", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
@@ -1707,7 +1695,7 @@ namespace Cartera.Vista
 
         private void BTActulizarValoresCartera_Click(object sender, EventArgs e)
         {
-            if (Cartera_id == null)
+            if (Cartera_id == 0)
             {
                 MessageBox.Show("Seleccione un producto con financiación", "Accion no permitida ", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
