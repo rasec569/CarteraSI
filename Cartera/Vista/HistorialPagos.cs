@@ -383,7 +383,7 @@ namespace Cartera.Vista
                     if (DtCuotas.Rows[i]["Estado"].ToString() !="Inactiva")
                     {
                         int resultfecha = DateTime.Compare(DateTime.ParseExact(DtCuotas.Rows[i]["Fecha"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture), actual);
-                        if (resultfecha < 0)
+                        if (resultfecha <= 0)
                         {
                             if (double.Parse(DtCuotas.Rows[i]["Aportado"].ToString().Replace(",", "").Replace('.', ',')) > 0)
                             {

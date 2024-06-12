@@ -144,7 +144,6 @@ C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\bin\Debug\itextsharp.xml
 C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\bin\Debug\System.Data.SQLite.xml
 C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\bin\Debug\System.ValueTuple.xml
 C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\obj\Debug\Cartera.csproj.AssemblyReference.cache
-C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\obj\Debug\Cartera.csproj.SuggestedBindingRedirects.cache
 C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\obj\Debug\Cartera.csproj.ResolveComReference.cache
 C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Refinanciacion.resources
 C:\Users\cesar\Documents\GitHub\CarteraSI\Cartera\obj\Debug\Cartera.Vista.Carteras.resources

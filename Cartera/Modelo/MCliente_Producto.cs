@@ -27,15 +27,18 @@ namespace Cartera.Modelo
                 cmd.Parameters.Add(new SQLiteParameter("@Id_Producto", Id_Producto));
                 cmd.Parameters.Add(new SQLiteParameter("@Fecha_Cambio", DateTime.Now.ToShortDateString()));
                 cmd.Parameters.Add(new SQLiteParameter("@Estado_Cliente", "Activo"));
+                cmd.ExecuteNonQuery();
+                long lastInsertId = cmd.Connection.LastInsertRowId;
+                return (int)lastInsertId;
             }            
             catch (Exception ex)
             {
                 LongError("InsertCliente_Producto", sql, ex.Message);
-            }
-            return cmd.ExecuteNonQuery();
+                return -1;
+            }            
         }
 
-        internal static int EstadoDisolver(string id_Cliente, string id_Producto, string fechacambio)
+        internal static int EstadoDisolver(int id_Cliente, int id_Producto, string fechacambio)
         {
             string sql = "UPDATE Cliente_Producto SET Estado_Cliente=@Estado_Cliente, Fecha_Cambio=@Fecha_Cambio WHERE Pfk_ID_Cliente= '" + id_Cliente + "' AND Pfk_ID_Producto='" + id_Producto + "'";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
@@ -51,7 +54,7 @@ namespace Cartera.Modelo
             return cmd.ExecuteNonQuery();
         }
 
-        internal static int EstadoTrasferir(string id_Cliente, string id_Producto, string fechacambio)
+        internal static int EstadoTrasferir(int id_Cliente, int id_Producto, string fechacambio)
         {
             string sql = "UPDATE Cliente_Producto SET Estado_Cliente=@Estado_Cliente, Fecha_Cambio=@Fecha_Cambio WHERE Pfk_ID_Cliente= '" + id_Cliente + "' AND Pfk_ID_Producto='" + id_Producto + "'";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());

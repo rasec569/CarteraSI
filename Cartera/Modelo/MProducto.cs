@@ -9,7 +9,7 @@ using Cartera.Controlador;
 
 namespace Cartera.Modelo
 {
-    class MProducto
+    class MProducto : MError
     {
 
         public int ID_Producto { get; set; }
@@ -167,30 +167,41 @@ namespace Cartera.Modelo
                 cmd.Parameters.Add(new SQLiteParameter("@Observaciones", Observaciones));
                 cmd.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", Fk_Id_Proyecto));
                 cmd.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", Fk_Id_Tipo_Producto));
+                cmd.ExecuteNonQuery();
+                long lastInsertId = cmd.Connection.LastInsertRowId;
+                return (int)lastInsertId;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
-                Console.WriteLine("  Message: {0}", ex.Message);
-               
+                LongError("actualizarProducto", sql, ex.Message);
+                return -1;
             }
-            return cmd.ExecuteNonQuery();
         }
 
         public static int actualizarProducto(int id_Producto, string Nombre_Producto, string Numero_contrato, string Forma_Pago, int Valor_Neto, double Valor_Producto, string Fecha_Venta, string Observaciones, int Fk_Id_Proyecto, int Fk_Id_Tipo_Producto)
         {
             string sql = "UPDATE Producto SET Nombre_Producto=@Nombre_Producto , Numero_contrato=@Numero_contrato, Forma_Pago=@Forma_Pago, Valor_Neto=@Valor_Neto, Valor_Producto=@Valor_Producto, Fecha_Venta=@Fecha_Venta, Observaciones=@Observaciones, Fk_Id_Proyecto=@Fk_Id_Proyecto, Fk_Id_Tipo_Producto=@Fk_Id_Tipo_Producto WHERE Id_Producto =" + id_Producto + "";
             SQLiteCommand cmd = new SQLiteCommand(sql, Conexion.instanciaDb());
-            cmd.Parameters.Add(new SQLiteParameter("@Nombre_Producto", Nombre_Producto));
-            cmd.Parameters.Add(new SQLiteParameter("@Numero_contrato", Numero_contrato));
-            cmd.Parameters.Add(new SQLiteParameter("@Forma_Pago", Forma_Pago));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Neto", Valor_Neto));
-            cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto", Valor_Producto));
-            cmd.Parameters.Add(new SQLiteParameter("@Fecha_Venta", Fecha_Venta));
-            cmd.Parameters.Add(new SQLiteParameter("@Observaciones", Observaciones));
-            cmd.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", Fk_Id_Proyecto));
-            cmd.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", Fk_Id_Tipo_Producto));
-            return cmd.ExecuteNonQuery();
+            try
+            {
+                cmd.Parameters.Add(new SQLiteParameter("@Nombre_Producto", Nombre_Producto));
+                cmd.Parameters.Add(new SQLiteParameter("@Numero_contrato", Numero_contrato));
+                cmd.Parameters.Add(new SQLiteParameter("@Forma_Pago", Forma_Pago));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Neto", Valor_Neto));
+                cmd.Parameters.Add(new SQLiteParameter("@Valor_Producto", Valor_Producto));
+                cmd.Parameters.Add(new SQLiteParameter("@Fecha_Venta", Fecha_Venta));
+                cmd.Parameters.Add(new SQLiteParameter("@Observaciones", Observaciones));
+                cmd.Parameters.Add(new SQLiteParameter("@Fk_Id_Proyecto", Fk_Id_Proyecto));
+                cmd.Parameters.Add(new SQLiteParameter("@Fk_Id_Tipo_Producto", Fk_Id_Tipo_Producto));
+                cmd.ExecuteNonQuery();
+                long lastInsertId = cmd.Connection.LastInsertRowId;
+                return (int)lastInsertId;
+            }
+            catch (Exception ex)
+            {
+                LongError("actualizarProducto", sql, ex.Message);
+                return -1;
+            }
         }
         public static int actualizarValorProducto(int id_Producto, double Valor_Producto)
         {
