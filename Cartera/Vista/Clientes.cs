@@ -1669,11 +1669,6 @@ namespace Cartera.Vista
 
         }
 
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void BTtransferir_Click(object sender, EventArgs e)
         {
             if (Producto_id != "" && Cliente_id != "" && Financiacion_id != "")
